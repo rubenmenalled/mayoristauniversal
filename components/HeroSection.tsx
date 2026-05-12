@@ -27,7 +27,7 @@ export default function HeroSection() {
           src="/hero_mobile_v.png"
           alt="Mayorista Universal - Multirubros Mayoristas"
           width={426}
-          height={922}
+          height={662}
           style={{ width: '100%', height: 'auto', display: 'block' }}
           priority
         />
