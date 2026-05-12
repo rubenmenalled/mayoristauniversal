@@ -22,7 +22,7 @@ export default function HeroSection() {
       </div>
 
       {/* Mobile: imagen vertical con recorte CSS en la base */}
-      <div className="block md:hidden" style={{ width: '100%', overflow: 'hidden', maxHeight: '55vw', lineHeight: 0 }}>
+      <div className="block md:hidden" style={{ width: '100%', overflow: 'hidden', maxHeight: '85vw', lineHeight: 0 }}>
         <Image
           src="/hero_mobile_v2.png"
           alt="Mayorista Universal - Multirubros Mayoristas"
