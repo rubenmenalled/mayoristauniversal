@@ -9,25 +9,13 @@ export default function HeroSection() {
     <section id="inicio" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
       {/* ── IMAGEN HERO COMPLETA ── */}
-      {/* Desktop */}
-      <div className="hidden md:block" style={{ position: 'relative', width: '100%', aspectRatio: '4/3', maxHeight: '90vh' }}>
+      {/* Imagen hero - igual en desktop y mobile */}
+      <div style={{ width: '100%', lineHeight: 0 }}>
         <Image
           src="/hero_nuevo.png"
           alt="Mayorista Universal - Multirubros Mayoristas"
-          fill
-          className="object-cover"
-          style={{ objectPosition: 'center 22%' }}
-          priority
-        />
-      </div>
-
-      {/* Mobile: imagen vertical con recorte CSS en la base */}
-      <div className="block md:hidden" style={{ width: '100%', overflow: 'hidden', maxHeight: '85vw', lineHeight: 0 }}>
-        <Image
-          src="/hero_mobile_v2.png"
-          alt="Mayorista Universal - Multirubros Mayoristas"
-          width={426}
-          height={460}
+          width={1680}
+          height={936}
           style={{ width: '100%', height: 'auto', display: 'block' }}
           priority
         />
