@@ -21,14 +21,14 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* Mobile: imagen con altura suficiente para ver todo */}
-      <div className="block md:hidden" style={{ position: 'relative', width: '100%', height: '100vw' }}>
+      {/* Mobile: imagen completa sin recortar */}
+      <div className="block md:hidden" style={{ width: '100%', background: '#03091c', lineHeight: 0 }}>
         <Image
           src="/hero_nuevo.png"
           alt="Mayorista Universal - Multirubros Mayoristas"
-          fill
-          className="object-cover"
-          style={{ objectPosition: 'center top' }}
+          width={1680}
+          height={936}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
           priority
         />
       </div>
