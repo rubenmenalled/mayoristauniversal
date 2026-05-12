@@ -9,13 +9,13 @@ export default function HeroSection() {
     <section id="inicio" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
       {/* ── IMAGEN HERO COMPLETA ── */}
-      <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', maxHeight: '90vh' }}>
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '2/1', maxHeight: '92vh' }}>
         <Image
-          src="/hero.jpg"
+          src="/hero_nuevo.png"
           alt="Mayorista Universal - Multirubros Mayoristas"
           fill
           className="object-cover"
-          style={{ objectPosition: 'center 22%' }}
+          style={{ objectPosition: 'center 0%' }}
           priority
         />
       </div>
