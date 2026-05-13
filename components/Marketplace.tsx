@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { featuredOffer, suppliers, products as mockProducts } from '@/data/mockData'
+import { featuredOffer, suppliers, products as mockProducts, type Product } from '@/data/mockData'
 import { Star, MessageCircle, CheckCircle, MapPin, ChevronRight } from 'lucide-react'
 
 /* ─── Countdown timer ─── */
@@ -64,7 +64,7 @@ const BADGE: Record<string, string> = {
 }
 
 /* ─── Product card ─── */
-function ProductCard({ p }: { p: typeof products[0] }) {
+function ProductCard({ p }: { p: Product }) {
   return (
     <motion.div className="group glass-card rounded-xl overflow-hidden relative"
       whileHover={{ y: -4 }}
@@ -151,7 +151,7 @@ function SupplierRow({ s }: { s: typeof suppliers[0] }) {
 /* ─── Main component ─── */
 const TABS = ['Todos', 'Nuevos', 'En oferta', 'Más vendidos']
 
-export default function Marketplace({ products }: { products?: typeof mockProducts }) {
+export default function Marketplace({ products }: { products?: Product[] }) {
   const [tab,      setTab]      = useState('Todos')
   const [category, setCategory] = useState('Todos')
 
