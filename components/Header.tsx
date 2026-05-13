@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, ShoppingCart, User, Menu, X, ChevronDown, MessageCircle, Plus, Grid } from 'lucide-react'
+import { Search, ShoppingCart, Menu, X, ChevronDown, MessageCircle, Plus, Grid } from 'lucide-react'
 
 const navLinks = [
   { name: 'PRODUCTOS',    href: '#productos'   },
@@ -17,11 +17,28 @@ export default function Header() {
   const [scrolled,   setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [search,     setSearch]     = useState('')
+  const [catOpen,    setCatOpen]    = useState(false)
+  const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
+  const catRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/categorias').then(r => r.json()).then(setCategorias).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (catRef.current && !catRef.current.contains(e.target as Node)) {
+        setCatOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
   return (
@@ -116,10 +133,58 @@ export default function Header() {
         style={{ background: 'rgba(3,13,30,0.85)' }}>
         <div className="max-w-[1400px] mx-auto px-4">
           <nav className="flex items-center gap-0">
-            {/* Categorías button */}
-            <button className="flex items-center gap-2 px-4 py-2.5 text-white font-bold text-sm border-r border-white/10 hover:bg-gold/10 transition-colors mr-2">
-              <Grid size={15} /> CATEGORÍAS
-            </button>
+            {/* Categorías dropdown */}
+            <div ref={catRef} style={{ position: 'relative' }}>
+              <button
+                onClick={() => setCatOpen(v => !v)}
+                className="flex items-center gap-2 px-4 py-2.5 text-white font-bold text-sm border-r border-white/10 hover:bg-gold/10 transition-colors mr-2"
+                style={{ borderRight: '1px solid rgba(255,255,255,0.1)' }}>
+                <Grid size={15} /> CATEGORÍAS <ChevronDown size={12} style={{ transform: catOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+              </button>
+              <AnimatePresence>
+                {catOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.15 }}
+                    style={{
+                      position: 'absolute', top: '100%', left: 0, zIndex: 200,
+                      background: 'rgba(7,22,51,0.98)',
+                      border: '1px solid rgba(212,175,55,0.3)',
+                      borderRadius: 12, padding: '8px',
+                      minWidth: 200, maxHeight: 400, overflowY: 'auto',
+                      boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+                    }}>
+                    {categorias.length === 0 ? (
+                      <div style={{ color: '#7a8a9a', fontSize: 12, padding: '12px 16px' }}>
+                        No hay categorías cargadas
+                      </div>
+                    ) : categorias.map(c => (
+                      <a key={c.id} href="#categorias"
+                        onClick={() => setCatOpen(false)}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 10,
+                          padding: '10px 14px', borderRadius: 8,
+                          color: '#ccc', fontSize: 13, fontWeight: 700,
+                          textDecoration: 'none', transition: 'all 0.15s',
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.background = 'rgba(212,175,55,0.15)'
+                          e.currentTarget.style.color = '#D4AF37'
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.background = 'transparent'
+                          e.currentTarget.style.color = '#ccc'
+                        }}>
+                        <span style={{ fontSize: 18 }}>{c.emoji}</span>
+                        {c.nombre}
+                      </a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             {navLinks.map(link => (
               <a key={link.name} href={link.href}
                 className="flex items-center gap-1 px-4 py-2.5 text-gray-300 hover:text-gold text-sm font-semibold transition-colors whitespace-nowrap relative group">
@@ -151,6 +216,18 @@ export default function Header() {
                   className="block text-gray-300 hover:text-gold py-2.5 border-b border-white/5 text-sm font-semibold transition-colors"
                   onClick={() => setMobileOpen(false)}>{l.name}</a>
               ))}
+              {categorias.length > 0 && (
+                <div style={{ marginTop: 8 }}>
+                  <div style={{ color: '#D4AF37', fontSize: 11, fontWeight: 900, marginBottom: 8, letterSpacing: 1 }}>CATEGORÍAS</div>
+                  {categorias.map(c => (
+                    <a key={c.id} href="#categorias"
+                      className="block text-gray-300 hover:text-gold py-2 border-b border-white/5 text-sm transition-colors"
+                      onClick={() => setMobileOpen(false)}>
+                      {c.emoji} {c.nombre}
+                    </a>
+                  ))}
+                </div>
+              )}
               <div className="flex gap-2 pt-1">
                 <a href="https://wa.me/5491155550000"
                   className="flex-1 bg-green-600 text-white py-2.5 rounded-lg text-sm font-semibold text-center">📱 WhatsApp</a>
