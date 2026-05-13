@@ -8,7 +8,7 @@ const navLinks = [
   { name: 'PRODUCTOS',    href: '#productos'   },
   { name: 'OFERTAS',      href: '#ofertas'     },
   { name: 'NOVEDADES',    href: '#novedades'   },
-  { name: 'CÓMO COMPRAR', href: '#como-comprar'},
+  { name: 'CÓMO COMPRAR', href: '/como-comprar'},
   { name: 'AYUDA',        href: '#ayuda'       },
 ]
 
