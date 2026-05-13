@@ -18,6 +18,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [search,     setSearch]     = useState('')
   const [catOpen,    setCatOpen]    = useState(false)
+  const [mobileCatOpen, setMobileCatOpen] = useState(false)
   const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
   const catRef = useRef<HTMLDivElement>(null)
 
@@ -217,12 +218,17 @@ export default function Header() {
                   onClick={() => setMobileOpen(false)}>{l.name}</a>
               ))}
               {categorias.length > 0 && (
-                <div style={{ marginTop: 8 }}>
-                  <div style={{ color: '#D4AF37', fontSize: 11, fontWeight: 900, marginBottom: 8, letterSpacing: 1 }}>CATEGORÍAS</div>
-                  {categorias.map(c => (
+                <div style={{ marginTop: 4 }}>
+                  <button
+                    onClick={() => setMobileCatOpen(v => !v)}
+                    className="w-full flex items-center justify-between text-gray-300 hover:text-gold py-2.5 border-b border-white/5 text-sm font-semibold transition-colors">
+                    <span>CATEGORÍAS</span>
+                    <ChevronDown size={14} style={{ transform: mobileCatOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+                  </button>
+                  {mobileCatOpen && categorias.map(c => (
                     <a key={c.id} href="#categorias"
-                      className="block text-gray-300 hover:text-gold py-2 border-b border-white/5 text-sm transition-colors"
-                      onClick={() => setMobileOpen(false)}>
+                      className="block text-gray-400 hover:text-gold py-2 pl-4 border-b border-white/5 text-sm transition-colors"
+                      onClick={() => { setMobileOpen(false); setMobileCatOpen(false) }}>
                       {c.emoji} {c.nombre}
                     </a>
                   ))}
