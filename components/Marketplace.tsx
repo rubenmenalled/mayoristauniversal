@@ -181,33 +181,17 @@ export default function Marketplace({ products }: { products?: Product[] }) {
               <CountdownTimer />
             </div>
 
-            {/* Featured offer card */}
-            <motion.div className="glass-card rounded-xl overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}>
-              <div className="relative h-44">
-                <Image src={featuredOffer.image} alt={featuredOffer.name} fill
-                  className="object-cover" sizes="300px" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/80 to-transparent" />
-                <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
-                  -{featuredOffer.discount}%
-                </span>
+            {/* Placeholder cuando no hay oferta destacada */}
+            <div className="glass-card rounded-xl overflow-hidden flex flex-col items-center justify-center p-8 text-center"
+              style={{ minHeight: 220, border: '1px dashed rgba(212,175,55,0.3)' }}>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>🔥</div>
+              <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14, marginBottom: 6 }}>
+                PRÓXIMAS OFERTAS
               </div>
-              <div className="p-4">
-                <h3 className="text-white text-sm font-bold mb-2 leading-tight">{featuredOffer.name}</h3>
-                <Stars n={featuredOffer.rating} />
-                <div className="text-gray-500 text-[10px] mb-2">({featuredOffer.reviews} reseñas)</div>
-                <div className="text-gray-500 text-xs line-through">${featuredOffer.price.toLocaleString('es-AR')}</div>
-                <div className="text-gold font-black text-xl">${featuredOffer.wholesalePrice.toLocaleString('es-AR')}</div>
-                <motion.button
-                  className="w-full mt-3 py-2 rounded-lg text-navy text-sm font-black"
-                  style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}
-                  whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                  VER OFERTA
-                </motion.button>
+              <div style={{ color: '#7a8a9a', fontSize: 12 }}>
+                Las novedades aparecerán acá cuando las publiques desde el panel
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* ── CENTER — Productos destacados ── */}
