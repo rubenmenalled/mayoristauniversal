@@ -8,13 +8,11 @@ import Testimonials  from '@/components/Testimonials'
 import Footer        from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import { getProductos, getCategorias } from '@/lib/data'
-import { categories as mockCategories, products as mockProducts } from '@/data/mockData'
+
+export const revalidate = 60 // Refresca datos cada 60 segundos
 
 export default async function HomePage() {
-  const [dbProductos, dbCategorias] = await Promise.all([getProductos(), getCategorias()])
-
-  const categorias = dbCategorias.length > 0 ? dbCategorias : mockCategories
-  const productos  = dbProductos.length  > 0 ? dbProductos  : mockProducts
+  const [productos, categorias] = await Promise.all([getProductos(), getCategorias()])
 
   return (
     <>

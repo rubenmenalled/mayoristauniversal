@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { featuredOffer, suppliers, products as mockProducts, type Product } from '@/data/mockData'
+import { featuredOffer, suppliers, type Product } from '@/data/mockData'
 import { Star, MessageCircle, CheckCircle, MapPin, ChevronRight } from 'lucide-react'
 
 /* ─── Countdown timer ─── */
@@ -155,7 +155,7 @@ export default function Marketplace({ products }: { products?: Product[] }) {
   const [tab,      setTab]      = useState('Todos')
   const [category, setCategory] = useState('Todos')
 
-  const allProducts = products && products.length > 0 ? products : mockProducts
+  const allProducts = products || []
 
   const filtered = tab === 'En oferta'
     ? allProducts.filter(p => p.badge === 'OFERTA')
