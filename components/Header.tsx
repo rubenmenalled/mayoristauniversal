@@ -6,7 +6,6 @@ import { Search, ShoppingCart, Menu, X, ChevronDown, MessageCircle, Plus, Grid }
 
 const navLinks = [
   { name: 'PRODUCTOS',    href: '#productos'   },
-  { name: 'CATEGORÍAS',   href: '#categorias'  },
   { name: 'OFERTAS',      href: '#ofertas'     },
   { name: 'NOVEDADES',    href: '#novedades'   },
   { name: 'CÓMO COMPRAR', href: '#como-comprar'},
