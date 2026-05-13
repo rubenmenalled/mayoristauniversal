@@ -29,6 +29,7 @@ const GOLD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
 export default function ProductosAdmin() {
   const router = useRouter()
   const [productos, setProductos] = useState<Producto[]>([])
+  const [categorias, setCategorias] = useState<{id: number, nombre: string}[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState<Producto>(EMPTY)
@@ -37,7 +38,12 @@ export default function ProductosAdmin() {
   const [msg, setMsg] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => { loadProductos() }, [])
+  useEffect(() => { loadProductos(); loadCategorias() }, [])
+
+  async function loadCategorias() {
+    const res = await fetch('/api/admin/categorias')
+    if (res.ok) setCategorias(await res.json())
+  }
 
   async function loadProductos() {
     setLoading(true)
@@ -160,7 +166,6 @@ export default function ProductosAdmin() {
                 {[
                   { label: 'Nombre del producto', key: 'nombre', type: 'text' },
                   { label: 'Marca', key: 'marca', type: 'text' },
-                  { label: 'Categoría', key: 'categoria', type: 'text' },
                   { label: 'Precio minorista ($)', key: 'precio', type: 'number' },
                   { label: 'Precio mayorista ($)', key: 'precio_mayorista', type: 'number' },
                   { label: 'Pedido mínimo (unidades)', key: 'pedido_minimo', type: 'number' },
@@ -184,6 +189,27 @@ export default function ProductosAdmin() {
                     />
                   </div>
                 ))}
+
+                {/* Categoría dropdown */}
+                <div>
+                  <label style={{ color: '#D4AF37', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
+                    CATEGORÍA
+                  </label>
+                  <select
+                    value={form.categoria}
+                    onChange={e => setForm(f => ({ ...f, categoria: e.target.value }))}
+                    style={{
+                      width: '100%', background: '#0a1628',
+                      border: '1px solid rgba(212,175,55,0.25)',
+                      borderRadius: 8, padding: '10px 12px',
+                      color: form.categoria ? '#fff' : '#7a8a9a', fontSize: 14, outline: 'none',
+                    }}>
+                    <option value="">Seleccioná una categoría</option>
+                    {categorias.map(c => (
+                      <option key={c.id} value={c.nombre}>{c.nombre}</option>
+                    ))}
+                  </select>
+                </div>
 
                 {/* Badge */}
                 <div>
