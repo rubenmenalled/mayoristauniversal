@@ -5,9 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Search, ShoppingCart, User, Menu, X, ChevronDown, MessageCircle, Plus, Grid } from 'lucide-react'
 
 const navLinks = [
-  { name: 'INICIO',       href: '#inicio'      },
   { name: 'PRODUCTOS',    href: '#productos'   },
-  { name: 'PROVEEDORES',  href: '#proveedores', sub: true },
+  { name: 'CATEGORÍAS',   href: '#categorias'  },
   { name: 'OFERTAS',      href: '#ofertas'     },
   { name: 'NOVEDADES',    href: '#novedades'   },
   { name: 'CÓMO COMPRAR', href: '#como-comprar'},
