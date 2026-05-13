@@ -3,10 +3,11 @@
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { categories } from '@/data/mockData'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-export default function Categories() {
+interface Category { id: number; name: string; emoji: string; image: string; description: string; count: number }
+
+export default function Categories({ categories }: { categories: Category[] }) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const scroll = (dir: 'left' | 'right') => {

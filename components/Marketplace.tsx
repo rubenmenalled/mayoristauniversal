@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { products, featuredOffer, suppliers } from '@/data/mockData'
+import { featuredOffer, suppliers, products as mockProducts } from '@/data/mockData'
 import { Star, MessageCircle, CheckCircle, MapPin, ChevronRight } from 'lucide-react'
 
 /* ─── Countdown timer ─── */
@@ -151,15 +151,17 @@ function SupplierRow({ s }: { s: typeof suppliers[0] }) {
 /* ─── Main component ─── */
 const TABS = ['Todos', 'Nuevos', 'En oferta', 'Más vendidos']
 
-export default function Marketplace() {
+export default function Marketplace({ products }: { products?: typeof mockProducts }) {
   const [tab,      setTab]      = useState('Todos')
   const [category, setCategory] = useState('Todos')
 
+  const allProducts = products && products.length > 0 ? products : mockProducts
+
   const filtered = tab === 'En oferta'
-    ? products.filter(p => p.badge === 'OFERTA')
+    ? allProducts.filter(p => p.badge === 'OFERTA')
     : tab === 'Nuevos'
-    ? products.filter(p => p.badge === 'NUEVO')
-    : products
+    ? allProducts.filter(p => p.badge === 'NUEVO')
+    : allProducts
 
   return (
     <section id="productos" className="py-10 relative"
