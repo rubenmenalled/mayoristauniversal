@@ -20,8 +20,7 @@ export default function Header() {
   const [search,     setSearch]     = useState('')
   const [catOpen,    setCatOpen]    = useState(false)
   const [mobileCatOpen, setMobileCatOpen] = useState(false)
-  const [cartOpen,   setCartOpen]   = useState(false)
-  const { count } = useCart()
+  const { count, cartOpen, setCartOpen } = useCart()
   const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
   const catRef = useRef<HTMLDivElement>(null)
 

@@ -20,12 +20,15 @@ interface CartContextType {
   clearCart: () => void
   total: number
   count: number
+  cartOpen: boolean
+  setCartOpen: (v: boolean) => void
 }
 
 const CartContext = createContext<CartContextType | null>(null)
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [cartOpen, setCartOpen] = useState(false)
 
   useEffect(() => {
     const saved = localStorage.getItem('cart')
@@ -44,6 +47,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { ...item, quantity: item.minOrder }]
     })
+    setCartOpen(true) // Abrir carrito al agregar
   }
 
   function removeItem(id: number) {
@@ -62,7 +66,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const count = items.reduce((sum, i) => sum + i.quantity, 0)
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, total, count }}>
+    <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, total, count, cartOpen, setCartOpen }}>
       {children}
     </CartContext.Provider>
   )
