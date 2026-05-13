@@ -42,10 +42,16 @@ export default function Categories({ categories }: { categories: Category[] }) {
                 whileHover={{ y: -4 }}>
                 {/* Image box */}
                 <div className="relative w-24 h-20 rounded-xl overflow-hidden border border-white/10 group-hover:border-gold/50 transition-all"
-                  style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
-                  <Image src={cat.image} alt={cat.name} fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="96px" />
+                  style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.4)', background: 'rgba(7,22,51,0.8)' }}>
+                  {cat.image ? (
+                    <Image src={cat.image} alt={cat.name} fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      sizes="96px" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-4xl">
+                      {cat.emoji}
+                    </div>
+                  )}
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-navy/40 group-hover:bg-navy/20 transition-colors" />
                   {/* Gold border glow */}
