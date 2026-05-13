@@ -22,16 +22,13 @@ export default function HeroSection() {
       </div>
 
       {/* Mobile: imagen vertical completa */}
-      <div className="block md:hidden" style={{ width: '100%', lineHeight: 0 }}>
-        <Image
-          src="/hero_mobile_full.png"
-          alt="Mayorista Universal - Multirubros Mayoristas"
-          width={853}
-          height={1844}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
-          priority
-        />
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/hero_celular.png"
+        alt="Mayorista Universal - Multirubros Mayoristas"
+        className="block md:hidden"
+        style={{ width: '100%', height: 'auto', display: 'block' }}
+      />
 
       {/* ── CTA ── */}
       <motion.div
