@@ -84,7 +84,6 @@ export const benefits = [
 ];
 
 export const promoMessages = [
-  '🔥 OFERTA DEL DÍA: 30% de descuento en Tecnología',
   '🚚 Envío gratis en pedidos +$50.000',
   '⚡ Nuevos proveedores verificados cada semana',
   '💎 Precios exclusivos para compradores registrados',

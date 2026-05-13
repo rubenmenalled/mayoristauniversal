@@ -170,7 +170,7 @@ export default function Marketplace({ products }: { products?: Product[] }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
           {/* ── LEFT — Ofertas destacadas ── */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
             {/* Header */}
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gold/20">
               <span className="text-gold font-black text-sm uppercase tracking-wide">⚡ Ofertas Destacadas</span>
@@ -195,7 +195,7 @@ export default function Marketplace({ products }: { products?: Product[] }) {
           </div>
 
           {/* ── CENTER — Productos destacados ── */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-10">
             {/* Header + tabs */}
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="text-white font-black text-sm uppercase tracking-wide">Productos Destacados</span>
@@ -232,38 +232,6 @@ export default function Marketplace({ products }: { products?: Product[] }) {
             </AnimatePresence>
           </div>
 
-          {/* ── RIGHT — Proveedores destacados ── */}
-          <div className="lg:col-span-3">
-            <div className="flex items-center justify-between mb-4 pb-2 border-b border-gold/20">
-              <span className="text-white font-black text-sm uppercase tracking-wide">Proveedores Destacados</span>
-              <a href="#proveedores" className="text-gold text-xs font-bold flex items-center gap-0.5">
-                VER TODOS <ChevronRight size={12} />
-              </a>
-            </div>
-
-            <div className="glass-card rounded-xl overflow-hidden divide-y divide-white/5">
-              {suppliers.map(s => <SupplierRow key={s.id} s={s} />)}
-            </div>
-
-            {/* Coverage mini-card */}
-            <div className="mt-4 glass-card rounded-xl p-4 relative overflow-hidden"
-              style={{ border: '1px solid rgba(212,175,55,0.2)' }}>
-              <div className="relative z-10">
-                <div className="text-white font-black text-sm mb-0.5">ENVÍOS A TODO EL PAÍS</div>
-                <div className="text-gold text-xs font-semibold mb-3">LLEGAMOS A LAS 24 PROVINCIAS</div>
-                <motion.button
-                  className="px-4 py-2 rounded-lg text-navy text-xs font-black"
-                  style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}
-                  whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-                  VER COBERTURA
-                </motion.button>
-              </div>
-              {/* Argentina map hint */}
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 text-6xl opacity-15 pointer-events-none select-none">
-                🇦🇷
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* ── Stats + promo bar ── */}
