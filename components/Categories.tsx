@@ -32,7 +32,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
             className="flex gap-3 overflow-x-auto scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {categories.map((cat, i) => (
-              <motion.a key={cat.id} href="#"
+              <motion.a key={cat.id} href={`/categorias/${encodeURIComponent(cat.name)}`}
                 className="group flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer"
                 style={{ minWidth: 100 }}
                 initial={{ opacity: 0, y: 15 }}

@@ -161,7 +161,7 @@ export default function Header() {
                         No hay categorías cargadas
                       </div>
                     ) : categorias.map(c => (
-                      <a key={c.id} href="#categorias"
+                      <a key={c.id} href={`/categorias/${encodeURIComponent(c.nombre)}`}
                         onClick={() => setCatOpen(false)}
                         style={{
                           display: 'flex', alignItems: 'center', gap: 10,
@@ -225,7 +225,7 @@ export default function Header() {
                     <ChevronDown size={14} style={{ transform: mobileCatOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
                   </button>
                   {mobileCatOpen && categorias.map(c => (
-                    <a key={c.id} href="#categorias"
+                    <a key={c.id} href={`/categorias/${encodeURIComponent(c.nombre)}`}
                       className="block text-gray-400 hover:text-gold py-2 pl-4 border-b border-white/5 text-sm transition-colors"
                       onClick={() => { setMobileOpen(false); setMobileCatOpen(false) }}>
                       {c.emoji} {c.nombre}
