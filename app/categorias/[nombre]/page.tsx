@@ -153,7 +153,8 @@ export default function CategoriaPage() {
                         color: '#030D1E', fontSize: 11, fontWeight: 900,
                         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
                       }}
-                      whileTap={{ scale: 0.97 }}>
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => window.open(`https://wa.me/5491164660482?text=Hola!%20Me%20interesa%20el%20producto%3A%20${encodeURIComponent(p.name)}`, '_blank')}>
                       <MessageCircle size={11} /> CONSULTAR
                     </motion.button>
                   </div>

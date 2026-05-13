@@ -112,7 +112,8 @@ function ProductCard({ p }: { p: Product }) {
         <motion.button
           className="w-full mt-2 py-1.5 rounded-lg text-navy text-xs font-bold flex items-center justify-center gap-1"
           style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}
-          whileTap={{ scale: 0.97 }}>
+          whileTap={{ scale: 0.97 }}
+          onClick={() => window.open(`https://wa.me/5491164660482?text=Hola!%20Me%20interesa%20el%20producto%3A%20${encodeURIComponent(p.name)}`, '_blank')}>
           <MessageCircle size={12} /> CONSULTAR
         </motion.button>
       </div>
