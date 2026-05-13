@@ -124,7 +124,6 @@ export default function Header() {
               <a key={link.name} href={link.href}
                 className="flex items-center gap-1 px-4 py-2.5 text-gray-300 hover:text-gold text-sm font-semibold transition-colors whitespace-nowrap relative group">
                 {link.name}
-                {link.sub && <ChevronDown size={12} />}
                 <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </a>
             ))}
