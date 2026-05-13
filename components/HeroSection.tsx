@@ -24,7 +24,7 @@ export default function HeroSection() {
       {/* Mobile: imagen vertical completa */}
       <div className="block md:hidden" style={{ width: '100%', lineHeight: 0 }}>
         <Image
-          src="/hero_mobile_v.png"
+          src="/hero_mobile_full.png"
           alt="Mayorista Universal - Multirubros Mayoristas"
           width={853}
           height={1844}
