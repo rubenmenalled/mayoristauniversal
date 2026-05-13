@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Montserrat, Inter } from 'next/font/google'
 import './globals.css'
+import { CartProvider } from '@/lib/CartContext'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${montserrat.variable} ${inter.variable}`}>
-      <body className="font-body antialiased">{children}</body>
+      <body className="font-body antialiased"><CartProvider>{children}</CartProvider></body>
     </html>
   )
 }

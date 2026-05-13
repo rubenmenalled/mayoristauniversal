@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, ShoppingCart, Menu, X, ChevronDown, MessageCircle, Plus, Grid } from 'lucide-react'
+import { useCart } from '@/lib/CartContext'
+import CartSidebar from './CartSidebar'
 
 const navLinks = [
   { name: 'PRODUCTOS',    href: '#productos'   },
@@ -18,6 +20,8 @@ export default function Header() {
   const [search,     setSearch]     = useState('')
   const [catOpen,    setCatOpen]    = useState(false)
   const [mobileCatOpen, setMobileCatOpen] = useState(false)
+  const [cartOpen,   setCartOpen]   = useState(false)
+  const { count } = useCart()
   const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
   const catRef = useRef<HTMLDivElement>(null)
 
@@ -42,6 +46,7 @@ export default function Header() {
   }, [])
 
   return (
+    <>
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
@@ -106,9 +111,9 @@ export default function Header() {
             </motion.a>
 
             {/* Cart */}
-            <motion.button className="relative p-1.5 text-gray-300 hover:text-gold transition-colors" whileHover={{ scale: 1.1 }}>
+            <motion.button className="relative p-1.5 text-gray-300 hover:text-gold transition-colors" whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={24} />
-              <span className="absolute -top-0.5 -right-0.5 bg-gold text-navy text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">3</span>
+              {count > 0 && <span className="absolute -top-0.5 -right-0.5 bg-gold text-navy text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">{count}</span>}
             </motion.button>
 
             {/* Account */}
@@ -243,5 +248,7 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
+    <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
+    </>
   )
 }
