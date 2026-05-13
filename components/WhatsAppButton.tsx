@@ -46,7 +46,7 @@ export default function WhatsAppButton() {
 
             {/* CTA */}
             <motion.a
-              href="https://wa.me/5491155550000?text=Hola!%20Me%20interesa%20conocer%20m%C3%A1s%20sobre%20Mayorista%20Universal."
+              href="https://wa.me/5491164660482?text=Hola!%20Me%20interesa%20conocer%20m%C3%A1s%20sobre%20Mayorista%20Universal."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white py-2.5 rounded-xl font-semibold text-sm w-full transition-colors"

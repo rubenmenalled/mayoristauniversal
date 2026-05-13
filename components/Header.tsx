@@ -99,7 +99,7 @@ export default function Header() {
             </motion.button>
 
             {/* WhatsApp */}
-            <motion.a href="https://wa.me/5491155550000" target="_blank" rel="noopener noreferrer"
+            <motion.a href="https://wa.me/5491164660482" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
               <MessageCircle size={16} /> WhatsApp
@@ -234,7 +234,7 @@ export default function Header() {
                 </div>
               )}
               <div className="flex gap-2 pt-1">
-                <a href="https://wa.me/5491155550000"
+                <a href="https://wa.me/5491164660482"
                   className="flex-1 bg-green-600 text-white py-2.5 rounded-lg text-sm font-semibold text-center">📱 WhatsApp</a>
                 <button className="flex-1 btn-outline-gold py-2.5 rounded-lg text-sm font-semibold">+ Publicar</button>
               </div>
