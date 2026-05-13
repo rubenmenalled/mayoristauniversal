@@ -75,7 +75,6 @@ export const stats = [
 ];
 
 export const benefits = [
-  { icon:'🚚', title:'Envíos a todo el país',      desc:'Rápidos y seguros' },
   { icon:'💰', title:'Precios mayoristas',          desc:'Los mejores del mercado' },
   { icon:'📦', title:'Miles de productos',          desc:'Todas las categorías' },
   { icon:'🛡️', title:'Pagos seguros',              desc:'Protegemos tu compra' },
@@ -84,7 +83,6 @@ export const benefits = [
 ];
 
 export const promoMessages = [
-  '🚚 Envío gratis en pedidos +$50.000',
   '⚡ Nuevos proveedores verificados cada semana',
   '💎 Precios exclusivos para compradores registrados',
   '📦 Más de 25.000 productos disponibles',
