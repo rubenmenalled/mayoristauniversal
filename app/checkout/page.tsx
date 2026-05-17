@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/lib/CartContext'
+import { supabase } from '@/lib/supabase'
 import { ArrowLeft, ShoppingBag, User, Mail, Phone, Check, MessageCircle } from 'lucide-react'
 import Image from 'next/image'
 
@@ -17,6 +18,22 @@ export default function CheckoutPage() {
   const [error, setError] = useState('')
   const [confirmado, setConfirmado] = useState(false)
   const [waUrl, setWaUrl] = useState('')
+  const [userId, setUserId] = useState<string | null>(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session?.user) {
+        const u = data.session.user
+        setUserId(u.id)
+        // Pre-llenar datos si está logueado
+        setForm(f => ({
+          nombre: f.nombre || u.user_metadata?.nombre || '',
+          email: f.email || u.email || '',
+          telefono: f.telefono || u.user_metadata?.whatsapp || '',
+        }))
+      }
+    })
+  }, [])
 
   if (items.length === 0 && !confirmado) {
     return (
@@ -45,7 +62,7 @@ export default function CheckoutPage() {
       const res = await fetch('/api/confirmar-pedido', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, items, total }),
+        body: JSON.stringify({ ...form, items, total, user_id: userId }),
       })
       const data = await res.json()
       if (data.ok) {

@@ -3,20 +3,43 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import { ShoppingCart, LogOut, Package, FileText, Truck, RefreshCw, Phone } from 'lucide-react'
+import { ShoppingCart, LogOut, Package, FileText, Truck, RefreshCw, Phone, ClipboardList } from 'lucide-react'
+
+interface PedidoItem {
+  name: string
+  quantity: number
+  wholesalePrice: number
+}
+
+interface Pedido {
+  id: string
+  created_at: string
+  total: number
+  items: PedidoItem[]
+  estado: string
+}
 
 export default function MiCuentaPage() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [pedidos, setPedidos] = useState<Pedido[]>([])
+  const [loadingPedidos, setLoadingPedidos] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) {
         router.push('/login')
       } else {
-        setUser(data.session.user)
+        const u = data.session.user
+        setUser(u)
         setLoading(false)
+        setLoadingPedidos(true)
+        fetch(`/api/mis-pedidos?user_id=${u.id}`)
+          .then(r => r.json())
+          .then(data => setPedidos(data || []))
+          .catch(() => setPedidos([]))
+          .finally(() => setLoadingPedidos(false))
       }
     })
   }, [router])
@@ -202,6 +225,96 @@ export default function MiCuentaPage() {
             </a>
 
           </div>
+        </div>
+
+        {/* Mis Pedidos */}
+        <div style={{ marginTop: 28 }}>
+          <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 12, letterSpacing: '0.1em', marginBottom: 10, paddingLeft: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <ClipboardList size={14} color="#D4AF37" />
+            MIS PEDIDOS
+          </div>
+
+          {loadingPedidos ? (
+            <div style={{ color: '#7a8a9a', fontSize: 13, padding: '16px 0', textAlign: 'center' }}>
+              Cargando pedidos...
+            </div>
+          ) : pedidos.length === 0 ? (
+            <div style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(212,175,55,0.15)',
+              borderRadius: 14, padding: '24px 20px',
+              textAlign: 'center',
+            }}>
+              <div style={{ fontSize: 32, marginBottom: 10 }}>📦</div>
+              <div style={{ color: '#7a8a9a', fontSize: 14, marginBottom: 14 }}>
+                Todavía no realizaste ningún pedido
+              </div>
+              <a href="/catalogo" style={{
+                display: 'inline-block',
+                background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+                color: '#030D1E', fontWeight: 800, fontSize: 13,
+                padding: '10px 22px', borderRadius: 10, textDecoration: 'none',
+              }}>
+                Ver catálogo →
+              </a>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {pedidos.map((pedido) => {
+                const fecha = new Date(pedido.created_at)
+                const fechaFormato = `${String(fecha.getDate()).padStart(2, '0')}/${String(fecha.getMonth() + 1).padStart(2, '0')}/${fecha.getFullYear()}`
+                const totalFormato = `$${Number(pedido.total).toLocaleString('es-AR')}`
+                const isPendiente = pedido.estado === 'pendiente'
+                const isConfirmado = pedido.estado === 'confirmado'
+
+                return (
+                  <div key={pedido.id} style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(212,175,55,0.15)',
+                    borderRadius: 14, padding: '16px 18px',
+                  }}>
+                    {/* Pedido header */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                      <div style={{ color: '#7a8a9a', fontSize: 12, fontWeight: 700 }}>{fechaFormato}</div>
+                      <div style={{
+                        display: 'inline-block',
+                        background: isConfirmado ? 'rgba(34,197,94,0.15)' : 'rgba(234,179,8,0.15)',
+                        border: `1px solid ${isConfirmado ? 'rgba(34,197,94,0.3)' : 'rgba(234,179,8,0.3)'}`,
+                        color: isConfirmado ? '#4ade80' : '#facc15',
+                        fontSize: 11, fontWeight: 800,
+                        padding: '3px 10px', borderRadius: 20, letterSpacing: '0.06em',
+                        textTransform: 'uppercase' as const,
+                      }}>
+                        {pedido.estado}
+                      </div>
+                    </div>
+
+                    {/* Items */}
+                    <div style={{ marginBottom: 12 }}>
+                      {(pedido.items || []).map((item, idx) => (
+                        <div key={idx} style={{
+                          display: 'flex', justifyContent: 'space-between',
+                          padding: '5px 0',
+                          borderBottom: idx < pedido.items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                        }}>
+                          <span style={{ color: '#c0cad6', fontSize: 13 }}>{item.name} <span style={{ color: '#7a8a9a' }}>x{item.quantity}</span></span>
+                          <span style={{ color: '#c0cad6', fontSize: 13 }}>
+                            ${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Total */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 8, borderTop: '1px solid rgba(212,175,55,0.15)' }}>
+                      <span style={{ color: '#7a8a9a', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em' }}>TOTAL</span>
+                      <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 17 }}>{totalFormato}</span>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </div>
 
         <p style={{ textAlign: 'center', marginTop: 28, color: '#4b5563', fontSize: 13 }}>

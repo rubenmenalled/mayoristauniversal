@@ -54,6 +54,12 @@ export default function LoginPage() {
       if (error) {
         setError(error.message === 'User already registered' ? 'Este email ya está registrado.' : error.message)
       } else {
+        // Notificar al dueño por email
+        fetch('/api/notificar-registro', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, email, documento, whatsapp, transporte, reemplazo }),
+        }).catch(() => {})
         setSuccess('¡Cuenta creada! Revisá tu email para confirmar el registro.')
       }
     } else {

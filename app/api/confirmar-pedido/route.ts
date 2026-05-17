@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getAdminClient } from '@/lib/supabase'
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const OWNER_EMAIL = 'rubenmenalled@gmail.com'
@@ -6,7 +7,7 @@ const OWNER_WHATSAPP = '5491164660482'
 const SITE_NAME = 'Mayorista Universal'
 
 export async function POST(request: NextRequest) {
-  const { nombre, email, telefono, items, total } = await request.json()
+  const { nombre, email, telefono, items, total, user_id } = await request.json()
 
   if (!nombre || !email || !telefono || !items?.length) {
     return NextResponse.json({ error: 'Faltan datos' }, { status: 400 })
@@ -62,6 +63,22 @@ export async function POST(request: NextRequest) {
     } catch (e) {
       console.error('Error enviando email:', e)
     }
+  }
+
+  // Guardar pedido en Supabase
+  try {
+    const admin = getAdminClient()
+    await admin.from('pedidos').insert({
+      user_id: user_id || null,
+      nombre,
+      email,
+      telefono,
+      items,
+      total: Number(total),
+      estado: 'pendiente',
+    })
+  } catch (e) {
+    console.error('Error guardando pedido en Supabase:', e)
   }
 
   // Mensaje para WhatsApp del dueño

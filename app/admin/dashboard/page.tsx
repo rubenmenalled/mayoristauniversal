@@ -28,6 +28,13 @@ export default function Dashboard() {
       href: '/admin/categorias',
       color: '#1a6a3c',
     },
+    {
+      icon: '👥',
+      title: 'Clientes',
+      desc: 'Ver clientes registrados, documentos, WhatsApp y transporte',
+      href: '/admin/clientes',
+      color: '#6a3a1a',
+    },
   ]
 
   return (
