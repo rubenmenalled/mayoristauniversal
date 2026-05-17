@@ -43,6 +43,7 @@ export default function CategoriaPage() {
   const [subcategorias, setSubcategorias] = useState<Subcategoria[]>([])
   const [subActiva, setSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
+  const [lightbox, setLightbox] = useState<Producto | null>(null)
 
   function normalizar(s: string) {
     return (s || '').toLowerCase().trim()
@@ -163,11 +164,15 @@ export default function CategoriaPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
                   whileHover={{ y: -4 }}>
-                  <div style={{ position: 'relative', height: 150, background: '#071633', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', height: 150, background: '#071633', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
+                    onClick={() => p.image && setLightbox(p)}>
                     {p.image ? (
                       <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="180px" />
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
+                    )}
+                    {p.image && (
+                      <div style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.5)', borderRadius: 6, padding: '2px 5px', fontSize: 10, color: '#fff' }}>🔍</div>
                     )}
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(3,13,30,0.7), transparent)' }} />
                     {p.discount && p.discount > 0 && (
@@ -201,6 +206,40 @@ export default function CategoriaPage() {
         )}
       </div>
       <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
+
+      {/* Lightbox */}
+      {lightbox && (
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          onClick={() => setLightbox(null)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'zoom-out' }}>
+          <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 500, background: '#0a1628', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
+            {/* Foto grande */}
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#071633' }}>
+              <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 16 }} sizes="500px" />
+            </div>
+            {/* Info */}
+            <div style={{ padding: '16px 20px 20px' }}>
+              <div style={{ color: '#fff', fontWeight: 900, fontSize: 15, marginBottom: 8 }}>{lightbox.name}</div>
+              <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 12 }}>
+                ${lightbox.wholesalePrice.toLocaleString('es-AR')}
+              </div>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button onClick={() => setLightbox(null)}
+                  style={{ flex: 1, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '10px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
+                  Cerrar
+                </button>
+                <motion.button whileTap={{ scale: 0.97 }}
+                  onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.minOrder }); setLightbox(null) }}
+                  style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#030D1E', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  <ShoppingCart size={14} /> AGREGAR AL CARRITO
+                </motion.button>
+              </div>
+            </div>
+          </div>
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>
+        </motion.div>
+      )}
     </div>
   )
 }
