@@ -29,7 +29,7 @@ function formatDate(iso: string) {
 }
 
 function ReemplazoCell({ value }: { value: string }) {
-  const yes = value === 'true' || value === true || value === 'sí' || value === 'si' || value === '1'
+  const yes = value === 'true' || value === 'sí' || value === 'si' || value === '1'
   return (
     <span style={{ fontWeight: 700 }}>
       {yes ? '✅ Sí' : '❌ No'}
