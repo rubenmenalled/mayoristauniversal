@@ -9,61 +9,34 @@ export default function HeroSection() {
           flex-direction: column;
           width: 100%;
         }
-        /* Mobile: dejamos espacio para AnnouncementBar (38px) + Header (~54px) */
+        /* Mobile: espacio para AnnouncementBar (38px) + Header (~54px) */
         @media (max-width: 767px) {
-          #hero-section {
-            padding-top: 92px;
-          }
+          #hero-section { padding-top: 92px; }
+          #hero-banner { height: 56vw; overflow: hidden; }
+          #hero-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
         }
-        /* Desktop: imagen full-bleed, el header flota encima (como antes) */
+        /* Desktop: imagen full-bleed, header flota encima */
         @media (min-width: 768px) {
-          #hero-section {
-            padding-top: 0;
-          }
-        }
-        #hero-img-desktop { display: none; }
-        #hero-img-mobile  { display: block; }
-        @media (min-width: 768px) {
-          #hero-img-desktop { display: block; }
-          #hero-img-mobile  { display: none; }
+          #hero-section { padding-top: 0; }
+          #hero-banner { width: 100%; }
+          #hero-banner img { width: 100%; height: auto; display: block; }
         }
       `}</style>
 
       <section id="hero-section">
-
-        {/* Desktop */}
-        <a id="hero-img-desktop" href="/catalogo" style={{ position: 'relative', cursor: 'pointer', width: '100%' }}>
+        <a id="hero-banner" href="/catalogo" style={{ position: 'relative', cursor: 'pointer', display: 'block' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/portada_desktop.png"
             alt="Mayorista Universal - Multirubros Mayoristas"
-            style={{ width: '100%', height: 'auto', display: 'block' }}
-          />
-          <div style={{
-            position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)',
-            background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#030D1E', fontWeight: 900, fontSize: 15,
-            padding: '12px 32px', borderRadius: 12,
-            boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
-            whiteSpace: 'nowrap',
-          }}>
-            📋 VER TODOS LOS CATÁLOGOS
-          </div>
-        </a>
-
-        {/* Mobile */}
-        <a id="hero-img-mobile" href="/catalogo" style={{ cursor: 'pointer', position: 'relative', width: '100%' }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/portada_backup.jpeg"
-            alt="Mayorista Universal - Multirubros Mayoristas"
-            style={{ width: '100%', height: 'auto', display: 'block' }}
           />
           <div style={{
             position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)',
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#030D1E', fontWeight: 900, fontSize: 13,
-            padding: '10px 24px', borderRadius: 10,
+            color: '#030D1E', fontWeight: 900,
+            fontSize: 'clamp(12px,2vw,15px)',
+            padding: 'clamp(8px,1.5vw,12px) clamp(18px,3vw,32px)',
+            borderRadius: 12,
             boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
             whiteSpace: 'nowrap',
           }}>
@@ -87,7 +60,6 @@ export default function HeroSection() {
           </div>
           <span style={{ fontSize: 28, marginLeft: 8 }}>🇦🇷</span>
         </div>
-
       </section>
     </>
   )
