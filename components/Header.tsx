@@ -118,10 +118,8 @@ export default function Header() {
                 <motion.a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                   title={s.name}
                   className="w-8 h-8 rounded-lg flex items-center justify-center transition-all"
-                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', color: '#9ca3af' }}
-                  onMouseEnter={e => { e.currentTarget.style.background = s.bg; e.currentTarget.style.borderColor = s.border; e.currentTarget.style.color = s.color }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#9ca3af' }}
-                  whileHover={{ scale: 1.1, y: -1 }}>
+                  style={{ background: s.bg, border: `1px solid ${s.border}`, color: s.color }}
+                  whileHover={{ scale: 1.15, y: -1 }}>
                   {s.icon}
                 </motion.a>
               ))}

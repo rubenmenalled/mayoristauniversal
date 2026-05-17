@@ -74,18 +74,12 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-xl flex items-center justify-center transition-all"
-                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', color: '#9ca3af' }}
-                  whileHover={{ scale: 1.12, y: -2 }}
-                  onMouseEnter={e => {
-                    const colors: Record<string, {bg:string,border:string,color:string}> = {
-                      'Instagram': { bg:'rgba(225,48,108,0.15)', border:'rgba(225,48,108,0.4)', color:'#E1306C' },
-                      'Facebook':  { bg:'rgba(24,119,242,0.15)', border:'rgba(24,119,242,0.4)', color:'#1877F2' },
-                      'X (Twitter)': { bg:'rgba(255,255,255,0.15)', border:'rgba(255,255,255,0.3)', color:'#ffffff' },
-                    }
-                    const c = colors[s.name]
-                    if (c) { e.currentTarget.style.background = c.bg; e.currentTarget.style.borderColor = c.border; e.currentTarget.style.color = c.color }
+                  style={{
+                    background: s.name === 'Instagram' ? 'rgba(225,48,108,0.15)' : s.name === 'Facebook' ? 'rgba(24,119,242,0.15)' : 'rgba(255,255,255,0.12)',
+                    border: s.name === 'Instagram' ? '1px solid rgba(225,48,108,0.4)' : s.name === 'Facebook' ? '1px solid rgba(24,119,242,0.4)' : '1px solid rgba(255,255,255,0.3)',
+                    color: s.name === 'Instagram' ? '#E1306C' : s.name === 'Facebook' ? '#1877F2' : '#ffffff',
                   }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = '#9ca3af'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)' }}
+                  whileHover={{ scale: 1.12, y: -2 }}
                   title={s.name}
                 >
                   {s.icon}
