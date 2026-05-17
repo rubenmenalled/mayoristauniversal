@@ -1,6 +1,5 @@
 import Header           from '@/components/Header'
 import HeroSection      from '@/components/HeroSection'
-import StatsSection     from '@/components/StatsSection'
 import CatalogosSection from '@/components/CatalogosSection'
 import ComoComprar      from '@/components/ComoComprar'
 import MediosDePago    from '@/components/MediosDePago'
@@ -20,7 +19,6 @@ export default async function HomePage() {
       <Header />
       <main>
         <HeroSection />
-        <StatsSection />
         <CatalogosSection categorias={categorias} />
         <ComoComprar />
         <MediosDePago />
