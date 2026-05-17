@@ -75,9 +75,9 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-xl flex items-center justify-center transition-all"
                   style={{
-                    background: s.name === 'Instagram' ? 'rgba(225,48,108,0.15)' : s.name === 'Facebook' ? 'rgba(24,119,242,0.15)' : 'rgba(255,255,255,0.12)',
-                    border: s.name === 'Instagram' ? '1px solid rgba(225,48,108,0.4)' : s.name === 'Facebook' ? '1px solid rgba(24,119,242,0.4)' : '1px solid rgba(255,255,255,0.3)',
-                    color: s.name === 'Instagram' ? '#E1306C' : s.name === 'Facebook' ? '#1877F2' : '#ffffff',
+                    background: s.name === 'Instagram' ? 'rgba(255,0,144,0.15)' : s.name === 'Facebook' ? 'rgba(24,119,242,0.15)' : 'rgba(255,255,255,0.12)',
+                    border: s.name === 'Instagram' ? '1px solid rgba(255,0,144,0.4)' : s.name === 'Facebook' ? '1px solid rgba(24,119,242,0.4)' : '1px solid rgba(255,255,255,0.3)',
+                    color: s.name === 'Instagram' ? '#FF0090' : s.name === 'Facebook' ? '#1877F2' : '#ffffff',
                   }}
                   whileHover={{ scale: 1.12, y: -2 }}
                   title={s.name}
