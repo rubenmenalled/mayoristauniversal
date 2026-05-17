@@ -11,9 +11,9 @@ export default function HeroSection() {
       <a href="/catalogo" className="hidden md:block" style={{ position: 'relative', cursor: 'pointer', width: '100%' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/portada.jpeg"
+          src="/portada_desktop.png"
           alt="Mayorista Universal - Multirubros Mayoristas"
-          style={{ width: '100%', height: '65vh', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
         />
         <div style={{
           position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)',
