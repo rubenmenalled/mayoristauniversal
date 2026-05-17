@@ -5,12 +5,27 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { ShoppingCart, Eye, EyeOff } from 'lucide-react'
 
+const TRANSPORTES = [
+  'Retiro en depósito',
+  'Andreani',
+  'OCA',
+  'Correo Argentino',
+  'Labulle',
+  'Bus de carga',
+  'Flete propio',
+  'Otro',
+]
+
 export default function LoginPage() {
   const router = useRouter()
   const [mode, setMode] = useState<'login' | 'register'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [nombre, setNombre] = useState('')
+  const [documento, setDocumento] = useState('')
+  const [transporte, setTransporte] = useState('')
+  const [reemplazo, setReemplazo] = useState<'si' | 'no' | ''>('')
+  const [whatsapp, setWhatsapp] = useState('')
   const [showPass, setShowPass] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -26,7 +41,15 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { nombre } },
+        options: {
+          data: {
+            nombre,
+            documento,
+            transporte,
+            reemplazo,
+            whatsapp,
+          },
+        },
       })
       if (error) {
         setError(error.message === 'User already registered' ? 'Este email ya está registrado.' : error.message)
@@ -44,12 +67,22 @@ export default function LoginPage() {
     setLoading(false)
   }
 
+  const inputStyle: React.CSSProperties = {
+    width: '100%', padding: '12px 16px', borderRadius: 10, outline: 'none',
+    background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.2)',
+    color: '#fff', fontSize: 15, boxSizing: 'border-box',
+  }
+
+  const labelStyle: React.CSSProperties = {
+    color: '#9ca3af', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
+  }
+
   return (
     <div style={{
       minHeight: '100vh', background: 'linear-gradient(180deg, #030D1E 0%, #071633 100%)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px',
     }}>
-      <div style={{ width: '100%', maxWidth: 420 }}>
+      <div style={{ width: '100%', maxWidth: 440 }}>
 
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
@@ -87,50 +120,84 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit}>
+
             {mode === 'register' && (
-              <div style={{ marginBottom: 16 }}>
-                <label style={{ color: '#9ca3af', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6 }}>
-                  NOMBRE COMPLETO
-                </label>
-                <input
-                  type="text" value={nombre} onChange={e => setNombre(e.target.value)}
-                  placeholder="Tu nombre" required
-                  style={{
-                    width: '100%', padding: '12px 16px', borderRadius: 10, outline: 'none',
-                    background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.2)',
-                    color: '#fff', fontSize: 15, boxSizing: 'border-box',
-                  }}
-                />
-              </div>
+              <>
+                {/* Nombre */}
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>NOMBRE COMPLETO *</label>
+                  <input type="text" value={nombre} onChange={e => setNombre(e.target.value)}
+                    placeholder="Tu nombre completo" required style={inputStyle} />
+                </div>
+
+                {/* Documento */}
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>NÚMERO DE DOCUMENTO (DNI/CUIT) *</label>
+                  <input type="text" value={documento} onChange={e => setDocumento(e.target.value)}
+                    placeholder="Ej: 30123456 o 20-30123456-8" required
+                    style={inputStyle} />
+                </div>
+
+                {/* WhatsApp */}
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>WHATSAPP *</label>
+                  <input type="tel" value={whatsapp} onChange={e => setWhatsapp(e.target.value)}
+                    placeholder="Ej: 1164660482" required
+                    style={inputStyle} />
+                </div>
+
+                {/* Transporte */}
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>TRANSPORTE PREFERIDO *</label>
+                  <select value={transporte} onChange={e => setTransporte(e.target.value)} required
+                    style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
+                    <option value="" style={{ background: '#071633' }}>Seleccioná una opción</option>
+                    {TRANSPORTES.map(t => (
+                      <option key={t} value={t} style={{ background: '#071633' }}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Reemplazo */}
+                <div style={{ marginBottom: 20 }}>
+                  <label style={labelStyle}>¿ACEPTÁS REEMPLAZO DE PRODUCTOS? *</label>
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    {[{ val: 'si', label: '✅ Sí, acepto' }, { val: 'no', label: '❌ No acepto' }].map(op => (
+                      <button key={op.val} type="button"
+                        onClick={() => setReemplazo(op.val as 'si' | 'no')}
+                        style={{
+                          flex: 1, padding: '11px 0', borderRadius: 10, cursor: 'pointer',
+                          fontWeight: 800, fontSize: 13, transition: 'all 0.2s', border: '2px solid',
+                          borderColor: reemplazo === op.val ? '#D4AF37' : 'rgba(212,175,55,0.2)',
+                          background: reemplazo === op.val ? 'rgba(212,175,55,0.15)' : 'rgba(255,255,255,0.04)',
+                          color: reemplazo === op.val ? '#D4AF37' : '#9ca3af',
+                        }}>
+                        {op.label}
+                      </button>
+                    ))}
+                  </div>
+                  {/* Hidden input for validation */}
+                  <input type="text" required value={reemplazo}
+                    style={{ opacity: 0, height: 0, width: 0, position: 'absolute' }}
+                    tabIndex={-1} onChange={() => {}} />
+                </div>
+              </>
             )}
 
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ color: '#9ca3af', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6 }}>
-                EMAIL
-              </label>
-              <input
-                type="email" value={email} onChange={e => setEmail(e.target.value)}
-                placeholder="tu@email.com" required
-                style={{
-                  width: '100%', padding: '12px 16px', borderRadius: 10, outline: 'none',
-                  background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.2)',
-                  color: '#fff', fontSize: 15, boxSizing: 'border-box',
-                }}
-              />
+            {/* Email */}
+            <div style={{ marginBottom: 14 }}>
+              <label style={labelStyle}>EMAIL *</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)}
+                placeholder="tu@email.com" required style={inputStyle} />
             </div>
 
+            {/* Contraseña */}
             <div style={{ marginBottom: 24, position: 'relative' }}>
-              <label style={{ color: '#9ca3af', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6 }}>
-                CONTRASEÑA
-              </label>
+              <label style={labelStyle}>CONTRASEÑA *</label>
               <input
                 type={showPass ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
                 placeholder="Mínimo 6 caracteres" required minLength={6}
-                style={{
-                  width: '100%', padding: '12px 48px 12px 16px', borderRadius: 10, outline: 'none',
-                  background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.2)',
-                  color: '#fff', fontSize: 15, boxSizing: 'border-box',
-                }}
+                style={{ ...inputStyle, padding: '12px 48px 12px 16px' }}
               />
               <button type="button" onClick={() => setShowPass(v => !v)}
                 style={{ position: 'absolute', right: 14, top: 36, background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af' }}>
