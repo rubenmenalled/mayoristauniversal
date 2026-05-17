@@ -147,11 +147,25 @@ export default function Header() {
             )}
           </div>
 
-          {/* Mobile search + menu */}
+          {/* Mobile search + account + menu */}
           <div className="lg:hidden ml-auto flex items-center gap-1">
             <button className="text-white p-1.5" onClick={() => setMobileSearchOpen(v => !v)}>
               <Search size={22} />
             </button>
+            {/* Account icon mobile */}
+            <a href={userName ? '/mi-cuenta' : '/login'} style={{ textDecoration: 'none' }}>
+              <div style={{
+                width: 34, height: 34, borderRadius: '50%', margin: '0 2px',
+                background: userName ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(212,175,55,0.15)',
+                border: '1.5px solid rgba(212,175,55,0.5)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                {userName
+                  ? <span style={{ fontSize: 14, fontWeight: 900, color: '#030D1E' }}>{userName.charAt(0).toUpperCase()}</span>
+                  : <User size={17} color="#D4AF37" />
+                }
+              </div>
+            </a>
             <button className="text-white p-1.5" onClick={() => setMobileOpen(v => !v)}>
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
