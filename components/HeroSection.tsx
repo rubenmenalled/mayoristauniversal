@@ -15,10 +15,10 @@ export default function HeroSection() {
             padding-top: 92px;
           }
         }
-        /* Desktop: el header ya tiene espacio visual, la imagen full-bleed queda bien */
+        /* Desktop: imagen full-bleed, el header flota encima (como antes) */
         @media (min-width: 768px) {
           #hero-section {
-            padding-top: 137px;
+            padding-top: 0;
           }
         }
         #hero-img-desktop { display: none; }
