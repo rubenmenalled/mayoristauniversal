@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 const GOLD = '#D4AF37'
 const GOLD_GRAD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
@@ -38,7 +37,6 @@ function ReemplazoCell({ value }: { value: string }) {
 }
 
 export default function ClientesPage() {
-  const router = useRouter()
   const [clientes, setClientes] = useState<Cliente[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -102,7 +100,7 @@ export default function ClientesPage() {
         </div>
 
         <button
-          onClick={() => router.push('/admin/dashboard')}
+          onClick={() => window.location.href = '/admin/dashboard'}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
             background: 'rgba(255,255,255,0.07)',

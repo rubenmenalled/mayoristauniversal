@@ -78,6 +78,9 @@ export default function AdminLogin() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Ingresá tu contraseña"
+                autoCorrect="off"
+                autoCapitalize="off"
+                autoComplete="current-password"
                 style={{
                   width: '100%',
                   background: 'rgba(255,255,255,0.07)',

@@ -1,16 +1,14 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Package, Grid3X3, LogOut, ArrowRight, Globe } from 'lucide-react'
 
 const GOLD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
 
 export default function Dashboard() {
-  const router = useRouter()
 
   async function handleLogout() {
     await fetch('/api/admin/logout', { method: 'POST' })
-    router.push('/admin')
+    window.location.href = '/admin'
   }
 
   const cards = [
@@ -100,7 +98,7 @@ export default function Dashboard() {
           {cards.map(card => (
             <button
               key={card.href}
-              onClick={() => router.push(card.href)}
+              onClick={() => window.location.href = card.href}
               style={{
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(212,175,55,0.2)',
