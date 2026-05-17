@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function HeroSection() {
   return (
-    <section id="inicio" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+    <section id="inicio" className="pt-[92px] md:pt-0" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
       {/* ── IMAGEN HERO COMPLETA ── */}
       {/* Desktop */}
