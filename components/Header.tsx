@@ -63,10 +63,10 @@ export default function Header() {
 
   return (
     <>
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-400 ${
+    <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ background: scrolled ? 'rgba(7,22,51,0.97)' : 'rgba(7,22,51,0.92)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(7,22,51,0.97)' : 'rgba(7,22,51,0.92)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
