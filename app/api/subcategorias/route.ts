@@ -10,24 +10,25 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const categoria = searchParams.get('categoria')
 
-    // Buscar el id de la categoría por nombre
+    // Si se pasa categoria, filtrar SOLO las subcategorías de ese rubro
     if (categoria) {
-      const { data: cat } = await supabase
+      const { data: cats } = await supabase
         .from('categorias')
         .select('id')
         .ilike('nombre', categoria)
-        .single()
 
-      if (cat) {
-        const { data } = await supabase
-          .from('subcategorias')
-          .select('*')
-          .eq('categoria_id', cat.id)
-          .order('nombre')
-        return NextResponse.json(data || [])
-      }
+      if (!cats || cats.length === 0) return NextResponse.json([])
+
+      const id = cats[0].id
+      const { data } = await supabase
+        .from('subcategorias')
+        .select('*')
+        .eq('categoria_id', id)
+        .order('nombre')
+      return NextResponse.json(data || [])
     }
 
+    // Sin categoria devolver todo (solo para admin)
     const { data } = await supabase.from('subcategorias').select('*').order('nombre')
     return NextResponse.json(data || [])
   } catch {
