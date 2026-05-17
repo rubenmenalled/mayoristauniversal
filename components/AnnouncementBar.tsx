@@ -4,7 +4,7 @@ const messages = [
   '🚚 Envíos a todo el país',
   '📦 Más de 20 categorías disponibles',
   '💬 Atención personalizada por WhatsApp',
-  '🏷️ Precios mayoristas sin mínimo de registro',
+  '🏷️ Precios mayoristas',
   '🇦🇷 Comprá desde cualquier provincia',
   '⚡ Nuevos productos cada semana',
 ];
