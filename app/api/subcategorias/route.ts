@@ -1,35 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAdminClient } from '@/lib/supabase'
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const SERVICE_KEY  = process.env.SUPABASE_SERVICE_ROLE_KEY!
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const categoria = searchParams.get('categoria')
 
-    const supabase = getAdminClient()
-
     if (categoria) {
-      // Obtener subcategorías distintas directamente de los productos
-      // para que siempre coincidan con los productos reales
-      const { data, error } = await supabase
-        .from('productos')
-        .select('subcategoria')
-        .ilike('categoria', categoria)
-        .not('subcategoria', 'is', null)
-        .neq('subcategoria', '')
+      // Leer subcategorías distintas de los productos para esa categoria
+      const url = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=neq.&select=subcategoria`
+      const res = await fetch(url, {
+        headers: {
+          apikey: SERVICE_KEY,
+          Authorization: `Bearer ${SERVICE_KEY}`,
+        },
+        cache: 'no-store',
+      })
 
-      if (error || !data) return NextResponse.json([])
+      if (!res.ok) return NextResponse.json([])
 
-      // Deduplicar y armar el formato que espera el frontend
-      const unique = [...new Set(data.map((p: any) => p.subcategoria as string))]
+      const data: { subcategoria: string }[] = await res.json()
+      const unique = [...new Set(data.map(p => p.subcategoria).filter(Boolean))]
         .sort()
         .map((nombre, i) => ({ id: i + 1, nombre, emoji: '📦', categoria_id: 0 }))
 
       return NextResponse.json(unique)
     }
 
-    // Sin categoria: devolver todo (uso interno/admin)
-    const { data } = await supabase.from('subcategorias').select('*').order('nombre')
+    // Sin categoria: devolver tabla subcategorias completa (admin)
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/subcategorias?order=nombre`, {
+      headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
+      cache: 'no-store',
+    })
+    const data = await res.json()
     return NextResponse.json(data || [])
   } catch {
     return NextResponse.json([])
