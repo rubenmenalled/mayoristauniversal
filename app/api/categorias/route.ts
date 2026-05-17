@@ -1,17 +1,9 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { fetchWooCategorias } from '@/lib/woocommerce'
 
 export async function GET() {
-  try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
-    const { data, error } = await supabase.from('categorias').select('*').order('nombre')
-    if (error) console.error('Supabase error:', error)
-    return NextResponse.json(data || [])
-  } catch (e) {
-    console.error(e)
-    return NextResponse.json([])
-  }
+  const categorias = await fetchWooCategorias()
+  // Añadir campo "nombre" para compatibilidad con Header y otros componentes
+  const data = categorias.map((c: any) => ({ ...c, nombre: c.name }))
+  return NextResponse.json(data)
 }

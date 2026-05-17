@@ -1,15 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Mail, Send } from 'lucide-react'
-import { useState } from 'react'
-
-const links = {
-  'Marketplace': ['Todos los rubros', 'Ofertas del día', 'Proveedores destacados', 'Nuevos productos', 'Más vendidos'],
-  'Para Compradores': ['Cómo comprar', 'Mínimos de compra', 'Formas de pago', 'Envíos y logística', 'Protección al comprador'],
-  'Para Proveedores': ['Publicar productos', 'Planes y precios', 'Cómo funciona', 'Centro de vendedores', 'Estadísticas'],
-  'Información': ['Sobre nosotros', 'Contacto', 'Trabaja con nosotros', 'Blog mayorista', 'Prensa'],
-}
+import { MapPin, Phone, Mail } from 'lucide-react'
 
 const social = [
   { name: 'Instagram', emoji: '📸', href: '#' },
@@ -19,52 +11,15 @@ const social = [
   { name: 'TikTok',    emoji: '🎵', href: '#' },
 ]
 
-const payment = ['💳 Tarjetas', '🏦 Transferencia', '📱 Mercado Pago', '💵 Efectivo', '📄 Cheque']
+const payment = ['🏦 Transferencia', '📱 Mercado Pago']
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-
-  const handleNewsletter = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-    setEmail('')
-    setTimeout(() => setSubmitted(false), 3000)
-  }
-
   return (
     <footer id="contacto" className="relative overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #030D1E 0%, #020810 100%)' }}>
       {/* Gold top border */}
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
-      {/* Newsletter banner */}
-      <div className="py-12 px-4 border-b border-gold/10"
-        style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%)' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <h3 className="font-display font-black text-2xl md:text-3xl text-white mb-2">
-            Recibí las mejores <span className="gold-text">ofertas mayoristas</span>
-          </h3>
-          <p className="text-gray-400 mb-6">Suscribite y accedé a descuentos exclusivos y nuevos proveedores cada semana.</p>
-          <form onSubmit={handleNewsletter} className="flex max-w-md mx-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="tu@email.com"
-              required
-              className="flex-1 bg-navy-light border border-gold/30 focus:border-gold/60 text-white placeholder-gray-500 rounded-l-full px-5 py-3 outline-none text-sm transition-colors"
-            />
-            <motion.button
-              type="submit"
-              className="btn-gold px-6 py-3 rounded-r-full flex items-center gap-2 text-sm font-bold flex-shrink-0"
-              whileTap={{ scale: 0.97 }}
-            >
-              {submitted ? '✅ Listo!' : <><Send size={14} /> Suscribirse</>}
-            </motion.button>
-          </form>
-        </div>
-      </div>
 
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 py-16">
@@ -77,12 +32,12 @@ export default function Footer() {
               <span className="font-display font-black text-3xl text-white tracking-[0.2em]">UNIVERSAL</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              El marketplace mayorista más grande de Argentina, con los mejores precios en todos los rubros del mercado.
+              Los mejores precios mayoristas en todos los rubros del mercado, en toda Argentina.
             </p>
 
             {/* Contact */}
             <div className="space-y-2 text-sm text-gray-400 mb-6">
-              <div className="flex items-center gap-2"><Phone size={14} className="text-gold" /> +54 11 5555-0000</div>
+              <div className="flex items-center gap-2"><Phone size={14} className="text-gold" /> +54 116 4660482</div>
               <div className="flex items-center gap-2"><Mail  size={14} className="text-gold" /> info@mayoristauniversal.com.ar</div>
               <div className="flex items-center gap-2"><MapPin size={14} className="text-gold" /> Buenos Aires, Argentina</div>
             </div>
@@ -103,21 +58,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(links).map(([title, items]) => (
-            <div key={title}>
-              <h4 className="font-display font-bold text-white mb-4 text-sm uppercase tracking-wider">{title}</h4>
-              <ul className="space-y-2">
-                {items.map(item => (
-                  <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-gold text-sm transition-colors duration-200">
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
         </div>
       </div>
 

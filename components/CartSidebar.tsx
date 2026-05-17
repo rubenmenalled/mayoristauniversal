@@ -102,24 +102,34 @@ export default function CartSidebar({ open, onClose }: Props) {
                 {/* Mínimo de compra */}
                 {faltaMinimo && (
                   <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 12, fontSize: 12, color: '#f87171' }}>
-                    ⚠️ Mínimo de compra: $150.000. Te faltan ${(MIN_COMPRA - total).toLocaleString('es-AR')}
+                    ⚠️ Mínimo $150.000. Te faltan <strong>${(MIN_COMPRA - total).toLocaleString('es-AR')}</strong> — seguí agregando productos
                   </div>
                 )}
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
                   <span style={{ color: '#7a8a9a', fontWeight: 700 }}>Total</span>
                   <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 20 }}>${total.toLocaleString('es-AR')}</span>
                 </div>
-                <button
-                  disabled={faltaMinimo}
-                  onClick={() => { onClose(); router.push('/checkout') }}
-                  style={{
-                    width: '100%', padding: '14px', borderRadius: 12, border: 'none',
-                    background: faltaMinimo ? 'rgba(212,175,55,0.3)' : 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                    color: '#030D1E', fontWeight: 900, fontSize: 15,
-                    cursor: faltaMinimo ? 'not-allowed' : 'pointer',
-                  }}>
-                  {faltaMinimo ? 'Monto mínimo no alcanzado' : 'FINALIZAR COMPRA →'}
-                </button>
+                {faltaMinimo ? (
+                  <button
+                    onClick={onClose}
+                    style={{
+                      width: '100%', padding: '14px', borderRadius: 12, border: 'none',
+                      background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+                      color: '#030D1E', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+                    }}>
+                    + SEGUIR AGREGANDO PRODUCTOS
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => { onClose(); router.push('/checkout') }}
+                    style={{
+                      width: '100%', padding: '14px', borderRadius: 12, border: 'none',
+                      background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+                      color: '#030D1E', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+                    }}>
+                    FINALIZAR COMPRA →
+                  </button>
+                )}
                 <button onClick={clearCart}
                   style={{ width: '100%', marginTop: 8, padding: '10px', borderRadius: 12, border: '1px solid rgba(239,68,68,0.3)', background: 'transparent', color: '#f87171', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                   Vaciar carrito

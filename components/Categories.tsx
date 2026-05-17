@@ -1,19 +1,30 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface Category { id: number; name: string; emoji: string; image: string; description: string; count: number }
 
-export default function Categories({ categories }: { categories: Category[] }) {
+export default function Categories({ categories: initialCategories }: { categories: Category[] }) {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [categories, setCategories] = useState<Category[]>(initialCategories || [])
+
+  useEffect(() => {
+    // Siempre buscar directo de la API para tener datos frescos
+    fetch('/api/categorias')
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data) && data.length > 0) setCategories(data) })
+      .catch(() => {})
+  }, [])
 
   const scroll = (dir: 'left' | 'right') => {
     if (!scrollRef.current) return
     scrollRef.current.scrollBy({ left: dir === 'right' ? 300 : -300, behavior: 'smooth' })
   }
+
+  if (categories.length === 0) return null
 
   return (
     <section id="categorias" className="py-4 relative"
@@ -58,7 +69,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
                   <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-gold/60 transition-all" />
                 </div>
                 {/* Label */}
-                <span className="text-gray-300 group-hover:text-gold text-xs font-bold uppercase tracking-wide transition-colors text-center">
+                <span style={{ color: '#e2e8f0', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center', maxWidth: 90, lineHeight: 1.2 }}>
                   {cat.name}
                 </span>
               </motion.a>

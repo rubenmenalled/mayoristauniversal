@@ -17,11 +17,11 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Mayorista Universal | Marketplace Mayorista Multirubro Argentina',
-  description: 'El marketplace mayorista más grande de Argentina. Más de 500.000 productos de 15.000 proveedores verificados. Compra directa al por mayor en todos los rubros.',
-  keywords: 'mayorista, marketplace, argentina, productos mayoristas, compra al por mayor, proveedores',
+  title: 'Mayorista Universal | Compra Mayorista Multirubro Argentina',
+  description: 'Los mejores precios mayoristas en todos los rubros. Compra directa al por mayor en toda Argentina.',
+  keywords: 'mayorista, argentina, productos mayoristas, compra al por mayor',
   openGraph: {
-    title: 'Mayorista Universal | Marketplace Mayorista #1 de Argentina',
+    title: 'Mayorista Universal | Compra Mayorista en Argentina',
     description: 'Todos los rubros mayoristas en un solo lugar, con los mejores precios del mercado en toda Argentina.',
     type: 'website',
   },

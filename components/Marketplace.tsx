@@ -75,9 +75,9 @@ function ProductCard({ p }: { p: Product }) {
       <div className="absolute inset-0 rounded-xl border border-gold/0 group-hover:border-gold/40 transition-all duration-300 pointer-events-none z-10" />
 
       {/* Image */}
-      <div className="relative h-40 bg-navy-mid overflow-hidden">
+      <div className="relative h-40 bg-navy-mid overflow-hidden" style={{ background: '#071633' }}>
         <Image src={p.image} alt={p.name} fill
-          className="object-cover transition-transform duration-500 group-hover:scale-108"
+          className="object-contain transition-transform duration-500 group-hover:scale-105 p-2"
           sizes="(max-width:640px) 100vw, 200px" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/70 to-transparent" />
         {/* Discount badge */}
@@ -154,11 +154,17 @@ function SupplierRow({ s }: { s: typeof suppliers[0] }) {
 /* ─── Main component ─── */
 const TABS = ['Todos', 'Nuevos', 'En oferta', 'Más vendidos']
 
-export default function Marketplace({ products }: { products?: Product[] }) {
+export default function Marketplace({ products: initialProducts }: { products?: Product[] }) {
   const [tab,      setTab]      = useState('Todos')
   const [category, setCategory] = useState('Todos')
+  const [allProducts, setAllProducts] = useState<Product[]>(initialProducts || [])
 
-  const allProducts = products || []
+  useEffect(() => {
+    fetch('/api/productos-publicos')
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data) && data.length > 0) setAllProducts(data) })
+      .catch(() => {})
+  }, [])
 
   const filtered = tab === 'En oferta'
     ? allProducts.filter(p => p.badge === 'OFERTA')
@@ -177,11 +183,6 @@ export default function Marketplace({ products }: { products?: Product[] }) {
             {/* Header */}
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gold/20">
               <span className="text-gold font-black text-sm uppercase tracking-wide">⚡ Ofertas Destacadas</span>
-            </div>
-
-            {/* Countdown */}
-            <div className="mb-4">
-              <CountdownTimer />
             </div>
 
             {/* Placeholder cuando no hay oferta destacada */}
@@ -237,44 +238,6 @@ export default function Marketplace({ products }: { products?: Product[] }) {
 
         </div>
 
-        {/* ── Stats + promo bar ── */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Promo banner */}
-          <motion.div className="glass-card rounded-xl p-5 flex items-center gap-4"
-            style={{ border: '1px solid rgba(212,175,55,0.2)' }}
-            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <div className="w-14 h-14 rounded-full flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', boxShadow: '0 0 20px rgba(212,175,55,0.4)' }}>
-              %
-            </div>
-            <div>
-              <div className="text-white font-black text-sm">PROMOCIONES EXCLUSIVAS</div>
-              <div className="text-gray-400 text-xs mb-2">PARA COMPRAS MAYORISTAS</div>
-              <button className="px-4 py-1.5 rounded-lg text-navy text-xs font-black"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
-                VER PROMOCIONES
-              </button>
-            </div>
-          </motion.div>
-
-          {/* Stats row */}
-          <motion.div className="glass-card rounded-xl p-5 grid grid-cols-4 gap-2"
-            style={{ border: '1px solid rgba(212,175,55,0.2)' }}
-            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            {[
-              { icon: '📦', n: '+25.000', l: 'PRODUCTOS'    },
-              { icon: '🏭', n: '+8.000',  l: 'PROVEEDORES'  },
-              { icon: '👥', n: '+100.000',l: 'COMPRADORES'  },
-              { icon: '🗺️', n: '24',      l: 'PROVINCIAS'  },
-            ].map(s => (
-              <div key={s.l} className="text-center">
-                <div className="text-xl mb-1">{s.icon}</div>
-                <div className="text-gold font-black text-sm leading-none">{s.n}</div>
-                <div className="text-gray-400 text-[10px] mt-0.5">{s.l}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
       </div>
     </section>
   )

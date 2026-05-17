@@ -1,0 +1,166 @@
+'use client'
+
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { ArrowLeft, Search, Star, ShoppingCart } from 'lucide-react'
+import { useCart } from '@/lib/CartContext'
+import CartSidebar from '@/components/CartSidebar'
+
+interface Producto {
+  id: number; name: string; brand: string; category: string
+  price: number; wholesalePrice: number; minOrder: number
+  rating: number; reviews: number; image: string
+  badge?: string; discount?: number; location: string
+}
+
+function Stars({ n }: { n: number }) {
+  return (
+    <div className="flex gap-0.5">
+      {[1,2,3,4,5].map(i => (
+        <Star key={i} size={11} className={i <= Math.round(n) ? 'text-gold fill-gold' : 'text-gray-600'} />
+      ))}
+    </div>
+  )
+}
+
+function BuscarContent() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const { addItem, count, cartOpen, setCartOpen } = useCart()
+  const q = searchParams.get('q') || ''
+  const [query, setQuery] = useState(q)
+  const [productos, setProductos] = useState<Producto[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setLoading(true)
+    fetch('/api/productos-publicos')
+      .then(r => r.json())
+      .then((data: Producto[]) => {
+        const term = q.toLowerCase()
+        const filtrados = data.filter(p =>
+          p.name?.toLowerCase().includes(term) ||
+          p.brand?.toLowerCase().includes(term) ||
+          p.category?.toLowerCase().includes(term)
+        )
+        setProductos(filtrados)
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [q])
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (query.trim()) window.location.href = `/buscar?q=${encodeURIComponent(query.trim())}`
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #030D1E 0%, #071633 100%)' }}>
+      {/* Header */}
+      <div style={{
+        background: 'rgba(7,22,51,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50,
+        backdropFilter: 'blur(16px)',
+      }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <button onClick={() => router.push('/')}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13 }}>
+            <ArrowLeft size={16} /> Inicio
+          </button>
+          <div style={{ flex: 1 }} />
+          <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#fff', padding: 6 }}>
+            <ShoppingCart size={24} />
+            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#030D1E', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
+          </button>
+          <form onSubmit={handleSearch} style={{ flex: 1, display: 'flex', gap: 0, borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
+            <input
+              type="text" value={query} onChange={e => setQuery(e.target.value)}
+              placeholder="Buscar productos, categorías o marcas..."
+              style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: 'none', outline: 'none', color: '#fff', padding: '10px 16px', fontSize: 14 }}
+            />
+            <button type="submit" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
+              <Search size={18} color="#030D1E" strokeWidth={2.5} />
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* Resultados */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
+        {loading ? (
+          <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80 }}>Buscando...</div>
+        ) : (
+          <>
+            <div style={{ color: '#7a8a9a', fontSize: 13, marginBottom: 24 }}>
+              {productos.length === 0
+                ? `No se encontraron resultados para "${q}"`
+                : <>{productos.length} resultado{productos.length !== 1 ? 's' : ''} para <span style={{ color: '#D4AF37', fontWeight: 700 }}>"{q}"</span></>
+              }
+            </div>
+
+            {productos.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: 60, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
+                <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
+                <div style={{ color: '#fff', fontWeight: 900, fontSize: 20, marginBottom: 8 }}>Sin resultados</div>
+                <div style={{ color: '#7a8a9a', fontSize: 14 }}>Probá con otro término o explorá los catálogos</div>
+                <button onClick={() => router.push('/catalogo')}
+                  style={{ marginTop: 20, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '12px 28px', color: '#030D1E', fontWeight: 900, cursor: 'pointer' }}>
+                  Ver catálogos
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
+                {productos.map((p, i) => (
+                  <motion.div key={p.id}
+                    className="glass-card rounded-xl overflow-hidden"
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.04 }} whileHover={{ y: -4 }}>
+                    <div style={{ position: 'relative', height: 160, background: '#071633', overflow: 'hidden' }}>
+                      {p.image ? (
+                        <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="220px" />
+                      ) : (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
+                      )}
+                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(3,13,30,0.7), transparent)' }} />
+                      {p.discount && p.discount > 0 && (
+                        <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
+                      )}
+                    </div>
+                    <div style={{ padding: 12 }}>
+                      {p.brand && <div style={{ color: '#7a8a9a', fontSize: 10, fontWeight: 600, marginBottom: 2 }}>Marca: {p.brand}</div>}
+                      <h3 style={{ color: '#fff', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
+                      <Stars n={p.rating} />
+                      <div style={{ marginTop: 8 }}>
+                        {p.price > 0 && <div style={{ color: '#6b7280', fontSize: 11, textDecoration: 'line-through' }}>${p.price.toLocaleString('es-AR')}</div>}
+                        <div style={{ color: '#7a8a9a', fontSize: 10, marginTop: 2 }}>
+                          Mayorista: <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                        </div>
+                      </div>
+                      <motion.button
+                        style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#030D1E', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>
+                        <ShoppingCart size={11} /> AGREGAR
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
+    </div>
+  )
+}
+
+export default function BuscarPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#030D1E', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7a8a9a' }}>Cargando...</div>}>
+      <BuscarContent />
+    </Suspense>
+  )
+}

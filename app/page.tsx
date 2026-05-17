@@ -1,29 +1,21 @@
-import Header        from '@/components/Header'
-import HeroSection   from '@/components/HeroSection'
-import PromoBanner   from '@/components/PromoBanner'
-import Categories    from '@/components/Categories'
-import BenefitsBar   from '@/components/Benefits'
-import Marketplace   from '@/components/Marketplace'
-import Testimonials  from '@/components/Testimonials'
-import Footer        from '@/components/Footer'
-import WhatsAppButton from '@/components/WhatsAppButton'
-import { getProductos, getCategorias } from '@/lib/data'
+import Header           from '@/components/Header'
+import HeroSection      from '@/components/HeroSection'
+import CatalogosSection from '@/components/CatalogosSection'
+import Footer           from '@/components/Footer'
+import WhatsAppButton   from '@/components/WhatsAppButton'
+import { getCategorias } from '@/lib/data'
 
-export const revalidate = 60 // Refresca datos cada 60 segundos
+export const revalidate = 0 // Siempre datos frescos
 
 export default async function HomePage() {
-  const [productos, categorias] = await Promise.all([getProductos(), getCategorias()])
+  const categorias = await getCategorias()
 
   return (
     <>
       <Header />
       <main>
         <HeroSection />
-        <PromoBanner />
-        <Categories categories={categorias} />
-        <BenefitsBar />
-        <Marketplace products={productos} />
-        <Testimonials />
+        <CatalogosSection categorias={categorias} />
       </main>
       <Footer />
       <WhatsAppButton />
