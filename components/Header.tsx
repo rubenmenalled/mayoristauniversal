@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, ShoppingCart, Menu, X, ChevronDown, MessageCircle, Grid } from 'lucide-react'
+import { Search, ShoppingCart, Menu, X, ChevronDown, MessageCircle, Grid, User, LogOut } from 'lucide-react'
 import { useCart } from '@/lib/CartContext'
 import CartSidebar from './CartSidebar'
+import { supabase } from '@/lib/supabase'
 
 const navLinks = [
   { name: 'PRODUCTOS',    href: '#productos'   },
@@ -14,6 +16,7 @@ const navLinks = [
 ]
 
 export default function Header() {
+  const router = useRouter()
   const [scrolled,   setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [search,     setSearch]     = useState('')
@@ -24,6 +27,7 @@ export default function Header() {
   const { count, cartOpen, setCartOpen } = useCart()
   const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
   const catRef = useRef<HTMLDivElement>(null)
+  const [userName, setUserName] = useState<string | null>(null)
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
@@ -33,6 +37,18 @@ export default function Header() {
 
   useEffect(() => {
     fetch('/api/categorias').then(r => r.json()).then(setCategorias).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      const u = data.session?.user
+      if (u) setUserName(u.user_metadata?.nombre || u.email || 'Mi cuenta')
+    })
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      const u = session?.user
+      setUserName(u ? (u.user_metadata?.nombre || u.email || 'Mi cuenta') : null)
+    })
+    return () => listener.subscription.unsubscribe()
   }, [])
 
   useEffect(() => {
@@ -105,13 +121,30 @@ export default function Header() {
             </motion.button>
 
             {/* Account */}
-            <motion.button
-              className="flex flex-col items-end text-gray-300 hover:text-gold transition-colors"
-              whileHover={{ scale: 1.03 }}
-            >
-              <span className="text-[11px] leading-none opacity-80">Ingresar / Registrarse</span>
-              <span className="text-[12px] font-bold leading-none flex items-center gap-1">Mi cuenta <ChevronDown size={11} /></span>
-            </motion.button>
+            {userName ? (
+              <div className="flex items-center gap-2">
+                <motion.a href="/mi-cuenta"
+                  className="flex items-center gap-2 text-gray-300 hover:text-gold transition-colors"
+                  whileHover={{ scale: 1.03 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <User size={16} color="#030D1E" />
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-[10px] leading-none opacity-70 text-gold">Bienvenido</span>
+                    <span className="text-[12px] font-bold leading-none text-gold" style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {userName.split(' ')[0].split('@')[0]}
+                    </span>
+                  </div>
+                </motion.a>
+              </div>
+            ) : (
+              <motion.a href="/login"
+                className="flex flex-col items-end text-gray-300 hover:text-gold transition-colors"
+                whileHover={{ scale: 1.03 }}>
+                <span className="text-[11px] leading-none opacity-80">Ingresar / Registrarse</span>
+                <span className="text-[12px] font-bold leading-none flex items-center gap-1">Mi cuenta <ChevronDown size={11} /></span>
+              </motion.a>
+            )}
           </div>
 
           {/* Mobile search + menu */}
@@ -263,6 +296,19 @@ export default function Header() {
               <div className="flex gap-2 pt-1">
                 <a href="https://wa.me/5491164660482"
                   className="flex-1 bg-green-600 text-white py-2.5 rounded-lg text-sm font-semibold text-center">📱 WhatsApp</a>
+                {userName ? (
+                  <a href="/mi-cuenta"
+                    className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#030D1E' }}>
+                    👤 Mi cuenta
+                  </a>
+                ) : (
+                  <a href="/login"
+                    className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#030D1E' }}>
+                    Ingresar
+                  </a>
+                )}
               </div>
             </div>
           </motion.div>
