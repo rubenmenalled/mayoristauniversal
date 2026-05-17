@@ -27,11 +27,11 @@ export default function HeroSection() {
         </div>
       </a>
 
-      {/* Mobile: imagen vertical completa */}
+      {/* Mobile: imagen vertical completa (imagen original portrait) */}
       <a href="/catalogo" className="block md:hidden" style={{ cursor: 'pointer', position: 'relative' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/portada.jpeg"
+          src="/portada_backup.jpeg"
           alt="Mayorista Universal - Multirubros Mayoristas"
           style={{ width: '100%', height: 'auto', display: 'block' }}
         />
