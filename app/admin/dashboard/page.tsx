@@ -33,6 +33,13 @@ export default function Dashboard() {
       href: '/admin/clientes',
       color: '#6a3a1a',
     },
+    {
+      icon: '🧾',
+      title: 'Pedidos',
+      desc: 'Ver y gestionar todos los pedidos recibidos con sus estados',
+      href: '/admin/pedidos',
+      color: '#2a1a6a',
+    },
   ]
 
   return (

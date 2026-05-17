@@ -113,9 +113,33 @@ export default function CatalogoPage() {
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80, fontSize: 16 }}>
-            Cargando catálogos...
-          </div>
+          <>
+            <style dangerouslySetInnerHTML={{ __html: `
+              @keyframes shimmer {
+                0%   { background-position: -800px 0; }
+                100% { background-position:  800px 0; }
+              }
+            `}} />
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: 16,
+            }}>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  style={{
+                    height: 'clamp(160px, 30vw, 220px)',
+                    borderRadius: 12,
+                    background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
+                    backgroundSize: '800px 100%',
+                    animation: 'shimmer 1.6s infinite linear',
+                    animationDelay: `${i * 0.08}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </>
         ) : filtradas.length === 0 ? (
           <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80, fontSize: 16 }}>
             No se encontraron catálogos

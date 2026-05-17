@@ -3,6 +3,7 @@ import HeroSection      from '@/components/HeroSection'
 import StatsSection     from '@/components/StatsSection'
 import CatalogosSection from '@/components/CatalogosSection'
 import ComoComprar      from '@/components/ComoComprar'
+import MediosDePago    from '@/components/MediosDePago'
 import Testimonios      from '@/components/Testimonios'
 import FAQ              from '@/components/FAQ'
 import Footer           from '@/components/Footer'
@@ -22,6 +23,7 @@ export default async function HomePage() {
         <StatsSection />
         <CatalogosSection categorias={categorias} />
         <ComoComprar />
+        <MediosDePago />
         <Testimonios />
         <FAQ />
       </main>

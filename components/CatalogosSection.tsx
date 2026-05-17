@@ -34,9 +34,53 @@ interface Categoria {
   count: number
 }
 
-export default function CatalogosSection({ categorias = [] }: { categorias?: Categoria[] }) {
+const SHIMMER_KEYFRAMES = `
+@keyframes shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+`
 
-  if (categorias.length === 0) return null
+function SkeletonGrid() {
+  return (
+    <section style={{ background: '#020810', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+      <style dangerouslySetInnerHTML={{ __html: SHIMMER_KEYFRAMES }} />
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        {/* Título skeleton */}
+        <div style={{
+          height: 28, width: 260, borderRadius: 6, marginBottom: 28,
+          background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
+          backgroundSize: '800px 100%',
+          animation: 'shimmer 1.6s infinite linear',
+        }} />
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+          gap: 12,
+        }}>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div
+              key={i}
+              style={{
+                height: 'clamp(160px, 30vw, 220px)',
+                borderRadius: 12,
+                background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
+                backgroundSize: '800px 100%',
+                animation: 'shimmer 1.6s infinite linear',
+                animationDelay: `${i * 0.08}s`,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default function CatalogosSection({ categorias }: { categorias?: Categoria[] }) {
+
+  if (categorias === undefined) return null
+  if (categorias.length === 0) return <SkeletonGrid />
 
   // Eliminar duplicados (ej: BEBE y BEBES)
   const vistas = new Set<string>()
