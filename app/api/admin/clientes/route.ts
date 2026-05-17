@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
-
-const ADMIN_SECRET = process.env.ADMIN_SECRET
+import { verifyToken } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
   const token = request.cookies.get('admin_token')?.value
-  if (!token || token !== ADMIN_SECRET) {
+  if (!token || !(await verifyToken(token))) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
   }
 
