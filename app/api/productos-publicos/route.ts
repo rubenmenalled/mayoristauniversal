@@ -19,5 +19,24 @@ export async function GET(request: NextRequest) {
   const { data, error } = await query
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json(data ?? [])
+
+  // Mapear campos de español (Supabase) a inglés (frontend)
+  const mapped = (data ?? []).map((p: any) => ({
+    id:             p.id,
+    name:           p.nombre,
+    brand:          p.marca || '',
+    category:       p.categoria || '',
+    subcategory:    p.subcategoria || '',
+    price:          p.precio ?? 0,
+    wholesalePrice: p.precio_mayorista ?? p.precio ?? 0,
+    minOrder:       p.pedido_minimo ?? 1,
+    image:          p.imagen || '',
+    badge:          p.badge || '',
+    discount:       p.descuento ?? 0,
+    location:       p.ubicacion || 'Buenos Aires',
+    rating:         4.5,
+    reviews:        12,
+  }))
+
+  return NextResponse.json(mapped)
 }
