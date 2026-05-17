@@ -6,6 +6,16 @@ const nextConfig = {
       { protocol: 'http',  hostname: '**' },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.mayoristauniversal.vercel.app' }],
+        destination: 'https://mayoristauniversal.vercel.app/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
