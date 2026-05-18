@@ -18,7 +18,7 @@ const FOTOS: Record<string, string> = {
   OPTICA:       'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80',
   PELUCHES:            '/cat_peluches.jpg',
   'PELUCHES ENAMORADOS':   'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=600&q=80&auto=format&fit=crop',
-  'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1675001077167-ba5dd533be2f?w=600&q=80&auto=format&fit=crop',
+  'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1609541994821-d909982e2f1b?w=600&q=80&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
   RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
   HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
