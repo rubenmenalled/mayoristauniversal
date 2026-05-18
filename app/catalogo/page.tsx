@@ -21,7 +21,7 @@ const FOTOS: Record<string, string> = {
   MASCOTAS:     'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=600&q=80',
   OPTICA:       'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80',
   PELUCHES:            '/cat_peluches.jpg',
-  'PELUCHES ENAMORADOS': 'https://images.unsplash.com/photo-1746086622003-34dbb6637ab6?w=600&q=80&auto=format&fit=crop',
+  'PELUCHES ENAMORADOS': 'https://images.unsplash.com/photo-1622810587375-f9a3d7d9cde8?w=600&q=80&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
   RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
   HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
