@@ -124,7 +124,7 @@ function BuscarContent() {
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                       )}
                       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(3,13,30,0.7), transparent)' }} />
-                      {p.discount > 0 && (
+                      {(p.discount ?? 0) > 0 && (
                         <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
                       )}
                     </div>
