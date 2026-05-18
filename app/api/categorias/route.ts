@@ -1,17 +1,36 @@
 import { NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
 
+const ORDEN_CATEGORIAS = [
+  'PRODUCTOS REGIONALES',
+  'PELUCHES',
+  'PELUCHES ENAMORADOS',
+  'BEBE',
+  'ELECTRONICA',
+  'HERRAMIENTAS',
+  'MARROQUINERIA',
+  'MASCOTAS',
+  'BAZAR',
+  'COTILLON',
+  'OPTICA',
+  'RODADOS',
+  'FITNESS',
+  'BELLEZA',
+  'BLANQUERIA',
+  'JUGUETERIA',
+  'LIBRERIA',
+  'PERFUMERIA',
+]
+
 export async function GET() {
   const supabase = getAdminClient()
 
   const { data, error } = await supabase
     .from('categorias')
     .select('*')
-    .order('nombre')
 
   if (error) return NextResponse.json([], { status: 500 })
 
-  // Mapear campos de Supabase al formato que espera el frontend
   const mapped = (data ?? []).map((c: any) => ({
     id:          c.id,
     name:        c.nombre,
@@ -22,5 +41,14 @@ export async function GET() {
     count:       c.cantidad ?? 0,
   }))
 
-  return NextResponse.json(mapped)
+  const sorted = [...mapped].sort((a, b) => {
+    const ia = ORDEN_CATEGORIAS.indexOf(a.name.toUpperCase())
+    const ib = ORDEN_CATEGORIAS.indexOf(b.name.toUpperCase())
+    if (ia === -1 && ib === -1) return a.name.localeCompare(b.name)
+    if (ia === -1) return 1
+    if (ib === -1) return -1
+    return ia - ib
+  })
+
+  return NextResponse.json(sorted)
 }
