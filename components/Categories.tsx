@@ -13,7 +13,7 @@ export default function Categories({ categories: initialCategories }: { categori
 
   useEffect(() => {
     // Siempre buscar directo de la API para tener datos frescos
-    fetch('/api/categorias')
+    fetch('/api/cats')
       .then(r => r.json())
       .then(data => { if (Array.isArray(data) && data.length > 0) setCategories(data) })
       .catch(() => {})

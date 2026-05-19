@@ -36,7 +36,7 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    fetch('/api/categorias').then(r => r.json()).then(setCategorias).catch(() => {})
+    fetch('/api/cats').then(r => r.json()).then(setCategorias).catch(() => {})
   }, [])
 
   useEffect(() => {

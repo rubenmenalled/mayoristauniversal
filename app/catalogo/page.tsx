@@ -52,7 +52,7 @@ export default function CatalogoPage() {
   const [busqueda, setBusqueda] = useState('')
 
   useEffect(() => {
-    fetch('/api/categorias')
+    fetch('/api/cats')
       .then(r => r.json())
       .then(data => { setCategorias(data); setLoading(false) })
       .catch(() => setLoading(false))
