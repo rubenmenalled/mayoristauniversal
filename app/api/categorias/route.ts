@@ -52,5 +52,7 @@ export async function GET() {
     return ia - ib
   })
 
-  return NextResponse.json(sorted)
+  return NextResponse.json(sorted, {
+    headers: { 'Cache-Control': 'no-store, max-age=0' }
+  })
 }
