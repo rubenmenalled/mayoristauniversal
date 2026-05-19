@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
 
+export const dynamic = 'force-dynamic'
+
 const ORDEN_CATEGORIAS = [
   'PRODUCTOS REGIONALES',
   'PELUCHES',
