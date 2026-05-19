@@ -32,8 +32,8 @@ const FOTOS: Record<string, string> = {
   CALZADO:      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
   CAMPING:      'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80',
   AUTOMOTOR:    'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80',
-  ILUMINACION:  'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=600&q=80',
-  ADULTOS:      'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80',
+  ILUMINACION:  'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=600&q=80',
+  ADULTOS:      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80',
 }
 
 interface Categoria {
