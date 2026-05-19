@@ -7,6 +7,7 @@ import { ArrowLeft, Search } from 'lucide-react'
 
 const FOTOS: Record<string, string> = {
   BAZAR:        '/cat_bazar.jpg',
+  'BAZAR/HOGAR': '/cat_bazar.jpg',
   BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80',
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80',
   BELLEZA:      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
