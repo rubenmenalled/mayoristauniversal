@@ -36,9 +36,9 @@ const FOTOS_SUB: Record<string, string> = {
   'DIDÁCTICOS':      'https://images.unsplash.com/photo-1685358272306-6e96880aa97d?w=600&q=80',
   'OTROS ACCESORIOS':'https://images.unsplash.com/photo-1690551900519-82b94bfe7021?w=600&q=80',
   'LA HUELLA':          'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&q=80',
-  'ENAMORADO GRANDE':   'https://images.unsplash.com/photo-1773212666407-b83982be3ab2?w=600&q=80',
-  'ENAMORADO MEDIANO':  'https://images.unsplash.com/photo-1770370358248-9f4bd565c727?w=600&q=80',
-  'ENAMORADOS CHICOS':  'https://images.unsplash.com/photo-1770370358141-1b4924123e6d?w=600&q=80',
+  'ENAMORADO GRANDE':   'https://images.unsplash.com/photo-1766090503766-623b62f0da26?w=600&q=80',
+  'ENAMORADO MEDIANO':  'https://images.unsplash.com/photo-1775684363289-db2b1b40edd5?w=600&q=80',
+  'ENAMORADOS CHICOS':  'https://images.unsplash.com/photo-1769072385063-f9662633291e?w=600&q=80',
 }
 
 function Stars({ n }: { n: number }) {
