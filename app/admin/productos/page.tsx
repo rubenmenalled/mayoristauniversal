@@ -47,6 +47,8 @@ export default function ProductosAdmin() {
   const [importSubcategorias, setImportSubcategorias] = useState<{id: number, nombre: string}[]>([])
   const [showBorrarModal, setShowBorrarModal] = useState(false)
   const [borrarCat, setBorrarCat] = useState('')
+  const [borrarSubcat, setBorrarSubcat] = useState('')
+  const [borrarMode, setBorrarMode] = useState<'cat'|'subcat'>('cat')
   const [seleccionados, setSeleccionados] = useState<Set<number>>(new Set())
   const [showAsignarModal, setShowAsignarModal] = useState(false)
   const [asignarCat, setAsignarCat] = useState('')
@@ -237,7 +239,7 @@ export default function ProductosAdmin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#030D1E 0%,#071633 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#0A2147 0%,#1A3A6B 100%)' }}>
       {/* Header */}
       <div style={{
         background: 'rgba(255,255,255,0.03)',
@@ -295,6 +297,8 @@ export default function ProductosAdmin() {
                   ? productos.filter(p => !p.categoria)
                   : productos.filter(p => p.categoria === cat)
                 setBorrarCat(cat)
+                setBorrarSubcat('')
+                setBorrarMode('cat')
                 setSeleccionados(new Set(prods.map(p => p.id!)))
                 setShowBorrarModal(true)
               }}
@@ -309,6 +313,32 @@ export default function ProductosAdmin() {
                 <option key={cat} value={cat}>{cat}</option>
               ))}
               <option value="__sin_categoria__">— Sin categoría —</option>
+            </select>
+          )}
+          {/* Borrar por subcategoría */}
+          {productos.length > 0 && (
+            <select
+              onChange={e => {
+                const sub = e.target.value
+                if (!sub) return
+                e.target.value = ''
+                const prods = productos.filter(p => p.subcategoria === sub)
+                setBorrarSubcat(sub)
+                setBorrarCat('')
+                setBorrarMode('subcat')
+                setSeleccionados(new Set(prods.map(p => p.id!)))
+                setShowBorrarModal(true)
+              }}
+              defaultValue=""
+              style={{
+                background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+                borderRadius: 10, padding: '10px 16px', color: '#f87171', fontWeight: 700, fontSize: 13,
+                cursor: 'pointer', outline: 'none',
+              }}>
+              <option value="">🗑️ Borrar por subcategoría</option>
+              {Array.from(new Set(productos.map(p => p.subcategoria).filter(Boolean))).sort().map(sub => (
+                <option key={sub} value={sub}>{sub}</option>
+              ))}
             </select>
           )}
           {/* Asignar subcategoría */}
@@ -362,7 +392,7 @@ export default function ProductosAdmin() {
             onClick={() => { setForm(EMPTY); setShowForm(true) }}
             style={{
               background: GOLD, border: 'none', borderRadius: 10,
-              padding: '10px 20px', color: '#030D1E', fontWeight: 900, fontSize: 14,
+              padding: '10px 20px', color: '#0A2147', fontWeight: 900, fontSize: 14,
               cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8,
             }}>
             <Plus size={16} /> Agregar Producto
@@ -454,17 +484,22 @@ export default function ProductosAdmin() {
         })()}
 
         {showBorrarModal && (() => {
-          const lista = borrarCat === '__sin_categoria__'
-            ? productos.filter(p => !p.categoria)
-            : productos.filter(p => p.categoria === borrarCat)
-          const todos = lista.every(p => seleccionados.has(p.id!))
+          const lista = borrarMode === 'subcat'
+            ? productos.filter(p => p.subcategoria === borrarSubcat)
+            : borrarCat === '__sin_categoria__'
+              ? productos.filter(p => !p.categoria)
+              : productos.filter(p => p.categoria === borrarCat)
+          const todos = lista.length > 0 && lista.every(p => seleccionados.has(p.id!))
+          const modalTitle = borrarMode === 'subcat'
+            ? `🗑️ Borrar subcategoría "${borrarSubcat}"`
+            : `🗑️ Borrar de "${borrarCat === '__sin_categoria__' ? 'Sin categoría' : borrarCat}"`
           return (
             <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2000, padding: 16 }}>
               <div style={{ background: '#0a1628', border: '1px solid rgba(239,68,68,0.4)', borderRadius: 20, padding: 28, width: '100%', maxWidth: 560, maxHeight: '85vh', display: 'flex', flexDirection: 'column' }}>
                 {/* Header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                   <h2 style={{ color: '#f87171', margin: 0, fontWeight: 900, fontSize: 17 }}>
-                    🗑️ Borrar de "{borrarCat === '__sin_categoria__' ? 'Sin categoría' : borrarCat}"
+                    {modalTitle}
                   </h2>
                   <button onClick={() => setShowBorrarModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#7a8a9a' }}>
                     <X size={22} />
@@ -658,7 +693,7 @@ export default function ProductosAdmin() {
                 <button onClick={handleImport} disabled={importing}
                   style={{
                     flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12,
-                    color: '#030D1E', fontWeight: 900, cursor: 'pointer',
+                    color: '#0A2147', fontWeight: 900, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     opacity: importing ? 0.7 : 1,
                   }}>
@@ -860,7 +895,7 @@ export default function ProductosAdmin() {
                   style={{
                     flex: 2, background: GOLD,
                     border: 'none', borderRadius: 10, padding: 12,
-                    color: '#030D1E', fontWeight: 900, cursor: 'pointer',
+                    color: '#0A2147', fontWeight: 900, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     opacity: saving ? 0.7 : 1,
                   }}>

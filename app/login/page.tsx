@@ -85,7 +85,7 @@ export default function LoginPage() {
 
   return (
     <div style={{
-      minHeight: '100vh', background: 'linear-gradient(180deg, #030D1E 0%, #071633 100%)',
+      minHeight: '100vh', background: 'linear-gradient(180deg, #0A2147 0%, #1A3A6B 100%)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px',
     }}>
       <div style={{ width: '100%', maxWidth: 440 }}>
@@ -98,7 +98,7 @@ export default function LoginPage() {
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <ShoppingCart size={28} color="#030D1E" />
+              <ShoppingCart size={28} color="#0A2147" />
             </div>
             <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, letterSpacing: '0.08em' }}>MAYORISTA UNIVERSAL</div>
           </a>
@@ -118,7 +118,7 @@ export default function LoginPage() {
                   flex: 1, padding: '10px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
                   fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
                   background: mode === m ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'transparent',
-                  color: mode === m ? '#030D1E' : '#9ca3af',
+                  color: mode === m ? '#0A2147' : '#9ca3af',
                 }}>
                 {m === 'login' ? 'Ingresar' : 'Registrarse'}
               </button>
@@ -157,9 +157,9 @@ export default function LoginPage() {
                   <label style={labelStyle}>TRANSPORTE PREFERIDO *</label>
                   <select value={transporte} onChange={e => setTransporte(e.target.value)} required
                     style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
-                    <option value="" style={{ background: '#071633' }}>Seleccioná una opción</option>
+                    <option value="" style={{ background: '#1A3A6B' }}>Seleccioná una opción</option>
                     {TRANSPORTES.map(t => (
-                      <option key={t} value={t} style={{ background: '#071633' }}>{t}</option>
+                      <option key={t} value={t} style={{ background: '#1A3A6B' }}>{t}</option>
                     ))}
                   </select>
                 </div>
@@ -226,7 +226,7 @@ export default function LoginPage() {
             <button type="submit" disabled={loading}
               style={{
                 width: '100%', padding: '14px', borderRadius: 12, border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#030D1E',
+                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0A2147',
                 fontWeight: 900, fontSize: 15, letterSpacing: '0.05em',
                 opacity: loading ? 0.7 : 1,
               }}>

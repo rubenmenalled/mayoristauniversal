@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
       if (!res.ok) return NextResponse.json([])
 
       const data: { subcategoria: string }[] = await res.json()
-      const unique = [...new Set(data.map(p => p.subcategoria).filter(Boolean))]
+      const unique = Array.from(new Set(data.map(p => p.subcategoria).filter(Boolean) as string[]))
         .sort()
         .map((nombre, i) => ({ id: i + 1, nombre, emoji: '📦', categoria_id: 0 }))
 

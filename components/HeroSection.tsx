@@ -33,7 +33,7 @@ export default function HeroSection() {
           <div style={{
             position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)',
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#030D1E', fontWeight: 900,
+            color: '#0A2147', fontWeight: 900,
             fontSize: 'clamp(12px,2vw,15px)',
             padding: 'clamp(8px,1.5vw,12px) clamp(18px,3vw,32px)',
             borderRadius: 12,

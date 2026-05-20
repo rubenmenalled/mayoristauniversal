@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function TerminosPage() {
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #030D1E 0%, #071633 100%)', color: '#e8eaf0' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0A2147 0%, #1A3A6B 100%)', color: '#e8eaf0' }}>
 
       {/* Header */}
       <div style={{

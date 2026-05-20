@@ -7,12 +7,12 @@ export default function PromoBanner() {
 
   return (
     <div className="relative overflow-hidden py-3 border-y border-gold/20"
-      style={{ background: 'linear-gradient(135deg, #0A1D3D 0%, #071633 50%, #0A1D3D 100%)' }}>
+      style={{ background: 'linear-gradient(135deg, #0A1D3D 0%, #1A3A6B 50%, #0A1D3D 100%)' }}>
       {/* Left & right fade masks */}
       <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, #071633, transparent)' }} />
+        style={{ background: 'linear-gradient(to right, #1A3A6B, transparent)' }} />
       <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, #071633, transparent)' }} />
+        style={{ background: 'linear-gradient(to left, #1A3A6B, transparent)' }} />
 
       <div className="ticker-track flex gap-0">
         {doubled.map((msg, i) => (

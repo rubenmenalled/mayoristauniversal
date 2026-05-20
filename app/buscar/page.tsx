@@ -57,7 +57,7 @@ function BuscarContent() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #030D1E 0%, #071633 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0A2147 0%, #1A3A6B 100%)' }}>
       {/* Header */}
       <div style={{
         background: 'rgba(7,22,51,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
@@ -72,7 +72,7 @@ function BuscarContent() {
           <div style={{ flex: 1 }} />
           <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#fff', padding: 6 }}>
             <ShoppingCart size={24} />
-            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#030D1E', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
+            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#0A2147', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
           </button>
           <form onSubmit={handleSearch} style={{ flex: 1, display: 'flex', gap: 0, borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
             <input
@@ -81,7 +81,7 @@ function BuscarContent() {
               style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: 'none', outline: 'none', color: '#fff', padding: '10px 16px', fontSize: 14 }}
             />
             <button type="submit" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
-              <Search size={18} color="#030D1E" strokeWidth={2.5} />
+              <Search size={18} color="#0A2147" strokeWidth={2.5} />
             </button>
           </form>
         </div>
@@ -106,7 +106,7 @@ function BuscarContent() {
                 <div style={{ color: '#fff', fontWeight: 900, fontSize: 20, marginBottom: 8 }}>Sin resultados</div>
                 <div style={{ color: '#7a8a9a', fontSize: 14 }}>Probá con otro término o explorá los catálogos</div>
                 <button onClick={() => router.push('/catalogo')}
-                  style={{ marginTop: 20, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '12px 28px', color: '#030D1E', fontWeight: 900, cursor: 'pointer' }}>
+                  style={{ marginTop: 20, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '12px 28px', color: '#0A2147', fontWeight: 900, cursor: 'pointer' }}>
                   Ver catálogos
                 </button>
               </div>
@@ -117,7 +117,7 @@ function BuscarContent() {
                     className="glass-card rounded-xl overflow-hidden"
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }} whileHover={{ y: -4 }}>
-                    <div style={{ position: 'relative', height: 160, background: '#071633', overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', height: 160, background: '#1A3A6B', overflow: 'hidden' }}>
                       {p.image ? (
                         <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="220px" />
                       ) : (
@@ -139,7 +139,7 @@ function BuscarContent() {
                         </div>
                       </div>
                       <motion.button
-                        style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#030D1E', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
+                        style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0A2147', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>
                         <ShoppingCart size={11} /> AGREGAR
@@ -159,7 +159,7 @@ function BuscarContent() {
 
 export default function BuscarPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#030D1E', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7a8a9a' }}>Cargando...</div>}>
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0A2147', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7a8a9a' }}>Cargando...</div>}>
       <BuscarContent />
     </Suspense>
   )

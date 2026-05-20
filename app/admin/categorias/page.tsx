@@ -131,7 +131,7 @@ export default function CategoriasAdmin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#030D1E 0%,#071633 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#0A2147 0%,#1A3A6B 100%)' }}>
       {/* Header */}
       <div style={{ background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 16 }}>
         <button onClick={() => router.push('/admin/dashboard')}
@@ -153,7 +153,7 @@ export default function CategoriasAdmin() {
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}>
           <button onClick={() => { setForm(EMPTY_CAT); setShowForm(true) }}
-            style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '10px 20px', color: '#030D1E', fontWeight: 900, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
+            style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '10px 20px', color: '#0A2147', fontWeight: 900, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
             <Plus size={16} /> Agregar Rubro
           </button>
         </div>
@@ -200,7 +200,7 @@ export default function CategoriasAdmin() {
               </div>
               <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
                 <button onClick={() => setShowForm(false)} style={{ flex: 1, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: 12, color: '#ccc', fontWeight: 700, cursor: 'pointer' }}>Cancelar</button>
-                <button onClick={handleSave} disabled={saving} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#030D1E', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: saving ? 0.7 : 1 }}>
+                <button onClick={handleSave} disabled={saving} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#0A2147', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: saving ? 0.7 : 1 }}>
                   <Check size={16} />{saving ? 'Guardando...' : 'GUARDAR RUBRO'}
                 </button>
               </div>
@@ -235,7 +235,7 @@ export default function CategoriasAdmin() {
               </div>
               <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
                 <button onClick={() => setShowSubForm(false)} style={{ flex: 1, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: 12, color: '#ccc', fontWeight: 700, cursor: 'pointer' }}>Cancelar</button>
-                <button onClick={handleSaveSub} disabled={savingSub} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#030D1E', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: savingSub ? 0.7 : 1 }}>
+                <button onClick={handleSaveSub} disabled={savingSub} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#0A2147', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: savingSub ? 0.7 : 1 }}>
                   <Check size={16} />{savingSub ? 'Guardando...' : 'GUARDAR'}
                 </button>
               </div>
@@ -283,7 +283,7 @@ export default function CategoriasAdmin() {
                       <span style={{ color: '#7a8a9a', fontSize: 12, fontWeight: 700 }}>SUBCATEGORÍAS DE {c.nombre.toUpperCase()}</span>
                       <button
                         onClick={() => { setSubForm({ nombre: '', emoji: '📦', categoria_id: c.id! }); setShowSubForm(true) }}
-                        style={{ background: GOLD, border: 'none', borderRadius: 8, padding: '6px 12px', color: '#030D1E', fontWeight: 900, fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}>
+                        style={{ background: GOLD, border: 'none', borderRadius: 8, padding: '6px 12px', color: '#0A2147', fontWeight: 900, fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}>
                         <Plus size={12} /> Agregar
                       </button>
                     </div>

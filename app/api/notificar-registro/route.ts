@@ -22,8 +22,8 @@ export async function POST(request: NextRequest) {
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 24px; border-radius: 12px;">
               <div style="background: linear-gradient(135deg,#D4AF37,#F0C030); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
-                <h2 style="margin: 0; color: #030D1E; font-size: 22px;">🎉 Nuevo Cliente Registrado</h2>
-                <p style="margin: 8px 0 0; color: #030D1E; opacity: 0.8; font-size: 14px;">Mayorista Universal</p>
+                <h2 style="margin: 0; color: #0A2147; font-size: 22px;">🎉 Nuevo Cliente Registrado</h2>
+                <p style="margin: 8px 0 0; color: #0A2147; opacity: 0.8; font-size: 14px;">Mayorista Universal</p>
               </div>
               <div style="background: #fff; padding: 20px; border-radius: 10px; border: 1px solid #e5e7eb;">
                 <table style="width: 100%; border-collapse: collapse;">

@@ -37,10 +37,10 @@ export default function CheckoutPage() {
 
   if (items.length === 0 && !confirmado) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#030D1E,#071633)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#0A2147,#1A3A6B)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
         <div style={{ fontSize: 60 }}>🛒</div>
         <div style={{ color: '#fff', fontWeight: 900, fontSize: 20 }}>Tu carrito está vacío</div>
-        <button onClick={() => router.push('/')} style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '12px 28px', color: '#030D1E', fontWeight: 900, cursor: 'pointer' }}>
+        <button onClick={() => router.push('/')} style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '12px 28px', color: '#0A2147', fontWeight: 900, cursor: 'pointer' }}>
           Ver productos
         </button>
       </div>
@@ -83,7 +83,7 @@ export default function CheckoutPage() {
   // Pantalla de éxito
   if (confirmado) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#030D1E,#071633)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#0A2147,#1A3A6B)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ maxWidth: 480, width: '100%', textAlign: 'center' }}>
           <div style={{ width: 80, height: 80, background: 'rgba(34,197,94,0.2)', border: '2px solid rgba(34,197,94,0.5)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
             <Check size={40} color="#86efac" />
@@ -111,7 +111,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#030D1E,#071633)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#0A2147,#1A3A6B)' }}>
       {/* Header */}
       <div style={{ background: 'rgba(7,22,51,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -164,7 +164,7 @@ export default function CheckoutPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
             {items.map(item => (
               <div key={item.id} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#071633', position: 'relative' }}>
+                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#1A3A6B', position: 'relative' }}>
                   {item.image ? (
                     <Image src={item.image} alt={item.name} fill className="object-cover" sizes="44px" />
                   ) : (
@@ -205,7 +205,7 @@ export default function CheckoutPage() {
             style={{
               width: '100%', padding: '14px', borderRadius: 12, border: 'none',
               background: loading || total < MIN_COMPRA ? 'rgba(212,175,55,0.3)' : GOLD,
-              color: '#030D1E', fontWeight: 900, fontSize: 15,
+              color: '#0A2147', fontWeight: 900, fontSize: 15,
               cursor: loading || total < MIN_COMPRA ? 'not-allowed' : 'pointer',
             }}>
             {loading ? 'Confirmando pedido...' : '✅ CONFIRMAR PEDIDO'}
