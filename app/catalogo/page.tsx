@@ -7,7 +7,7 @@ import { ArrowLeft, Search } from 'lucide-react'
 
 const FOTOS: Record<string, string> = {
   BAZAR:        '/cat_bazar.jpg',
-  'BAZAR/HOGAR': 'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=600&q=80',
+  'HOGAR Y BAZAR': 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=600&q=80',
   BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80',
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80',
   BELLEZA:      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
@@ -72,11 +72,11 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)' }}>
 
       {/* Header */}
       <div style={{
-        background: 'rgba(26,30,94,0.97)',
+        background: 'rgba(107,84,62,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,

@@ -11,14 +11,14 @@ html {
 }
 
 body {
-  background-color: #1A1E5E;
+  background-color: #614830;
   color: white;
   overflow-x: hidden;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #1B5299; }
+::-webkit-scrollbar-track { background: #72604C; }
 ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #F0D060; }
 
@@ -63,7 +63,7 @@ body {
   background: linear-gradient(135deg, #D4AF37 0%, #F0D060 50%, #D4AF37 100%);
   background-size: 200% auto;
   transition: all 0.3s ease;
-  color: #1B5299;
+  color: #72604C;
   font-weight: 700;
 }
 
@@ -94,7 +94,7 @@ body {
 
 /* Hero radial glow */
 .hero-glow {
-  background: radial-gradient(ellipse at 50% 0%, #0D2347 0%, #1B5299 55%, #030D1E 100%);
+  background: radial-gradient(ellipse at 50% 0%, #0D2347 0%, #72604C 55%, #030D1E 100%);
 }
 
 /* Section divider */
@@ -107,7 +107,7 @@ body {
 .badge-offer  { background: linear-gradient(135deg,#ef4444,#dc2626); }
 .badge-new    { background: linear-gradient(135deg,#22c55e,#16a34a); }
 .badge-hot    { background: linear-gradient(135deg,#f97316,#ea580c); }
-.badge-top    { background: linear-gradient(135deg,#D4AF37,#F0D060); color:#1B5299; }
+.badge-top    { background: linear-gradient(135deg,#D4AF37,#F0D060); color:#72604C; }
 
 /* Ticker */
 @keyframes tickerLeft {

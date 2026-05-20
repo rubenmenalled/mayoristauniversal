@@ -89,7 +89,7 @@ export default function Testimonios() {
   const visibleTestimonios = testimonios.slice(currentIndex, currentIndex + visibleCount)
 
   const sectionStyle: React.CSSProperties = {
-    background: 'linear-gradient(180deg, #1E2B80 0%, #1E2B80 100%)',
+    background: 'linear-gradient(180deg, #614830 0%, #614830 100%)',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
@@ -129,7 +129,7 @@ export default function Testimonios() {
   }
 
   const cardStyle: React.CSSProperties = {
-    background: 'rgba(26,30,94, 0.7)',
+    background: 'rgba(107,84,62, 0.7)',
     border: '1px solid rgba(212, 175, 55, 0.2)',
     borderRadius: '16px',
     padding: '28px',
@@ -151,7 +151,7 @@ export default function Testimonios() {
     justifyContent: 'center',
     fontSize: '22px',
     fontWeight: 700,
-    color: '#1E2B80',
+    color: '#614830',
     flexShrink: 0,
   }
 

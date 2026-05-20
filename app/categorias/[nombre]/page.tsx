@@ -85,10 +85,10 @@ export default function CategoriaPage() {
     : productos.filter(p => p.subcategory?.toLowerCase() === subActiva.toLowerCase())
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
       <div style={{
-        background: 'rgba(26,30,94,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(107,84,62,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -98,9 +98,18 @@ export default function CategoriaPage() {
             <ArrowLeft size={16} /> Inicio
           </button>
           <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20, flex: 1 }}>{nombreDecoded}</div>
+          <a href="/catalogo" style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+            color: '#614830', fontWeight: 900, fontSize: 12,
+            padding: '6px 14px', borderRadius: 8, textDecoration: 'none',
+            whiteSpace: 'nowrap', letterSpacing: '0.04em',
+          }}>
+            📋 VER CATÁLOGO
+          </a>
           <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#FFFFFF', padding: 6 }}>
             <ShoppingCart size={24} />
-            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#1E2B80', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
+            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#614830', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
           </button>
         </div>
       </div>
@@ -120,8 +129,8 @@ export default function CategoriaPage() {
               style={{ position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                 <span style={{ fontSize: 40 }}>📦</span>
-                <span style={{ color: '#1E2B80', fontWeight: 900, fontSize: 16, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ver todos</span>
-                <span style={{ color: '#1E2B80', fontSize: 12, fontWeight: 700 }}>{productos.length} productos</span>
+                <span style={{ color: '#614830', fontWeight: 900, fontSize: 16, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ver todos</span>
+                <span style={{ color: '#614830', fontSize: 12, fontWeight: 700 }}>{productos.length} productos</span>
               </div>
             </motion.div>
             {/* Tarjetas de subcategorías */}
@@ -176,7 +185,7 @@ export default function CategoriaPage() {
             </div>
             {subActiva && (
               <button onClick={() => setSubActiva('')}
-                style={{ marginTop: 16, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 24px', color: '#1E2B80', fontWeight: 900, cursor: 'pointer' }}>
+                style={{ marginTop: 16, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 24px', color: '#614830', fontWeight: 900, cursor: 'pointer' }}>
                 Ver todos
               </button>
             )}
@@ -195,7 +204,7 @@ export default function CategoriaPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
                   whileHover={{ y: -4 }}>
-                  <div style={{ position: 'relative', height: 150, background: '#1A1E5E', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
+                  <div style={{ position: 'relative', height: 150, background: '#6B543E', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => p.image && setLightbox(p)}>
                     {p.image ? (
                       <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="180px" />
@@ -205,7 +214,7 @@ export default function CategoriaPage() {
                     {p.image && (
                       <div style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.5)', borderRadius: 6, padding: '2px 5px', fontSize: 10, color: '#FFFFFF' }}>🔍</div>
                     )}
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(30,43,128,0.7), transparent)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(107,84,62,0.7), transparent)' }} />
                     {(p.discount ?? 0) > 0 && (
                       <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#FFFFFF', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
                     )}
@@ -224,7 +233,7 @@ export default function CategoriaPage() {
                       </div>
                     </div>
                     <motion.button
-                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#1E2B80', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
+                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#614830', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>
                       <ShoppingCart size={11} /> AGREGAR
@@ -246,7 +255,7 @@ export default function CategoriaPage() {
           style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'zoom-out' }}>
           <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 500, background: '#0a1628', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
             {/* Foto grande */}
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#1A1E5E' }}>
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#6B543E' }}>
               <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 16 }} sizes="500px" />
             </div>
             {/* Info */}
@@ -262,7 +271,7 @@ export default function CategoriaPage() {
                 </button>
                 <motion.button whileTap={{ scale: 0.97 }}
                   onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.minOrder }); setLightbox(null) }}
-                  style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#1E2B80', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#614830', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
                   <ShoppingCart size={14} /> AGREGAR AL CARRITO
                 </motion.button>
               </div>

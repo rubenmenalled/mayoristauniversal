@@ -6,13 +6,13 @@ export async function getProductos() {
 }
 
 const ORDEN_CATEGORIAS = [
+  'HOGAR Y BAZAR',
   'PRODUCTOS REGIONALES',
   'PELUCHES',
   'PELUCHES ENAMORADOS',
   'BEBE',
   'ELECTRONICA',
   'ILUMINACION',
-  'BAZAR/HOGAR',
   'HERRAMIENTAS',
   'AUTOMOTOR',
   'CAMPING',

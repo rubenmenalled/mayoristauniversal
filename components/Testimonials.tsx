@@ -25,7 +25,7 @@ export default function Testimonials() {
 
   return (
     <section id="testimonios" className="py-24 relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)' }}>
+      style={{ background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)' }}>
       {/* Glow */}
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.05) 0%, transparent 65%)' }} />

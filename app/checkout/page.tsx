@@ -37,10 +37,10 @@ export default function CheckoutPage() {
 
   if (items.length === 0 && !confirmado) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#1E2B80,#1A1E5E)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#614830,#6B543E)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
         <div style={{ fontSize: 60 }}>🛒</div>
         <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20 }}>Tu carrito está vacío</div>
-        <button onClick={() => router.push('/')} style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '12px 28px', color: '#1E2B80', fontWeight: 900, cursor: 'pointer' }}>
+        <button onClick={() => router.push('/')} style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '12px 28px', color: '#614830', fontWeight: 900, cursor: 'pointer' }}>
           Ver productos
         </button>
       </div>
@@ -83,7 +83,7 @@ export default function CheckoutPage() {
   // Pantalla de éxito
   if (confirmado) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#1E2B80,#1A1E5E)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#614830,#6B543E)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ maxWidth: 480, width: '100%', textAlign: 'center' }}>
           <div style={{ width: 80, height: 80, background: 'rgba(34,197,94,0.2)', border: '2px solid rgba(34,197,94,0.5)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
             <Check size={40} color="#86efac" />
@@ -111,9 +111,9 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#1E2B80,#1A1E5E)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#614830,#6B543E)' }}>
       {/* Header */}
-      <div style={{ background: 'rgba(26,30,94,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)' }}>
+      <div style={{ background: 'rgba(107,84,62,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
           <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13 }}>
             <ArrowLeft size={16} /> Volver
@@ -164,7 +164,7 @@ export default function CheckoutPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
             {items.map(item => (
               <div key={item.id} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#1A1E5E', position: 'relative' }}>
+                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#6B543E', position: 'relative' }}>
                   {item.image ? (
                     <Image src={item.image} alt={item.name} fill className="object-cover" sizes="44px" />
                   ) : (
@@ -205,7 +205,7 @@ export default function CheckoutPage() {
             style={{
               width: '100%', padding: '14px', borderRadius: 12, border: 'none',
               background: loading || total < MIN_COMPRA ? 'rgba(212,175,55,0.3)' : GOLD,
-              color: '#1E2B80', fontWeight: 900, fontSize: 15,
+              color: '#614830', fontWeight: 900, fontSize: 15,
               cursor: loading || total < MIN_COMPRA ? 'not-allowed' : 'pointer',
             }}>
             {loading ? 'Confirmando pedido...' : '✅ CONFIRMAR PEDIDO'}

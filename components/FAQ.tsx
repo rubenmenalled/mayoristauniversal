@@ -53,7 +53,7 @@ export default function FAQ() {
   }
 
   const sectionStyle: React.CSSProperties = {
-    background: '#1E2B80',
+    background: '#614830',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
@@ -87,7 +87,7 @@ export default function FAQ() {
   const ctaButtonStyle: React.CSSProperties = {
     display: 'inline-block',
     background: 'linear-gradient(135deg, #D4AF37, #F0C030)',
-    color: '#1E2B80',
+    color: '#614830',
     fontWeight: 700,
     fontSize: '16px',
     padding: '16px 32px',
@@ -108,7 +108,7 @@ export default function FAQ() {
             const isOpen = openIndex === i
 
             const itemStyle: React.CSSProperties = {
-              background: isOpen ? 'rgba(26,30,94, 0.85)' : 'rgba(26,30,94, 0.45)',
+              background: isOpen ? 'rgba(107,84,62, 0.85)' : 'rgba(107,84,62, 0.45)',
               border: isOpen
                 ? '1px solid rgba(212, 175, 55, 0.6)'
                 : '1px solid rgba(212, 175, 55, 0.12)',
