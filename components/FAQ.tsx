@@ -87,7 +87,7 @@ export default function FAQ() {
   const ctaButtonStyle: React.CSSProperties = {
     display: 'inline-block',
     background: 'linear-gradient(135deg, #D4AF37, #F0C030)',
-    color: '#0A2147',
+    color: '#0F3460',
     fontWeight: 700,
     fontSize: '16px',
     padding: '16px 32px',

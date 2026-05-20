@@ -57,7 +57,7 @@ export default function AnnouncementBar() {
         {/* Content duplicated for seamless loop */}
         <span
           style={{
-            color: '#0A2147',
+            color: '#0F3460',
             fontWeight: 800,
             fontSize: '13px',
             letterSpacing: '0.02em',

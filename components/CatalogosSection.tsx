@@ -124,7 +124,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 overflow: 'hidden',
                 cursor: 'pointer',
                 textDecoration: 'none',
-                background: '#1A3A6B',
+                background: '#1B5299',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
               }}
             >

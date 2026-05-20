@@ -75,7 +75,7 @@ function ProductCard({ p }: { p: Product }) {
       <div className="absolute inset-0 rounded-xl border border-gold/0 group-hover:border-gold/40 transition-all duration-300 pointer-events-none z-10" />
 
       {/* Image */}
-      <div className="relative h-40 bg-navy-mid overflow-hidden" style={{ background: '#1A3A6B' }}>
+      <div className="relative h-40 bg-navy-mid overflow-hidden" style={{ background: '#1B5299' }}>
         <Image src={p.image} alt={p.name} fill
           className="object-contain transition-transform duration-500 group-hover:scale-105 p-2"
           sizes="(max-width:640px) 100vw, 200px" />
@@ -174,7 +174,7 @@ export default function Marketplace({ products: initialProducts }: { products?: 
 
   return (
     <section id="productos" className="py-10 relative"
-      style={{ background: 'linear-gradient(180deg, #0A2147 0%, #1A3A6B 100%)' }}>
+      style={{ background: 'linear-gradient(180deg, #0F3460 0%, #1B5299 100%)' }}>
       <div className="max-w-[1400px] mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
 

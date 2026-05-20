@@ -6,7 +6,7 @@ import { benefits } from '@/data/mockData'
 export default function BenefitsBar() {
   return (
     <section className="py-3 border-y border-gold/15"
-      style={{ background: 'linear-gradient(135deg, #0A1D3D 0%, #1A3A6B 50%, #0A1D3D 100%)' }}>
+      style={{ background: 'linear-gradient(135deg, #0A1D3D 0%, #1B5299 50%, #0A1D3D 100%)' }}>
       <div className="max-w-[1400px] mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
           {benefits.map((b, i) => (

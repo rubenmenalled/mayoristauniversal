@@ -198,7 +198,7 @@ export default function ComoComprar() {
                       justifyContent: 'center',
                       fontWeight: 800,
                       fontSize: '16px',
-                      color: '#0A2147',
+                      color: '#0F3460',
                       marginBottom: '16px',
                       flexShrink: 0,
                     }}
@@ -249,7 +249,7 @@ export default function ComoComprar() {
               style={{
                 display: 'inline-block',
                 backgroundColor: '#D4AF37',
-                color: '#0A2147',
+                color: '#0F3460',
                 fontWeight: 800,
                 fontSize: '14px',
                 letterSpacing: '0.08em',

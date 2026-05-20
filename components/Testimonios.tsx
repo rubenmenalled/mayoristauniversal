@@ -89,7 +89,7 @@ export default function Testimonios() {
   const visibleTestimonios = testimonios.slice(currentIndex, currentIndex + visibleCount)
 
   const sectionStyle: React.CSSProperties = {
-    background: 'linear-gradient(180deg, #020810 0%, #0A2147 100%)',
+    background: 'linear-gradient(180deg, #020810 0%, #0F3460 100%)',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
@@ -151,7 +151,7 @@ export default function Testimonios() {
     justifyContent: 'center',
     fontSize: '22px',
     fontWeight: 700,
-    color: '#0A2147',
+    color: '#0F3460',
     flexShrink: 0,
   }
 

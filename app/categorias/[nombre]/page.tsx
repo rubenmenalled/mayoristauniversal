@@ -79,7 +79,7 @@ export default function CategoriaPage() {
     : productos
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0A2147 0%, #1A3A6B 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0F3460 0%, #1B5299 100%)', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
       <div style={{
         background: 'rgba(7,22,51,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
@@ -94,7 +94,7 @@ export default function CategoriaPage() {
           <div style={{ color: '#fff', fontWeight: 900, fontSize: 20, flex: 1 }}>{nombreDecoded}</div>
           <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#fff', padding: 6 }}>
             <ShoppingCart size={24} />
-            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#0A2147', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
+            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#0F3460', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
           </button>
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function CategoriaPage() {
               style={{
                 padding: '8px 16px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap',
                 background: subActiva === '' ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(255,255,255,0.08)',
-                color: subActiva === '' ? '#0A2147' : '#ccc',
+                color: subActiva === '' ? '#0F3460' : '#ccc',
               }}>
               Todos ({productos.length})
             </button>
@@ -123,7 +123,7 @@ export default function CategoriaPage() {
                   style={{
                     padding: '8px 16px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap',
                     background: subActiva === sub.nombre ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(255,255,255,0.08)',
-                    color: subActiva === sub.nombre ? '#0A2147' : '#ccc',
+                    color: subActiva === sub.nombre ? '#0F3460' : '#ccc',
                   }}>
                   {sub.emoji} {sub.nombre} {cant > 0 ? `(${cant})` : ''}
                 </button>
@@ -145,7 +145,7 @@ export default function CategoriaPage() {
             </div>
             {subActiva && (
               <button onClick={() => setSubActiva('')}
-                style={{ marginTop: 16, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 24px', color: '#0A2147', fontWeight: 900, cursor: 'pointer' }}>
+                style={{ marginTop: 16, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 24px', color: '#0F3460', fontWeight: 900, cursor: 'pointer' }}>
                 Ver todos
               </button>
             )}
@@ -164,7 +164,7 @@ export default function CategoriaPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
                   whileHover={{ y: -4 }}>
-                  <div style={{ position: 'relative', height: 150, background: '#1A3A6B', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
+                  <div style={{ position: 'relative', height: 150, background: '#1B5299', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => p.image && setLightbox(p)}>
                     {p.image ? (
                       <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="180px" />
@@ -193,7 +193,7 @@ export default function CategoriaPage() {
                       </div>
                     </div>
                     <motion.button
-                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0A2147', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
+                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0F3460', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>
                       <ShoppingCart size={11} /> AGREGAR
@@ -215,7 +215,7 @@ export default function CategoriaPage() {
           style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'zoom-out' }}>
           <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 500, background: '#0a1628', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
             {/* Foto grande */}
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#1A3A6B' }}>
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#1B5299' }}>
               <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 16 }} sizes="500px" />
             </div>
             {/* Info */}
@@ -231,7 +231,7 @@ export default function CategoriaPage() {
                 </button>
                 <motion.button whileTap={{ scale: 0.97 }}
                   onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.minOrder }); setLightbox(null) }}
-                  style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#0A2147', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#0F3460', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
                   <ShoppingCart size={14} /> AGREGAR AL CARRITO
                 </motion.button>
               </div>

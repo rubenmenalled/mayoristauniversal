@@ -145,7 +145,7 @@ export default function Header() {
                   className="flex items-center gap-2 text-gray-300 hover:text-gold transition-colors"
                   whileHover={{ scale: 1.03 }}>
                   <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <User size={16} color="#0A2147" />
+                    <User size={16} color="#0F3460" />
                   </div>
                   <div className="flex flex-col items-start">
                     <span className="text-[10px] leading-none opacity-70 text-gold">Bienvenido</span>
@@ -199,7 +199,7 @@ export default function Header() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 {userName
-                  ? <span style={{ fontSize: 13, fontWeight: 900, color: '#0A2147' }}>{userName.charAt(0).toUpperCase()}</span>
+                  ? <span style={{ fontSize: 13, fontWeight: 900, color: '#0F3460' }}>{userName.charAt(0).toUpperCase()}</span>
                   : <User size={15} color="#D4AF37" />
                 }
               </div>
@@ -367,13 +367,13 @@ export default function Header() {
                 {userName ? (
                   <a href="/mi-cuenta"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0A2147' }}>
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0F3460' }}>
                     👤 Mi cuenta
                   </a>
                 ) : (
                   <a href="/login"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0A2147' }}>
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0F3460' }}>
                     Ingresar
                   </a>
                 )}

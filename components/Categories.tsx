@@ -28,7 +28,7 @@ export default function Categories({ categories: initialCategories }: { categori
 
   return (
     <section id="categorias" className="py-4 relative"
-      style={{ background: 'linear-gradient(180deg, #1A3A6B 0%, #0A1D3D 100%)' }}>
+      style={{ background: 'linear-gradient(180deg, #1B5299 0%, #0A1D3D 100%)' }}>
       <div className="border-y border-gold/20 py-4"
         style={{ background: 'rgba(3,13,30,0.6)' }}>
         <div className="relative max-w-[1400px] mx-auto px-10">

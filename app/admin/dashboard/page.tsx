@@ -43,7 +43,7 @@ export default function Dashboard() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#0A2147 0%,#1A3A6B 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#0F3460 0%,#1B5299 100%)' }}>
       {/* Header */}
       <div style={{
         background: 'rgba(255,255,255,0.03)',
