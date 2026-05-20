@@ -54,7 +54,7 @@ export default function ExitIntentPopup() {
   };
 
   const cardStyle: React.CSSProperties = {
-    background: 'linear-gradient(145deg, #1B5299 0%, #0F3460 100%)',
+    background: 'linear-gradient(145deg, #F8F5EE 0%, #F0EBE0 100%)',
     border: '1.5px solid rgba(212, 175, 55, 0.55)',
     borderRadius: '20px',
     padding: '40px 36px 36px',
@@ -116,7 +116,7 @@ export default function ExitIntentPopup() {
     width: '100%',
     padding: '14px 20px',
     background: 'linear-gradient(135deg, #F0C030 0%, #D4AF37 100%)',
-    color: '#0F3460',
+    color: '#F0EBE0',
     fontWeight: 800,
     fontSize: '15px',
     textAlign: 'center',

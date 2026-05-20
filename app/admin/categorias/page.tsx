@@ -131,14 +131,14 @@ export default function CategoriasAdmin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#0F3460 0%,#1B5299 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#F0EBE0 0%,#F8F5EE 100%)' }}>
       {/* Header */}
       <div style={{ background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 16 }}>
         <button onClick={() => router.push('/admin/dashboard')}
           style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700 }}>
           <ArrowLeft size={16} /> Volver
         </button>
-        <h1 style={{ color: '#fff', fontWeight: 900, fontSize: 18, margin: 0 }}>🗂️ Categorías / Rubros</h1>
+        <h1 style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 18, margin: 0 }}>🗂️ Categorías / Rubros</h1>
       </div>
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '24px 16px' }}>
@@ -153,7 +153,7 @@ export default function CategoriasAdmin() {
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}>
           <button onClick={() => { setForm(EMPTY_CAT); setShowForm(true) }}
-            style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '10px 20px', color: '#0F3460', fontWeight: 900, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
+            style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '10px 20px', color: '#F0EBE0', fontWeight: 900, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
             <Plus size={16} /> Agregar Rubro
           </button>
         </div>
@@ -163,14 +163,14 @@ export default function CategoriasAdmin() {
           <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 16 }}>
             <div style={{ background: '#0a1628', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 20, padding: 28, width: '100%', maxWidth: 480, maxHeight: '90vh', overflowY: 'auto' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                <h2 style={{ color: '#fff', margin: 0, fontWeight: 900 }}>{form.id ? 'Editar Rubro' : 'Nuevo Rubro'}</h2>
+                <h2 style={{ color: '#1A2B4A', margin: 0, fontWeight: 900 }}>{form.id ? 'Editar Rubro' : 'Nuevo Rubro'}</h2>
                 <button onClick={() => setShowForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#7a8a9a' }}><X size={22} /></button>
               </div>
               <div style={{ display: 'grid', gap: 14 }}>
                 <div>
                   <label style={{ color: '#D4AF37', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>NOMBRE</label>
                   <input value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))}
-                    style={{ width: '100%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#fff', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                    style={{ width: '100%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#1A2B4A', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
                     placeholder="Ej: Juguetes" />
                 </div>
                 <div>
@@ -185,7 +185,7 @@ export default function CategoriasAdmin() {
                 <div>
                   <label style={{ color: '#D4AF37', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>DESCRIPCIÓN</label>
                   <input value={form.descripcion} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))}
-                    style={{ width: '100%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#fff', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                    style={{ width: '100%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#1A2B4A', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
                     placeholder="Ej: Muñecos y peluches" />
                 </div>
                 <div>
@@ -200,7 +200,7 @@ export default function CategoriasAdmin() {
               </div>
               <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
                 <button onClick={() => setShowForm(false)} style={{ flex: 1, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: 12, color: '#ccc', fontWeight: 700, cursor: 'pointer' }}>Cancelar</button>
-                <button onClick={handleSave} disabled={saving} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#0F3460', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: saving ? 0.7 : 1 }}>
+                <button onClick={handleSave} disabled={saving} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#F0EBE0', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: saving ? 0.7 : 1 }}>
                   <Check size={16} />{saving ? 'Guardando...' : 'GUARDAR RUBRO'}
                 </button>
               </div>
@@ -213,14 +213,14 @@ export default function CategoriasAdmin() {
           <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 16 }}>
             <div style={{ background: '#0a1628', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 20, padding: 28, width: '100%', maxWidth: 400 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                <h2 style={{ color: '#fff', margin: 0, fontWeight: 900 }}>{subForm.id ? 'Editar Subcategoría' : 'Nueva Subcategoría'}</h2>
+                <h2 style={{ color: '#1A2B4A', margin: 0, fontWeight: 900 }}>{subForm.id ? 'Editar Subcategoría' : 'Nueva Subcategoría'}</h2>
                 <button onClick={() => setShowSubForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#7a8a9a' }}><X size={22} /></button>
               </div>
               <div style={{ display: 'grid', gap: 14 }}>
                 <div>
                   <label style={{ color: '#D4AF37', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>NOMBRE</label>
                   <input value={subForm.nombre} onChange={e => setSubForm(f => ({ ...f, nombre: e.target.value }))}
-                    style={{ width: '100%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#fff', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                    style={{ width: '100%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#1A2B4A', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
                     placeholder="Ej: Peluches" />
                 </div>
                 <div>
@@ -235,7 +235,7 @@ export default function CategoriasAdmin() {
               </div>
               <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
                 <button onClick={() => setShowSubForm(false)} style={{ flex: 1, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: 12, color: '#ccc', fontWeight: 700, cursor: 'pointer' }}>Cancelar</button>
-                <button onClick={handleSaveSub} disabled={savingSub} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#0F3460', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: savingSub ? 0.7 : 1 }}>
+                <button onClick={handleSaveSub} disabled={savingSub} style={{ flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12, color: '#F0EBE0', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: savingSub ? 0.7 : 1 }}>
                   <Check size={16} />{savingSub ? 'Guardando...' : 'GUARDAR'}
                 </button>
               </div>
@@ -249,7 +249,7 @@ export default function CategoriasAdmin() {
         ) : categorias.length === 0 ? (
           <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 16, padding: 60, textAlign: 'center' }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>🗂️</div>
-            <div style={{ color: '#fff', fontWeight: 900, fontSize: 18 }}>No hay rubros todavía</div>
+            <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 18 }}>No hay rubros todavía</div>
           </div>
         ) : (
           <div style={{ display: 'grid', gap: 12 }}>
@@ -259,7 +259,7 @@ export default function CategoriasAdmin() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px' }}>
                   {c.imagen && <img src={c.imagen} alt={c.nombre} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 8, flexShrink: 0 }} />}
                   <span style={{ fontSize: 22, flexShrink: 0 }}>{c.emoji}</span>
-                  <span style={{ color: '#fff', fontWeight: 900, fontSize: 15, flex: 1 }}>{c.nombre}</span>
+                  <span style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 15, flex: 1 }}>{c.nombre}</span>
                   <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
                     <button onClick={() => toggleExpand(c.id!)}
                       style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8, padding: '7px 12px', color: '#ccc', cursor: 'pointer', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -283,7 +283,7 @@ export default function CategoriasAdmin() {
                       <span style={{ color: '#7a8a9a', fontSize: 12, fontWeight: 700 }}>SUBCATEGORÍAS DE {c.nombre.toUpperCase()}</span>
                       <button
                         onClick={() => { setSubForm({ nombre: '', emoji: '📦', categoria_id: c.id! }); setShowSubForm(true) }}
-                        style={{ background: GOLD, border: 'none', borderRadius: 8, padding: '6px 12px', color: '#0F3460', fontWeight: 900, fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}>
+                        style={{ background: GOLD, border: 'none', borderRadius: 8, padding: '6px 12px', color: '#F0EBE0', fontWeight: 900, fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}>
                         <Plus size={12} /> Agregar
                       </button>
                     </div>

@@ -33,7 +33,7 @@ export default function AdminLogin() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0F3460 0%, #1B5299 100%)',
+      background: 'linear-gradient(135deg, #F0EBE0 0%, #F8F5EE 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -56,9 +56,9 @@ export default function AdminLogin() {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 16px',
           }}>
-            <Lock size={28} color="#0F3460" />
+            <Lock size={28} color="#F0EBE0" />
           </div>
-          <h1 style={{ color: '#fff', fontSize: 22, fontWeight: 900, margin: 0 }}>
+          <h1 style={{ color: '#1A2B4A', fontSize: 22, fontWeight: 900, margin: 0 }}>
             Panel de Administración
           </h1>
           <p style={{ color: '#7a8a9a', fontSize: 13, marginTop: 6 }}>
@@ -87,7 +87,7 @@ export default function AdminLogin() {
                   border: '1px solid rgba(212,175,55,0.3)',
                   borderRadius: 10,
                   padding: '12px 44px 12px 14px',
-                  color: '#fff',
+                  color: '#1A2B4A',
                   fontSize: 15,
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -129,7 +129,7 @@ export default function AdminLogin() {
               border: 'none',
               borderRadius: 10,
               padding: '13px',
-              color: '#0F3460',
+              color: '#F0EBE0',
               fontSize: 15,
               fontWeight: 900,
               cursor: loading ? 'not-allowed' : 'pointer',

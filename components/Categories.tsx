@@ -28,9 +28,9 @@ export default function Categories({ categories: initialCategories }: { categori
 
   return (
     <section id="categorias" className="py-4 relative"
-      style={{ background: 'linear-gradient(180deg, #1B5299 0%, #0A1D3D 100%)' }}>
+      style={{ background: 'linear-gradient(180deg, #F8F5EE 0%, #0A1D3D 100%)' }}>
       <div className="border-y border-gold/20 py-4"
-        style={{ background: 'rgba(10,33,71,0.6)' }}>
+        style={{ background: 'rgba(26,43,74,0.6)' }}>
         <div className="relative max-w-[1400px] mx-auto px-10">
           {/* Arrow Left */}
           <button onClick={() => scroll('left')}
@@ -53,7 +53,7 @@ export default function Categories({ categories: initialCategories }: { categori
                 whileHover={{ y: -4 }}>
                 {/* Image box */}
                 <div className="relative w-24 h-20 rounded-xl overflow-hidden border border-white/10 group-hover:border-gold/50 transition-all"
-                  style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.4)', background: 'rgba(27,82,153,0.8)' }}>
+                  style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.4)', background: 'rgba(248,245,238,0.8)' }}>
                   {cat.image ? (
                     <Image src={cat.image} alt={cat.name} fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"

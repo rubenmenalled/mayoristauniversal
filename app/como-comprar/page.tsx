@@ -8,10 +8,10 @@ export default function ComoComprarPage() {
   const router = useRouter()
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0F3460 0%, #1B5299 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #F0EBE0 0%, #F8F5EE 100%)' }}>
       {/* Header */}
       <div style={{
-        background: 'rgba(27,82,153,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(248,245,238,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -24,7 +24,7 @@ export default function ComoComprarPage() {
             }}>
             <ArrowLeft size={16} /> Inicio
           </button>
-          <div style={{ color: '#fff', fontWeight: 900, fontSize: 20 }}>¿Cómo Comprar?</div>
+          <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 20 }}>¿Cómo Comprar?</div>
         </div>
       </div>
 
@@ -51,7 +51,7 @@ export default function ComoComprarPage() {
           {/* Paso 2 */}
           <p style={{ color: '#e5e7eb', fontSize: 18, lineHeight: 1.7, marginBottom: 32 }}>
             Luego, elegí el artículo de tu preferencia y hacé click en el botón{' '}
-            <strong style={{ color: '#fff' }}>Añadir al carrito</strong>.
+            <strong style={{ color: '#1A2B4A' }}>Añadir al carrito</strong>.
           </p>
 
         </motion.div>
@@ -66,7 +66,7 @@ export default function ComoComprarPage() {
             style={{
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               border: 'none', borderRadius: 12, padding: '14px 36px',
-              color: '#0F3460', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+              color: '#F0EBE0', fontWeight: 900, fontSize: 15, cursor: 'pointer',
             }}>
             VER CATÁLOGO
           </button>

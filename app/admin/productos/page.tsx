@@ -239,7 +239,7 @@ export default function ProductosAdmin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#0F3460 0%,#1B5299 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#F0EBE0 0%,#F8F5EE 100%)' }}>
       {/* Header */}
       <div style={{
         background: 'rgba(255,255,255,0.03)',
@@ -251,7 +251,7 @@ export default function ProductosAdmin() {
           style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700 }}>
           <ArrowLeft size={16} /> Volver
         </button>
-        <h1 style={{ color: '#fff', fontWeight: 900, fontSize: 18, margin: 0 }}>📦 Productos</h1>
+        <h1 style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 18, margin: 0 }}>📦 Productos</h1>
       </div>
 
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '24px 16px' }}>
@@ -392,7 +392,7 @@ export default function ProductosAdmin() {
             onClick={() => { setForm(EMPTY); setShowForm(true) }}
             style={{
               background: GOLD, border: 'none', borderRadius: 10,
-              padding: '10px 20px', color: '#0F3460', fontWeight: 900, fontSize: 14,
+              padding: '10px 20px', color: '#F0EBE0', fontWeight: 900, fontSize: 14,
               cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8,
             }}>
             <Plus size={16} /> Agregar Producto
@@ -448,7 +448,7 @@ export default function ProductosAdmin() {
                           return next
                         })
                       }} style={{ width: 15, height: 15, flexShrink: 0, cursor: 'pointer' }} />
-                      <span style={{ color: '#fff', fontSize: 13, fontWeight: 600, flex: 1, lineHeight: 1.3 }}>{p.nombre}</span>
+                      <span style={{ color: '#1A2B4A', fontSize: 13, fontWeight: 600, flex: 1, lineHeight: 1.3 }}>{p.nombre}</span>
                       {p.subcategoria && <span style={{ color: '#D4AF37', fontSize: 11, flexShrink: 0 }}>{p.subcategoria}</span>}
                     </label>
                   ))}
@@ -474,7 +474,7 @@ export default function ProductosAdmin() {
                       } else setMsg('❌ Error al asignar')
                       setTimeout(() => setMsg(''), 5000)
                     }}
-                    style={{ flex: 2, background: asignarSelec.size === 0 || !asignarSubcat ? 'rgba(99,179,237,0.2)' : 'rgba(99,179,237,0.8)', border: 'none', borderRadius: 10, padding: 12, color: '#fff', fontWeight: 900, cursor: asignarSelec.size === 0 || !asignarSubcat ? 'not-allowed' : 'pointer', fontSize: 14 }}>
+                    style={{ flex: 2, background: asignarSelec.size === 0 || !asignarSubcat ? 'rgba(99,179,237,0.2)' : 'rgba(99,179,237,0.8)', border: 'none', borderRadius: 10, padding: 12, color: '#1A2B4A', fontWeight: 900, cursor: asignarSelec.size === 0 || !asignarSubcat ? 'not-allowed' : 'pointer', fontSize: 14 }}>
                     ✅ ASIGNAR A {asignarSelec.size} PRODUCTOS
                   </button>
                 </div>
@@ -530,7 +530,7 @@ export default function ProductosAdmin() {
                           return next
                         })
                       }} style={{ width: 15, height: 15, flexShrink: 0, cursor: 'pointer' }} />
-                      <span style={{ color: '#fff', fontSize: 13, fontWeight: 600, flex: 1, lineHeight: 1.3 }}>{p.nombre}</span>
+                      <span style={{ color: '#1A2B4A', fontSize: 13, fontWeight: 600, flex: 1, lineHeight: 1.3 }}>{p.nombre}</span>
                       {p.precio_mayorista > 0 && <span style={{ color: '#D4AF37', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>${p.precio_mayorista.toLocaleString('es-AR')}</span>}
                     </label>
                   ))}
@@ -557,7 +557,7 @@ export default function ProductosAdmin() {
                       } else setMsg('❌ Error al borrar')
                       setTimeout(() => setMsg(''), 5000)
                     }}
-                    style={{ flex: 2, background: seleccionados.size === 0 ? 'rgba(239,68,68,0.2)' : 'rgba(239,68,68,0.8)', border: 'none', borderRadius: 10, padding: 12, color: '#fff', fontWeight: 900, cursor: seleccionados.size === 0 ? 'not-allowed' : 'pointer', fontSize: 14 }}>
+                    style={{ flex: 2, background: seleccionados.size === 0 ? 'rgba(239,68,68,0.2)' : 'rgba(239,68,68,0.8)', border: 'none', borderRadius: 10, padding: 12, color: '#1A2B4A', fontWeight: 900, cursor: seleccionados.size === 0 ? 'not-allowed' : 'pointer', fontSize: 14 }}>
                     🗑️ BORRAR {seleccionados.size} PRODUCTOS
                   </button>
                 </div>
@@ -579,7 +579,7 @@ export default function ProductosAdmin() {
               maxHeight: '85vh', overflowY: 'auto',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-                <h2 style={{ color: '#fff', margin: 0, fontWeight: 900, fontSize: 18 }}>
+                <h2 style={{ color: '#1A2B4A', margin: 0, fontWeight: 900, fontSize: 18 }}>
                   📊 Importar {importPreview.length} productos
                 </h2>
                 <button onClick={() => { setShowImport(false); setImportPreview([]); setImportCategoria(''); setImportSubcategoria(''); setImportSubcategorias([]) }}
@@ -668,7 +668,7 @@ export default function ProductosAdmin() {
                     }}>
                       {Object.entries(p).map(([k, v]) => (
                         <div key={k} style={{ color: '#ccc', marginBottom: 2 }}>
-                          <span style={{ color: '#7a8a9a' }}>{k}:</span> <span style={{ color: '#fff', fontWeight: 700 }}>{String(v)}</span>
+                          <span style={{ color: '#7a8a9a' }}>{k}:</span> <span style={{ color: '#1A2B4A', fontWeight: 700 }}>{String(v)}</span>
                         </div>
                       ))}
                     </div>
@@ -693,7 +693,7 @@ export default function ProductosAdmin() {
                 <button onClick={handleImport} disabled={importing}
                   style={{
                     flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12,
-                    color: '#0F3460', fontWeight: 900, cursor: 'pointer',
+                    color: '#F0EBE0', fontWeight: 900, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     opacity: importing ? 0.7 : 1,
                   }}>
@@ -718,7 +718,7 @@ export default function ProductosAdmin() {
               maxHeight: '90vh', overflowY: 'auto',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                <h2 style={{ color: '#fff', margin: 0, fontWeight: 900 }}>
+                <h2 style={{ color: '#1A2B4A', margin: 0, fontWeight: 900 }}>
                   {form.id ? 'Editar Producto' : 'Nuevo Producto'}
                 </h2>
                 <button onClick={() => setShowForm(false)}
@@ -749,7 +749,7 @@ export default function ProductosAdmin() {
                         width: '100%', background: 'rgba(255,255,255,0.07)',
                         border: '1px solid rgba(212,175,55,0.25)',
                         borderRadius: 8, padding: '10px 12px',
-                        color: '#fff', fontSize: 14, outline: 'none', boxSizing: 'border-box',
+                        color: '#1A2B4A', fontSize: 14, outline: 'none', boxSizing: 'border-box',
                       }}
                     />
                   </div>
@@ -784,7 +784,7 @@ export default function ProductosAdmin() {
                   <select
                     value={form.subcategoria}
                     onChange={e => setForm(f => ({ ...f, subcategoria: e.target.value }))}
-                    style={{ width: '100%', background: '#0a1628', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#fff', fontSize: 14, outline: 'none' }}>
+                    style={{ width: '100%', background: '#0a1628', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '10px 12px', color: '#1A2B4A', fontSize: 14, outline: 'none' }}>
                     <option value="">Sin subcategoría</option>
                     {subcategorias.map(s => (
                       <option key={s.id} value={s.nombre}>{s.nombre}</option>
@@ -804,7 +804,7 @@ export default function ProductosAdmin() {
                       width: '100%', background: '#0a1628',
                       border: '1px solid rgba(212,175,55,0.25)',
                       borderRadius: 8, padding: '10px 12px',
-                      color: '#fff', fontSize: 14, outline: 'none',
+                      color: '#1A2B4A', fontSize: 14, outline: 'none',
                     }}>
                     <option value="">Sin etiqueta</option>
                     <option value="OFERTA">OFERTA</option>
@@ -895,7 +895,7 @@ export default function ProductosAdmin() {
                   style={{
                     flex: 2, background: GOLD,
                     border: 'none', borderRadius: 10, padding: 12,
-                    color: '#0F3460', fontWeight: 900, cursor: 'pointer',
+                    color: '#F0EBE0', fontWeight: 900, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     opacity: saving ? 0.7 : 1,
                   }}>
@@ -917,7 +917,7 @@ export default function ProductosAdmin() {
             borderRadius: 16, padding: 60, textAlign: 'center',
           }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>📦</div>
-            <div style={{ color: '#fff', fontWeight: 900, fontSize: 18, marginBottom: 8 }}>No hay productos todavía</div>
+            <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 18, marginBottom: 8 }}>No hay productos todavía</div>
             <div style={{ color: '#7a8a9a', fontSize: 13 }}>Hacé clic en "Agregar Producto" para empezar</div>
           </div>
         ) : (
@@ -934,7 +934,7 @@ export default function ProductosAdmin() {
                     style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: 10, flexShrink: 0 }} />
                 )}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ color: '#fff', fontWeight: 900, fontSize: 15, marginBottom: 2 }}>{p.nombre}</div>
+                  <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 15, marginBottom: 2 }}>{p.nombre}</div>
                   <div style={{ color: '#7a8a9a', fontSize: 12 }}>
                     {p.marca} · {p.categoria} · Mayorista: <span style={{ color: '#D4AF37', fontWeight: 700 }}>${p.precio_mayorista?.toLocaleString('es-AR')}</span>
                   </div>

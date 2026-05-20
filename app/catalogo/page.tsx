@@ -72,11 +72,11 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0F3460 0%, #1B5299 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #F0EBE0 0%, #F8F5EE 100%)' }}>
 
       {/* Header */}
       <div style={{
-        background: 'rgba(27,82,153,0.97)',
+        background: 'rgba(248,245,238,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,
@@ -91,7 +91,7 @@ export default function CatalogoPage() {
             }}>
             <ArrowLeft size={16} /> Inicio
           </button>
-          <div style={{ color: '#fff', fontWeight: 900, fontSize: 22, flex: 1 }}>
+          <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 22, flex: 1 }}>
             📋 Todos los Catálogos
           </div>
         </div>
@@ -114,7 +114,7 @@ export default function CatalogoPage() {
             placeholder="Buscar catálogo..."
             style={{
               background: 'none', border: 'none', outline: 'none',
-              color: '#fff', fontSize: 15, flex: 1,
+              color: '#1A2B4A', fontSize: 15, flex: 1,
             }}
           />
         </div>
@@ -182,7 +182,7 @@ export default function CatalogoPage() {
                     onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.65) 100%)' }} />
-                  <div style={{ position: 'absolute', top: 16, left: 16, color: '#fff', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                  <div style={{ position: 'absolute', top: 16, left: 16, color: '#1A2B4A', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>
                   <div style={{ position: 'absolute', bottom: 16, left: 16, color: '#D4AF37', fontWeight: 800, fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>
