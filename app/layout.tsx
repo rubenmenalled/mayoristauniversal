@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   title: 'Mayorista Universal | Compra Mayorista Multirubro Argentina',
   description: 'Los mejores precios mayoristas en todos los rubros. Compra directa al por mayor en toda Argentina.',
   keywords: 'mayorista, argentina, productos mayoristas, compra al por mayor',
+  verification: {
+    google: 's3q2W7UQQi6KEELYQRfiRmI42GRRjTkE31_WoEr4QQg',
+  },
   openGraph: {
     title: 'Mayorista Universal | Compra Mayorista en Argentina',
     description: 'Todos los rubros mayoristas en un solo lugar, con los mejores precios del mercado en toda Argentina.',
