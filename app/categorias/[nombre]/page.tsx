@@ -74,9 +74,9 @@ export default function CategoriaPage() {
       .catch(() => {})
   }, [nombreDecoded])
 
-  const productosFiltrados = subActiva
-    ? productos.filter(p => p.subcategory?.toLowerCase() === subActiva.toLowerCase())
-    : productos
+  const productosFiltrados = subActiva === '' || subActiva === '__todos__'
+    ? productos
+    : productos.filter(p => p.subcategory?.toLowerCase() === subActiva.toLowerCase())
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)', paddingTop: 38 }}>
@@ -99,44 +99,61 @@ export default function CategoriaPage() {
         </div>
       </div>
 
-      {/* Filtros subcategorías */}
-      {subcategorias.length > 0 && (
-        <div style={{
-          background: 'rgba(26,30,94,0.95)', borderBottom: '1px solid rgba(212,175,55,0.1)',
-          padding: '12px 16px', overflowX: 'auto',
-        }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', gap: 8, flexWrap: 'nowrap', minWidth: 'max-content' }}>
-            <button
-              onClick={() => setSubActiva('')}
-              style={{
-                padding: '8px 16px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap',
-                background: subActiva === '' ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(255,255,255,0.08)',
-                color: subActiva === '' ? '#1E2B80' : '#ccc',
-              }}>
-              Todos ({productos.length})
-            </button>
-            {subcategorias.map(sub => {
+      {/* Subcategorías como tarjetas — solo si no hay ninguna activa */}
+      {subcategorias.length > 0 && !subActiva && !loading && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
+          <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
+            Seleccioná una subcategoría
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
+            {/* Tarjeta "Ver todos" */}
+            <motion.div
+              onClick={() => setSubActiva('__todos__')}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0 }}
+              whileHover={{ y: -4 }}
+              style={{ position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                <span style={{ fontSize: 40 }}>📦</span>
+                <span style={{ color: '#1E2B80', fontWeight: 900, fontSize: 16, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ver todos</span>
+                <span style={{ color: '#1E2B80', fontSize: 12, fontWeight: 700 }}>{productos.length} productos</span>
+              </div>
+            </motion.div>
+            {/* Tarjetas de subcategorías */}
+            {subcategorias.map((sub, i) => {
               const cant = productos.filter(p => p.subcategory?.toLowerCase() === sub.nombre.toLowerCase()).length
               return (
-                <button key={sub.id}
+                <motion.div key={sub.id}
                   onClick={() => setSubActiva(sub.nombre)}
-                  style={{
-                    padding: '8px 16px', borderRadius: 20, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap',
-                    background: subActiva === sub.nombre ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(255,255,255,0.08)',
-                    color: subActiva === sub.nombre ? '#1E2B80' : '#ccc',
-                  }}>
-                  {sub.emoji} {sub.nombre} {cant > 0 ? `(${cant})` : ''}
-                </button>
+                  initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+                  whileHover={{ y: -4 }}
+                  style={{ position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', background: 'linear-gradient(135deg, rgba(26,30,94,0.9), rgba(30,43,128,0.9))', border: '1px solid rgba(212,175,55,0.3)' }}>
+                  <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 12 }}>
+                    <span style={{ fontSize: 48 }}>{sub.emoji || '📂'}</span>
+                    <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center' }}>{sub.nombre}</span>
+                    {cant > 0 && <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>{cant} productos</span>}
+                  </div>
+                </motion.div>
               )
             })}
           </div>
         </div>
       )}
 
-      {/* Content */}
+      {/* Content — productos */}
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
+
+        {/* Botón volver a subcategorías */}
+        {subActiva && subcategorias.length > 0 && (
+          <button onClick={() => setSubActiva('')}
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            ← Volver a subcategorías
+          </button>
+        )}
+
         {loading ? (
           <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80, fontSize: 16 }}>Cargando productos...</div>
+        ) : subActiva === '' && subcategorias.length > 0 ? (
+          null
         ) : productosFiltrados.length === 0 ? (
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
             <div style={{ fontSize: 60, marginBottom: 16 }}>📦</div>
