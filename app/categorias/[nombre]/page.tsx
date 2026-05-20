@@ -23,23 +23,11 @@ const BADGE: Record<string, string> = {
   OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-yellow-500',
 }
 
-const FOTOS_SUB: Record<string, string> = {
-  'MATES':           'https://images.unsplash.com/photo-1618232136073-6b98be7e687a?w=600&q=80',
-  'BOMBILLAS':       'https://images.unsplash.com/photo-1681330816310-bbb4a5c1023f?w=600&q=80',
-  'GIGANTES':        'https://images.unsplash.com/photo-1547567998-1d47b5d5531f?w=600&q=80',
-  'GRANDES LISOS':   'https://images.unsplash.com/photo-1547567987-216150fb814e?w=600&q=80',
-  'MEDIANOS LISOS':  'https://images.unsplash.com/photo-1594897653263-bb08dadb0802?w=600&q=80',
-  'CHICOS LISOS':    'https://images.unsplash.com/photo-1594897653263-bb08dadb0802?w=600&q=80',
-  'SONAJEROS':       'https://images.unsplash.com/photo-1548026155-4547e58ba4af?w=600&q=80',
-  'CUNEROS':         'https://images.unsplash.com/photo-1776741146968-aa2dcea047d1?w=600&q=80',
-  'MOVIL PARA CUNA': 'https://images.unsplash.com/photo-1770831208117-c0dd9469e95d?w=600&q=80',
-  'DIDÁCTICOS':      'https://images.unsplash.com/photo-1685358272306-6e96880aa97d?w=600&q=80',
-  'OTROS ACCESORIOS':'https://images.unsplash.com/photo-1690551900519-82b94bfe7021?w=600&q=80',
-  'LA HUELLA':          'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&q=80',
-  'ENAMORADO GRANDE':   'https://images.unsplash.com/photo-1774464593573-d641812872ce?w=600&q=80',
-  'ENAMORADO MEDIANO':  'https://images.unsplash.com/photo-1556643282-743ff8642351?w=600&q=80',
-  'ENAMORADOS CHICOS':  'https://images.unsplash.com/photo-1746087484286-6586b53d2107?w=600&q=80',
-}
+const BG_SUBS = [
+  '#E8EAF6','#FCE4EC','#E8F5E9','#FFF8E1','#E3F2FD',
+  '#F3E5F5','#E0F7FA','#FBE9E7','#EDE7F6','#E8F5E9',
+  '#FFF3E0','#E1F5FE','#FCE4EC','#F1F8E9','#E8EAF6',
+]
 
 function Stars({ n }: { n: number }) {
   return (
@@ -139,19 +127,21 @@ export default function CategoriaPage() {
             {/* Tarjetas de subcategorías */}
             {subcategorias.map((sub, i) => {
               const cant = productos.filter(p => p.subcategory?.toLowerCase() === sub.nombre.toLowerCase()).length
+              const primeraFoto = productos.find(
+                p => p.subcategory?.toLowerCase() === sub.nombre.toLowerCase() && p.image
+              )?.image
+              const bg = BG_SUBS[i % BG_SUBS.length]
               return (
                 <motion.div key={sub.id}
                   onClick={() => setSubActiva(sub.nombre)}
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
                   whileHover={{ y: -4 }}
-                  style={{ position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.4)' }}>
-                  {FOTOS_SUB[sub.nombre.toUpperCase()] ? (
+                  style={{ position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', background: bg }}>
+                  {primeraFoto && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={FOTOS_SUB[sub.nombre.toUpperCase()]} alt={sub.nombre} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                  ) : (
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(26,30,94,0.9), rgba(30,43,128,0.9))' }} />
+                    <img src={primeraFoto} alt={sub.nombre} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', padding: 10 }} />
                   )}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.65) 100%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: 4, padding: 12 }}>
                     <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>{sub.nombre}</span>
                     {cant > 0 && <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>{cant} productos</span>}
