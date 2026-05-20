@@ -56,7 +56,7 @@ export default function ComoComprar() {
           text-align: center;
           padding: 32px 20px;
           position: relative;
-          background: rgba(7, 22, 51, 0.6);
+          background: rgba(27,82,153, 0.6);
           border: 1px solid rgba(212, 175, 55, 0.18);
           border-radius: 12px;
         }
@@ -127,7 +127,7 @@ export default function ComoComprar() {
 
       <section
         style={{
-          backgroundColor: '#020810',
+          backgroundColor: '#0F3460',
           padding: '72px 24px',
           width: '100%',
         }}

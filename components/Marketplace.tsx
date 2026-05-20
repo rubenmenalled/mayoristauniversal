@@ -36,7 +36,7 @@ function CountdownTimer() {
         <div key={l} className="flex items-end gap-1">
           <div className="flex flex-col items-center">
             <div className="w-12 h-11 flex items-center justify-center rounded-md font-display font-black text-2xl text-white"
-              style={{ background: 'rgba(3,13,30,0.9)', border: '1px solid rgba(212,175,55,0.3)' }}>
+              style={{ background: 'rgba(10,33,71,0.9)', border: '1px solid rgba(212,175,55,0.3)' }}>
               {String(v).padStart(2, '0')}
             </div>
             <span className="text-gray-500 text-[9px] mt-1 font-bold tracking-wider">{l}</span>

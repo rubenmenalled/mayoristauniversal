@@ -76,7 +76,7 @@ export default function CatalogoPage() {
 
       {/* Header */}
       <div style={{
-        background: 'rgba(7,22,51,0.97)',
+        background: 'rgba(27,82,153,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,

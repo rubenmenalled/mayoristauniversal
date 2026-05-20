@@ -60,7 +60,7 @@ function BuscarContent() {
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0F3460 0%, #1B5299 100%)' }}>
       {/* Header */}
       <div style={{
-        background: 'rgba(7,22,51,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(27,82,153,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -123,7 +123,7 @@ function BuscarContent() {
                       ) : (
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                       )}
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(3,13,30,0.7), transparent)' }} />
+                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,33,71,0.7), transparent)' }} />
                       {(p.discount ?? 0) > 0 && (
                         <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
                       )}

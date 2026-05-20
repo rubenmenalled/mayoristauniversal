@@ -82,7 +82,7 @@ export default function CategoriaPage() {
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0F3460 0%, #1B5299 100%)', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
       <div style={{
-        background: 'rgba(7,22,51,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(27,82,153,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -102,7 +102,7 @@ export default function CategoriaPage() {
       {/* Filtros subcategorías */}
       {subcategorias.length > 0 && (
         <div style={{
-          background: 'rgba(7,22,51,0.95)', borderBottom: '1px solid rgba(212,175,55,0.1)',
+          background: 'rgba(27,82,153,0.95)', borderBottom: '1px solid rgba(212,175,55,0.1)',
           padding: '12px 16px', overflowX: 'auto',
         }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', gap: 8, flexWrap: 'nowrap', minWidth: 'max-content' }}>
@@ -174,7 +174,7 @@ export default function CategoriaPage() {
                     {p.image && (
                       <div style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.5)', borderRadius: 6, padding: '2px 5px', fontSize: 10, color: '#fff' }}>🔍</div>
                     )}
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(3,13,30,0.7), transparent)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,33,71,0.7), transparent)' }} />
                     {(p.discount ?? 0) > 0 && (
                       <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
                     )}

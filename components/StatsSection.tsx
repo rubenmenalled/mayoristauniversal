@@ -140,7 +140,7 @@ export default function StatsSection() {
       <section
         ref={sectionRef}
         style={{
-          backgroundColor: 'rgba(2, 8, 24, 0.98)',
+          backgroundColor: 'rgba(15,52,96, 0.98)',
           borderTop: '2px solid #D4AF37',
           borderBottom: '2px solid #D4AF37',
           width: '100%',

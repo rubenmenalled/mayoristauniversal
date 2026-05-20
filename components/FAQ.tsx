@@ -53,7 +53,7 @@ export default function FAQ() {
   }
 
   const sectionStyle: React.CSSProperties = {
-    background: '#020810',
+    background: '#0F3460',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
@@ -108,7 +108,7 @@ export default function FAQ() {
             const isOpen = openIndex === i
 
             const itemStyle: React.CSSProperties = {
-              background: isOpen ? 'rgba(7, 22, 51, 0.85)' : 'rgba(7, 22, 51, 0.45)',
+              background: isOpen ? 'rgba(27,82,153, 0.85)' : 'rgba(27,82,153, 0.45)',
               border: isOpen
                 ? '1px solid rgba(212, 175, 55, 0.6)'
                 : '1px solid rgba(212, 175, 55, 0.12)',

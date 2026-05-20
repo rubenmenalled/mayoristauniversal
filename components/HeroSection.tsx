@@ -46,7 +46,7 @@ export default function HeroSection() {
 
         {/* Envíos */}
         <div style={{
-          background: 'rgba(2,8,24,0.98)',
+          background: 'rgba(15,52,96,0.98)',
           borderTop: '1px solid rgba(212,175,55,0.24)',
           padding: 'clamp(12px,2vw,20px) 16px',
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,

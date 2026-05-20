@@ -113,7 +113,7 @@ export default function CheckoutPage() {
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#0F3460,#1B5299)' }}>
       {/* Header */}
-      <div style={{ background: 'rgba(7,22,51,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)' }}>
+      <div style={{ background: 'rgba(27,82,153,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
           <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13 }}>
             <ArrowLeft size={16} /> Volver

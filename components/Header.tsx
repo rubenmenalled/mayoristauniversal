@@ -66,7 +66,7 @@ export default function Header() {
     <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ top: 38, background: scrolled ? 'rgba(7,22,51,0.97)' : 'rgba(7,22,51,0.92)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(27,82,153,0.97)' : 'rgba(27,82,153,0.92)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
@@ -217,7 +217,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileSearchOpen && (
           <motion.div className="lg:hidden border-t border-white/10"
-            style={{ background: 'rgba(7,22,51,0.98)' }}
+            style={{ background: 'rgba(27,82,153,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
             <form className="px-4 py-3 flex gap-2"
@@ -239,7 +239,7 @@ export default function Header() {
 
       {/* ── Nav bar ── */}
       <div className="hidden lg:block border-t border-white/10"
-        style={{ background: 'rgba(3,13,30,0.85)' }}>
+        style={{ background: 'rgba(10,33,71,0.85)' }}>
         <div className="max-w-[1400px] mx-auto px-4">
           <nav className="flex items-center gap-0">
             {/* Categorías dropdown */}
@@ -259,7 +259,7 @@ export default function Header() {
                     transition={{ duration: 0.15 }}
                     style={{
                       position: 'absolute', top: '100%', left: 0, zIndex: 200,
-                      background: 'rgba(7,22,51,0.98)',
+                      background: 'rgba(27,82,153,0.98)',
                       border: '1px solid rgba(212,175,55,0.3)',
                       borderRadius: 12, padding: '8px',
                       minWidth: 200, maxHeight: 400, overflowY: 'auto',
@@ -311,7 +311,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div className="lg:hidden border-t border-white/10 overflow-hidden"
-            style={{ background: 'rgba(7,22,51,0.98)' }}
+            style={{ background: 'rgba(27,82,153,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
             <div className="px-4 py-4 space-y-3">
