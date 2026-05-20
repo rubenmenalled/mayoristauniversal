@@ -17,7 +17,7 @@ export default function HeroSection() {
         }
         /* Desktop: imagen full-bleed, header flota encima */
         @media (min-width: 768px) {
-          #hero-section { padding-top: 0; }
+          #hero-section { padding-top: 98px; }
           #hero-banner { width: 100%; }
           #hero-banner img { width: 100%; height: auto; display: block; }
         }
