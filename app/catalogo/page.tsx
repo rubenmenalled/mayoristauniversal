@@ -34,7 +34,7 @@ const FOTOS: Record<string, string> = {
   CAMPING:      'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80',
   AUTOMOTOR:    'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80',
   ILUMINACION:  'https://images.unsplash.com/photo-1712294252418-680891540aa8?w=600&q=80',
-  ADULTOS:      'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=80',
+
 }
 
 interface Categoria {
