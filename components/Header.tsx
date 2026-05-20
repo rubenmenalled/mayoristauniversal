@@ -66,7 +66,7 @@ export default function Header() {
     <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ top: 38, background: scrolled ? 'rgba(107,84,62,0.97)' : 'rgba(107,84,62,0.92)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(142,26,94,0.97)' : 'rgba(142,26,94,0.92)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
@@ -145,7 +145,7 @@ export default function Header() {
                   className="flex items-center gap-2 text-gray-300 hover:text-gold transition-colors"
                   whileHover={{ scale: 1.03 }}>
                   <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <User size={16} color="#614830" />
+                    <User size={16} color="#7B1450" />
                   </div>
                   <div className="flex flex-col items-start">
                     <span className="text-[10px] leading-none opacity-70 text-gold">Bienvenido</span>
@@ -199,7 +199,7 @@ export default function Header() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 {userName
-                  ? <span style={{ fontSize: 13, fontWeight: 900, color: '#614830' }}>{userName.charAt(0).toUpperCase()}</span>
+                  ? <span style={{ fontSize: 13, fontWeight: 900, color: '#7B1450' }}>{userName.charAt(0).toUpperCase()}</span>
                   : <User size={15} color="#D4AF37" />
                 }
               </div>
@@ -217,7 +217,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileSearchOpen && (
           <motion.div className="lg:hidden border-t border-white/10"
-            style={{ background: 'rgba(107,84,62,0.98)' }}
+            style={{ background: 'rgba(142,26,94,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
             <form className="px-4 py-3 flex gap-2"
@@ -239,7 +239,7 @@ export default function Header() {
 
       {/* ── Nav bar ── */}
       <div className="hidden lg:block border-t border-white/10"
-        style={{ background: 'rgba(107,84,62,0.85)' }}>
+        style={{ background: 'rgba(142,26,94,0.85)' }}>
         <div className="max-w-[1400px] mx-auto px-4">
           <nav className="flex items-center gap-0">
             {/* Categorías dropdown */}
@@ -259,7 +259,7 @@ export default function Header() {
                     transition={{ duration: 0.15 }}
                     style={{
                       position: 'absolute', top: '100%', left: 0, zIndex: 200,
-                      background: 'rgba(107,84,62,0.98)',
+                      background: 'rgba(142,26,94,0.98)',
                       border: '1px solid rgba(212,175,55,0.3)',
                       borderRadius: 12, padding: '8px',
                       minWidth: 200, maxHeight: 400, overflowY: 'auto',
@@ -311,7 +311,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div className="lg:hidden border-t border-white/10 overflow-hidden"
-            style={{ background: 'rgba(107,84,62,0.98)' }}
+            style={{ background: 'rgba(142,26,94,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
             <div className="px-4 py-4 space-y-3">
@@ -367,13 +367,13 @@ export default function Header() {
                 {userName ? (
                   <a href="/mi-cuenta"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#614830' }}>
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#7B1450' }}>
                     👤 Mi cuenta
                   </a>
                 ) : (
                   <a href="/login"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#614830' }}>
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#7B1450' }}>
                     Ingresar
                   </a>
                 )}

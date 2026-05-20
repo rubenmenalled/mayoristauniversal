@@ -8,10 +8,10 @@ export default function ComoComprarPage() {
   const router = useRouter()
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #7B1450 0%, #8E1A5E 100%)' }}>
       {/* Header */}
       <div style={{
-        background: 'rgba(107,84,62,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(142,26,94,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -66,7 +66,7 @@ export default function ComoComprarPage() {
             style={{
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               border: 'none', borderRadius: 12, padding: '14px 36px',
-              color: '#614830', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+              color: '#7B1450', fontWeight: 900, fontSize: 15, cursor: 'pointer',
             }}>
             VER CATÁLOGO
           </button>

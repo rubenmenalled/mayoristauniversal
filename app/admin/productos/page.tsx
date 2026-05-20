@@ -239,7 +239,7 @@ export default function ProductosAdmin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#614830 0%,#6B543E 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#7B1450 0%,#8E1A5E 100%)' }}>
       {/* Header */}
       <div style={{
         background: 'rgba(255,255,255,0.03)',
@@ -392,7 +392,7 @@ export default function ProductosAdmin() {
             onClick={() => { setForm(EMPTY); setShowForm(true) }}
             style={{
               background: GOLD, border: 'none', borderRadius: 10,
-              padding: '10px 20px', color: '#614830', fontWeight: 900, fontSize: 14,
+              padding: '10px 20px', color: '#7B1450', fontWeight: 900, fontSize: 14,
               cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8,
             }}>
             <Plus size={16} /> Agregar Producto
@@ -693,7 +693,7 @@ export default function ProductosAdmin() {
                 <button onClick={handleImport} disabled={importing}
                   style={{
                     flex: 2, background: GOLD, border: 'none', borderRadius: 10, padding: 12,
-                    color: '#614830', fontWeight: 900, cursor: 'pointer',
+                    color: '#7B1450', fontWeight: 900, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     opacity: importing ? 0.7 : 1,
                   }}>
@@ -895,7 +895,7 @@ export default function ProductosAdmin() {
                   style={{
                     flex: 2, background: GOLD,
                     border: 'none', borderRadius: 10, padding: 12,
-                    color: '#614830', fontWeight: 900, cursor: 'pointer',
+                    color: '#7B1450', fontWeight: 900, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     opacity: saving ? 0.7 : 1,
                   }}>

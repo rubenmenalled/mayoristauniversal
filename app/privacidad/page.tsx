@@ -5,11 +5,11 @@ export const metadata = {
 
 export default function PrivacidadPage() {
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)', color: '#e8eaf0' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #7B1450 0%, #8E1A5E 100%)', color: '#e8eaf0' }}>
 
       {/* Header */}
       <div style={{
-        background: 'rgba(107,84,62,0.97)',
+        background: 'rgba(142,26,94,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.25)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,

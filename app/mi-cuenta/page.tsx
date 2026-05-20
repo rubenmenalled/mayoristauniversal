@@ -52,7 +52,7 @@ export default function MiCuentaPage() {
   if (loading) {
     return (
       <div style={{
-        minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)',
+        minHeight: '100vh', background: 'linear-gradient(180deg, #7B1450 0%, #8E1A5E 100%)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         <div style={{ color: '#D4AF37', fontSize: 16 }}>Cargando...</div>
@@ -85,7 +85,7 @@ export default function MiCuentaPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)',
+      background: 'linear-gradient(180deg, #7B1450 0%, #8E1A5E 100%)',
       padding: '24px 16px',
     }}>
       <div style={{ maxWidth: 580, margin: '0 auto' }}>
@@ -98,7 +98,7 @@ export default function MiCuentaPage() {
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <ShoppingCart size={18} color="#614830" />
+              <ShoppingCart size={18} color="#7B1450" />
             </div>
             <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14, letterSpacing: '0.06em' }}>MAYORISTA UNIVERSAL</span>
           </a>
@@ -124,7 +124,7 @@ export default function MiCuentaPage() {
             width: 68, height: 68, borderRadius: '50%',
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 28, fontWeight: 900, color: '#614830', flexShrink: 0,
+            fontSize: 28, fontWeight: 900, color: '#7B1450', flexShrink: 0,
           }}>
             {inicial}
           </div>
@@ -252,7 +252,7 @@ export default function MiCuentaPage() {
               <a href="/catalogo" style={{
                 display: 'inline-block',
                 background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                color: '#614830', fontWeight: 800, fontSize: 13,
+                color: '#7B1450', fontWeight: 800, fontSize: 13,
                 padding: '10px 22px', borderRadius: 10, textDecoration: 'none',
               }}>
                 Ver catálogo →

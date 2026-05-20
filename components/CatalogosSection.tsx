@@ -45,7 +45,7 @@ const SHIMMER_KEYFRAMES = `
 
 function SkeletonGrid() {
   return (
-    <section style={{ background: '#614830', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+    <section style={{ background: '#7B1450', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: SHIMMER_KEYFRAMES }} />
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Título skeleton */}
@@ -94,7 +94,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   })
 
   return (
-    <section id="catalogos" style={{ background: '#614830', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+    <section id="catalogos" style={{ background: '#7B1450', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
       {/* Título */}
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <h2 style={{
@@ -124,7 +124,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 overflow: 'hidden',
                 cursor: 'pointer',
                 textDecoration: 'none',
-                background: '#6B543E',
+                background: '#8E1A5E',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
               }}
             >
