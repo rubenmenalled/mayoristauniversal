@@ -62,7 +62,7 @@ export default function MediosDePago() {
   }, []);
 
   const sectionStyle: React.CSSProperties = {
-    background: '#F0EBE0',
+    background: '#1E2B80',
     padding: '72px 24px',
     fontFamily: "'Inter', 'Segoe UI', sans-serif",
   };

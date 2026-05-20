@@ -5,11 +5,11 @@ export const metadata = {
 
 export default function TerminosPage() {
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #F0EBE0 0%, #F8F5EE 100%)', color: '#e8eaf0' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)', color: '#e8eaf0' }}>
 
       {/* Header */}
       <div style={{
-        background: 'rgba(248,245,238,0.97)',
+        background: 'rgba(26,30,94,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.25)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,
@@ -23,7 +23,7 @@ export default function TerminosPage() {
           }}>
             ← Volver
           </a>
-          <span style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 20, letterSpacing: '0.04em' }}>
+          <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20, letterSpacing: '0.04em' }}>
             MAYORISTA UNIVERSAL
           </span>
         </div>

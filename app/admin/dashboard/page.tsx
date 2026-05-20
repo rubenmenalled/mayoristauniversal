@@ -43,7 +43,7 @@ export default function Dashboard() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#F0EBE0 0%,#F8F5EE 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#1E2B80 0%,#1A1E5E 100%)' }}>
       {/* Header */}
       <div style={{
         background: 'rgba(255,255,255,0.03)',
@@ -62,7 +62,7 @@ export default function Dashboard() {
             fontSize: 18,
           }}>🛒</div>
           <div>
-            <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 15 }}>Panel Admin</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15 }}>Panel Admin</div>
             <div style={{ color: '#7a8a9a', fontSize: 11 }}>Mayorista Universal</div>
           </div>
         </div>
@@ -94,7 +94,7 @@ export default function Dashboard() {
 
       {/* Content */}
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 24px' }}>
-        <h1 style={{ color: '#1A2B4A', fontSize: 26, fontWeight: 900, marginBottom: 8 }}>
+        <h1 style={{ color: '#FFFFFF', fontSize: 26, fontWeight: 900, marginBottom: 8 }}>
           Bienvenido 👋
         </h1>
         <p style={{ color: '#7a8a9a', fontSize: 14, marginBottom: 40 }}>
@@ -123,7 +123,7 @@ export default function Dashboard() {
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 marginBottom: 8,
               }}>
-                <span style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 18 }}>{card.title}</span>
+                <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18 }}>{card.title}</span>
                 <ArrowRight size={18} color="#D4AF37" />
               </div>
               <p style={{ color: '#7a8a9a', fontSize: 13, margin: 0 }}>{card.desc}</p>

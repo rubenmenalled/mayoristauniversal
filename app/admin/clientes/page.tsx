@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 
 const GOLD = '#D4AF37'
 const GOLD_GRAD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
-const NAVY = '#F0EBE0'
-const NAVY2 = '#F8F5EE'
+const NAVY = '#1E2B80'
+const NAVY2 = '#1A1E5E'
 
 interface Cliente {
   id: string
@@ -94,7 +94,7 @@ export default function ClientesPage() {
             fontSize: 18,
           }}>👥</div>
           <div>
-            <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 15 }}>Clientes registrados</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15 }}>Clientes registrados</div>
             <div style={{ color: '#7a8a9a', fontSize: 11 }}>Mayorista Universal</div>
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function ClientesPage() {
               border: `1px solid rgba(212,175,55,0.25)`,
               borderRadius: 10,
               padding: '10px 16px',
-              color: '#1A2B4A',
+              color: '#FFFFFF',
               fontSize: 14,
               outline: 'none',
               width: isMobile ? '100%' : 300,
@@ -246,7 +246,7 @@ export default function ClientesPage() {
                       onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,175,55,0.06)')}
                       onMouseLeave={e => (e.currentTarget.style.background = i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)')}
                     >
-                      <td style={{ padding: '12px 16px', fontWeight: 700, color: '#1A2B4A' }}>{c.nombre}</td>
+                      <td style={{ padding: '12px 16px', fontWeight: 700, color: '#FFFFFF' }}>{c.nombre}</td>
                       <td style={{ padding: '12px 16px', color: '#a0b0c0' }}>{c.email || '—'}</td>
                       <td style={{ padding: '12px 16px' }}>{c.documento}</td>
                       <td style={{ padding: '12px 16px' }}>{c.whatsapp}</td>
@@ -277,7 +277,7 @@ export default function ClientesPage() {
                 {/* Card header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                   <div>
-                    <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 15 }}>{c.nombre}</div>
+                    <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{c.nombre}</div>
                     <div style={{ color: '#7a8a9a', fontSize: 12, marginTop: 2 }}>{c.email || '—'}</div>
                   </div>
                   <div style={{

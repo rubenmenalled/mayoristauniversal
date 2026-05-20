@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 
 const GOLD = '#D4AF37'
 const GOLD_GRAD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
-const NAVY = '#F0EBE0'
-const NAVY2 = '#F8F5EE'
+const NAVY = '#1E2B80'
+const NAVY2 = '#1A1E5E'
 
 type Estado = 'pendiente' | 'confirmado' | 'enviado'
 
@@ -150,7 +150,7 @@ export default function PedidosPage() {
             fontSize: 18,
           }}>🛒</div>
           <div>
-            <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 15 }}>Pedidos</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15 }}>Pedidos</div>
             <div style={{ color: '#7a8a9a', fontSize: 11 }}>Mayorista Universal</div>
           </div>
         </div>
@@ -188,7 +188,7 @@ export default function PedidosPage() {
               padding: '16px 20px',
             }}>
               <div style={{ color: '#7a8a9a', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Total pedidos</div>
-              <div style={{ color: '#1A2B4A', fontSize: 28, fontWeight: 900, marginTop: 4 }}>{totalPedidos}</div>
+              <div style={{ color: '#FFFFFF', fontSize: 28, fontWeight: 900, marginTop: 4 }}>{totalPedidos}</div>
             </div>
 
             {/* Pendientes */}
@@ -262,7 +262,7 @@ export default function PedidosPage() {
               border: '1px solid rgba(212,175,55,0.25)',
               borderRadius: 10,
               padding: '9px 16px',
-              color: '#1A2B4A',
+              color: '#FFFFFF',
               fontSize: 13,
               outline: 'none',
               minWidth: 220,
@@ -336,7 +336,7 @@ export default function PedidosPage() {
                   }}>
                     {/* Datos cliente */}
                     <div>
-                      <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 16 }}>
+                      <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 16 }}>
                         {pedido.nombre || '—'}
                       </div>
                       <div style={{ color: '#7a8a9a', fontSize: 12, marginTop: 3, display: 'flex', gap: 10, flexWrap: 'wrap' }}>

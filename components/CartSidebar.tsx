@@ -37,8 +37,8 @@ export default function CartSidebar({ open, onClose }: Props) {
             <div style={{ padding: '20px 24px', borderBottom: '1px solid rgba(212,175,55,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <ShoppingBag size={20} color="#D4AF37" />
-                <span style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 18 }}>Mi Carrito</span>
-                <span style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#F0EBE0', fontWeight: 900, fontSize: 12, padding: '2px 8px', borderRadius: 99 }}>
+                <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18 }}>Mi Carrito</span>
+                <span style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#1E2B80', fontWeight: 900, fontSize: 12, padding: '2px 8px', borderRadius: 99 }}>
                   {items.length}
                 </span>
               </div>
@@ -52,7 +52,7 @@ export default function CartSidebar({ open, onClose }: Props) {
               {items.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '60px 0' }}>
                   <div style={{ fontSize: 48, marginBottom: 12 }}>🛒</div>
-                  <div style={{ color: '#1A2B4A', fontWeight: 700, fontSize: 16, marginBottom: 6 }}>Tu carrito está vacío</div>
+                  <div style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 16, marginBottom: 6 }}>Tu carrito está vacío</div>
                   <div style={{ color: '#7a8a9a', fontSize: 13 }}>Agregá productos para comenzar</div>
                 </div>
               ) : (
@@ -60,7 +60,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                   {items.map(item => (
                     <div key={item.id} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.1)', borderRadius: 12, padding: 12, display: 'flex', gap: 12 }}>
                       {/* Image */}
-                      <div style={{ width: 60, height: 60, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F8F5EE', position: 'relative' }}>
+                      <div style={{ width: 60, height: 60, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#1A1E5E', position: 'relative' }}>
                         {item.image ? (
                           <Image src={item.image} alt={item.name} fill className="object-cover" sizes="60px" />
                         ) : (
@@ -69,19 +69,19 @@ export default function CartSidebar({ open, onClose }: Props) {
                       </div>
                       {/* Info */}
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ color: '#1A2B4A', fontWeight: 700, fontSize: 13, marginBottom: 4, lineHeight: 1.3 }}>{item.name}</div>
+                        <div style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 13, marginBottom: 4, lineHeight: 1.3 }}>{item.name}</div>
                         <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14, marginBottom: 8 }}>
                           ${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}
                         </div>
                         {/* Qty controls */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <button onClick={() => updateQty(item.id, Math.max(item.minOrder, item.quantity - item.minOrder))}
-                            style={{ width: 26, height: 26, borderRadius: 6, background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', color: '#1A2B4A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            style={{ width: 26, height: 26, borderRadius: 6, background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Minus size={12} />
                           </button>
-                          <span style={{ color: '#1A2B4A', fontWeight: 700, fontSize: 13, minWidth: 24, textAlign: 'center' }}>{item.quantity}</span>
+                          <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 13, minWidth: 24, textAlign: 'center' }}>{item.quantity}</span>
                           <button onClick={() => updateQty(item.id, item.quantity + item.minOrder)}
-                            style={{ width: 26, height: 26, borderRadius: 6, background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', color: '#1A2B4A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            style={{ width: 26, height: 26, borderRadius: 6, background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Plus size={12} />
                           </button>
                           <button onClick={() => removeItem(item.id)}
@@ -115,7 +115,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                     style={{
                       width: '100%', padding: '14px', borderRadius: 12, border: 'none',
                       background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                      color: '#F0EBE0', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+                      color: '#1E2B80', fontWeight: 900, fontSize: 15, cursor: 'pointer',
                     }}>
                     + SEGUIR AGREGANDO PRODUCTOS
                   </button>
@@ -125,7 +125,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                     style={{
                       width: '100%', padding: '14px', borderRadius: 12, border: 'none',
                       background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                      color: '#F0EBE0', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+                      color: '#1E2B80', fontWeight: 900, fontSize: 15, cursor: 'pointer',
                     }}>
                     FINALIZAR COMPRA →
                   </button>

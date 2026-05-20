@@ -52,7 +52,7 @@ export default function MiCuentaPage() {
   if (loading) {
     return (
       <div style={{
-        minHeight: '100vh', background: 'linear-gradient(180deg, #F0EBE0 0%, #F8F5EE 100%)',
+        minHeight: '100vh', background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         <div style={{ color: '#D4AF37', fontSize: 16 }}>Cargando...</div>
@@ -85,7 +85,7 @@ export default function MiCuentaPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(180deg, #F0EBE0 0%, #F8F5EE 100%)',
+      background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)',
       padding: '24px 16px',
     }}>
       <div style={{ maxWidth: 580, margin: '0 auto' }}>
@@ -98,7 +98,7 @@ export default function MiCuentaPage() {
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <ShoppingCart size={18} color="#F0EBE0" />
+              <ShoppingCart size={18} color="#1E2B80" />
             </div>
             <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14, letterSpacing: '0.06em' }}>MAYORISTA UNIVERSAL</span>
           </a>
@@ -124,12 +124,12 @@ export default function MiCuentaPage() {
             width: 68, height: 68, borderRadius: '50%',
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 28, fontWeight: 900, color: '#F0EBE0', flexShrink: 0,
+            fontSize: 28, fontWeight: 900, color: '#1E2B80', flexShrink: 0,
           }}>
             {inicial}
           </div>
           <div>
-            <div style={{ color: '#1A2B4A', fontWeight: 900, fontSize: 20, marginBottom: 3 }}>{nombre}</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20, marginBottom: 3 }}>{nombre}</div>
             <div style={{ color: '#7a8a9a', fontSize: 13, marginBottom: 8 }}>{email}</div>
             <div style={{
               display: 'inline-block',
@@ -153,7 +153,7 @@ export default function MiCuentaPage() {
               <div style={iconBoxStyle}><FileText size={19} color="#D4AF37" /></div>
               <div>
                 <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>DOCUMENTO</div>
-                <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 15 }}>{documento}</div>
+                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{documento}</div>
               </div>
             </div>
 
@@ -161,7 +161,7 @@ export default function MiCuentaPage() {
               <div style={iconBoxStyle}><Phone size={19} color="#D4AF37" /></div>
               <div>
                 <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>WHATSAPP</div>
-                <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 15 }}>{whatsapp}</div>
+                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{whatsapp}</div>
               </div>
             </div>
 
@@ -169,7 +169,7 @@ export default function MiCuentaPage() {
               <div style={iconBoxStyle}><Truck size={19} color="#D4AF37" /></div>
               <div>
                 <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>TRANSPORTE</div>
-                <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 15 }}>{transporte}</div>
+                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{transporte}</div>
               </div>
             </div>
 
@@ -177,7 +177,7 @@ export default function MiCuentaPage() {
               <div style={iconBoxStyle}><RefreshCw size={19} color="#D4AF37" /></div>
               <div>
                 <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>REEMPLAZO DE PRODUCTOS</div>
-                <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 15 }}>{reemplazo}</div>
+                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{reemplazo}</div>
               </div>
             </div>
 
@@ -200,7 +200,7 @@ export default function MiCuentaPage() {
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(212,175,55,0.15)')}>
                 <div style={iconBoxStyle}><Package size={19} color="#D4AF37" /></div>
                 <div>
-                  <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 15 }}>Ver catálogos</div>
+                  <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>Ver catálogos</div>
                   <div style={{ color: '#7a8a9a', fontSize: 12 }}>Explorá todos los productos mayoristas</div>
                 </div>
                 <span style={{ marginLeft: 'auto', color: '#D4AF37', fontSize: 18 }}>→</span>
@@ -217,7 +217,7 @@ export default function MiCuentaPage() {
                   <span style={{ fontSize: 20 }}>📱</span>
                 </div>
                 <div>
-                  <div style={{ color: '#1A2B4A', fontWeight: 800, fontSize: 15 }}>Hacer un pedido por WhatsApp</div>
+                  <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>Hacer un pedido por WhatsApp</div>
                   <div style={{ color: '#7a8a9a', fontSize: 12 }}>Te abre directo con tu nombre</div>
                 </div>
                 <span style={{ marginLeft: 'auto', color: '#22c55e', fontSize: 18 }}>→</span>
@@ -252,7 +252,7 @@ export default function MiCuentaPage() {
               <a href="/catalogo" style={{
                 display: 'inline-block',
                 background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                color: '#F0EBE0', fontWeight: 800, fontSize: 13,
+                color: '#1E2B80', fontWeight: 800, fontSize: 13,
                 padding: '10px 22px', borderRadius: 10, textDecoration: 'none',
               }}>
                 Ver catálogo →

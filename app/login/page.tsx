@@ -76,7 +76,7 @@ export default function LoginPage() {
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 16px', borderRadius: 10, outline: 'none',
     background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.2)',
-    color: '#1A2B4A', fontSize: 15, boxSizing: 'border-box',
+    color: '#FFFFFF', fontSize: 15, boxSizing: 'border-box',
   }
 
   const labelStyle: React.CSSProperties = {
@@ -85,7 +85,7 @@ export default function LoginPage() {
 
   return (
     <div style={{
-      minHeight: '100vh', background: 'linear-gradient(180deg, #F0EBE0 0%, #F8F5EE 100%)',
+      minHeight: '100vh', background: 'linear-gradient(180deg, #1E2B80 0%, #1A1E5E 100%)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px',
     }}>
       <div style={{ width: '100%', maxWidth: 440 }}>
@@ -98,7 +98,7 @@ export default function LoginPage() {
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <ShoppingCart size={28} color="#F0EBE0" />
+              <ShoppingCart size={28} color="#1E2B80" />
             </div>
             <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, letterSpacing: '0.08em' }}>MAYORISTA UNIVERSAL</div>
           </a>
@@ -118,7 +118,7 @@ export default function LoginPage() {
                   flex: 1, padding: '10px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
                   fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
                   background: mode === m ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'transparent',
-                  color: mode === m ? '#F0EBE0' : '#9ca3af',
+                  color: mode === m ? '#1E2B80' : '#9ca3af',
                 }}>
                 {m === 'login' ? 'Ingresar' : 'Registrarse'}
               </button>
@@ -157,9 +157,9 @@ export default function LoginPage() {
                   <label style={labelStyle}>TRANSPORTE PREFERIDO *</label>
                   <select value={transporte} onChange={e => setTransporte(e.target.value)} required
                     style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
-                    <option value="" style={{ background: '#F8F5EE' }}>Seleccioná una opción</option>
+                    <option value="" style={{ background: '#1A1E5E' }}>Seleccioná una opción</option>
                     {TRANSPORTES.map(t => (
-                      <option key={t} value={t} style={{ background: '#F8F5EE' }}>{t}</option>
+                      <option key={t} value={t} style={{ background: '#1A1E5E' }}>{t}</option>
                     ))}
                   </select>
                 </div>
@@ -226,7 +226,7 @@ export default function LoginPage() {
             <button type="submit" disabled={loading}
               style={{
                 width: '100%', padding: '14px', borderRadius: 12, border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#F0EBE0',
+                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#1E2B80',
                 fontWeight: 900, fontSize: 15, letterSpacing: '0.05em',
                 opacity: loading ? 0.7 : 1,
               }}>

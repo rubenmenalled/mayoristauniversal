@@ -45,7 +45,7 @@ const SHIMMER_KEYFRAMES = `
 
 function SkeletonGrid() {
   return (
-    <section style={{ background: '#F0EBE0', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+    <section style={{ background: '#1E2B80', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: SHIMMER_KEYFRAMES }} />
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Título skeleton */}
@@ -94,7 +94,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   })
 
   return (
-    <section id="catalogos" style={{ background: '#F0EBE0', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+    <section id="catalogos" style={{ background: '#1E2B80', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
       {/* Título */}
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <h2 style={{
@@ -124,7 +124,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 overflow: 'hidden',
                 cursor: 'pointer',
                 textDecoration: 'none',
-                background: '#F8F5EE',
+                background: '#1A1E5E',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
               }}
             >
@@ -152,7 +152,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* Nombre categoría — arriba izquierda */}
               <div style={{
                 position: 'absolute', top: 16, left: 16,
-                color: '#1A2B4A', fontWeight: 900,
+                color: '#FFFFFF', fontWeight: 900,
                 fontSize: 'clamp(18px, 2vw, 22px)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.06em',

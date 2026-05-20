@@ -33,7 +33,7 @@ export default function HeroSection() {
           <div style={{
             position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)',
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#F0EBE0', fontWeight: 900,
+            color: '#1E2B80', fontWeight: 900,
             fontSize: 'clamp(12px,2vw,15px)',
             padding: 'clamp(8px,1.5vw,12px) clamp(18px,3vw,32px)',
             borderRadius: 12,
@@ -46,7 +46,7 @@ export default function HeroSection() {
 
         {/* Envíos */}
         <div style={{
-          background: 'rgba(240,235,224,0.98)',
+          background: 'rgba(26,43,128,0.98)',
           borderTop: '1px solid rgba(212,175,55,0.24)',
           padding: 'clamp(12px,2vw,20px) 16px',
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
