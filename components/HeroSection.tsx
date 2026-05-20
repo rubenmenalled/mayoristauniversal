@@ -47,11 +47,11 @@ export default function HeroSection() {
         </div>
 
         {/* Botón catálogos debajo de la imagen */}
-        <div style={{ background: 'rgba(123,20,80,0.98)', padding: '14px 16px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ background: 'rgba(97,72,48,0.98)', padding: '14px 16px', display: 'flex', justifyContent: 'center' }}>
           <a href="/catalogo" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#7B1450', fontWeight: 900,
+            color: '#614830', fontWeight: 900,
             fontSize: 'clamp(13px,1.8vw,16px)',
             padding: 'clamp(10px,1.5vw,14px) clamp(24px,3vw,48px)',
             borderRadius: 12,
@@ -69,7 +69,7 @@ export default function HeroSection() {
           className="envios-bar"
           onClick={() => setModalOpen(true)}
           style={{
-            background: 'rgba(123,20,80,0.98)',
+            background: 'rgba(97,72,48,0.98)',
             borderTop: '1px solid rgba(212,175,55,0.24)',
             padding: 'clamp(12px,2vw,20px) 16px',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
@@ -99,7 +99,7 @@ export default function HeroSection() {
           <div
             onClick={e => e.stopPropagation()}
             style={{
-              background: 'linear-gradient(180deg, #7B1450 0%, #8E1A5E 100%)',
+              background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)',
               border: '1px solid rgba(212,175,55,0.35)',
               borderRadius: 20, width: '100%', maxWidth: 480,
               maxHeight: '90vh', overflowY: 'auto',

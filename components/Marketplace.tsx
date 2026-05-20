@@ -36,7 +36,7 @@ function CountdownTimer() {
         <div key={l} className="flex items-end gap-1">
           <div className="flex flex-col items-center">
             <div className="w-12 h-11 flex items-center justify-center rounded-md font-display font-black text-2xl text-white"
-              style={{ background: 'rgba(142,26,94,0.9)', border: '1px solid rgba(212,175,55,0.3)' }}>
+              style={{ background: 'rgba(107,84,62,0.9)', border: '1px solid rgba(212,175,55,0.3)' }}>
               {String(v).padStart(2, '0')}
             </div>
             <span className="text-gray-500 text-[9px] mt-1 font-bold tracking-wider">{l}</span>
@@ -75,7 +75,7 @@ function ProductCard({ p }: { p: Product }) {
       <div className="absolute inset-0 rounded-xl border border-gold/0 group-hover:border-gold/40 transition-all duration-300 pointer-events-none z-10" />
 
       {/* Image */}
-      <div className="relative h-40 bg-navy-mid overflow-hidden" style={{ background: '#8E1A5E' }}>
+      <div className="relative h-40 bg-navy-mid overflow-hidden" style={{ background: '#6B543E' }}>
         <Image src={p.image} alt={p.name} fill
           className="object-contain transition-transform duration-500 group-hover:scale-105 p-2"
           sizes="(max-width:640px) 100vw, 200px" />
@@ -174,7 +174,7 @@ export default function Marketplace({ products: initialProducts }: { products?: 
 
   return (
     <section id="productos" className="py-10 relative"
-      style={{ background: 'linear-gradient(180deg, #7B1450 0%, #8E1A5E 100%)' }}>
+      style={{ background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)' }}>
       <div className="max-w-[1400px] mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
 

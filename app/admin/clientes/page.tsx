@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 
 const GOLD = '#D4AF37'
 const GOLD_GRAD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
-const NAVY = '#7B1450'
-const NAVY2 = '#8E1A5E'
+const NAVY = '#614830'
+const NAVY2 = '#6B543E'
 
 interface Cliente {
   id: string
