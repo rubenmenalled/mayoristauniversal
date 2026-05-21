@@ -41,13 +41,13 @@ export default function HeroSection() {
           #hero-section { padding-top: 92px; }
           #hero-banner { height: 58vw; overflow: hidden; }
           #hero-banner .kenburns-wrap { width: 100%; height: 100%; overflow: hidden; }
-          #hero-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
+          #hero-banner .kenburns-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 98px; }
-          #hero-banner { width: 100%; }
+          #hero-banner { width: 100%; overflow: hidden; }
           #hero-banner .kenburns-wrap { overflow: hidden; width: 100%; }
-          #hero-banner img { width: 100%; height: auto; display: block; max-width: none; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
+          #hero-banner .kenburns-wrap img { width: 100%; height: auto; display: block; max-width: none; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
         }
         .envios-bar:hover { opacity: 0.92; transform: scale(1.01); }
         .envios-bar { transition: all 0.2s ease; cursor: pointer; }
