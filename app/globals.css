@@ -11,14 +11,14 @@ html {
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #1A1A1A;
+  background-color: #614830;
+  color: white;
   overflow-x: hidden;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #E5E5E5; }
+::-webkit-scrollbar-track { background: #72604C; }
 ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #F0D060; }
 
