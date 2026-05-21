@@ -24,34 +24,78 @@ export default function HeroSection() {
           flex-direction: column;
           width: 100%;
         }
+        @keyframes hero-kenburns {
+          0%   { transform: scale(1)    translateX(0)    translateY(0); }
+          33%  { transform: scale(1.06) translateX(-1%)  translateY(-0.5%); }
+          66%  { transform: scale(1.04) translateX(1%)   translateY(0.5%); }
+          100% { transform: scale(1)    translateX(0)    translateY(0); }
+        }
+        @keyframes panda-mover {
+          0%    { transform: translateX(88vw)  scaleX(-1); }
+          44%   { transform: translateX(0vw)   scaleX(-1); }
+          50%   { transform: translateX(0vw)   scaleX(1);  }
+          94%   { transform: translateX(88vw)  scaleX(1);  }
+          100%  { transform: translateX(88vw)  scaleX(-1); }
+        }
         @media (max-width: 767px) {
           #hero-section { padding-top: 92px; }
-          #hero-banner { height: 56vw; overflow: hidden; }
-          #hero-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
+          #hero-banner { height: 58vw; overflow: hidden; }
+          #hero-banner .kenburns-wrap { width: 100%; height: 100%; overflow: hidden; }
+          #hero-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 98px; }
           #hero-banner { width: 100%; }
-          #hero-banner img { width: 100%; height: auto; display: block; }
+          #hero-banner .kenburns-wrap { overflow: hidden; width: 100%; }
+          #hero-banner img { width: 100%; height: auto; display: block; max-width: none; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
         }
         .envios-bar:hover { opacity: 0.92; transform: scale(1.01); }
         .envios-bar { transition: all 0.2s ease; cursor: pointer; }
         .transporte-card:hover { transform: translateY(-2px); background: rgba(212,175,55,0.12) !important; }
         .transporte-card { transition: all 0.18s ease; }
+
+        /* Animación marco panda */
+        @keyframes panda-pulse {
+          0%, 100% { box-shadow: 0 0 0 3px rgba(212,175,55,0.35), 0 8px 32px rgba(0,0,0,0.6); }
+          50%       { box-shadow: 0 0 0 6px rgba(212,175,55,0.55), 0 8px 40px rgba(0,0,0,0.7); }
+        }
       `}</style>
 
       <section id="hero-section">
-        <div id="hero-banner">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
+        <div id="hero-banner" style={{ position: 'relative' }}>
+          <div className="kenburns-wrap">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
+          </div>
+          {/* Panda — caminando de lado a lado */}
+          <div style={{
+            position: 'absolute',
+            bottom: '4%',
+            left: 0,
+            zIndex: 10,
+            pointerEvents: 'none',
+            animation: 'panda-mover 18s linear infinite',
+          }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/panda-walk.gif"
+              alt="Panda caminando"
+              style={{
+                height: 'clamp(80px, 11vw, 150px)',
+                width: 'auto',
+                display: 'block',
+                filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))',
+              }}
+            />
+          </div>
         </div>
 
         {/* Botón catálogos debajo de la imagen */}
-        <div style={{ background: 'rgba(97,72,48,0.98)', padding: '14px 16px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ background: 'rgba(255,255,255,0.98)', padding: '14px 16px', display: 'flex', justifyContent: 'center' }}>
           <a href="/catalogo" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#614830', fontWeight: 900,
+            color: '#FFFFFF', fontWeight: 900,
             fontSize: 'clamp(13px,1.8vw,16px)',
             padding: 'clamp(10px,1.5vw,14px) clamp(24px,3vw,48px)',
             borderRadius: 12,
@@ -69,7 +113,7 @@ export default function HeroSection() {
           className="envios-bar"
           onClick={() => setModalOpen(true)}
           style={{
-            background: 'rgba(97,72,48,0.98)',
+            background: 'rgba(255,255,255,0.98)',
             borderTop: '1px solid rgba(212,175,55,0.24)',
             padding: 'clamp(12px,2vw,20px) 16px',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
@@ -83,6 +127,16 @@ export default function HeroSection() {
             <span style={{ color: '#7a8a9a', fontSize: 12, marginTop: 3 }}>Tocá para ver opciones de transporte y contacto</span>
           </div>
           <span style={{ fontSize: 28, marginLeft: 8 }}>🇦🇷</span>
+
+          {/* Separador */}
+          <div style={{ width: 1, height: 36, background: 'rgba(0,0,0,0.12)', margin: '0 4px' }} />
+
+          {/* Logo Mercado Pago */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/mp-logo.png" alt="Mercado Pago" style={{ height: 28, objectFit: 'contain', display: 'block' }} />
+            <span style={{ color: '#009ee3', fontSize: 10, fontWeight: 700 }}>Aceptamos</span>
+          </div>
         </div>
       </section>
 
@@ -99,7 +153,7 @@ export default function HeroSection() {
           <div
             onClick={e => e.stopPropagation()}
             style={{
-              background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)',
+              background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)',
               border: '1px solid rgba(212,175,55,0.35)',
               borderRadius: 20, width: '100%', maxWidth: 480,
               maxHeight: '90vh', overflowY: 'auto',
@@ -119,7 +173,7 @@ export default function HeroSection() {
             </div>
 
             {/* Cómo funciona */}
-            <div style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: 12, padding: '14px 16px', marginBottom: 20 }}>
+            <div style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: 12, padding: '14px 16px', marginBottom: 12 }}>
               <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 13, marginBottom: 8 }}>¿Cómo funciona?</div>
               <div style={{ color: '#ccc', fontSize: 13, lineHeight: 1.7 }}>
                 1️⃣ Hacé tu pedido desde el catálogo<br />
@@ -127,6 +181,14 @@ export default function HeroSection() {
                 3️⃣ Elegís el transporte de tu preferencia<br />
                 4️⃣ Tu pedido llega a cualquier provincia 🇦🇷
               </div>
+            </div>
+
+            {/* Demoras de entrega */}
+            <div style={{ background: 'rgba(0,158,227,0.08)', border: '1px solid rgba(0,158,227,0.3)', borderRadius: 10, padding: '10px 14px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 20, flexShrink: 0 }}>⏱️</span>
+              <span style={{ color: '#555', fontSize: 13, lineHeight: 1.5 }}>
+                <strong style={{ color: '#333' }}>Demoras de entrega:</strong> pueden tardar de <strong style={{ color: '#1565C0' }}>1 a 7 días hábiles</strong> aproximadamente, según el transporte y destino.
+              </span>
             </div>
 
             {/* Opciones de transporte */}
