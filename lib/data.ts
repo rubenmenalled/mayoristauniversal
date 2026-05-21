@@ -7,7 +7,7 @@ export async function getProductos() {
 
 const ORDEN_CATEGORIAS = [
   'HOGAR Y BAZAR',
-  'PRODUCTOS REGIONALES',
+  'BLANQUERIA',
   'PELUCHES',
   'PELUCHES ENAMORADOS',
   'BEBE',
@@ -25,7 +25,7 @@ const ORDEN_CATEGORIAS = [
   'COTILLON',
   'OPTICA',
   'RODADOS',
-  'BLANQUERIA',
+  'PRODUCTOS REGIONALES',
   'PERFUMERIA',
 ]
 

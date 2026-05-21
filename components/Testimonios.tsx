@@ -89,7 +89,7 @@ export default function Testimonios() {
   const visibleTestimonios = testimonios.slice(currentIndex, currentIndex + visibleCount)
 
   const sectionStyle: React.CSSProperties = {
-    background: 'linear-gradient(180deg, #614830 0%, #614830 100%)',
+    background: 'linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%)',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
@@ -108,7 +108,7 @@ export default function Testimonios() {
   const titleStyle: React.CSSProperties = {
     fontSize: 'clamp(24px, 4vw, 36px)',
     fontWeight: 700,
-    color: '#FFFFFF',
+    color: '#1565C0',
     margin: '0 0 12px 0',
     letterSpacing: '-0.5px',
   }
@@ -129,7 +129,7 @@ export default function Testimonios() {
   }
 
   const cardStyle: React.CSSProperties = {
-    background: 'rgba(107,84,62, 0.7)',
+    background: 'rgba(240,240,240, 0.7)',
     border: '1px solid rgba(212, 175, 55, 0.2)',
     borderRadius: '16px',
     padding: '28px',
@@ -151,7 +151,7 @@ export default function Testimonios() {
     justifyContent: 'center',
     fontSize: '22px',
     fontWeight: 700,
-    color: '#614830',
+    color: '#1565C0',
     flexShrink: 0,
   }
 
@@ -162,14 +162,14 @@ export default function Testimonios() {
   }
 
   const nameStyle: React.CSSProperties = {
-    color: '#FFFFFF',
+    color: '#1565C0',
     fontWeight: 700,
     fontSize: '16px',
     margin: '0 0 2px 0',
   }
 
   const metaStyle: React.CSSProperties = {
-    color: '#8899BB',
+    color: '#000000',
     fontSize: '13px',
     margin: 0,
   }
@@ -180,7 +180,7 @@ export default function Testimonios() {
   }
 
   const quoteStyle: React.CSSProperties = {
-    color: '#C5D3E8',
+    color: '#000000',
     fontSize: '15px',
     lineHeight: '1.6',
     margin: 0,

@@ -75,17 +75,17 @@ export default function LoginPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 16px', borderRadius: 10, outline: 'none',
-    background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.2)',
-    color: '#FFFFFF', fontSize: 15, boxSizing: 'border-box',
+    background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(10,31,92,0.2)',
+    color: '#1565C0', fontSize: 15, boxSizing: 'border-box',
   }
 
   const labelStyle: React.CSSProperties = {
-    color: '#9ca3af', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
+    color: '#1565C0', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
   }
 
   return (
     <div style={{
-      minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)',
+      minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px',
     }}>
       <div style={{ width: '100%', maxWidth: 440 }}>
@@ -98,7 +98,7 @@ export default function LoginPage() {
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <ShoppingCart size={28} color="#614830" />
+              <ShoppingCart size={28} color="#FFFFFF" />
             </div>
             <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, letterSpacing: '0.08em' }}>MAYORISTA UNIVERSAL</div>
           </a>
@@ -106,19 +106,19 @@ export default function LoginPage() {
 
         {/* Card */}
         <div style={{
-          background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.25)',
+          background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(10,31,92,0.15)',
           borderRadius: 20, padding: '32px 28px',
         }}>
 
           {/* Tabs */}
-          <div style={{ display: 'flex', marginBottom: 28, background: 'rgba(0,0,0,0.3)', borderRadius: 12, padding: 4 }}>
+          <div style={{ display: 'flex', marginBottom: 28, background: 'rgba(10,31,92,0.08)', borderRadius: 12, padding: 4 }}>
             {(['login', 'register'] as const).map(m => (
               <button key={m} onClick={() => { setMode(m); setError(''); setSuccess('') }}
                 style={{
                   flex: 1, padding: '10px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
                   fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
                   background: mode === m ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'transparent',
-                  color: mode === m ? '#614830' : '#9ca3af',
+                  color: mode === m ? '#FFFFFF' : '#1565C0',
                 }}>
                 {m === 'login' ? 'Ingresar' : 'Registrarse'}
               </button>
@@ -157,9 +157,9 @@ export default function LoginPage() {
                   <label style={labelStyle}>TRANSPORTE PREFERIDO *</label>
                   <select value={transporte} onChange={e => setTransporte(e.target.value)} required
                     style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}>
-                    <option value="" style={{ background: '#6B543E' }}>Seleccioná una opción</option>
+                    <option value="" style={{ background: '#F0F0F0' }}>Seleccioná una opción</option>
                     {TRANSPORTES.map(t => (
-                      <option key={t} value={t} style={{ background: '#6B543E' }}>{t}</option>
+                      <option key={t} value={t} style={{ background: '#F0F0F0' }}>{t}</option>
                     ))}
                   </select>
                 </div>
@@ -176,7 +176,7 @@ export default function LoginPage() {
                           fontWeight: 800, fontSize: 13, transition: 'all 0.2s', border: '2px solid',
                           borderColor: reemplazo === op.val ? '#D4AF37' : 'rgba(212,175,55,0.2)',
                           background: reemplazo === op.val ? 'rgba(212,175,55,0.15)' : 'rgba(255,255,255,0.04)',
-                          color: reemplazo === op.val ? '#D4AF37' : '#9ca3af',
+                          color: reemplazo === op.val ? '#D4AF37' : '#1565C0',
                         }}>
                         {op.label}
                       </button>
@@ -226,7 +226,7 @@ export default function LoginPage() {
             <button type="submit" disabled={loading}
               style={{
                 width: '100%', padding: '14px', borderRadius: 12, border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#614830',
+                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#1565C0',
                 fontWeight: 900, fontSize: 15, letterSpacing: '0.05em',
                 opacity: loading ? 0.7 : 1,
               }}>

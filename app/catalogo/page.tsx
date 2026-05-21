@@ -7,33 +7,33 @@ import { ArrowLeft, Search } from 'lucide-react'
 
 const FOTOS: Record<string, string> = {
   BAZAR:        '/cat_bazar.jpg',
-  'HOGAR Y BAZAR': 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=600&q=80',
-  BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80',
-  BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=80',
-  BELLEZA:      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
+  'HOGAR Y BAZAR': 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
+  BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
+  BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
+  BELLEZA:      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=90',
   BLANQUERIA:   '/cat_blanqueria.jpg',
-  COTILLON:     'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80',
-  ELECTRONICA:  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600&q=80',
-  FITNESS:      'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80',
-  HERRAMIENTAS: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=600&q=80',
-  JUGUETERIA:   'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&q=80',
-  LIBRERIA:     'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80',
-  MARROQUINERIA:'https://images.unsplash.com/photo-1740391768383-3b9ad0cb7b88?w=600&q=80&auto=format&fit=crop',
-  MASCOTAS:     'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=600&q=80',
-  OPTICA:       'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80',
+  COTILLON:     'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
+  ELECTRONICA:  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
+  FITNESS:      'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=90',
+  HERRAMIENTAS: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800&q=90',
+  JUGUETERIA:   'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
+  LIBRERIA:     'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
+  MARROQUINERIA:'https://images.unsplash.com/photo-1740391768383-3b9ad0cb7b88?w=800&q=90&auto=format&fit=crop',
+  MASCOTAS:     'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
+  OPTICA:       'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=90',
   PELUCHES:            '/cat_peluches.jpg',
-  'PELUCHES ENAMORADOS':   'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=600&q=80&auto=format&fit=crop',
-  'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=600&q=80&auto=format&fit=crop',
+  'PELUCHES ENAMORADOS':   'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=800&q=90&auto=format&fit=crop',
+  'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
-  RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-  HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
-  COCINA:       'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80',
-  DEPORTES:     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80',
-  ROPA:         'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80',
-  CALZADO:      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
-  CAMPING:      'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80',
-  AUTOMOTOR:    'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80',
-  ILUMINACION:  'https://images.unsplash.com/photo-1712294252418-680891540aa8?w=600&q=80',
+  RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=90',
+  HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
+  COCINA:       'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=90',
+  DEPORTES:     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=90',
+  ROPA:         'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=90',
+  CALZADO:      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=90',
+  CAMPING:      'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=90',
+  AUTOMOTOR:    'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=90',
+  ILUMINACION:  'https://images.unsplash.com/photo-1712294252418-680891540aa8?w=800&q=90',
 
 }
 
@@ -72,11 +72,11 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)' }}>
 
       {/* Header */}
       <div style={{
-        background: 'rgba(107,84,62,0.97)',
+        background: 'rgba(240,240,240,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,

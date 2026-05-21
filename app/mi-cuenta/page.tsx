@@ -52,7 +52,7 @@ export default function MiCuentaPage() {
   if (loading) {
     return (
       <div style={{
-        minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)',
+        minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         <div style={{ color: '#D4AF37', fontSize: 16 }}>Cargando...</div>
@@ -70,7 +70,7 @@ export default function MiCuentaPage() {
   const inicial = nombre.charAt(0).toUpperCase()
 
   const cardStyle: React.CSSProperties = {
-    background: 'rgba(255,255,255,0.04)',
+    background: 'rgba(10,31,92,0.04)',
     border: '1px solid rgba(212,175,55,0.15)',
     borderRadius: 14, padding: '16px 20px',
     display: 'flex', alignItems: 'center', gap: 14,
@@ -85,7 +85,7 @@ export default function MiCuentaPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(180deg, #614830 0%, #6B543E 100%)',
+      background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)',
       padding: '24px 16px',
     }}>
       <div style={{ maxWidth: 580, margin: '0 auto' }}>
@@ -98,7 +98,7 @@ export default function MiCuentaPage() {
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <ShoppingCart size={18} color="#614830" />
+              <ShoppingCart size={18} color="#FFFFFF" />
             </div>
             <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14, letterSpacing: '0.06em' }}>MAYORISTA UNIVERSAL</span>
           </a>
@@ -114,7 +114,7 @@ export default function MiCuentaPage() {
 
         {/* Avatar + Nombre */}
         <div style={{
-          background: 'rgba(255,255,255,0.04)',
+          background: 'rgba(10,31,92,0.04)',
           border: '1px solid rgba(212,175,55,0.3)',
           borderRadius: 20, padding: '24px 22px',
           display: 'flex', alignItems: 'center', gap: 18,
@@ -124,13 +124,13 @@ export default function MiCuentaPage() {
             width: 68, height: 68, borderRadius: '50%',
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 28, fontWeight: 900, color: '#614830', flexShrink: 0,
+            fontSize: 28, fontWeight: 900, color: '#1565C0', flexShrink: 0,
           }}>
             {inicial}
           </div>
           <div>
-            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20, marginBottom: 3 }}>{nombre}</div>
-            <div style={{ color: '#7a8a9a', fontSize: 13, marginBottom: 8 }}>{email}</div>
+            <div style={{ color: '#1565C0', fontWeight: 900, fontSize: 20, marginBottom: 3 }}>{nombre}</div>
+            <div style={{ color: '#4A5568', fontSize: 13, marginBottom: 8 }}>{email}</div>
             <div style={{
               display: 'inline-block',
               background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.3)',
@@ -152,32 +152,32 @@ export default function MiCuentaPage() {
             <div style={cardStyle}>
               <div style={iconBoxStyle}><FileText size={19} color="#D4AF37" /></div>
               <div>
-                <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>DOCUMENTO</div>
-                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{documento}</div>
+                <div style={{ color: '#4A5568', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>DOCUMENTO</div>
+                <div style={{ color: '#1565C0', fontWeight: 800, fontSize: 15 }}>{documento}</div>
               </div>
             </div>
 
             <div style={cardStyle}>
               <div style={iconBoxStyle}><Phone size={19} color="#D4AF37" /></div>
               <div>
-                <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>WHATSAPP</div>
-                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{whatsapp}</div>
+                <div style={{ color: '#4A5568', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>WHATSAPP</div>
+                <div style={{ color: '#1565C0', fontWeight: 800, fontSize: 15 }}>{whatsapp}</div>
               </div>
             </div>
 
             <div style={cardStyle}>
               <div style={iconBoxStyle}><Truck size={19} color="#D4AF37" /></div>
               <div>
-                <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>TRANSPORTE</div>
-                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{transporte}</div>
+                <div style={{ color: '#4A5568', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>TRANSPORTE</div>
+                <div style={{ color: '#1565C0', fontWeight: 800, fontSize: 15 }}>{transporte}</div>
               </div>
             </div>
 
             <div style={cardStyle}>
               <div style={iconBoxStyle}><RefreshCw size={19} color="#D4AF37" /></div>
               <div>
-                <div style={{ color: '#7a8a9a', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>REEMPLAZO DE PRODUCTOS</div>
-                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{reemplazo}</div>
+                <div style={{ color: '#4A5568', fontSize: 11, fontWeight: 700, letterSpacing: '0.06em' }}>REEMPLAZO DE PRODUCTOS</div>
+                <div style={{ color: '#1565C0', fontWeight: 800, fontSize: 15 }}>{reemplazo}</div>
               </div>
             </div>
 
@@ -200,8 +200,8 @@ export default function MiCuentaPage() {
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(212,175,55,0.15)')}>
                 <div style={iconBoxStyle}><Package size={19} color="#D4AF37" /></div>
                 <div>
-                  <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>Ver catálogos</div>
-                  <div style={{ color: '#7a8a9a', fontSize: 12 }}>Explorá todos los productos mayoristas</div>
+                  <div style={{ color: '#1565C0', fontWeight: 800, fontSize: 15 }}>Ver catálogos</div>
+                  <div style={{ color: '#4A5568', fontSize: 12 }}>Explorá todos los productos mayoristas</div>
                 </div>
                 <span style={{ marginLeft: 'auto', color: '#D4AF37', fontSize: 18 }}>→</span>
               </div>
@@ -217,8 +217,8 @@ export default function MiCuentaPage() {
                   <span style={{ fontSize: 20 }}>📱</span>
                 </div>
                 <div>
-                  <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>Hacer un pedido por WhatsApp</div>
-                  <div style={{ color: '#7a8a9a', fontSize: 12 }}>Te abre directo con tu nombre</div>
+                  <div style={{ color: '#1565C0', fontWeight: 800, fontSize: 15 }}>Hacer un pedido por WhatsApp</div>
+                  <div style={{ color: '#4A5568', fontSize: 12 }}>Te abre directo con tu nombre</div>
                 </div>
                 <span style={{ marginLeft: 'auto', color: '#22c55e', fontSize: 18 }}>→</span>
               </div>
@@ -235,24 +235,24 @@ export default function MiCuentaPage() {
           </div>
 
           {loadingPedidos ? (
-            <div style={{ color: '#7a8a9a', fontSize: 13, padding: '16px 0', textAlign: 'center' }}>
+            <div style={{ color: '#4A5568', fontSize: 13, padding: '16px 0', textAlign: 'center' }}>
               Cargando pedidos...
             </div>
           ) : pedidos.length === 0 ? (
             <div style={{
-              background: 'rgba(255,255,255,0.04)',
+              background: 'rgba(10,31,92,0.04)',
               border: '1px solid rgba(212,175,55,0.15)',
               borderRadius: 14, padding: '24px 20px',
               textAlign: 'center',
             }}>
               <div style={{ fontSize: 32, marginBottom: 10 }}>📦</div>
-              <div style={{ color: '#7a8a9a', fontSize: 14, marginBottom: 14 }}>
+              <div style={{ color: '#4A5568', fontSize: 14, marginBottom: 14 }}>
                 Todavía no realizaste ningún pedido
               </div>
               <a href="/catalogo" style={{
                 display: 'inline-block',
                 background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                color: '#614830', fontWeight: 800, fontSize: 13,
+                color: '#1565C0', fontWeight: 800, fontSize: 13,
                 padding: '10px 22px', borderRadius: 10, textDecoration: 'none',
               }}>
                 Ver catálogo →
@@ -269,13 +269,13 @@ export default function MiCuentaPage() {
 
                 return (
                   <div key={pedido.id} style={{
-                    background: 'rgba(255,255,255,0.04)',
+                    background: 'rgba(10,31,92,0.04)',
                     border: '1px solid rgba(212,175,55,0.15)',
                     borderRadius: 14, padding: '16px 18px',
                   }}>
                     {/* Pedido header */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-                      <div style={{ color: '#7a8a9a', fontSize: 12, fontWeight: 700 }}>{fechaFormato}</div>
+                      <div style={{ color: '#4A5568', fontSize: 12, fontWeight: 700 }}>{fechaFormato}</div>
                       <div style={{
                         display: 'inline-block',
                         background: isConfirmado ? 'rgba(34,197,94,0.15)' : 'rgba(234,179,8,0.15)',
@@ -297,8 +297,8 @@ export default function MiCuentaPage() {
                           padding: '5px 0',
                           borderBottom: idx < pedido.items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
                         }}>
-                          <span style={{ color: '#c0cad6', fontSize: 13 }}>{item.name} <span style={{ color: '#7a8a9a' }}>x{item.quantity}</span></span>
-                          <span style={{ color: '#c0cad6', fontSize: 13 }}>
+                          <span style={{ color: '#1565C0', fontSize: 13 }}>{item.name} <span style={{ color: '#4A5568' }}>x{item.quantity}</span></span>
+                          <span style={{ color: '#1565C0', fontSize: 13 }}>
                             ${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}
                           </span>
                         </div>
@@ -307,7 +307,7 @@ export default function MiCuentaPage() {
 
                     {/* Total */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 8, borderTop: '1px solid rgba(212,175,55,0.15)' }}>
-                      <span style={{ color: '#7a8a9a', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em' }}>TOTAL</span>
+                      <span style={{ color: '#4A5568', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em' }}>TOTAL</span>
                       <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 17 }}>{totalFormato}</span>
                     </div>
                   </div>

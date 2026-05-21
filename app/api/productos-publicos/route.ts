@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
     .from('productos')
     .select('*')
     .order('created_at', { ascending: false })
+    .range(0, 4999)
 
   if (categoria) query = query.ilike('categoria', categoria)
   if (q) query = query.ilike('nombre', `%${q}%`)

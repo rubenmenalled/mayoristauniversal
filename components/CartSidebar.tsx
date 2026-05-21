@@ -38,7 +38,7 @@ export default function CartSidebar({ open, onClose }: Props) {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <ShoppingBag size={20} color="#D4AF37" />
                 <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18 }}>Mi Carrito</span>
-                <span style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#614830', fontWeight: 900, fontSize: 12, padding: '2px 8px', borderRadius: 99 }}>
+                <span style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 12, padding: '2px 8px', borderRadius: 99 }}>
                   {items.length}
                 </span>
               </div>
@@ -60,7 +60,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                   {items.map(item => (
                     <div key={item.id} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.1)', borderRadius: 12, padding: 12, display: 'flex', gap: 12 }}>
                       {/* Image */}
-                      <div style={{ width: 60, height: 60, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#6B543E', position: 'relative' }}>
+                      <div style={{ width: 60, height: 60, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F0F0F0', position: 'relative' }}>
                         {item.image ? (
                           <Image src={item.image} alt={item.name} fill className="object-cover" sizes="60px" />
                         ) : (
@@ -115,7 +115,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                     style={{
                       width: '100%', padding: '14px', borderRadius: 12, border: 'none',
                       background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                      color: '#614830', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+                      color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer',
                     }}>
                     + SEGUIR AGREGANDO PRODUCTOS
                   </button>
@@ -125,7 +125,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                     style={{
                       width: '100%', padding: '14px', borderRadius: 12, border: 'none',
                       background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                      color: '#614830', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+                      color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer',
                     }}>
                     FINALIZAR COMPRA →
                   </button>

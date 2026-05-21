@@ -11,14 +11,14 @@ html {
 }
 
 body {
-  background-color: #614830;
-  color: white;
+  background-color: #FFFFFF;
+  color: #1A1A1A;
   overflow-x: hidden;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #72604C; }
+::-webkit-scrollbar-track { background: #E5E5E5; }
 ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #F0D060; }
 
@@ -45,10 +45,10 @@ body {
 }
 
 .glass-card {
-  background: rgba(13, 35, 71, 0.55);
+  background: #1A2A4A;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 .glow-gold {
@@ -63,7 +63,7 @@ body {
   background: linear-gradient(135deg, #D4AF37 0%, #F0D060 50%, #D4AF37 100%);
   background-size: 200% auto;
   transition: all 0.3s ease;
-  color: #72604C;
+  color: #E5E5E5;
   font-weight: 700;
 }
 
@@ -94,7 +94,7 @@ body {
 
 /* Hero radial glow */
 .hero-glow {
-  background: radial-gradient(ellipse at 50% 0%, #0D2347 0%, #72604C 55%, #030D1E 100%);
+  background: radial-gradient(ellipse at 50% 0%, #0D2347 0%, #E5E5E5 55%, #030D1E 100%);
 }
 
 /* Section divider */
@@ -107,7 +107,7 @@ body {
 .badge-offer  { background: linear-gradient(135deg,#ef4444,#dc2626); }
 .badge-new    { background: linear-gradient(135deg,#22c55e,#16a34a); }
 .badge-hot    { background: linear-gradient(135deg,#f97316,#ea580c); }
-.badge-top    { background: linear-gradient(135deg,#D4AF37,#F0D060); color:#72604C; }
+.badge-top    { background: linear-gradient(135deg,#D4AF37,#F0D060); color:#E5E5E5; }
 
 /* Ticker */
 @keyframes tickerLeft {

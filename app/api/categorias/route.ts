@@ -4,13 +4,13 @@ import { getAdminClient } from '@/lib/supabase'
 export const dynamic = 'force-dynamic'
 
 const ORDEN_CATEGORIAS = [
-  'PRODUCTOS REGIONALES',
+  'HOGAR Y BAZAR',
+  'BLANQUERIA',
   'PELUCHES',
   'PELUCHES ENAMORADOS',
   'BEBE',
   'ELECTRONICA',
   'ILUMINACION',
-  'HOGAR Y BAZAR',
   'HERRAMIENTAS',
   'AUTOMOTOR',
   'CAMPING',
@@ -18,13 +18,12 @@ const ORDEN_CATEGORIAS = [
   'JUGUETERIA',
   'LIBRERIA',
   'BELLEZA',
-  'ADULTOS',
   'MARROQUINERIA',
   'MASCOTAS',
   'COTILLON',
   'OPTICA',
   'RODADOS',
-  'BLANQUERIA',
+  'PRODUCTOS REGIONALES',
   'PERFUMERIA',
 ]
 

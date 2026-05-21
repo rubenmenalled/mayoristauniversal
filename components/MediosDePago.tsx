@@ -62,7 +62,7 @@ export default function MediosDePago() {
   }, []);
 
   const sectionStyle: React.CSSProperties = {
-    background: '#614830',
+    background: '#FFFFFF',
     padding: '72px 24px',
     fontFamily: "'Inter', 'Segoe UI', sans-serif",
   };
@@ -122,14 +122,14 @@ export default function MediosDePago() {
   const cardTitleStyle: React.CSSProperties = {
     fontSize: '15px',
     fontWeight: 700,
-    color: '#f0f4f8',
+    color: '#1565C0',
     marginBottom: '6px',
     lineHeight: 1.3,
   };
 
   const cardDescStyle: React.CSSProperties = {
     fontSize: '13px',
-    color: '#7a8fa6',
+    color: '#3A4A6A',
     lineHeight: 1.5,
     flexGrow: 1,
   };
@@ -137,7 +137,7 @@ export default function MediosDePago() {
   const footerTextStyle: React.CSSProperties = {
     textAlign: 'center',
     fontSize: '12px',
-    color: '#4a5f74',
+    color: '#3A4A6A',
     marginTop: '8px',
     lineHeight: 1.6,
   };

@@ -32,7 +32,7 @@ const pasos: Paso[] = [
     numero: 4,
     emoji: '🚚',
     titulo: 'Recibís tu pedido',
-    descripcion: 'Enviamos a todo el país por el transporte que prefieras',
+    descripcion: 'Enviamos a todo el país. Demoras de entrega: 1 a 7 días hábiles aproximadamente.',
   },
 ];
 
@@ -56,7 +56,7 @@ export default function ComoComprar() {
           text-align: center;
           padding: 32px 20px;
           position: relative;
-          background: rgba(107,84,62, 0.6);
+          background: rgba(240,240,240, 0.6);
           border: 1px solid rgba(212, 175, 55, 0.18);
           border-radius: 12px;
         }
@@ -127,7 +127,7 @@ export default function ComoComprar() {
 
       <section
         style={{
-          backgroundColor: '#614830',
+          backgroundColor: '#FFFFFF',
           padding: '72px 24px',
           width: '100%',
         }}
@@ -139,7 +139,7 @@ export default function ComoComprar() {
               style={{
                 fontSize: '32px',
                 fontWeight: 800,
-                color: '#FFFFFF',
+                color: '#1565C0',
                 marginBottom: '12px',
                 letterSpacing: '-0.02em',
               }}
@@ -149,7 +149,7 @@ export default function ComoComprar() {
             <p
               style={{
                 fontSize: '16px',
-                color: '#9CA3AF',
+                color: '#000000',
                 maxWidth: '480px',
                 margin: '0 auto',
                 lineHeight: 1.6,
@@ -198,7 +198,7 @@ export default function ComoComprar() {
                       justifyContent: 'center',
                       fontWeight: 800,
                       fontSize: '16px',
-                      color: '#614830',
+                      color: '#1565C0',
                       marginBottom: '16px',
                       flexShrink: 0,
                     }}
@@ -212,7 +212,7 @@ export default function ComoComprar() {
                       style={{
                         fontSize: '16px',
                         fontWeight: 700,
-                        color: '#FFFFFF',
+                        color: '#1565C0',
                         marginBottom: '8px',
                         lineHeight: 1.3,
                       }}
@@ -222,7 +222,7 @@ export default function ComoComprar() {
                     <p
                       style={{
                         fontSize: '14px',
-                        color: '#9CA3AF',
+                        color: '#000000',
                         lineHeight: 1.6,
                         margin: 0,
                       }}
@@ -249,7 +249,7 @@ export default function ComoComprar() {
               style={{
                 display: 'inline-block',
                 backgroundColor: '#D4AF37',
-                color: '#614830',
+                color: '#1565C0',
                 fontWeight: 800,
                 fontSize: '14px',
                 letterSpacing: '0.08em',

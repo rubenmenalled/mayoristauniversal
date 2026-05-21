@@ -53,7 +53,7 @@ export default function FAQ() {
   }
 
   const sectionStyle: React.CSSProperties = {
-    background: '#614830',
+    background: '#FFFFFF',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
@@ -67,7 +67,7 @@ export default function FAQ() {
   const titleStyle: React.CSSProperties = {
     fontSize: 'clamp(24px, 4vw, 36px)',
     fontWeight: 700,
-    color: '#FFFFFF',
+    color: '#1565C0',
     textAlign: 'center',
     margin: '0 0 48px 0',
     letterSpacing: '-0.5px',
@@ -87,7 +87,7 @@ export default function FAQ() {
   const ctaButtonStyle: React.CSSProperties = {
     display: 'inline-block',
     background: 'linear-gradient(135deg, #D4AF37, #F0C030)',
-    color: '#614830',
+    color: '#1565C0',
     fontWeight: 700,
     fontSize: '16px',
     padding: '16px 32px',
@@ -108,7 +108,7 @@ export default function FAQ() {
             const isOpen = openIndex === i
 
             const itemStyle: React.CSSProperties = {
-              background: isOpen ? 'rgba(107,84,62, 0.85)' : 'rgba(107,84,62, 0.45)',
+              background: isOpen ? 'rgba(240,240,240, 0.85)' : 'rgba(240,240,240, 0.45)',
               border: isOpen
                 ? '1px solid rgba(212, 175, 55, 0.6)'
                 : '1px solid rgba(212, 175, 55, 0.12)',
@@ -131,7 +131,7 @@ export default function FAQ() {
             }
 
             const questionStyle: React.CSSProperties = {
-              color: isOpen ? '#F0C030' : '#E8EEF8',
+              color: isOpen ? '#D4AF37' : '#1565C0',
               fontWeight: 600,
               fontSize: '16px',
               margin: 0,
@@ -157,7 +157,7 @@ export default function FAQ() {
 
             const answerInnerStyle: React.CSSProperties = {
               padding: '0 24px 20px 24px',
-              color: '#8899BB',
+              color: '#000000',
               fontSize: '15px',
               lineHeight: '1.65',
             }

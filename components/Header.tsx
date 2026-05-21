@@ -7,11 +7,9 @@ import { Search, ShoppingCart, Menu, X, ChevronDown, MessageCircle, Grid, User, 
 import { useCart } from '@/lib/CartContext'
 import CartSidebar from './CartSidebar'
 import { supabase } from '@/lib/supabase'
+import Image from 'next/image'
 
 const navLinks = [
-  { name: 'PRODUCTOS',    href: '#productos'   },
-  { name: 'OFERTAS',      href: '#ofertas'     },
-  { name: 'NOVEDADES',    href: '#novedades'   },
   { name: 'CÓMO COMPRAR', href: '/como-comprar'},
 ]
 
@@ -66,7 +64,7 @@ export default function Header() {
     <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ top: 38, background: scrolled ? 'rgba(107,84,62,0.97)' : 'rgba(107,84,62,0.92)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(240,240,240,0.97)' : 'rgba(240,240,240,0.92)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
@@ -112,8 +110,8 @@ export default function Header() {
             <div className="flex items-center gap-1.5">
               {[
                 { name: 'Instagram', href: 'https://www.instagram.com/mayoristauniversal', color: '#FF0090', bg: 'rgba(255,0,144,0.15)', border: 'rgba(255,0,144,0.4)', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> },
-                { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#1877F2', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
-                { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: 'rgba(255,255,255,0.15)', border: 'rgba(255,255,255,0.3)', icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
+                { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#1565C0', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
+                { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: '#000000', border: '#000000', icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
               ].map(s => (
                 <motion.a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                   title={s.name}
@@ -125,6 +123,11 @@ export default function Header() {
               ))}
             </div>
 
+            {/* Mercado Pago badge */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#e6f4fb', border: '1px solid #009ee3', borderRadius: 8, padding: '5px 10px' }}>
+              <Image src="/mp-logo.png" alt="Mercado Pago" width={90} height={24} style={{ objectFit: 'contain', display: 'block' }} />
+            </div>
+
             {/* WhatsApp */}
             <motion.a href="https://wa.me/5491164660482" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
@@ -133,7 +136,10 @@ export default function Header() {
             </motion.a>
 
             {/* Cart */}
-            <motion.button className="relative p-1.5 text-gray-300 hover:text-gold transition-colors" whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
+            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#1565C0' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}
+              whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={24} />
               {count > 0 && <span className="absolute -top-0.5 -right-0.5 bg-gold text-navy text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">{count}</span>}
             </motion.button>
@@ -142,10 +148,13 @@ export default function Header() {
             {userName ? (
               <div className="flex items-center gap-2">
                 <motion.a href="/mi-cuenta"
-                  className="flex items-center gap-2 text-gray-300 hover:text-gold transition-colors"
+                  className="flex items-center gap-2 transition-colors"
+                  style={{ color: '#1565C0' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}
                   whileHover={{ scale: 1.03 }}>
                   <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <User size={16} color="#614830" />
+                    <User size={16} color="#FFFFFF" />
                   </div>
                   <div className="flex flex-col items-start">
                     <span className="text-[10px] leading-none opacity-70 text-gold">Bienvenido</span>
@@ -157,7 +166,10 @@ export default function Header() {
               </div>
             ) : (
               <motion.a href="/login"
-                className="flex flex-col items-end text-gray-300 hover:text-gold transition-colors"
+                className="flex flex-col items-end transition-colors"
+                style={{ color: '#1565C0' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}
                 whileHover={{ scale: 1.03 }}>
                 <span className="text-[11px] leading-none opacity-80">Ingresar / Registrarse</span>
                 <span className="text-[12px] font-bold leading-none flex items-center gap-1">Mi cuenta <ChevronDown size={11} /></span>
@@ -171,9 +183,9 @@ export default function Header() {
             {[
               { name: 'Instagram', href: 'https://www.instagram.com/mayoristauniversal', color: '#FF0090', bg: 'rgba(255,0,144,0.15)', border: 'rgba(255,0,144,0.35)',
                 icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> },
-              { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#1877F2', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.35)',
+              { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#1565C0', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.35)',
                 icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
-              { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: 'rgba(255,255,255,0.12)', border: 'rgba(255,255,255,0.25)',
+              { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: '#000000', border: '#000000',
                 icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
             ].map(s => (
               <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" title={s.name}
@@ -186,7 +198,7 @@ export default function Header() {
             <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.15)', margin: '0 2px' }} />
 
             {/* Búsqueda */}
-            <button className="text-white" style={{ padding: '4px', flexShrink: 0 }} onClick={() => setMobileSearchOpen(v => !v)}>
+            <button style={{ padding: '4px', flexShrink: 0, color: '#1565C0', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileSearchOpen(v => !v)}>
               <Search size={20} />
             </button>
 
@@ -199,14 +211,14 @@ export default function Header() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 {userName
-                  ? <span style={{ fontSize: 13, fontWeight: 900, color: '#614830' }}>{userName.charAt(0).toUpperCase()}</span>
+                  ? <span style={{ fontSize: 13, fontWeight: 900, color: '#FFFFFF' }}>{userName.charAt(0).toUpperCase()}</span>
                   : <User size={15} color="#D4AF37" />
                 }
               </div>
             </a>
 
             {/* Menú hamburguesa */}
-            <button className="text-white" style={{ padding: '4px 2px', flexShrink: 0 }} onClick={() => setMobileOpen(v => !v)}>
+            <button style={{ padding: '4px 2px', flexShrink: 0, color: '#1565C0', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileOpen(v => !v)}>
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
@@ -217,7 +229,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileSearchOpen && (
           <motion.div className="lg:hidden border-t border-white/10"
-            style={{ background: 'rgba(107,84,62,0.98)' }}
+            style={{ background: 'rgba(240,240,240,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
             <form className="px-4 py-3 flex gap-2"
@@ -239,15 +251,17 @@ export default function Header() {
 
       {/* ── Nav bar ── */}
       <div className="hidden lg:block border-t border-white/10"
-        style={{ background: 'rgba(107,84,62,0.85)' }}>
+        style={{ background: 'rgba(240,240,240,0.85)' }}>
         <div className="max-w-[1400px] mx-auto px-4">
           <nav className="flex items-center gap-0">
             {/* Categorías dropdown */}
             <div ref={catRef} style={{ position: 'relative' }}>
               <button
                 onClick={() => setCatOpen(v => !v)}
-                className="flex items-center gap-2 px-4 py-2.5 text-white font-bold text-sm border-r border-white/10 hover:bg-gold/10 transition-colors mr-2"
-                style={{ borderRight: '1px solid rgba(255,255,255,0.1)' }}>
+                className="flex items-center gap-2 px-4 py-2.5 font-bold text-sm border-r border-white/10 hover:bg-gold/10 transition-colors mr-2"
+                style={{ borderRight: '1px solid rgba(255,255,255,0.1)', color: '#1565C0' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}>
                 <Grid size={15} /> CATEGORÍAS <ChevronDown size={12} style={{ transform: catOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
               </button>
               <AnimatePresence>
@@ -259,7 +273,7 @@ export default function Header() {
                     transition={{ duration: 0.15 }}
                     style={{
                       position: 'absolute', top: '100%', left: 0, zIndex: 200,
-                      background: 'rgba(107,84,62,0.98)',
+                      background: 'rgba(240,240,240,0.98)',
                       border: '1px solid rgba(212,175,55,0.3)',
                       borderRadius: 12, padding: '8px',
                       minWidth: 200, maxHeight: 400, overflowY: 'auto',
@@ -275,7 +289,7 @@ export default function Header() {
                         style={{
                           display: 'flex', alignItems: 'center', gap: 10,
                           padding: '10px 14px', borderRadius: 8,
-                          color: '#ccc', fontSize: 13, fontWeight: 700,
+                          color: '#CC0000', fontSize: 13, fontWeight: 700,
                           textDecoration: 'none', transition: 'all 0.15s',
                         }}
                         onMouseEnter={e => {
@@ -284,7 +298,7 @@ export default function Header() {
                         }}
                         onMouseLeave={e => {
                           e.currentTarget.style.background = 'transparent'
-                          e.currentTarget.style.color = '#ccc'
+                          e.currentTarget.style.color = '#CC0000'
                         }}>
                         <span style={{ fontSize: 18 }}>{c.emoji}</span>
                         {c.nombre}
@@ -298,7 +312,10 @@ export default function Header() {
               <a key={link.name}
                 href={link.href}
                 onClick={link.href.startsWith('/') ? (e) => { e.preventDefault(); window.location.href = link.href } : undefined}
-                className="flex items-center gap-1 px-4 py-2.5 text-gray-300 hover:text-gold text-sm font-semibold transition-colors whitespace-nowrap relative group">
+                className="flex items-center gap-1 px-4 py-2.5 text-sm font-semibold transition-colors whitespace-nowrap relative group"
+                style={{ color: '#1565C0' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}>
                 {link.name}
                 <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </a>
@@ -307,11 +324,67 @@ export default function Header() {
         </div>
       </div>
 
+      {/* ── Mobile Nav bar (CATEGORÍAS + CÓMO COMPRAR) ── */}
+      <div className="lg:hidden border-t border-black/10"
+        style={{ background: 'rgba(240,240,240,0.92)' }}>
+        <div className="flex items-center px-2">
+          {/* Categorías mobile dropdown */}
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => setMobileCatOpen(v => !v)}
+              className="flex items-center gap-1.5 px-3 py-2 font-bold text-xs border-r border-black/10 transition-colors"
+              style={{ color: '#1565C0' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}>
+              <Grid size={13} /> CATEGORÍAS <ChevronDown size={11} style={{ transform: mobileCatOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+            </button>
+            {mobileCatOpen && (
+              <div style={{
+                position: 'absolute', top: '100%', left: 0, zIndex: 200,
+                background: 'rgba(240,240,240,0.98)',
+                border: '1px solid rgba(212,175,55,0.3)',
+                borderRadius: 10, padding: '6px',
+                minWidth: 200, maxHeight: 320, overflowY: 'auto',
+                boxShadow: '0 12px 30px rgba(0,0,0,0.3)',
+              }}>
+                {categorias.map(c => (
+                  <a key={c.id} href={`/categorias/${encodeURIComponent(c.nombre)}`}
+                    onClick={() => setMobileCatOpen(false)}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 8,
+                      padding: '8px 12px', borderRadius: 7,
+                      color: '#CC0000', fontSize: 13, fontWeight: 700,
+                      textDecoration: 'none', transition: 'all 0.15s',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(212,175,55,0.15)'; e.currentTarget.style.color = '#D4AF37' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#CC0000' }}>
+                    <span style={{ fontSize: 16 }}>{c.emoji}</span>
+                    {c.nombre}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          <a href="/como-comprar"
+            className="flex items-center px-3 py-2 font-bold text-xs transition-colors"
+            style={{ color: '#1565C0' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}>
+            CÓMO COMPRAR
+          </a>
+
+          {/* Logo Mercado Pago mobile */}
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', background: '#e6f4fb', border: '1px solid #009ee3', borderRadius: 6, padding: '3px 8px' }}>
+            <Image src="/mp-logo.png" alt="Mercado Pago" width={72} height={19} style={{ objectFit: 'contain', display: 'block' }} />
+          </div>
+        </div>
+      </div>
+
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div className="lg:hidden border-t border-white/10 overflow-hidden"
-            style={{ background: 'rgba(107,84,62,0.98)' }}
+            style={{ background: 'rgba(240,240,240,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
             <div className="px-4 py-4 space-y-3">
@@ -351,7 +424,7 @@ export default function Header() {
               <div className="flex gap-2 pt-1">
                 {[
                   { name: 'Instagram', href: 'https://www.instagram.com/mayoristauniversal', color: '#FF0090', bg: 'rgba(255,0,144,0.15)', border: 'rgba(255,0,144,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> },
-                  { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#1877F2', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
+                  { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#1565C0', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
                   { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: 'rgba(255,255,255,0.12)', border: 'rgba(255,255,255,0.3)', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
                 ].map(s => (
                   <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
@@ -367,13 +440,13 @@ export default function Header() {
                 {userName ? (
                   <a href="/mi-cuenta"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#614830' }}>
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF' }}>
                     👤 Mi cuenta
                   </a>
                 ) : (
                   <a href="/login"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#614830' }}>
+                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF' }}>
                     Ingresar
                   </a>
                 )}

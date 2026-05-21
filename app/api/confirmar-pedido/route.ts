@@ -7,7 +7,7 @@ const OWNER_WHATSAPP = '5491164660482'
 const SITE_NAME = 'Mayorista Universal'
 
 export async function POST(request: NextRequest) {
-  const { nombre, email, telefono, items, total, user_id } = await request.json()
+  const { nombre, email, telefono, items, total, user_id, metodoPago } = await request.json()
 
   if (!nombre || !email || !telefono || !items?.length) {
     return NextResponse.json({ error: 'Faltan datos' }, { status: 400 })
@@ -81,14 +81,16 @@ export async function POST(request: NextRequest) {
     console.error('Error guardando pedido en Supabase:', e)
   }
 
-  // Mensaje para WhatsApp del dueño
+  // Mensaje para WhatsApp del cliente → dueño
   const msgWA = encodeURIComponent(
     `🛒 *NUEVO PEDIDO - ${SITE_NAME}*\n\n` +
     `👤 *Cliente:* ${nombre}\n` +
     `📧 *Email:* ${email}\n` +
     `📱 *Teléfono:* ${telefono}\n\n` +
     `📦 *Productos:*\n${listaProductos}\n\n` +
-    `💰 *TOTAL: ${totalFormato}*`
+    `💰 *TOTAL: ${totalFormato}*\n\n` +
+    `💙 *Pago:* Mercado Pago (alias: ruby.mena.1972)\n` +
+    `📎 Adjunto el comprobante de transferencia.`
   )
 
   const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${msgWA}`
