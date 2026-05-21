@@ -315,6 +315,14 @@ export default function CheckoutPage() {
                 Procesamos tu pedido al recibir el comprobante
               </p>
 
+              {/* Aviso demora entrega */}
+              <div style={{ background: '#EFF6FF', border: '1px solid #93C5FD', borderRadius: 10, padding: '10px 14px', marginTop: 12, display: 'flex', gap: 8 }}>
+                <span style={{ fontSize: 16, flexShrink: 0 }}>🚚</span>
+                <p style={{ color: '#1E40AF', fontSize: 12, margin: 0, lineHeight: 1.5 }}>
+                  <strong>Tiempo de entrega:</strong> los pedidos pueden demorar de <strong>3 a 7 días hábiles</strong> según el transporte y destino.
+                </p>
+              </div>
+
               {/* Aviso IVA */}
               <div style={{ background: '#FFFBEB', border: '1px solid #F59E0B', borderRadius: 10, padding: '10px 14px', marginTop: 16 }}>
                 <div style={{ display: 'flex', gap: 8 }}>
@@ -495,6 +503,14 @@ export default function CheckoutPage() {
           </button>
           <div style={{ textAlign: 'center', color: '#999', fontSize: 11, marginTop: 10 }}>
             Al siguiente paso te mostramos cómo transferir
+          </div>
+
+          {/* Aviso demora entrega */}
+          <div style={{ marginTop: 14, background: '#EFF6FF', border: '1px solid #93C5FD', borderRadius: 10, padding: '10px 14px', display: 'flex', gap: 8 }}>
+            <span style={{ fontSize: 15, flexShrink: 0 }}>🚚</span>
+            <p style={{ color: '#1E40AF', fontSize: 12, margin: 0, lineHeight: 1.5 }}>
+              <strong>Tiempo de entrega:</strong> los pedidos pueden demorar de <strong>3 a 7 días hábiles</strong> según el transporte y destino.
+            </p>
           </div>
 
           {/* Aviso IVA / Facturación */}
