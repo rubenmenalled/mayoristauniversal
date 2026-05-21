@@ -36,7 +36,7 @@ const preguntas = [
   {
     pregunta: '¿Cuánto tarda en llegar el pedido?',
     respuesta:
-      'Una vez confirmado el pago, preparamos el pedido en 24/48hs hábiles. Los tiempos de envío dependen del transporte elegido y la distancia.',
+      'Una vez confirmado el pago, preparamos el pedido en 24/48hs hábiles. Los tiempos de entrega pueden demorar de 3 a 7 días hábiles según el transporte elegido y el destino.',
   },
   {
     pregunta: '¿Qué pasa si un producto llega dañado?',
