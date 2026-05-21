@@ -78,7 +78,7 @@ export default function HeroSection() {
           }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/panda-walk.gif"
+              src="/panda-walk.png"
               alt="Panda caminando"
               style={{
                 height: 'clamp(80px, 11vw, 150px)',
