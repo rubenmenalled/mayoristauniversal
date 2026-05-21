@@ -4,11 +4,111 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/lib/CartContext'
 import { supabase } from '@/lib/supabase'
-import { ArrowLeft, ShoppingBag, User, Mail, Phone, Check, MessageCircle } from 'lucide-react'
+import { ArrowLeft, ShoppingBag, User, Check, Copy, MessageCircle } from 'lucide-react'
 import Image from 'next/image'
 
-const GOLD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
+// Logo Mercado Pago
+// white=true → logo blanco (para fondos azules)
+// white=false → logo azul (para fondos blancos)
+function MPLogo({ height = 28, white = false }: { height?: number; white?: boolean }) {
+  const aspectRatio = 3.84 // 4096 / 1067
+  const width = Math.round(height * aspectRatio)
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/mp-logo.png"
+      alt="Mercado Pago"
+      width={width}
+      height={height}
+      style={{
+        display: 'block',
+        objectFit: 'contain',
+        filter: white ? 'brightness(0) invert(1)' : 'none',
+      }}
+    />
+  )
+}
+
+const GOLD = '#D4AF37'
+const BLUE = '#1565C0'
 const MIN_COMPRA = 150000
+
+const STEPS = [
+  { n: 1, label: 'Tus datos' },
+  { n: 2, label: 'Pago' },
+  { n: 3, label: '¡Listo!' },
+]
+
+const stepIndex: Record<string, number> = { form: 1, pago: 2, listo: 3 }
+
+function StepBar({ current }: { current: 'form' | 'pago' | 'listo' }) {
+  const active = stepIndex[current]
+  return (
+    <div style={{
+      background: '#FFFFFF',
+      borderBottom: '1px solid #EEE',
+      padding: '14px 24px',
+    }}>
+      <div style={{ maxWidth: 480, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0 }}>
+        {STEPS.map((s, i) => {
+          const done = s.n < active
+          const isCurrent = s.n === active
+          return (
+            <div key={s.n} style={{ display: 'flex', alignItems: 'center', flex: i < STEPS.length - 1 ? 1 : 'unset' }}>
+              {/* Círculo */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div style={{
+                  width: 32, height: 32, borderRadius: '50%',
+                  background: done ? '#22c55e' : isCurrent ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : '#E5E7EB',
+                  color: done || isCurrent ? '#FFFFFF' : '#9CA3AF',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontWeight: 900, fontSize: 14, flexShrink: 0,
+                  boxShadow: isCurrent ? '0 2px 10px rgba(212,175,55,0.4)' : 'none',
+                  transition: 'all 0.3s',
+                }}>
+                  {done ? '✓' : s.n}
+                </div>
+                <span style={{
+                  fontSize: 10, fontWeight: 700, whiteSpace: 'nowrap',
+                  color: isCurrent ? GOLD : done ? '#22c55e' : '#9CA3AF',
+                  letterSpacing: '0.03em',
+                }}>
+                  {s.label}
+                </span>
+              </div>
+              {/* Línea conectora */}
+              {i < STEPS.length - 1 && (
+                <div style={{
+                  flex: 1, height: 3, marginBottom: 14,
+                  background: done ? '#22c55e' : '#E5E7EB',
+                  borderRadius: 2, transition: 'background 0.3s',
+                }} />
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+const MP_ALIAS = 'ruby.mena.1972'
+const MP_TITULAR = 'Andres Ruben Menalled'
+
+// Link directo de Mercado Pago para transferir al alias
+function getMPLink(total: number) {
+  // Intenta abrir la app nativa en mobile, sino la web
+  const encoded = encodeURIComponent(MP_ALIAS)
+  return `https://mpago.la/transfer?alias=${encoded}&amount=${total}`
+}
+
+// Deep link para abrir la app de MP en mobile
+function getMPDeepLink(total: number) {
+  return `mercadopago://transfer?alias=${encodeURIComponent(MP_ALIAS)}&amount=${total}`
+}
+
+// Fallback: página web de MP para enviar dinero
+const MP_WEB = 'https://www.mercadopago.com.ar/activities'
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart()
@@ -16,16 +116,17 @@ export default function CheckoutPage() {
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [confirmado, setConfirmado] = useState(false)
+  const [step, setStep] = useState<'form' | 'pago' | 'listo'>('form')
   const [waUrl, setWaUrl] = useState('')
   const [userId, setUserId] = useState<string | null>(null)
+  const [copiado, setCopiado] = useState(false)
+  const [totalPago, setTotalPago] = useState(0)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session?.user) {
         const u = data.session.user
         setUserId(u.id)
-        // Pre-llenar datos si está logueado
         setForm(f => ({
           nombre: f.nombre || u.user_metadata?.nombre || '',
           email: f.email || u.email || '',
@@ -35,12 +136,12 @@ export default function CheckoutPage() {
     })
   }, [])
 
-  if (items.length === 0 && !confirmado) {
+  if (items.length === 0 && step === 'form') {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#614830,#6B543E)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
+      <div style={{ minHeight: '100vh', background: '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
         <div style={{ fontSize: 60 }}>🛒</div>
-        <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20 }}>Tu carrito está vacío</div>
-        <button onClick={() => router.push('/')} style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '12px 28px', color: '#614830', fontWeight: 900, cursor: 'pointer' }}>
+        <div style={{ color: BLUE, fontWeight: 900, fontSize: 20 }}>Tu carrito está vacío</div>
+        <button onClick={() => router.push('/')} style={{ background: GOLD, border: 'none', borderRadius: 10, padding: '12px 28px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer' }}>
           Ver productos
         </button>
       </div>
@@ -62,15 +163,14 @@ export default function CheckoutPage() {
       const res = await fetch('/api/confirmar-pedido', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, items, total, user_id: userId }),
+        body: JSON.stringify({ ...form, items, total, user_id: userId, metodoPago: 'mercadopago' }),
       })
       const data = await res.json()
       if (data.ok) {
+        setTotalPago(total)   // guardar total ANTES de vaciar el carrito
         clearCart()
         setWaUrl(data.waUrl)
-        setConfirmado(true)
-        // Abrir WhatsApp automáticamente
-        window.open(data.waUrl, '_blank')
+        setStep('pago')
       } else {
         setError('Error al confirmar. Intentá de nuevo.')
       }
@@ -80,54 +180,225 @@ export default function CheckoutPage() {
     setLoading(false)
   }
 
-  // Pantalla de éxito
-  if (confirmado) {
+  function copiarAlias() {
+    navigator.clipboard.writeText(MP_ALIAS).then(() => {
+      setCopiado(true)
+      setTimeout(() => setCopiado(false), 2000)
+    })
+  }
+
+  // Abre MP app en mobile, sino la web — con monto pre-cargado
+  function abrirMercadoPago() {
+    const alias = encodeURIComponent(MP_ALIAS)
+    // El monto debe ser un número entero para MP — usar totalPago (guardado antes de clearCart)
+    const monto = Math.round(totalPago || total)
+    const webLink = `https://www.mercadopago.com.ar/cobros/money-request/transfer?alias=${alias}&amount=${monto}`
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+    if (isMobile) {
+      // Intenta abrir la app nativa con monto; si falla en 1.5s, va a la web
+      const deepLink = `mercadopago://transfer?alias=${alias}&amount=${monto}`
+      const start = Date.now()
+      window.location.href = deepLink
+      setTimeout(() => {
+        if (Date.now() - start < 2000) {
+          window.open(webLink, '_blank')
+        }
+      }, 1500)
+    } else {
+      window.open(webLink, '_blank')
+    }
+  }
+
+  function handleYaTransferi() {
+    window.open(waUrl, '_blank')
+    setStep('listo')
+  }
+
+  // ── STEP: PAGO ────────────────────────────────────────────────────────────
+  if (step === 'pago') {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#614830,#6B543E)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-        <div style={{ maxWidth: 480, width: '100%', textAlign: 'center' }}>
-          <div style={{ width: 80, height: 80, background: 'rgba(34,197,94,0.2)', border: '2px solid rgba(34,197,94,0.5)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
-            <Check size={40} color="#86efac" />
+      <div style={{ minHeight: '100vh', background: '#F7F8FA' }}>
+        <StepBar current="pago" />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <div style={{ maxWidth: 520, width: '100%' }}>
+
+          {/* Card principal */}
+          <div style={{ background: '#FFFFFF', borderRadius: 20, boxShadow: '0 8px 48px rgba(0,0,0,0.12)', overflow: 'hidden' }}>
+
+            {/* Header azul MP */}
+            <div style={{ background: 'linear-gradient(135deg, #009ee3 0%, #0076c0 100%)', padding: '32px 32px 24px', textAlign: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                <MPLogo height={44} white />
+              </div>
+              <h1 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20, margin: '0 0 6px 0' }}>Pagá con Mercado Pago</h1>
+              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 14, margin: 0 }}>Transferencia segura al instante</p>
+            </div>
+
+            <div style={{ padding: '28px 32px' }}>
+
+              {/* Total destacado */}
+              <div style={{ background: '#FFF8E7', border: `2px solid ${GOLD}`, borderRadius: 14, padding: '18px 24px', marginBottom: 12, textAlign: 'center' }}>
+                <p style={{ color: '#888', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', margin: '0 0 6px 0' }}>TOTAL A PAGAR</p>
+                <p style={{ color: GOLD, fontWeight: 900, fontSize: 34, margin: 0, lineHeight: 1 }}>${totalPago.toLocaleString('es-AR')}</p>
+              </div>
+
+              {/* Aviso IVA / Facturación */}
+              <div style={{
+                background: '#FFFBEB',
+                border: '1.5px solid #F59E0B',
+                borderRadius: 12,
+                padding: '12px 16px',
+                marginBottom: 20,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                  <span style={{ fontSize: 16, flexShrink: 0 }}>⚠️</span>
+                  <div>
+                    <p style={{ color: '#92400E', fontWeight: 800, fontSize: 12, margin: '0 0 4px 0' }}>
+                      Precios sin IVA incluido
+                    </p>
+                    <p style={{ color: '#78350F', fontSize: 11, margin: '0 0 6px 0', lineHeight: 1.5 }}>
+                      Si necesitás factura, los precios tienen recargo de IVA. Consultanos por mail o WhatsApp antes de pagar.
+                    </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px' }}>
+                      <a href="mailto:info@mayoristauniversal.com.ar" style={{ color: '#B45309', fontSize: 11, fontWeight: 700, textDecoration: 'none' }}>
+                        ✉️ info@mayoristauniversal.com.ar
+                      </a>
+                      <a href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación%20de%20mi%20pedido." target="_blank" rel="noopener noreferrer" style={{ color: '#B45309', fontSize: 11, fontWeight: 700, textDecoration: 'none' }}>
+                        💬 WhatsApp +54 9 11 6466-0482
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botón abrir MP app */}
+              <button
+                onClick={abrirMercadoPago}
+                style={{
+                  width: '100%', padding: '16px', borderRadius: 12, border: 'none',
+                  background: 'linear-gradient(135deg, #009ee3, #0076c0)',
+                  color: '#FFFFFF', fontWeight: 900, fontSize: 16,
+                  cursor: 'pointer', marginBottom: 20,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+                  boxShadow: '0 4px 20px rgba(0,118,192,0.4)',
+                }}>
+                <MPLogo height={22} white />
+                Abrir Mercado Pago para pagar
+              </button>
+
+              {/* Separador */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                <div style={{ flex: 1, height: 1, background: '#EEE' }} />
+                <span style={{ color: '#AAA', fontSize: 12, fontWeight: 600 }}>O transferí manualmente</span>
+                <div style={{ flex: 1, height: 1, background: '#EEE' }} />
+              </div>
+
+              {/* Alias para copiar */}
+              <div style={{ background: '#F0F8FF', border: '1.5px solid #009ee3', borderRadius: 12, padding: '16px 20px', marginBottom: 24 }}>
+                <p style={{ color: '#666', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', margin: '0 0 6px 0' }}>ALIAS DE MERCADO PAGO</p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                  <div>
+                    <p style={{ color: '#0076c0', fontWeight: 900, fontSize: 22, margin: '0 0 2px 0' }}>{MP_ALIAS}</p>
+                    <p style={{ color: '#888', fontSize: 12, margin: 0 }}>Titular: {MP_TITULAR}</p>
+                  </div>
+                  <button
+                    onClick={copiarAlias}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                      background: copiado ? '#22c55e' : '#0076c0',
+                      color: '#FFFFFF', border: 'none', borderRadius: 8,
+                      padding: '10px 16px', fontWeight: 700, fontSize: 13,
+                      cursor: 'pointer', flexShrink: 0, transition: 'background 0.2s'
+                    }}>
+                    <Copy size={14} />
+                    {copiado ? '¡Copiado!' : 'Copiar'}
+                  </button>
+                </div>
+              </div>
+
+              {/* Botón confirmar por WA */}
+              <button
+                onClick={handleYaTransferi}
+                style={{
+                  width: '100%', padding: '15px', borderRadius: 12, border: 'none',
+                  background: '#25D366', color: '#FFFFFF', fontWeight: 900, fontSize: 15,
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  gap: 10, boxShadow: '0 4px 20px rgba(37,211,102,0.3)'
+                }}>
+                <MessageCircle size={18} />
+                Ya transferí — Enviar comprobante por WhatsApp
+              </button>
+
+              <p style={{ color: '#AAA', fontSize: 12, textAlign: 'center', margin: '12px 0 0 0', lineHeight: 1.5 }}>
+                Procesamos tu pedido al recibir el comprobante
+              </p>
+            </div>
           </div>
-          <h1 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 26, marginBottom: 12 }}>¡Pedido confirmado!</h1>
-          <p style={{ color: '#7a8a9a', fontSize: 15, marginBottom: 32, lineHeight: 1.6 }}>
-            Recibimos tu pedido. Te enviamos los detalles por WhatsApp y email. Nos comunicamos a la brevedad para coordinar el pago y envío.
-          </p>
-          <a href={waUrl} target="_blank" rel="noopener noreferrer"
-            style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-              background: '#25D366', color: '#FFFFFF', fontWeight: 900, fontSize: 16,
-              padding: '16px 32px', borderRadius: 12, textDecoration: 'none',
-              marginBottom: 16, boxShadow: '0 4px 20px rgba(37,211,102,0.3)',
-            }}>
-            <MessageCircle size={20} /> Reenviar por WhatsApp
-          </a>
-          <button onClick={() => router.push('/')}
-            style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 12, padding: '12px 28px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 14 }}>
-            Volver al inicio
-          </button>
+        </div>
         </div>
       </div>
     )
   }
 
-  return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#614830,#6B543E)' }}>
-      {/* Header */}
-      <div style={{ background: 'rgba(107,84,62,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
-          <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13 }}>
-            <ArrowLeft size={16} /> Volver
+  // ── STEP: LISTO ───────────────────────────────────────────────────────────
+  if (step === 'listo') {
+    return (
+      <div style={{ minHeight: '100vh', background: '#F7F8FA' }}>
+        <StepBar current="listo" />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <div style={{ maxWidth: 480, width: '100%', textAlign: 'center' }}>
+          <div style={{ width: 80, height: 80, background: 'rgba(34,197,94,0.15)', border: '2px solid #22c55e', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+            <Check size={40} color="#22c55e" />
+          </div>
+          <h1 style={{ color: BLUE, fontWeight: 900, fontSize: 26, marginBottom: 12 }}>¡Pedido confirmado!</h1>
+          <p style={{ color: '#555', fontSize: 15, marginBottom: 32, lineHeight: 1.6 }}>
+            Recibimos tu pedido. Envianos el comprobante de transferencia por WhatsApp y lo procesamos enseguida.
+          </p>
+          <a href={waUrl} target="_blank" rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              background: '#25D366', color: '#FFFFFF', fontWeight: 900, fontSize: 16,
+              padding: '16px 32px', borderRadius: 12, textDecoration: 'none',
+              marginBottom: 16, boxShadow: '0 4px 20px rgba(37,211,102,0.3)',
+            }}>
+            <MessageCircle size={20} /> Enviar comprobante por WhatsApp
+          </a>
+          <br />
+          <button onClick={() => router.push('/')}
+            style={{ background: 'none', border: '1px solid #DDD', borderRadius: 12, padding: '12px 28px', color: '#666', fontWeight: 700, cursor: 'pointer', fontSize: 14, marginTop: 8 }}>
+            Volver al inicio
           </button>
-          <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20 }}>Finalizar Compra</div>
+        </div>
         </div>
       </div>
+    )
+  }
+
+  // ── STEP: FORM ────────────────────────────────────────────────────────────
+  return (
+    <div style={{ minHeight: '100vh', background: '#F7F8FA' }}>
+      {/* Header */}
+      <div style={{ background: '#FFFFFF', borderBottom: '1px solid #EEE', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50 }}>
+        <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: GOLD, fontWeight: 700, fontSize: 13 }}>
+            <ArrowLeft size={16} /> Volver
+          </button>
+          <div style={{ color: BLUE, fontWeight: 900, fontSize: 20 }}>Finalizar Compra</div>
+          <div style={{ marginLeft: 'auto' }}>
+            <MPLogo height={28} />
+          </div>
+        </div>
+      </div>
+      {/* Barra de pasos */}
+      <StepBar current="form" />
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '32px 16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
 
         {/* Formulario */}
-        <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 16, padding: 28 }}>
-          <h2 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <User size={18} color="#D4AF37" /> Tus datos
+        <div style={{ background: '#FFFFFF', border: '1px solid #EEE', borderRadius: 16, padding: 28, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <h2 style={{ color: BLUE, fontWeight: 900, fontSize: 18, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <User size={18} color={GOLD} /> Tus datos
           </h2>
           <div style={{ display: 'grid', gap: 16 }}>
             {[
@@ -136,35 +407,45 @@ export default function CheckoutPage() {
               { label: 'Teléfono / WhatsApp', key: 'telefono', placeholder: '11 1234-5678', type: 'tel' },
             ].map(({ label, key, placeholder, type }) => (
               <div key={key}>
-                <label style={{ color: '#D4AF37', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 6 }}>
-                  {label.toUpperCase()}
+                <label style={{ color: '#555', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {label}
                 </label>
                 <input
                   type={type}
                   value={(form as any)[key]}
                   onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
                   placeholder={placeholder}
-                  style={{ width: '100%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 8, padding: '11px 14px', color: '#FFFFFF', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                  style={{ width: '100%', background: '#F7F8FA', border: '1.5px solid #E0E0E0', borderRadius: 8, padding: '11px 14px', color: '#1A1A1A', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
                 />
               </div>
             ))}
           </div>
+
+          {/* Preview MP */}
+          <div style={{ marginTop: 24, background: '#F0F8FF', border: '1.5px solid #009ee3', borderRadius: 12, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
+            <MPLogo height={28} />
+            <div>
+              <p style={{ color: '#0076c0', fontWeight: 800, fontSize: 13, margin: '0 0 2px 0' }}>Pago con Mercado Pago</p>
+              <p style={{ color: '#555', fontSize: 12, margin: 0 }}>Alias: <strong>{MP_ALIAS}</strong></p>
+            </div>
+          </div>
+
           {error && (
-            <div style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.4)', borderRadius: 8, padding: '10px 14px', color: '#f87171', fontSize: 13, marginTop: 16 }}>
+            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 8, padding: '10px 14px', color: '#DC2626', fontSize: 13, marginTop: 16 }}>
               {error}
             </div>
           )}
         </div>
 
         {/* Resumen */}
-        <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 16, padding: 24 }}>
-          <h2 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <ShoppingBag size={16} color="#D4AF37" /> Resumen del pedido
+        <div style={{ background: '#FFFFFF', border: '1px solid #EEE', borderRadius: 16, padding: 24, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <h2 style={{ color: BLUE, fontWeight: 900, fontSize: 16, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <ShoppingBag size={16} color={GOLD} /> Resumen del pedido
           </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20, maxHeight: 280, overflowY: 'auto' }}>
             {items.map(item => (
               <div key={item.id} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#6B543E', position: 'relative' }}>
+                <div style={{ width: 44, height: 44, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F0F0F0', position: 'relative' }}>
                   {item.image ? (
                     <Image src={item.image} alt={item.name} fill className="object-cover" sizes="44px" />
                   ) : (
@@ -172,28 +453,24 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.3 }}>{item.name}</div>
-                  <div style={{ color: '#7a8a9a', fontSize: 11 }}>x{item.quantity}</div>
+                  <div style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 700, lineHeight: 1.3 }}>{item.name}</div>
+                  <div style={{ color: '#888', fontSize: 11 }}>x{item.quantity}</div>
                 </div>
-                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, flexShrink: 0 }}>
+                <div style={{ color: GOLD, fontWeight: 900, fontSize: 13, flexShrink: 0 }}>
                   ${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}
                 </div>
               </div>
             ))}
           </div>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 16, marginBottom: 24 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-              <span style={{ color: '#7a8a9a', fontSize: 13 }}>Subtotal</span>
-              <span style={{ color: '#FFFFFF', fontWeight: 700 }}>${total.toLocaleString('es-AR')}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 16 }}>TOTAL</span>
-              <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 20 }}>${total.toLocaleString('es-AR')}</span>
+          <div style={{ borderTop: '1px solid #EEE', paddingTop: 16, marginBottom: 24 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ color: BLUE, fontWeight: 900, fontSize: 16 }}>TOTAL</span>
+              <span style={{ color: GOLD, fontWeight: 900, fontSize: 24 }}>${total.toLocaleString('es-AR')}</span>
             </div>
           </div>
 
           {total < MIN_COMPRA && (
-            <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', color: '#f87171', fontSize: 12, marginBottom: 16, textAlign: 'center' }}>
+            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 8, padding: '10px 14px', color: '#DC2626', fontSize: 12, marginBottom: 16, textAlign: 'center' }}>
               Mínimo de compra: ${MIN_COMPRA.toLocaleString('es-AR')}
             </div>
           )}
@@ -203,15 +480,64 @@ export default function CheckoutPage() {
             onClick={handleConfirmar}
             disabled={loading || total < MIN_COMPRA}
             style={{
-              width: '100%', padding: '14px', borderRadius: 12, border: 'none',
-              background: loading || total < MIN_COMPRA ? 'rgba(212,175,55,0.3)' : GOLD,
-              color: '#614830', fontWeight: 900, fontSize: 15,
+              width: '100%', padding: '15px', borderRadius: 12, border: 'none',
+              background: loading || total < MIN_COMPRA
+                ? '#E5E7EB'
+                : 'linear-gradient(135deg, #009ee3, #0076c0)',
+              color: loading || total < MIN_COMPRA ? '#9CA3AF' : '#FFFFFF',
+              fontWeight: 900, fontSize: 15,
               cursor: loading || total < MIN_COMPRA ? 'not-allowed' : 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+              transition: 'all 0.2s ease',
             }}>
-            {loading ? 'Confirmando pedido...' : '✅ CONFIRMAR PEDIDO'}
+            {loading ? (
+              'Procesando...'
+            ) : (
+              <>
+                <MPLogo height={22} white />
+                PAGAR CON MERCADO PAGO
+              </>
+            )}
           </button>
-          <div style={{ textAlign: 'center', color: '#7a8a9a', fontSize: 11, marginTop: 10 }}>
-            Coordinamos pago y envío por WhatsApp
+          <div style={{ textAlign: 'center', color: '#999', fontSize: 11, marginTop: 10 }}>
+            Al siguiente paso te mostramos cómo transferir
+          </div>
+
+          {/* Aviso IVA / Facturación */}
+          <div style={{
+            marginTop: 18,
+            background: '#FFFBEB',
+            border: '1.5px solid #F59E0B',
+            borderRadius: 12,
+            padding: '14px 16px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+              <span style={{ fontSize: 18, flexShrink: 0 }}>⚠️</span>
+              <div>
+                <p style={{ color: '#92400E', fontWeight: 800, fontSize: 12, margin: '0 0 5px 0', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Los precios no incluyen IVA
+                </p>
+                <p style={{ color: '#78350F', fontSize: 12, margin: '0 0 8px 0', lineHeight: 1.5 }}>
+                  Si necesitás <strong>factura</strong>, los precios tienen un recargo equivalente al IVA vigente. Consultanos antes de confirmar el pedido.
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <a
+                    href="mailto:info@mayoristauniversal.com.ar"
+                    style={{ color: '#B45309', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
+                  >
+                    ✉️ info@mayoristauniversal.com.ar
+                  </a>
+                  <a
+                    href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación%20de%20mi%20pedido."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: '#B45309', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
+                  >
+                    💬 WhatsApp: +54 9 11 6466-0482
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
