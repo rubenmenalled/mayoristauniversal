@@ -7,14 +7,14 @@ const medios = [
     icono: '🏦',
     titulo: 'Transferencia Bancaria',
     desc: 'CBU / Alias disponible al confirmar el pedido',
-    badge: 'Sin recargo',
+    badge: '',
     href: null,
   },
   {
     icono: '💙',
     titulo: 'Mercado Pago',
     desc: 'Link de pago o QR. Aceptamos todas las tarjetas',
-    badge: 'Sin recargo',
+    badge: '',
     href: null,
   },
   {
@@ -155,7 +155,7 @@ export default function MediosDePago() {
                 <span style={iconStyle}>{medio.icono}</span>
                 <span style={cardTitleStyle}>{medio.titulo}</span>
                 <span style={cardDescStyle}>{medio.desc}</span>
-                <span style={getBadgeStyle(medio.badge)}>{medio.badge}</span>
+                {medio.badge && <span style={getBadgeStyle(medio.badge)}>{medio.badge}</span>}
               </>
             );
 
