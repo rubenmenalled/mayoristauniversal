@@ -187,26 +187,20 @@ export default function CheckoutPage() {
     })
   }
 
-  // Abre MP app en mobile, sino la web — con monto pre-cargado
+  // Abre la app de MP (mobile) o la web de MP para hacer la transferencia
   function abrirMercadoPago() {
-    const alias = encodeURIComponent(MP_ALIAS)
-    // El monto debe ser un número entero para MP — usar totalPago (guardado antes de clearCart)
-    const monto = Math.round(totalPago || total)
-    const webLink = `https://www.mercadopago.com.ar/cobros/money-request/transfer?alias=${alias}&amount=${monto}`
-
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
     if (isMobile) {
-      // Intenta abrir la app nativa con monto; si falla en 1.5s, va a la web
-      const deepLink = `mercadopago://transfer?alias=${alias}&amount=${monto}`
+      // Intenta abrir la app nativa; si no abre en 1.5s va a la web
       const start = Date.now()
-      window.location.href = deepLink
+      window.location.href = 'mercadopago://'
       setTimeout(() => {
         if (Date.now() - start < 2000) {
-          window.open(webLink, '_blank')
+          window.open('https://www.mercadopago.com.ar', '_blank')
         }
       }, 1500)
     } else {
-      window.open(webLink, '_blank')
+      window.open('https://www.mercadopago.com.ar', '_blank')
     }
   }
 
@@ -243,63 +237,29 @@ export default function CheckoutPage() {
                 <p style={{ color: GOLD, fontWeight: 900, fontSize: 34, margin: 0, lineHeight: 1 }}>${totalPago.toLocaleString('es-AR')}</p>
               </div>
 
-              {/* Aviso IVA / Facturación */}
-              <div style={{
-                background: '#FFFBEB',
-                border: '1.5px solid #F59E0B',
-                borderRadius: 12,
-                padding: '12px 16px',
-                marginBottom: 20,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                  <span style={{ fontSize: 16, flexShrink: 0 }}>⚠️</span>
-                  <div>
-                    <p style={{ color: '#92400E', fontWeight: 800, fontSize: 12, margin: '0 0 4px 0' }}>
-                      Precios sin IVA incluido
-                    </p>
-                    <p style={{ color: '#78350F', fontSize: 11, margin: '0 0 6px 0', lineHeight: 1.5 }}>
-                      Si necesitás factura, los precios tienen recargo de IVA. Consultanos por mail o WhatsApp antes de pagar.
-                    </p>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px' }}>
-                      <a href="mailto:info@mayoristauniversal.com.ar" style={{ color: '#B45309', fontSize: 11, fontWeight: 700, textDecoration: 'none' }}>
-                        ✉️ info@mayoristauniversal.com.ar
-                      </a>
-                      <a href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación%20de%20mi%20pedido." target="_blank" rel="noopener noreferrer" style={{ color: '#B45309', fontSize: 11, fontWeight: 700, textDecoration: 'none' }}>
-                        💬 WhatsApp +54 9 11 6466-0482
-                      </a>
+              {/* Pasos claros */}
+              <div style={{ marginBottom: 20 }}>
+                {[
+                  { n: '1', text: 'Copiá el alias de abajo', icon: '📋' },
+                  { n: '2', text: 'Abrí Mercado Pago y buscá "Transferir"', icon: '📱' },
+                  { n: '3', text: `Ingresá el alias y el monto $${totalPago.toLocaleString('es-AR')}`, icon: '💰' },
+                  { n: '4', text: 'Volvé aquí y envianos el comprobante', icon: '✅' },
+                ].map(s => (
+                  <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#fff', fontWeight: 900, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      {s.n}
                     </div>
+                    <span style={{ fontSize: 13, color: '#444', lineHeight: 1.4 }}>{s.icon} {s.text}</span>
                   </div>
-                </div>
+                ))}
               </div>
 
-              {/* Botón abrir MP app */}
-              <button
-                onClick={abrirMercadoPago}
-                style={{
-                  width: '100%', padding: '16px', borderRadius: 12, border: 'none',
-                  background: 'linear-gradient(135deg, #009ee3, #0076c0)',
-                  color: '#FFFFFF', fontWeight: 900, fontSize: 16,
-                  cursor: 'pointer', marginBottom: 20,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                  boxShadow: '0 4px 20px rgba(0,118,192,0.4)',
-                }}>
-                <MPLogo height={22} white />
-                Abrir Mercado Pago para pagar
-              </button>
-
-              {/* Separador */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-                <div style={{ flex: 1, height: 1, background: '#EEE' }} />
-                <span style={{ color: '#AAA', fontSize: 12, fontWeight: 600 }}>O transferí manualmente</span>
-                <div style={{ flex: 1, height: 1, background: '#EEE' }} />
-              </div>
-
-              {/* Alias para copiar */}
-              <div style={{ background: '#F0F8FF', border: '1.5px solid #009ee3', borderRadius: 12, padding: '16px 20px', marginBottom: 24 }}>
-                <p style={{ color: '#666', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', margin: '0 0 6px 0' }}>ALIAS DE MERCADO PAGO</p>
+              {/* Alias para copiar — bien destacado */}
+              <div style={{ background: '#F0F8FF', border: '2px solid #009ee3', borderRadius: 14, padding: '16px 20px', marginBottom: 16 }}>
+                <p style={{ color: '#555', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', margin: '0 0 6px 0' }}>ALIAS DE MERCADO PAGO</p>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                   <div>
-                    <p style={{ color: '#0076c0', fontWeight: 900, fontSize: 22, margin: '0 0 2px 0' }}>{MP_ALIAS}</p>
+                    <p style={{ color: '#0076c0', fontWeight: 900, fontSize: 22, margin: '0 0 2px 0', letterSpacing: '0.02em' }}>{MP_ALIAS}</p>
                     <p style={{ color: '#888', fontSize: 12, margin: 0 }}>Titular: {MP_TITULAR}</p>
                   </div>
                   <button
@@ -317,6 +277,27 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
+              {/* Monto a transferir */}
+              <div style={{ background: '#F0FFF4', border: '2px solid #22c55e', borderRadius: 12, padding: '12px 20px', marginBottom: 20, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ color: '#166534', fontWeight: 700, fontSize: 13 }}>💰 Monto a transferir:</span>
+                <span style={{ color: '#166534', fontWeight: 900, fontSize: 22 }}>${totalPago.toLocaleString('es-AR')}</span>
+              </div>
+
+              {/* Botón abrir MP */}
+              <button
+                onClick={abrirMercadoPago}
+                style={{
+                  width: '100%', padding: '15px', borderRadius: 12, border: 'none',
+                  background: 'linear-gradient(135deg, #009ee3, #0076c0)',
+                  color: '#FFFFFF', fontWeight: 900, fontSize: 15,
+                  cursor: 'pointer', marginBottom: 12,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+                  boxShadow: '0 4px 20px rgba(0,118,192,0.4)',
+                }}>
+                <MPLogo height={20} white />
+                Abrir Mercado Pago
+              </button>
+
               {/* Botón confirmar por WA */}
               <button
                 onClick={handleYaTransferi}
@@ -333,6 +314,19 @@ export default function CheckoutPage() {
               <p style={{ color: '#AAA', fontSize: 12, textAlign: 'center', margin: '12px 0 0 0', lineHeight: 1.5 }}>
                 Procesamos tu pedido al recibir el comprobante
               </p>
+
+              {/* Aviso IVA */}
+              <div style={{ background: '#FFFBEB', border: '1px solid #F59E0B', borderRadius: 10, padding: '10px 14px', marginTop: 16 }}>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <span style={{ fontSize: 14, flexShrink: 0 }}>⚠️</span>
+                  <p style={{ color: '#78350F', fontSize: 11, margin: 0, lineHeight: 1.5 }}>
+                    <strong>Precios sin IVA.</strong> Si necesitás factura, consultanos antes:{' '}
+                    <a href="mailto:info@mayoristauniversal.com.ar" style={{ color: '#B45309', fontWeight: 700, textDecoration: 'none' }}>info@mayoristauniversal.com.ar</a>{' '}
+                    o{' '}
+                    <a href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación." target="_blank" rel="noopener noreferrer" style={{ color: '#B45309', fontWeight: 700, textDecoration: 'none' }}>WhatsApp</a>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
