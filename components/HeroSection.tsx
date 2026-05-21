@@ -74,7 +74,7 @@ export default function HeroSection() {
             left: 0,
             zIndex: 10,
             pointerEvents: 'none',
-            animation: 'panda-mover 18s linear infinite',
+            animation: 'panda-mover 28s linear infinite',
           }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
