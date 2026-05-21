@@ -53,7 +53,7 @@ export default function FAQ() {
   }
 
   const sectionStyle: React.CSSProperties = {
-    background: '#FFFFFF',
+    background: '#614830',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
@@ -67,7 +67,7 @@ export default function FAQ() {
   const titleStyle: React.CSSProperties = {
     fontSize: 'clamp(24px, 4vw, 36px)',
     fontWeight: 700,
-    color: '#1565C0',
+    color: '#D4AF37',
     textAlign: 'center',
     margin: '0 0 48px 0',
     letterSpacing: '-0.5px',
@@ -108,10 +108,10 @@ export default function FAQ() {
             const isOpen = openIndex === i
 
             const itemStyle: React.CSSProperties = {
-              background: isOpen ? 'rgba(240,240,240, 0.85)' : 'rgba(240,240,240, 0.45)',
+              background: isOpen ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.05)',
               border: isOpen
                 ? '1px solid rgba(212, 175, 55, 0.6)'
-                : '1px solid rgba(212, 175, 55, 0.12)',
+                : '1px solid rgba(212, 175, 55, 0.2)',
               borderRadius: '12px',
               overflow: 'hidden',
               transition: 'border-color 0.3s ease, background 0.3s ease',
@@ -131,7 +131,7 @@ export default function FAQ() {
             }
 
             const questionStyle: React.CSSProperties = {
-              color: isOpen ? '#D4AF37' : '#1565C0',
+              color: isOpen ? '#D4AF37' : '#FFFFFF',
               fontWeight: 600,
               fontSize: '16px',
               margin: 0,
@@ -157,7 +157,7 @@ export default function FAQ() {
 
             const answerInnerStyle: React.CSSProperties = {
               padding: '0 24px 20px 24px',
-              color: '#000000',
+              color: 'rgba(255,255,255,0.82)',
               fontSize: '15px',
               lineHeight: '1.65',
             }
