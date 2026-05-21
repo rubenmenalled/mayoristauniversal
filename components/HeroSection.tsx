@@ -84,6 +84,7 @@ export default function HeroSection() {
                 height: 'clamp(80px, 11vw, 150px)',
                 width: 'auto',
                 display: 'block',
+                mixBlendMode: 'multiply',
                 filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))',
               }}
             />
