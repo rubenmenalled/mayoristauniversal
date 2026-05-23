@@ -167,13 +167,15 @@ export default function CatalogoPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
-                  whileHover={{ y: -4 }}
                   style={{
                     position: 'relative', height: 220,
                     borderRadius: 12, overflow: 'hidden',
                     cursor: 'pointer',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                    transition: 'transform 0.2s ease',
                   }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
+                  onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={foto} alt={nombre}
