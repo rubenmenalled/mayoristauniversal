@@ -32,7 +32,7 @@ const PASOS = [
     numero: '4',
     emoji: '📦',
     titulo: 'Recibí tu pedido',
-    desc: 'Una vez confirmado el pago, preparamos tu pedido en 24/48hs hábiles y lo enviamos por el transporte que elijas a cualquier provincia del país.',
+    desc: 'Una vez confirmado el pago, preparamos tu pedido y lo enviamos por el transporte que elijas. Los tiempos de entrega pueden demorar de 3 a 7 días hábiles según el destino.',
     accion: null,
     href: null,
   },
