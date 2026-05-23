@@ -8,6 +8,7 @@ export async function getProductos() {
 const ORDEN_CATEGORIAS = [
   'HOGAR Y BAZAR',
   'BLANQUERIA',
+  'RELOJES',
   'PELUCHES',
   'PELUCHES ENAMORADOS',
   'BEBE',
