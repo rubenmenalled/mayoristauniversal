@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic'
 const ORDEN_CATEGORIAS = [
   'HOGAR Y BAZAR',
   'BLANQUERIA',
+  'RELOJES',
   'PELUCHES',
   'PELUCHES ENAMORADOS',
   'BEBE',
@@ -26,6 +27,9 @@ const ORDEN_CATEGORIAS = [
   'PRODUCTOS REGIONALES',
   'PERFUMERIA',
 ]
+
+// Categorías que siempre aparecen aunque no tengan productos aún
+const CATEGORIAS_FIJAS = ['RELOJES']
 
 const FOTOS: Record<string, string> = {
   'HOGAR Y BAZAR':       'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
@@ -49,6 +53,7 @@ const FOTOS: Record<string, string> = {
   'RODADOS':             'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=90',
   'BLANQUERIA':          '/cat_blanqueria.jpg',
   'PERFUMERIA':          '/cat_perfumeria.jpg',
+  'RELOJES':             'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&q=90',
 }
 
 export async function GET() {
@@ -61,9 +66,10 @@ export async function GET() {
 
   if (error) return NextResponse.json([], { status: 500 })
 
-  const uniqueNames = Array.from(new Set(
+  const fromDB = Array.from(new Set(
     (data ?? []).map((p: any) => (p.categoria || '').trim().toUpperCase()).filter(Boolean)
   ))
+  const uniqueNames = Array.from(new Set([...fromDB, ...CATEGORIAS_FIJAS]))
 
   const EMOJIS: Record<string, string> = {
     'HOGAR Y BAZAR':       '🍳',
@@ -87,6 +93,7 @@ export async function GET() {
     'RODADOS':             '🛴',
     'PRODUCTOS REGIONALES':'🌿',
     'PERFUMERIA':          '🌸',
+    'RELOJES':             '⌚',
   }
 
   const mapped = uniqueNames.map((nombre, i) => ({
