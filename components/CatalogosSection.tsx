@@ -84,7 +84,7 @@ const KEYFRAMES = `
 
 function SkeletonGrid() {
   return (
-    <section style={{ background: '#614830', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+    <section style={{ background: '#0D1B2A', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Título skeleton */}
@@ -135,7 +135,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   const kbAnims = ['kenburns-1', 'kenburns-2', 'kenburns-3']
 
   return (
-    <section id="catalogos" style={{ background: '#614830', padding: '4px 16px 16px' }}>
+    <section id="catalogos" style={{ background: '#0D1B2A', padding: '4px 16px 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>

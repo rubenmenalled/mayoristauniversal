@@ -72,11 +72,11 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #614830 0%, #4a3422 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0D1B2A 0%, #071018 100%)' }}>
 
       {/* Header */}
       <div style={{
-        background: 'rgba(97,72,48,0.97)',
+        background: 'rgba(13,27,42,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,
