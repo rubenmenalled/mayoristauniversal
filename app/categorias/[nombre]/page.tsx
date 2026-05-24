@@ -214,16 +214,15 @@ export default function CategoriaPage() {
                     <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
                     <Stars n={p.rating} />
                     {(() => {
-                      const esCat = p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || p.category?.toUpperCase() === 'MARROQUINERIA' || p.category?.toUpperCase() === 'LIBRERIA'
-                      const mostrarBadge = esCat && (
-                        p.category?.toUpperCase() !== 'LIBRERIA'
-                          ? !['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS'].includes(p.subcategory?.toUpperCase() ?? '')
-                          : p.subcategory?.toUpperCase() === 'CARTUCHERAS'
-                      )
-                      if (!esCat) return null
+                      const cat = p.category?.toUpperCase() ?? ''
+                      const sub = p.subcategory?.toUpperCase() ?? ''
+                      const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
+                      const mostrarSKU = cat === 'ACCESORIOS DE PELO' || cat === 'MARROQUINERIA' || (cat === 'LIBRERIA' && sub === 'CARTUCHERAS')
+                      const mostrarBadge = mostrarSKU && (cat === 'MARROQUINERIA' ? !EXCL.includes(sub) : true)
+                      if (!mostrarSKU) return null
                       return (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, marginBottom: 2 }}>
-                          {mostrarBadge && (
+                          {(mostrarBadge) && (
                             <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px' }}>
                               <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
                             </div>
@@ -324,28 +323,32 @@ export default function CategoriaPage() {
               {/* Info */}
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 10 }}>{lightbox.name}</div>
-                {(lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' || lightbox.category?.toUpperCase() === 'MARROQUINERIA' || lightbox.category?.toUpperCase() === 'LIBRERIA') && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
-                    {(lightbox.category?.toUpperCase() !== 'LIBRERIA'
-                      ? !['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS'].includes(lightbox.subcategory?.toUpperCase() ?? '')
-                      : lightbox.subcategory?.toUpperCase() === 'CARTUCHERAS'
-                    ) && (
-                      <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
-                        <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
+                {(() => {
+                  const lcat = lightbox.category?.toUpperCase() ?? ''
+                  const lsub = lightbox.subcategory?.toUpperCase() ?? ''
+                  const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
+                  const mostrarSKU = lcat === 'ACCESORIOS DE PELO' || lcat === 'MARROQUINERIA' || (lcat === 'LIBRERIA' && lsub === 'CARTUCHERAS')
+                  const mostrarBadge = mostrarSKU && (lcat === 'MARROQUINERIA' ? !EXCL.includes(lsub) : true)
+                  if (!mostrarSKU) return <div style={{ marginBottom: 12 }} />
+                  return (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
+                      {mostrarBadge && (
+                        <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
+                          <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
+                        </div>
+                      )}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
+                        <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
+                        <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
+                          {lightbox.location?.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : 'Sin código'}
+                        </span>
                       </div>
-                    )}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
-                      <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
-                      <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
-                        {lightbox.location?.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : 'Sin código'}
-                      </span>
                     </div>
-                  </div>
-                )}
+                  )
+                })()}
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
                 </div>
-                {lightbox.category?.toUpperCase() !== 'ACCESORIOS DE PELO' && !(lightbox.category?.toUpperCase() === 'MARROQUINERIA' && !['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS'].includes(lightbox.subcategory?.toUpperCase() ?? '')) && !(lightbox.category?.toUpperCase() === 'LIBRERIA' && lightbox.subcategory?.toUpperCase() === 'CARTUCHERAS') && <div style={{ marginBottom: 12 }} />}
                 <div style={{ display: 'flex', gap: 10 }}>
                   <button onClick={() => setLightbox(null)}
                     style={{ flex: 1, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '10px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
