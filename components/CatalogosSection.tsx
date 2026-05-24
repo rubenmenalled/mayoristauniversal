@@ -7,7 +7,7 @@ const FOTOS: Record<string, string> = {
   BAZAR:        '/cat_bazar.jpg',
   BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
-  MAQUILLAJE:      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=90',
+  BELLEZA:      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=90',
   BLANQUERIA:   '/cat_blanqueria.jpg',
   COTILLON:     'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
   ELECTRONICA:  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
