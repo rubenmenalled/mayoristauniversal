@@ -26,10 +26,11 @@ const ORDEN_CATEGORIAS = [
   'RODADOS',
   'PRODUCTOS REGIONALES',
   'PERFUMERIA',
+  'BIJOUTERIE',
 ]
 
 // Categorías que siempre aparecen aunque no tengan productos aún
-const CATEGORIAS_FIJAS = ['RELOJES']
+const CATEGORIAS_FIJAS = ['RELOJES', 'BIJOUTERIE']
 
 const FOTOS: Record<string, string> = {
   'HOGAR Y BAZAR':       'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
@@ -54,6 +55,7 @@ const FOTOS: Record<string, string> = {
   'BLANQUERIA':          '/cat_blanqueria.jpg',
   'PERFUMERIA':          '/cat_perfumeria.jpg',
   'RELOJES':             'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
+  'BIJOUTERIE':          'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=90',
 }
 
 export async function GET() {
@@ -94,6 +96,7 @@ export async function GET() {
     'PRODUCTOS REGIONALES':'🌿',
     'PERFUMERIA':          '🌸',
     'RELOJES':             '⌚',
+    'BIJOUTERIE':          '💍',
   }
 
   const mapped = uniqueNames.map((nombre, i) => ({

@@ -28,6 +28,7 @@ const ORDEN_CATEGORIAS = [
   'RODADOS',
   'PRODUCTOS REGIONALES',
   'PERFUMERIA',
+  'BIJOUTERIE',
 ]
 
 function sortCategorias(cats: any[]) {
