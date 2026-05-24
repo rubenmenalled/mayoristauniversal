@@ -30,7 +30,7 @@ function getBulkInfo(category: string, subcategory: string, minOrder: number) {
   const sub = (subcategory || '').toUpperCase()
   if (cat !== 'ACCESORIOS DE PELO' && cat !== 'MARROQUINERIA' && cat !== 'LIBRERIA') return null
   if (cat === 'MARROQUINERIA' && EXCL_MARR.includes(sub)) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
-  if (cat === 'LIBRERIA') {
+  if (cat === 'LIBRERIA' || cat === 'ACCESORIOS DE PELO') {
     const badgeText = minOrder >= 20
       ? `📦 PRECIO POR CAJA (x${minOrder}) DE COLORES SURTIDOS`
       : `📦 PRECIO POR PAQUETE (x${minOrder}) DE COLORES SURTIDOS`
