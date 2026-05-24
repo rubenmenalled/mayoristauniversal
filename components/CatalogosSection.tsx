@@ -29,7 +29,7 @@ const FOTOS: Record<string, string> = {
   ROPA:         'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=90',
   CALZADO:      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=90',
   RELOJES:      'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
-  BIJOUTERIE:   'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=90',
+  BIJOUTERIE:   'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
 }
 
 interface Categoria {
