@@ -310,12 +310,12 @@ export default function CategoriaPage() {
                     <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
                       <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR PAQUETE DE DOCENA x12 UNIDADES DE COLORES SURTIDOS</span>
                     </div>
-                    {lightbox.location?.startsWith('SKU:') && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
-                        <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
-                        <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{lightbox.location.replace('SKU:', '').trim()}</span>
-                      </div>
-                    )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
+                      <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
+                      <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
+                        {lightbox.location?.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : 'Sin código'}
+                      </span>
+                    </div>
                   </div>
                 )}
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
