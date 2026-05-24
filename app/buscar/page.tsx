@@ -25,6 +25,29 @@ function Stars({ n }: { n: number }) {
   )
 }
 
+// Genera variantes singular/plural en español para un término dado
+function getVariants(term: string): string[] {
+  const t = term.toLowerCase().trim()
+  if (!t) return []
+  const variants = new Set<string>([t])
+  // Agregar plural
+  if (!t.endsWith('s')) {
+    variants.add(t + 's')       // esponja → esponjas
+    variants.add(t + 'es')      // reloj → relojes
+  }
+  // Agregar singular
+  if (t.endsWith('es') && t.length > 3) variants.add(t.slice(0, -2)) // relojes → reloj
+  if (t.endsWith('s') && t.length > 2)  variants.add(t.slice(0, -1)) // esponjas → esponja
+  return Array.from(variants)
+}
+
+function matchesSearch(p: Producto, variants: string[]): boolean {
+  const name  = (p.name     || '').toLowerCase()
+  const brand = (p.brand    || '').toLowerCase()
+  const cat   = (p.category || '').toLowerCase()
+  return variants.some(v => name.includes(v) || brand.includes(v) || cat.includes(v))
+}
+
 function BuscarContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -39,12 +62,8 @@ function BuscarContent() {
     fetch('/api/productos-publicos')
       .then(r => r.json())
       .then((data: Producto[]) => {
-        const term = q.toLowerCase()
-        const filtrados = data.filter(p =>
-          p.name?.toLowerCase().includes(term) ||
-          p.brand?.toLowerCase().includes(term) ||
-          p.category?.toLowerCase().includes(term)
-        )
+        const variants = getVariants(q)
+        const filtrados = data.filter(p => matchesSearch(p, variants))
         setProductos(filtrados)
         setLoading(false)
       })
