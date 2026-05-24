@@ -214,7 +214,7 @@ export default function CategoriaPage() {
                     <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
                     <Stars n={p.rating} />
                     {(() => {
-                      const esPaquete = p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || p.subcategory?.toUpperCase() === 'BILLETERAS'
+                      const esPaquete = p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || ['BILLETERAS','RIÑONERAS'].includes(p.subcategory?.toUpperCase() ?? '')
                       if (!esPaquete) return null
                       return (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, marginBottom: 2 }}>
@@ -232,7 +232,7 @@ export default function CategoriaPage() {
                     })()}
                     <div style={{ marginTop: 6 }}>
                       <div style={{ color: '#CBD5E1', fontSize: 10, marginTop: 2 }}>
-                        {(p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || p.subcategory?.toUpperCase() === 'BILLETERAS') ? 'Precio x docena:' : 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                        {(p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || ['BILLETERAS','RIÑONERAS'].includes(p.subcategory?.toUpperCase() ?? '')) ? 'Precio x docena:' : 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                       </div>
                     </div>
                     <button
@@ -317,7 +317,7 @@ export default function CategoriaPage() {
               {/* Info */}
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 10 }}>{lightbox.name}</div>
-                {(lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' || lightbox.subcategory?.toUpperCase() === 'BILLETERAS') && (
+                {(lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' || ['BILLETERAS','RIÑONERAS'].includes(lightbox.subcategory?.toUpperCase() ?? '')) && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
                     <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
                       <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
@@ -333,7 +333,7 @@ export default function CategoriaPage() {
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
                 </div>
-                {lightbox.category?.toUpperCase() !== 'ACCESORIOS DE PELO' && lightbox.subcategory?.toUpperCase() !== 'BILLETERAS' && <div style={{ marginBottom: 12 }} />}
+                {lightbox.category?.toUpperCase() !== 'ACCESORIOS DE PELO' && !['BILLETERAS','RIÑONERAS'].includes(lightbox.subcategory?.toUpperCase() ?? '') && <div style={{ marginBottom: 12 }} />}
                 <div style={{ display: 'flex', gap: 10 }}>
                   <button onClick={() => setLightbox(null)}
                     style={{ flex: 1, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '10px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
