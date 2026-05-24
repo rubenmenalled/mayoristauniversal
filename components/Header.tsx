@@ -79,11 +79,11 @@ export default function Header() {
             </div>
             <div className="leading-none">
               <div className="font-display font-black text-xl tracking-wide"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
+                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
                 MAYORISTA
               </div>
               <div className="font-display font-black text-xl tracking-widest"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
+                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
                 UNIVERSAL
               </div>
             </div>
