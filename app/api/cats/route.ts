@@ -53,7 +53,7 @@ const FOTOS: Record<string, string> = {
   'RODADOS':             'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=90',
   'BLANQUERIA':          '/cat_blanqueria.jpg',
   'PERFUMERIA':          '/cat_perfumeria.jpg',
-  'RELOJES':             'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&q=90',
+  'RELOJES':             'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
 }
 
 export async function GET() {

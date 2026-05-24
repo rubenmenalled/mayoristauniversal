@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Star, ShoppingCart } from 'lucide-react'
+import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCart } from '@/lib/CartContext'
 import CartSidebar from '@/components/CartSidebar'
 
@@ -232,38 +232,66 @@ export default function CategoriaPage() {
       <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
 
       {/* Lightbox */}
-      {lightbox && (
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-          onClick={() => setLightbox(null)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'zoom-out' }}>
-          <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 500, background: '#0a1628', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
-            {/* Foto grande */}
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#F0F0F0' }}>
-              <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 16 }} sizes="(max-width: 768px) 95vw, 500px" quality={95} />
-            </div>
-            {/* Info */}
-            <div style={{ padding: '16px 20px 20px' }}>
-              <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 8 }}>{lightbox.name}</div>
-              <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 12 }}>
-                ${lightbox.wholesalePrice.toLocaleString('es-AR')}
+      {lightbox && (() => {
+        const lista = productosFiltrados.filter(p => p.image)
+        const idx = lista.findIndex(p => p.id === lightbox.id)
+        const prev = lista[idx - 1] ?? null
+        const next = lista[idx + 1] ?? null
+        return (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={() => setLightbox(null)}
+            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'zoom-out' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 500, background: '#0a1628', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
+              {/* Foto grande */}
+              <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#F0F0F0' }}>
+                <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 16 }} sizes="(max-width: 768px) 95vw, 500px" quality={95} />
+
+                {/* Flecha izquierda */}
+                {prev && (
+                  <button onClick={e => { e.stopPropagation(); setLightbox(prev) }}
+                    style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
+                    <ChevronLeft size={22} color="#fff" />
+                  </button>
+                )}
+
+                {/* Flecha derecha */}
+                {next && (
+                  <button onClick={e => { e.stopPropagation(); setLightbox(next) }}
+                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
+                    <ChevronRight size={22} color="#fff" />
+                  </button>
+                )}
+
+                {/* Contador */}
+                <div style={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11 }}>
+                  {idx + 1} / {lista.length}
+                </div>
               </div>
-              <div style={{ display: 'flex', gap: 10 }}>
-                <button onClick={() => setLightbox(null)}
-                  style={{ flex: 1, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '10px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
-                  Cerrar
-                </button>
-                <motion.button whileTap={{ scale: 0.97 }}
-                  onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.minOrder }); setLightbox(null) }}
-                  style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-                  <ShoppingCart size={14} /> AGREGAR AL CARRITO
-                </motion.button>
+
+              {/* Info */}
+              <div style={{ padding: '16px 20px 20px' }}>
+                <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 8 }}>{lightbox.name}</div>
+                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 12 }}>
+                  ${lightbox.wholesalePrice.toLocaleString('es-AR')}
+                </div>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <button onClick={() => setLightbox(null)}
+                    style={{ flex: 1, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '10px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
+                    Cerrar
+                  </button>
+                  <motion.button whileTap={{ scale: 0.97 }}
+                    onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.minOrder }); setLightbox(null) }}
+                    style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                    <ShoppingCart size={14} /> AGREGAR AL CARRITO
+                  </motion.button>
+                </div>
               </div>
             </div>
-          </div>
-          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>
-        </motion.div>
-      )}
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>
+          </motion.div>
+        )
+      })()}
     </div>
   )
 }
