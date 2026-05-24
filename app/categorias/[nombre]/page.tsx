@@ -23,7 +23,7 @@ const BADGE: Record<string, string> = {
   OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-yellow-500',
 }
 
-const EXCL_MARR = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
+const EXCL_MARR = ['MOCHILAS-CARTERAS','MOCHILAS Y CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
 
 function getBulkInfo(category: string, subcategory: string, minOrder: number) {
   const cat = (category || '').toUpperCase()
