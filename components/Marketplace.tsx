@@ -102,10 +102,6 @@ function ProductCard({ p }: { p: Product }) {
         <Stars n={p.rating} />
         <div className="text-gray-500 text-[10px] mb-2">({p.reviews})</div>
 
-        {/* Prices */}
-        <div className="mb-1">
-          <span className="text-gray-500 text-xs line-through">${p.price.toLocaleString('es-AR')}</span>
-        </div>
         <div className="text-[10px] text-gray-400 mb-1">
           Precio mayorista:{' '}
           <span className="text-gold font-black text-sm">${p.wholesalePrice.toLocaleString('es-AR')}</span>

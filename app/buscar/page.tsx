@@ -133,7 +133,6 @@ function BuscarContent() {
                       <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
                       <Stars n={p.rating} />
                       <div style={{ marginTop: 8 }}>
-                        {p.price > 0 && <div style={{ color: '#6b7280', fontSize: 11, textDecoration: 'line-through' }}>${p.price.toLocaleString('es-AR')}</div>}
                         <div style={{ color: '#7a8a9a', fontSize: 10, marginTop: 2 }}>
                           Mayorista: <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                         </div>
