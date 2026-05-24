@@ -10,6 +10,7 @@ export interface CartItem {
   image: string
   quantity: number
   minOrder: number
+  category?: string
 }
 
 interface CartContextType {

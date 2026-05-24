@@ -8,6 +8,11 @@ import { useRouter } from 'next/navigation'
 
 const MIN_COMPRA = 150000
 
+// Reglas de mínimo por categoría: { categoria: unidades mínimas }
+const MIN_CATEGORIA: Record<string, number> = {
+  RELOJES: 12,
+}
+
 interface Props { open: boolean; onClose: () => void }
 
 export default function CartSidebar({ open, onClose }: Props) {
@@ -15,6 +20,20 @@ export default function CartSidebar({ open, onClose }: Props) {
   const router = useRouter()
 
   const faltaMinimo = total < MIN_COMPRA
+
+  // Verificar mínimos por categoría
+  const alertasCategorias: string[] = []
+  Object.entries(MIN_CATEGORIA).forEach(([cat, minUnits]) => {
+    const itemsCat = items.filter(i => i.category?.toUpperCase() === cat)
+    if (itemsCat.length > 0) {
+      const totalUnits = itemsCat.reduce((s, i) => s + i.quantity, 0)
+      if (totalUnits < minUnits) {
+        alertasCategorias.push(`⌚ ${cat}: necesitás ${minUnits} unidades surtidas (tenés ${totalUnits})`)
+      }
+    }
+  })
+  const bloqueadoPorCategoria = alertasCategorias.length > 0
+  const puedeComprar = !faltaMinimo && !bloqueadoPorCategoria
 
   return (
     <AnimatePresence>
@@ -99,35 +118,37 @@ export default function CartSidebar({ open, onClose }: Props) {
             {/* Footer */}
             {items.length > 0 && (
               <div style={{ padding: '20px 24px', borderTop: '1px solid rgba(212,175,55,0.15)' }}>
-                {/* Mínimo de compra */}
+
+                {/* Alertas por categoría */}
+                {alertasCategorias.map((msg, i) => (
+                  <div key={i} style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.35)', borderRadius: 8, padding: '10px 14px', marginBottom: 10, fontSize: 12, color: '#fbbf24', lineHeight: 1.5 }}>
+                    {msg}
+                  </div>
+                ))}
+
+                {/* Mínimo de compra total */}
                 {faltaMinimo && (
-                  <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 12, fontSize: 12, color: '#f87171' }}>
-                    ⚠️ Mínimo $150.000. Te faltan <strong>${(MIN_COMPRA - total).toLocaleString('es-AR')}</strong> — seguí agregando productos
+                  <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 10, fontSize: 12, color: '#f87171' }}>
+                    ⚠️ Mínimo $150.000. Te faltan <strong>${(MIN_COMPRA - total).toLocaleString('es-AR')}</strong>
                   </div>
                 )}
+
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
                   <span style={{ color: '#7a8a9a', fontWeight: 700 }}>Total</span>
                   <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 20 }}>${total.toLocaleString('es-AR')}</span>
                 </div>
-                {faltaMinimo ? (
+
+                {puedeComprar ? (
                   <button
-                    onClick={onClose}
-                    style={{
-                      width: '100%', padding: '14px', borderRadius: 12, border: 'none',
-                      background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                      color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer',
-                    }}>
-                    + SEGUIR AGREGANDO PRODUCTOS
+                    onClick={() => { onClose(); router.push('/checkout') }}
+                    style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer' }}>
+                    FINALIZAR COMPRA →
                   </button>
                 ) : (
                   <button
-                    onClick={() => { onClose(); router.push('/checkout') }}
-                    style={{
-                      width: '100%', padding: '14px', borderRadius: 12, border: 'none',
-                      background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-                      color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer',
-                    }}>
-                    FINALIZAR COMPRA →
+                    onClick={onClose}
+                    style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer' }}>
+                    + SEGUIR AGREGANDO PRODUCTOS
                   </button>
                 )}
                 <button onClick={clearCart}
