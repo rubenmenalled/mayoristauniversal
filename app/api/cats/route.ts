@@ -48,7 +48,7 @@ const FOTOS: Record<string, string> = {
   'JUGUETERIA':          'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
   'LIBRERIA':            'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
   'BELLEZA':             'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=90',
-  'MARROQUINERIA':       'https://images.unsplash.com/photo-1740391768383-3b9ad0cb7b88?w=800&q=90',
+  'MARROQUINERIA':       'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=90',
   'MASCOTAS':            'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   'COTILLON':            'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
   'OPTICA':              'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=90',

@@ -18,7 +18,7 @@ const FOTOS: Record<string, string> = {
   HERRAMIENTAS: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800&q=90',
   JUGUETERIA:   'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
   LIBRERIA:     'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
-  MARROQUINERIA:'https://images.unsplash.com/photo-1740391768383-3b9ad0cb7b88?w=800&q=90&auto=format&fit=crop',
+  MARROQUINERIA:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=90',
   MASCOTAS:     'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   OPTICA:       'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=90',
   PELUCHES:            '/cat_peluches.jpg',
