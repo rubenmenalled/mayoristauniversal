@@ -214,13 +214,16 @@ export default function CategoriaPage() {
                     <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
                     <Stars n={p.rating} />
                     {(() => {
-                      const esPaquete = p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || (p.category?.toUpperCase() === 'MARROQUINERIA' && p.subcategory?.toUpperCase() !== 'MOCHILAS-CARTERAS')
-                      if (!esPaquete) return null
+                      const esCat = p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || p.category?.toUpperCase() === 'MARROQUINERIA'
+                      const mostrarBadge = esCat && p.subcategory?.toUpperCase() !== 'MOCHILAS-CARTERAS'
+                      if (!esCat) return null
                       return (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, marginBottom: 2 }}>
-                          <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px' }}>
-                            <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
-                          </div>
+                          {mostrarBadge && (
+                            <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px' }}>
+                              <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
+                            </div>
+                          )}
                           <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px' }}>
                             <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
                             <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 10 }}>
@@ -317,11 +320,13 @@ export default function CategoriaPage() {
               {/* Info */}
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 10 }}>{lightbox.name}</div>
-                {(lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' || (lightbox.category?.toUpperCase() === 'MARROQUINERIA' && lightbox.subcategory?.toUpperCase() !== 'MOCHILAS-CARTERAS')) && (
+                {(lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' || lightbox.category?.toUpperCase() === 'MARROQUINERIA') && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
-                    <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
-                      <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
-                    </div>
+                    {lightbox.subcategory?.toUpperCase() !== 'MOCHILAS-CARTERAS' && (
+                      <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
+                        <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
+                      </div>
+                    )}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
                       <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
                       <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
