@@ -213,9 +213,14 @@ export default function CategoriaPage() {
                     {p.brand && <div style={{ color: '#CBD5E1', fontSize: 10, fontWeight: 600, marginBottom: 2 }}>Marca: {p.brand}</div>}
                     <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
                     <Stars n={p.rating} />
-                    <div style={{ marginTop: 8 }}>
+                    {p.category?.toUpperCase() === 'ACCESORIOS DE PELO' && (
+                      <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px', display: 'inline-block', marginTop: 4, marginBottom: 2 }}>
+                        <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PAQUETE X 12 UNIDADES</span>
+                      </div>
+                    )}
+                    <div style={{ marginTop: 6 }}>
                       <div style={{ color: '#CBD5E1', fontSize: 10, marginTop: 2 }}>
-                        Mayorista: <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                        {p.category?.toUpperCase() === 'ACCESORIOS DE PELO' ? 'Precio x docena:' : 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                       </div>
                     </div>
                     <button
@@ -300,9 +305,20 @@ export default function CategoriaPage() {
               {/* Info */}
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 8 }}>{lightbox.name}</div>
-                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 12 }}>
+                {lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' && (
+                  <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px', marginBottom: 10, display: 'inline-block' }}>
+                    <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR PAQUETE DE DOCENA (x12 unidades)</span>
+                  </div>
+                )}
+                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
                 </div>
+                {lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' && (
+                  <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, marginBottom: 10 }}>
+                    ≈ ${Math.ceil(lightbox.wholesalePrice / 12).toLocaleString('es-AR')} por unidad
+                  </div>
+                )}
+                {lightbox.category?.toUpperCase() !== 'ACCESORIOS DE PELO' && <div style={{ marginBottom: 12 }} />}
                 <div style={{ display: 'flex', gap: 10 }}>
                   <button onClick={() => setLightbox(null)}
                     style={{ flex: 1, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '10px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
