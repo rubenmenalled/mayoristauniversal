@@ -214,8 +214,16 @@ export default function CategoriaPage() {
                     <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
                     <Stars n={p.rating} />
                     {p.category?.toUpperCase() === 'ACCESORIOS DE PELO' && (
-                      <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px', display: 'inline-block', marginTop: 4, marginBottom: 2 }}>
-                        <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PAQUETE X 12 UNIDADES DE COLORES SURTIDOS</span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, marginBottom: 2 }}>
+                        <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px' }}>
+                          <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PAQUETE X 12 UNIDADES DE COLORES SURTIDOS</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px' }}>
+                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
+                          <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 10 }}>
+                            {p.location?.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : 'Sin código'}
+                          </span>
+                        </div>
                       </div>
                     )}
                     <div style={{ marginTop: 6 }}>
