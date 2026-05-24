@@ -310,6 +310,11 @@ export default function CategoriaPage() {
                     <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR PAQUETE DE DOCENA x12 UNIDADES DE COLORES SURTIDOS</span>
                   </div>
                 )}
+                {lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' && lightbox.location?.startsWith('SKU:') && (
+                  <div style={{ color: '#94A3B8', fontSize: 12, marginBottom: 6 }}>
+                    <span style={{ fontWeight: 700 }}>SKU:</span> {lightbox.location.replace('SKU:', '').trim()}
+                  </div>
+                )}
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
                 </div>
