@@ -215,7 +215,7 @@ export default function CategoriaPage() {
                     <Stars n={p.rating} />
                     {p.category?.toUpperCase() === 'ACCESORIOS DE PELO' && (
                       <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px', display: 'inline-block', marginTop: 4, marginBottom: 2 }}>
-                        <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PAQUETE X 12 UNIDADES</span>
+                        <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PAQUETE X 12 UNIDADES DE COLORES SURTIDOS</span>
                       </div>
                     )}
                     <div style={{ marginTop: 6 }}>
@@ -307,7 +307,7 @@ export default function CategoriaPage() {
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 8 }}>{lightbox.name}</div>
                 {lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' && (
                   <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px', marginBottom: 10, display: 'inline-block' }}>
-                    <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR PAQUETE DE DOCENA (x12 unidades)</span>
+                    <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR PAQUETE DE DOCENA x12 UNIDADES DE COLORES SURTIDOS</span>
                   </div>
                 )}
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
