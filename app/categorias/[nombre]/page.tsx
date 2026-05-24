@@ -183,16 +183,14 @@ export default function CategoriaPage() {
               {productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en{' '}
               <span style={{ color: '#D4AF37', fontWeight: 700 }}>{subActiva || nombreDecoded}</span>
             </div>
+            <style dangerouslySetInnerHTML={{ __html: `.prod-card { transition: transform 0.2s ease, box-shadow 0.2s ease; } @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212,175,55,0.2); } }` }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 14 }}>
               {productosFiltrados.map((p, i) => (
                 <motion.div key={p.id}
-                  className="glass-card rounded-xl overflow-hidden relative group"
+                  className="prod-card glass-card rounded-xl overflow-hidden relative"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}
-                  style={{ transition: 'transform 0.2s ease' }}
-                  onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
-                  onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>
+                  transition={{ delay: i * 0.04 }}>
 
                   <div style={{ position: 'relative', height: 150, background: '#F0F0F0', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => p.image && setLightbox(p)}>
@@ -220,12 +218,11 @@ export default function CategoriaPage() {
                         Mayorista: <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                       </div>
                     </div>
-                    <motion.button
-                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
-                      whileTap={{ scale: 0.97 }}
+                    <button
+                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
                       onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder, category: p.category })}>
                       <ShoppingCart size={11} /> AGREGAR
-                    </motion.button>
+                    </button>
                   </div>
                 </motion.div>
               ))}
