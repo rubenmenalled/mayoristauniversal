@@ -23,6 +23,23 @@ const BADGE: Record<string, string> = {
   OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-yellow-500',
 }
 
+const EXCL_MARR = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
+
+function getBulkInfo(category: string, subcategory: string, minOrder: number) {
+  const cat = (category || '').toUpperCase()
+  const sub = (subcategory || '').toUpperCase()
+  if (cat !== 'ACCESORIOS DE PELO' && cat !== 'MARROQUINERIA' && cat !== 'LIBRERIA') return null
+  if (cat === 'MARROQUINERIA' && EXCL_MARR.includes(sub)) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
+  if (cat === 'LIBRERIA') {
+    const badgeText = minOrder >= 20
+      ? `📦 PRECIO POR CAJA (x${minOrder}) DE COLORES SURTIDOS`
+      : `📦 PRECIO POR PAQUETE (x${minOrder}) DE COLORES SURTIDOS`
+    const label = minOrder >= 20 ? `Precio x caja (x${minOrder}):` : 'Precio x docena:'
+    return { badge: true, sku: true, label, badgeText }
+  }
+  return { badge: true, sku: true, label: 'Precio x docena:', badgeText: '📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS' }
+}
+
 const BG_SUBS = [
   '#E8EAF6','#FCE4EC','#E8F5E9','#FFF8E1','#E3F2FD',
   '#F3E5F5','#E0F7FA','#FBE9E7','#EDE7F6','#E8F5E9',
@@ -214,46 +231,29 @@ export default function CategoriaPage() {
                     <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
                     <Stars n={p.rating} />
                     {(() => {
-                      const cat = p.category?.toUpperCase() ?? ''
-                      const sub = p.subcategory?.toUpperCase() ?? ''
-                      const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
-                      const mostrarSKU = cat === 'ACCESORIOS DE PELO' || cat === 'MARROQUINERIA' || cat === 'LIBRERIA'
-                      const mostrarBadge = mostrarSKU && (cat === 'MARROQUINERIA' ? !EXCL.includes(sub) : true)
-                      const qty = p.minOrder ?? 12
-                      const badgeText = cat === 'LIBRERIA'
-                        ? (qty >= 20 ? `📦 PRECIO POR CAJA (x${qty}) DE COLORES SURTIDOS` : `📦 PRECIO POR PAQUETE (x${qty}) DE COLORES SURTIDOS`)
-                        : '📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS'
-                      if (!mostrarSKU) return null
+                      const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
+                      if (!bi) return null
                       return (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, marginBottom: 2 }}>
-                          {mostrarBadge && (
+                          {bi.badge && (
                             <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px' }}>
-                              <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>{badgeText}</span>
+                              <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>{bi.badgeText}</span>
                             </div>
                           )}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px' }}>
-                            <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
-                            <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 10 }}>
-                              {p.location?.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : 'Sin código'}
-                            </span>
-                          </div>
+                          {bi.sku && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px' }}>
+                              <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
+                              <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 10 }}>
+                                {p.location?.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : 'Sin código'}
+                              </span>
+                            </div>
+                          )}
                         </div>
                       )
                     })()}
                     <div style={{ marginTop: 6 }}>
                       <div style={{ color: '#CBD5E1', fontSize: 10, marginTop: 2 }}>
-                        {(() => {
-                          const cat = p.category?.toUpperCase() ?? ''
-                          const sub = p.subcategory?.toUpperCase() ?? ''
-                          const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
-                          const qty = p.minOrder ?? 12
-                          if (cat === 'MARROQUINERIA' && EXCL.includes(sub)) return 'Mayorista:'
-                          if (cat === 'LIBRERIA' || cat === 'ACCESORIOS DE PELO' || cat === 'MARROQUINERIA') {
-                            if (qty >= 20) return `Precio x caja (x${qty}):`
-                            return 'Precio x docena:'
-                          }
-                          return 'Mayorista:'
-                        })()} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                        {getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)?.label ?? 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                       </div>
                     </div>
                     <button
@@ -339,29 +339,23 @@ export default function CategoriaPage() {
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 10 }}>{lightbox.name}</div>
                 {(() => {
-                  const lcat = lightbox.category?.toUpperCase() ?? ''
-                  const lsub = lightbox.subcategory?.toUpperCase() ?? ''
-                  const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
-                  const mostrarSKU = lcat === 'ACCESORIOS DE PELO' || lcat === 'MARROQUINERIA' || lcat === 'LIBRERIA'
-                  const mostrarBadge = mostrarSKU && (lcat === 'MARROQUINERIA' ? !EXCL.includes(lsub) : true)
-                  const qty = lightbox.minOrder ?? 12
-                  const badgeText = lcat === 'LIBRERIA'
-                    ? (qty >= 20 ? `📦 PRECIO POR CAJA (x${qty}) DE COLORES SURTIDOS` : `📦 PRECIO POR PAQUETE (x${qty}) DE COLORES SURTIDOS`)
-                    : '📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS'
-                  if (!mostrarSKU) return <div style={{ marginBottom: 12 }} />
+                  const lbi = getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder)
+                  if (!lbi) return <div style={{ marginBottom: 12 }} />
                   return (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
-                      {mostrarBadge && (
+                      {lbi.badge && (
                         <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
-                          <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>{badgeText}</span>
+                          <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>{lbi.badgeText}</span>
                         </div>
                       )}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
-                        <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
-                        <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
-                          {lightbox.location?.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : 'Sin código'}
-                        </span>
-                      </div>
+                      {lbi.sku && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
+                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
+                          <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
+                            {lightbox.location?.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : 'Sin código'}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   )
                 })()}
