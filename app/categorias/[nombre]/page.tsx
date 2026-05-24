@@ -313,11 +313,6 @@ export default function CategoriaPage() {
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
                 </div>
-                {lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' && (
-                  <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, marginBottom: 10 }}>
-                    ≈ ${Math.ceil(lightbox.wholesalePrice / 12).toLocaleString('es-AR')} por unidad
-                  </div>
-                )}
                 {lightbox.category?.toUpperCase() !== 'ACCESORIOS DE PELO' && <div style={{ marginBottom: 12 }} />}
                 <div style={{ display: 'flex', gap: 10 }}>
                   <button onClick={() => setLightbox(null)}
