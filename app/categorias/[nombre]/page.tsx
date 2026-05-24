@@ -311,8 +311,9 @@ export default function CategoriaPage() {
                   </div>
                 )}
                 {lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' && lightbox.location?.startsWith('SKU:') && (
-                  <div style={{ color: '#94A3B8', fontSize: 12, marginBottom: 6 }}>
-                    <span style={{ fontWeight: 700 }}>SKU:</span> {lightbox.location.replace('SKU:', '').trim()}
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 6, padding: '4px 10px', marginBottom: 8 }}>
+                    <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13 }}>SKU</span>
+                    <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 14 }}>{lightbox.location.replace('SKU:', '').trim()}</span>
                   </div>
                 )}
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
