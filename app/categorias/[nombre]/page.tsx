@@ -252,7 +252,7 @@ export default function CategoriaPage() {
               {/* Foto grande */}
               <div
                 ref={imgRef}
-                style={{ position: 'relative', width: '100%', aspectRatio: zoom ? 'auto' : '1', height: zoom ? '100vh' : undefined, background: '#111', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
+                style={{ position: 'relative', width: '100%', height: zoom ? '100vh' : 'min(280px, 42vh)', background: '#111', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
                 onClick={e => { e.stopPropagation(); if (!dragging) { setZoom(z => !z); setOffset({x:0,y:0}) } }}
                 onMouseDown={e => { if (zoom) { setDragStart({x: e.clientX - offset.x, y: e.clientY - offset.y}); setDragging(false) } }}
                 onMouseMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.clientX - dragStart.x, y: e.clientY - dragStart.y}) } }}
