@@ -1,6 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+const FRASES = [
+  { emoji: '🛒', texto: 'Tu supermercado mayorista, con un solo click' },
+  { emoji: '🏪', texto: 'Todo lo que tu negocio necesita, en un solo lugar' },
+  { emoji: '⚡', texto: 'Comprá mayorista desde donde estés, 24/7' },
+  { emoji: '💼', texto: 'Miles de productos. Precios mayoristas. Sin salir de casa.' },
+]
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -15,6 +22,19 @@ const TRANSPORTES = [
 
 export default function HeroSection() {
   const [modalOpen, setModalOpen] = useState(false)
+  const [fraseIdx, setFraseIdx] = useState(0)
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(false)
+      setTimeout(() => {
+        setFraseIdx(i => (i + 1) % FRASES.length)
+        setVisible(true)
+      }, 400)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <>
@@ -106,6 +126,36 @@ export default function HeroSection() {
           }}>
             📋 VER TODOS LOS CATÁLOGOS
           </a>
+        </div>
+
+        {/* Franja de frases rotativas */}
+        <div style={{
+          background: 'linear-gradient(135deg, #0D1B2A 0%, #1A2E45 100%)',
+          borderTop: '1px solid rgba(212,175,55,0.25)',
+          borderBottom: '1px solid rgba(212,175,55,0.25)',
+          padding: '13px 16px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          minHeight: 52,
+          overflow: 'hidden',
+        }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(8px)',
+            transition: 'opacity 0.4s ease, transform 0.4s ease',
+          }}>
+            <span style={{ fontSize: 22 }}>{FRASES[fraseIdx].emoji}</span>
+            <span style={{
+              color: '#D4AF37', fontWeight: 800,
+              fontSize: 'clamp(13px, 2vw, 16px)',
+              letterSpacing: '0.03em',
+              textAlign: 'center',
+              textTransform: 'uppercase',
+            }}>
+              {FRASES[fraseIdx].texto}
+            </span>
+            <span style={{ fontSize: 22 }}>{FRASES[fraseIdx].emoji}</span>
+          </div>
         </div>
 
         {/* Barra de envíos — clickeable */}
