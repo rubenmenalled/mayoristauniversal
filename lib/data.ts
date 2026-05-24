@@ -7,7 +7,7 @@ export async function getProductos() {
 
 const ORDEN_CATEGORIAS = [
   'HOGAR Y BAZAR',
-  'BIJOUTERIE',
+  'ACCESORIOS DE PELO',
   'RELOJES',
   'PELUCHES',
   'PELUCHES ENAMORADOS',
@@ -29,7 +29,7 @@ const ORDEN_CATEGORIAS = [
   'PRODUCTOS REGIONALES',
   'PERFUMERIA',
   'BLANQUERIA',
-  'ACCESORIOS DE PELO',
+  'BIJOUTERIE',
 ]
 
 function sortCategorias(cats: any[]) {
