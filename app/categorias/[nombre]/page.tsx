@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -50,6 +50,11 @@ export default function CategoriaPage() {
   const [subActiva, setSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
   const [lightbox, setLightbox] = useState<Producto | null>(null)
+  const [zoom, setZoom] = useState(false)
+  const [dragStart, setDragStart] = useState<{x:number,y:number}|null>(null)
+  const [offset, setOffset] = useState({x:0,y:0})
+  const [dragging, setDragging] = useState(false)
+  const imgRef = useRef<HTMLDivElement>(null)
 
   function normalizar(s: string) {
     return (s || '').toLowerCase().trim()
@@ -240,37 +245,64 @@ export default function CategoriaPage() {
         return (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            onClick={() => setLightbox(null)}
-            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'zoom-out' }}>
-            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 500, background: '#0a1628', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
+            onClick={() => { if (zoom) { setZoom(false); setOffset({x:0,y:0}) } else setLightbox(null) }}
+            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: zoom ? 0 : 16, cursor: zoom ? 'zoom-out' : 'default' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: zoom ? '100%' : 500, background: '#0a1628', borderRadius: zoom ? 0 : 20, overflow: 'hidden', border: zoom ? 'none' : '1px solid rgba(212,175,55,0.3)', transition: 'all 0.25s ease' }}>
               {/* Foto grande */}
-              <div style={{ position: 'relative', width: '100%', aspectRatio: '1', background: '#F0F0F0' }}>
-                <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 16 }} sizes="(max-width: 768px) 95vw, 500px" quality={95} />
+              <div
+                ref={imgRef}
+                style={{ position: 'relative', width: '100%', aspectRatio: zoom ? 'auto' : '1', height: zoom ? '100vh' : undefined, background: '#111', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
+                onClick={e => { e.stopPropagation(); if (!dragging) { setZoom(z => !z); setOffset({x:0,y:0}) } }}
+                onMouseDown={e => { if (zoom) { setDragStart({x: e.clientX - offset.x, y: e.clientY - offset.y}); setDragging(false) } }}
+                onMouseMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.clientX - dragStart.x, y: e.clientY - dragStart.y}) } }}
+                onMouseUp={() => { setTimeout(() => setDragging(false), 50); setDragStart(null) }}
+                onMouseLeave={() => { setDragStart(null) }}
+                onTouchStart={e => { if (zoom) setDragStart({x: e.touches[0].clientX - offset.x, y: e.touches[0].clientY - offset.y}) }}
+                onTouchMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.touches[0].clientX - dragStart.x, y: e.touches[0].clientY - dragStart.y}) } }}
+                onTouchEnd={() => { setTimeout(() => setDragging(false), 50); setDragStart(null) }}
+              >
+                <div style={{ position: 'absolute', inset: 0, transform: zoom ? `scale(2.5) translate(${offset.x/2.5}px, ${offset.y/2.5}px)` : 'scale(1)', transition: dragStart ? 'none' : 'transform 0.3s ease', transformOrigin: 'center center' }}>
+                  <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: zoom ? 0 : 16 }} sizes="(max-width: 768px) 95vw, 800px" quality={95} />
+                </div>
+
+                {/* Hint zoom */}
+                {!zoom && (
+                  <div style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11, pointerEvents: 'none' }}>
+                    🔍 Toca para zoom
+                  </div>
+                )}
 
                 {/* Flecha izquierda */}
-                {prev && (
-                  <button onClick={e => { e.stopPropagation(); setLightbox(prev) }}
+                {prev && !zoom && (
+                  <button onClick={e => { e.stopPropagation(); setLightbox(prev); setZoom(false); setOffset({x:0,y:0}) }}
                     style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
                     <ChevronLeft size={22} color="#fff" />
                   </button>
                 )}
 
                 {/* Flecha derecha */}
-                {next && (
-                  <button onClick={e => { e.stopPropagation(); setLightbox(next) }}
+                {next && !zoom && (
+                  <button onClick={e => { e.stopPropagation(); setLightbox(next); setZoom(false); setOffset({x:0,y:0}) }}
                     style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
                     <ChevronRight size={22} color="#fff" />
                   </button>
                 )}
 
-                {/* Contador */}
-                <div style={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11 }}>
-                  {idx + 1} / {lista.length}
-                </div>
+                {/* Contador / cerrar zoom */}
+                {zoom ? (
+                  <button onClick={e => { e.stopPropagation(); setZoom(false); setOffset({x:0,y:0}) }}
+                    style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '4px 12px', color: '#fff', fontSize: 12, cursor: 'pointer', zIndex: 20 }}>
+                    ✕ Cerrar zoom
+                  </button>
+                ) : (
+                  <div style={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11 }}>
+                    {idx + 1} / {lista.length}
+                  </div>
+                )}
               </div>
 
               {/* Info */}
-              <div style={{ padding: '16px 20px 20px' }}>
+              {!zoom && <div style={{ padding: '16px 20px 20px' }}>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 8 }}>{lightbox.name}</div>
                 <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 12 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
@@ -286,9 +318,9 @@ export default function CategoriaPage() {
                     <ShoppingCart size={14} /> AGREGAR AL CARRITO
                   </motion.button>
                 </div>
-              </div>
+              </div>}
             </div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>
+            {!zoom && <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>}
           </motion.div>
         )
       })()}
