@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 
 const ORDEN_CATEGORIAS = [
   'HOGAR Y BAZAR',
-  'BLANQUERIA',
+  'BIJOUTERIE',
   'RELOJES',
   'PELUCHES',
   'PELUCHES ENAMORADOS',
@@ -26,7 +26,7 @@ const ORDEN_CATEGORIAS = [
   'RODADOS',
   'PRODUCTOS REGIONALES',
   'PERFUMERIA',
-  'BIJOUTERIE',
+  'BLANQUERIA',
 ]
 
 // Categorías que siempre aparecen aunque no tengan productos aún
