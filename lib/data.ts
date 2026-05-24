@@ -29,6 +29,7 @@ const ORDEN_CATEGORIAS = [
   'PRODUCTOS REGIONALES',
   'PERFUMERIA',
   'BLANQUERIA',
+  'ACCESORIOS DE PELO',
 ]
 
 function sortCategorias(cats: any[]) {
