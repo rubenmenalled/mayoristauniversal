@@ -217,14 +217,18 @@ export default function CategoriaPage() {
                       const cat = p.category?.toUpperCase() ?? ''
                       const sub = p.subcategory?.toUpperCase() ?? ''
                       const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
-                      const mostrarSKU = cat === 'ACCESORIOS DE PELO' || cat === 'MARROQUINERIA' || (cat === 'LIBRERIA' && sub === 'CARTUCHERAS')
+                      const mostrarSKU = cat === 'ACCESORIOS DE PELO' || cat === 'MARROQUINERIA' || cat === 'LIBRERIA'
                       const mostrarBadge = mostrarSKU && (cat === 'MARROQUINERIA' ? !EXCL.includes(sub) : true)
+                      const qty = p.minOrder ?? 12
+                      const badgeText = cat === 'LIBRERIA'
+                        ? (qty >= 20 ? `📦 PRECIO POR CAJA (x${qty}) DE COLORES SURTIDOS` : `📦 PRECIO POR PAQUETE (x${qty}) DE COLORES SURTIDOS`)
+                        : '📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS'
                       if (!mostrarSKU) return null
                       return (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, marginBottom: 2 }}>
-                          {(mostrarBadge) && (
+                          {mostrarBadge && (
                             <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px' }}>
-                              <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
+                              <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>{badgeText}</span>
                             </div>
                           )}
                           <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px' }}>
@@ -238,7 +242,18 @@ export default function CategoriaPage() {
                     })()}
                     <div style={{ marginTop: 6 }}>
                       <div style={{ color: '#CBD5E1', fontSize: 10, marginTop: 2 }}>
-                        {(p.category?.toUpperCase() === 'ACCESORIOS DE PELO' || (p.category?.toUpperCase() === 'MARROQUINERIA' && !['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS'].includes(p.subcategory?.toUpperCase() ?? '')) || (p.category?.toUpperCase() === 'LIBRERIA' && p.subcategory?.toUpperCase() === 'CARTUCHERAS')) ? 'Precio x docena:' : 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                        {(() => {
+                          const cat = p.category?.toUpperCase() ?? ''
+                          const sub = p.subcategory?.toUpperCase() ?? ''
+                          const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
+                          const qty = p.minOrder ?? 12
+                          if (cat === 'MARROQUINERIA' && EXCL.includes(sub)) return 'Mayorista:'
+                          if (cat === 'LIBRERIA' || cat === 'ACCESORIOS DE PELO' || cat === 'MARROQUINERIA') {
+                            if (qty >= 20) return `Precio x caja (x${qty}):`
+                            return 'Precio x docena:'
+                          }
+                          return 'Mayorista:'
+                        })()} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                       </div>
                     </div>
                     <button
@@ -327,14 +342,18 @@ export default function CategoriaPage() {
                   const lcat = lightbox.category?.toUpperCase() ?? ''
                   const lsub = lightbox.subcategory?.toUpperCase() ?? ''
                   const EXCL = ['MOCHILAS-CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
-                  const mostrarSKU = lcat === 'ACCESORIOS DE PELO' || lcat === 'MARROQUINERIA' || (lcat === 'LIBRERIA' && lsub === 'CARTUCHERAS')
+                  const mostrarSKU = lcat === 'ACCESORIOS DE PELO' || lcat === 'MARROQUINERIA' || lcat === 'LIBRERIA'
                   const mostrarBadge = mostrarSKU && (lcat === 'MARROQUINERIA' ? !EXCL.includes(lsub) : true)
+                  const qty = lightbox.minOrder ?? 12
+                  const badgeText = lcat === 'LIBRERIA'
+                    ? (qty >= 20 ? `📦 PRECIO POR CAJA (x${qty}) DE COLORES SURTIDOS` : `📦 PRECIO POR PAQUETE (x${qty}) DE COLORES SURTIDOS`)
+                    : '📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS'
                   if (!mostrarSKU) return <div style={{ marginBottom: 12 }} />
                   return (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
                       {mostrarBadge && (
                         <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 8, padding: '6px 12px' }}>
-                          <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS</span>
+                          <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 900, letterSpacing: '0.05em' }}>{badgeText}</span>
                         </div>
                       )}
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
