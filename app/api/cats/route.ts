@@ -4,6 +4,7 @@ import { getAdminClient } from '@/lib/supabase'
 export const dynamic = 'force-dynamic'
 
 const ORDEN_CATEGORIAS = [
+  'INVIERNO 2026',
   'HOGAR Y BAZAR',
   'PELUCHES',
   'ACCESORIOS DE PELO',
@@ -32,6 +33,7 @@ const ORDEN_CATEGORIAS = [
 const CATEGORIAS_FIJAS = ['RELOJES', 'BIJOUTERIE', 'ACCESORIOS DE PELO']
 
 const FOTOS: Record<string, string> = {
+  'INVIERNO 2026':    'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=90',
   'HOGAR Y BAZAR':       'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
   'PRODUCTOS REGIONALES':'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90',
   'PELUCHES':            '/cat_peluches.jpg',

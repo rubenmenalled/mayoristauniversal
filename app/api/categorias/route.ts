@@ -4,6 +4,7 @@ import { getAdminClient } from '@/lib/supabase'
 export const dynamic = 'force-dynamic'
 
 const ORDEN_CATEGORIAS = [
+  'INVIERNO 2026',
   'HOGAR Y BAZAR',
   'PELUCHES',
   'ACCESORIOS DE PELO',
