@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 
 // Fotos de stock por categoría (Unsplash)
 const FOTOS: Record<string, string> = {
-  'INVIERNO 2026': 'https://images.unsplash.com/photo-1549989476-69a92fa57c36?w=800&q=90',
+  'INVIERNO 2026': 'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
   BAZAR:        '/cat_bazar.jpg',
   BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Search } from 'lucide-react'
 
 const FOTOS: Record<string, string> = {
-  'INVIERNO 2026': 'https://images.unsplash.com/photo-1549989476-69a92fa57c36?w=800&q=90',
+  'INVIERNO 2026': 'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
   BAZAR:        '/cat_bazar.jpg',
   'HOGAR Y BAZAR': 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
   BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
