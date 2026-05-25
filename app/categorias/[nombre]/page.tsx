@@ -28,9 +28,9 @@ const EXCL_MARR = ['MOCHILAS-CARTERAS','MOCHILAS Y CARTERAS','MOCHILAS','BANDOLE
 function getBulkInfo(category: string, subcategory: string, minOrder: number) {
   const cat = (category || '').toUpperCase()
   const sub = (subcategory || '').toUpperCase()
-  if (cat !== 'ACCESORIOS DE PELO' && cat !== 'MARROQUINERIA' && cat !== 'LIBRERIA' && cat !== 'BELLEZA') return null
+  if (cat !== 'ACCESORIOS DE PELO' && cat !== 'MARROQUINERIA' && cat !== 'LIBRERIA' && cat !== 'BELLEZA' && cat !== 'INVIERNO 2026') return null
   if (cat === 'MARROQUINERIA' && EXCL_MARR.includes(sub)) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
-  if (cat === 'LIBRERIA' || cat === 'ACCESORIOS DE PELO' || cat === 'BELLEZA') {
+  if (cat === 'LIBRERIA' || cat === 'ACCESORIOS DE PELO' || cat === 'BELLEZA' || cat === 'INVIERNO 2026') {
     const badgeText = minOrder >= 20
       ? `📦 PRECIO POR CAJA (x${minOrder}) DE COLORES SURTIDOS`
       : `📦 PRECIO POR PAQUETE (x${minOrder}) DE COLORES SURTIDOS`
