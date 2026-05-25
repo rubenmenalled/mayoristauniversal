@@ -18,7 +18,7 @@ const TRANSPORTES = [
 
 export default function LoginPage() {
   const router = useRouter()
-  const [mode, setMode] = useState<'login' | 'register'>('login')
+  const [mode, setMode] = useState<'login' | 'register' | 'forgot'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [nombre, setNombre] = useState('')
@@ -37,38 +37,54 @@ export default function LoginPage() {
     setError('')
     setSuccess('')
 
-    if (mode === 'register') {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            nombre,
-            documento,
-            transporte,
-            reemplazo,
-            whatsapp,
-          },
-        },
+    if (mode === 'forgot') {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
       })
       if (error) {
-        setError(error.message === 'User already registered' ? 'Este email ya está registrado.' : error.message)
+        setError('No se pudo enviar el correo. Verificá el email ingresado.')
       } else {
-        // Notificar al dueño por email
+        setSuccess('✅ Te enviamos un link para restablecer tu contraseña. Revisá tu bandeja de entrada.')
+      }
+      setLoading(false)
+      return
+    }
+
+    if (mode === 'register') {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, nombre, documento, transporte, reemplazo, whatsapp }),
+      })
+      const json = await res.json()
+      if (!res.ok) {
+        setError(json.error || 'Error al crear la cuenta.')
+      } else {
+        // Notificar al dueño
         fetch('/api/notificar-registro', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nombre, email, documento, whatsapp, transporte, reemplazo }),
         }).catch(() => {})
-        setSuccess('¡Cuenta creada! Revisá tu email para confirmar el registro.')
+        // Iniciar sesión automáticamente
+        const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+        if (signInError) {
+          setSuccess('¡Cuenta creada! Ya podés ingresar con tu email y contraseña.')
+          setMode('login')
+        } else {
+          router.push('/mi-cuenta')
+        }
       }
+      setLoading(false)
+      return
+    }
+
+    // Login
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) {
+      setError('Email o contraseña incorrectos.')
     } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
-      if (error) {
-        setError('Email o contraseña incorrectos.')
-      } else {
-        router.push('/mi-cuenta')
-      }
+      router.push('/mi-cuenta')
     }
     setLoading(false)
   }
@@ -110,49 +126,52 @@ export default function LoginPage() {
           borderRadius: 20, padding: '32px 28px',
         }}>
 
-          {/* Tabs */}
-          <div style={{ display: 'flex', marginBottom: 28, background: 'rgba(10,31,92,0.08)', borderRadius: 12, padding: 4 }}>
-            {(['login', 'register'] as const).map(m => (
-              <button key={m} onClick={() => { setMode(m); setError(''); setSuccess('') }}
-                style={{
-                  flex: 1, padding: '10px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
-                  fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
-                  background: mode === m ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'transparent',
-                  color: mode === m ? '#FFFFFF' : '#1565C0',
-                }}>
-                {m === 'login' ? 'Ingresar' : 'Registrarse'}
-              </button>
-            ))}
-          </div>
+          {/* Tabs — solo cuando no es forgot */}
+          {mode !== 'forgot' && (
+            <div style={{ display: 'flex', marginBottom: 28, background: 'rgba(10,31,92,0.08)', borderRadius: 12, padding: 4 }}>
+              {(['login', 'register'] as const).map(m => (
+                <button key={m} onClick={() => { setMode(m); setError(''); setSuccess('') }}
+                  style={{
+                    flex: 1, padding: '10px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
+                    fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
+                    background: mode === m ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'transparent',
+                    color: mode === m ? '#FFFFFF' : '#1565C0',
+                  }}>
+                  {m === 'login' ? 'Ingresar' : 'Registrarse'}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Título modo forgot */}
+          {mode === 'forgot' && (
+            <div style={{ marginBottom: 20 }}>
+              <h2 style={{ color: '#1565C0', fontWeight: 900, fontSize: 18, margin: 0 }}>Recuperar contraseña</h2>
+              <p style={{ color: '#4b5563', fontSize: 13, marginTop: 6 }}>
+                Ingresá tu email y te enviamos un link para crear una nueva contraseña.
+              </p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit}>
 
             {mode === 'register' && (
               <>
-                {/* Nombre */}
                 <div style={{ marginBottom: 14 }}>
                   <label style={labelStyle}>NOMBRE COMPLETO *</label>
                   <input type="text" value={nombre} onChange={e => setNombre(e.target.value)}
                     placeholder="Tu nombre completo" required style={inputStyle} />
                 </div>
-
-                {/* Documento */}
                 <div style={{ marginBottom: 14 }}>
                   <label style={labelStyle}>NÚMERO DE DOCUMENTO (DNI/CUIT) *</label>
                   <input type="text" value={documento} onChange={e => setDocumento(e.target.value)}
-                    placeholder="Ej: 30123456 o 20-30123456-8" required
-                    style={inputStyle} />
+                    placeholder="Ej: 30123456 o 20-30123456-8" required style={inputStyle} />
                 </div>
-
-                {/* WhatsApp */}
                 <div style={{ marginBottom: 14 }}>
                   <label style={labelStyle}>WHATSAPP *</label>
                   <input type="tel" value={whatsapp} onChange={e => setWhatsapp(e.target.value)}
-                    placeholder="Ej: 1164660482" required
-                    style={inputStyle} />
+                    placeholder="Ej: 1164660482" required style={inputStyle} />
                 </div>
-
-                {/* Transporte */}
                 <div style={{ marginBottom: 14 }}>
                   <label style={labelStyle}>TRANSPORTE PREFERIDO *</label>
                   <select value={transporte} onChange={e => setTransporte(e.target.value)} required
@@ -163,8 +182,6 @@ export default function LoginPage() {
                     ))}
                   </select>
                 </div>
-
-                {/* Reemplazo */}
                 <div style={{ marginBottom: 20 }}>
                   <label style={labelStyle}>¿ACEPTÁS REEMPLAZO DE PRODUCTOS? *</label>
                   <div style={{ display: 'flex', gap: 10 }}>
@@ -182,7 +199,6 @@ export default function LoginPage() {
                       </button>
                     ))}
                   </div>
-                  {/* Hidden input for validation */}
                   <input type="text" required value={reemplazo}
                     style={{ opacity: 0, height: 0, width: 0, position: 'absolute' }}
                     tabIndex={-1} onChange={() => {}} />
@@ -197,28 +213,41 @@ export default function LoginPage() {
                 placeholder="tu@email.com" required style={inputStyle} />
             </div>
 
-            {/* Contraseña */}
-            <div style={{ marginBottom: 24, position: 'relative' }}>
-              <label style={labelStyle}>CONTRASEÑA *</label>
-              <input
-                type={showPass ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
-                placeholder="Mínimo 6 caracteres" required minLength={6}
-                style={{ ...inputStyle, padding: '12px 48px 12px 16px' }}
-              />
-              <button type="button" onClick={() => setShowPass(v => !v)}
-                style={{ position: 'absolute', right: 14, top: 36, background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af' }}>
-                {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>
+            {/* Contraseña — oculta en modo forgot */}
+            {mode !== 'forgot' && (
+              <div style={{ marginBottom: mode === 'login' ? 8 : 24, position: 'relative' }}>
+                <label style={labelStyle}>CONTRASEÑA *</label>
+                <input
+                  type={showPass ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
+                  placeholder="Mínimo 6 caracteres" required minLength={6}
+                  style={{ ...inputStyle, padding: '12px 48px 12px 16px' }}
+                />
+                <button type="button" onClick={() => setShowPass(v => !v)}
+                  style={{ position: 'absolute', right: 14, top: 36, background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af' }}>
+                  {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            )}
+
+            {/* Link olvidé contraseña — solo en modo login */}
+            {mode === 'login' && (
+              <div style={{ textAlign: 'right', marginBottom: 20 }}>
+                <button type="button"
+                  onClick={() => { setMode('forgot'); setError(''); setSuccess('') }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontSize: 12, fontWeight: 700, textDecoration: 'underline' }}>
+                  ¿Olvidaste tu contraseña?
+                </button>
+              </div>
+            )}
 
             {error && (
-              <div style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 16, color: '#fca5a5', fontSize: 13 }}>
+              <div style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 16, color: '#dc2626', fontSize: 13 }}>
                 {error}
               </div>
             )}
 
             {success && (
-              <div style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 16, color: '#86efac', fontSize: 13 }}>
+              <div style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 16, color: '#16a34a', fontSize: 13 }}>
                 {success}
               </div>
             )}
@@ -230,8 +259,17 @@ export default function LoginPage() {
                 fontWeight: 900, fontSize: 15, letterSpacing: '0.05em',
                 opacity: loading ? 0.7 : 1,
               }}>
-              {loading ? 'Cargando...' : mode === 'login' ? 'INGRESAR' : 'CREAR CUENTA'}
+              {loading ? 'Cargando...' : mode === 'login' ? 'INGRESAR' : mode === 'register' ? 'CREAR CUENTA' : 'ENVIAR LINK'}
             </button>
+
+            {/* Volver desde forgot */}
+            {mode === 'forgot' && (
+              <button type="button"
+                onClick={() => { setMode('login'); setError(''); setSuccess('') }}
+                style={{ width: '100%', marginTop: 12, padding: '12px', borderRadius: 12, border: '1px solid rgba(10,31,92,0.2)', background: 'transparent', color: '#1565C0', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
+                ← Volver al login
+              </button>
+            )}
           </form>
         </div>
 
