@@ -33,7 +33,7 @@ const ORDEN_CATEGORIAS = [
 const CATEGORIAS_FIJAS = ['RELOJES', 'BIJOUTERIE', 'ACCESORIOS DE PELO']
 
 const FOTOS: Record<string, string> = {
-  'INVIERNO 2026':    'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
+  'INVIERNO 2026':    'https://images.unsplash.com/photo-1549989476-69a92fa57c36?w=800&q=90',
   'HOGAR Y BAZAR':       'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
   'PRODUCTOS REGIONALES':'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90',
   'PELUCHES':            '/cat_peluches.jpg',
