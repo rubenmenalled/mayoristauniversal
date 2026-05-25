@@ -11,7 +11,7 @@ import CartSidebar from '@/components/CartSidebar'
 interface Producto {
   id: number; name: string; brand: string; category: string
   subcategory?: string; price: number; wholesalePrice: number; minOrder: number
-  rating: number; reviews: number; image: string
+  rating: number; reviews: number; image: string; images?: string[]
   badge?: string; discount?: number; location: string
 }
 
@@ -67,6 +67,7 @@ export default function CategoriaPage() {
   const [subActiva, setSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
   const [lightbox, setLightbox] = useState<Producto | null>(null)
+  const [lightboxImgIdx, setLightboxImgIdx] = useState(0)
   const [zoom, setZoom] = useState(false)
   const [dragStart, setDragStart] = useState<{x:number,y:number}|null>(null)
   const [offset, setOffset] = useState({x:0,y:0})
@@ -210,14 +211,16 @@ export default function CategoriaPage() {
                   transition={{ delay: i * 0.04 }}>
 
                   <div style={{ position: 'relative', height: 150, background: '#F0F0F0', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
-                    onClick={() => p.image && setLightbox(p)}>
+                    onClick={() => { if (p.image) { setLightbox(p); setLightboxImgIdx(0) } }}>
                     {p.image ? (
                       <Image src={p.image} alt={p.name} fill className="object-contain" sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 280px" quality={95} />
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                     )}
                     {p.image && (
-                      <div style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.5)', borderRadius: 6, padding: '2px 5px', fontSize: 10, color: '#FFFFFF' }}>🔍</div>
+                      <div style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.5)', borderRadius: 6, padding: '2px 5px', fontSize: 10, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: 3 }}>
+                        🔍{p.images && p.images.length > 1 && <span style={{ fontSize: 9, color: '#D4AF37', fontWeight: 700 }}>{p.images.length}📷</span>}
+                      </div>
                     )}
                     {(p.discount ?? 0) > 0 && (
                       <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#FFFFFF', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
@@ -276,6 +279,8 @@ export default function CategoriaPage() {
         const idx = lista.findIndex(p => p.id === lightbox.id)
         const prev = lista[idx - 1] ?? null
         const next = lista[idx + 1] ?? null
+        const lbImages = lightbox.images && lightbox.images.length > 1 ? lightbox.images : [lightbox.image]
+        const activeSrc = lbImages[lightboxImgIdx] || lightbox.image
         return (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -296,7 +301,7 @@ export default function CategoriaPage() {
                 onTouchEnd={() => { setTimeout(() => setDragging(false), 50); setDragStart(null) }}
               >
                 <div style={{ position: 'absolute', inset: 0, transform: zoom ? `scale(2.5) translate(${offset.x/2.5}px, ${offset.y/2.5}px)` : 'scale(1)', transition: dragStart ? 'none' : 'transform 0.3s ease', transformOrigin: 'center center' }}>
-                  <Image src={lightbox.image} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: zoom ? 0 : 16 }} sizes="(max-width: 768px) 95vw, 800px" quality={95} />
+                  <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: zoom ? 0 : 16 }} sizes="(max-width: 768px) 95vw, 800px" quality={95} />
                 </div>
 
                 {/* Hint zoom */}
@@ -306,17 +311,17 @@ export default function CategoriaPage() {
                   </div>
                 )}
 
-                {/* Flecha izquierda */}
+                {/* Flecha izquierda (producto anterior) */}
                 {prev && !zoom && (
-                  <button onClick={e => { e.stopPropagation(); setLightbox(prev); setZoom(false); setOffset({x:0,y:0}) }}
+                  <button onClick={e => { e.stopPropagation(); setLightbox(prev); setLightboxImgIdx(0); setZoom(false); setOffset({x:0,y:0}) }}
                     style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
                     <ChevronLeft size={22} color="#fff" />
                   </button>
                 )}
 
-                {/* Flecha derecha */}
+                {/* Flecha derecha (producto siguiente) */}
                 {next && !zoom && (
-                  <button onClick={e => { e.stopPropagation(); setLightbox(next); setZoom(false); setOffset({x:0,y:0}) }}
+                  <button onClick={e => { e.stopPropagation(); setLightbox(next); setLightboxImgIdx(0); setZoom(false); setOffset({x:0,y:0}) }}
                     style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
                     <ChevronRight size={22} color="#fff" />
                   </button>
@@ -334,6 +339,19 @@ export default function CategoriaPage() {
                   </div>
                 )}
               </div>
+
+              {/* Thumbnails — solo cuando hay más de 1 imagen */}
+              {lbImages.length > 1 && !zoom && (
+                <div style={{ display: 'flex', gap: 8, padding: '10px 16px 0', justifyContent: 'center' }}>
+                  {lbImages.map((src, i) => (
+                    <button key={i} onClick={() => { setLightboxImgIdx(i); setZoom(false); setOffset({x:0,y:0}) }}
+                      style={{ width: 52, height: 52, borderRadius: 8, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #D4AF37' : '2px solid rgba(255,255,255,0.15)', padding: 0, cursor: 'pointer', background: '#111', flexShrink: 0, transition: 'border-color 0.2s' }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={src} alt={`foto ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {/* Info */}
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
