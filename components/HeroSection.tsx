@@ -162,9 +162,9 @@ export default function HeroSection() {
           background: 'linear-gradient(135deg, #0D1B2A 0%, #1A2E45 100%)',
           borderTop: '1px solid rgba(212,175,55,0.25)',
           borderBottom: '1px solid rgba(212,175,55,0.25)',
-          padding: '13px 16px',
+          padding: '7px 16px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          minHeight: 52,
+          minHeight: 36,
           overflow: 'hidden',
         }}>
           <div style={{
@@ -173,17 +173,17 @@ export default function HeroSection() {
             transform: visible ? 'translateY(0)' : 'translateY(8px)',
             transition: 'opacity 0.4s ease, transform 0.4s ease',
           }}>
-            <span style={{ fontSize: 22 }}>{FRASES[fraseIdx].emoji}</span>
+            <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
             <span style={{
               color: '#D4AF37', fontWeight: 800,
-              fontSize: 'clamp(13px, 2vw, 16px)',
+              fontSize: 'clamp(11px, 1.6vw, 13px)',
               letterSpacing: '0.03em',
               textAlign: 'center',
               textTransform: 'uppercase',
             }}>
               {FRASES[fraseIdx].texto}
             </span>
-            <span style={{ fontSize: 22 }}>{FRASES[fraseIdx].emoji}</span>
+            <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
           </div>
         </div>
 
@@ -194,27 +194,27 @@ export default function HeroSection() {
           style={{
             background: 'rgba(255,255,255,0.98)',
             borderTop: '1px solid rgba(212,175,55,0.24)',
-            padding: 'clamp(12px,2vw,20px) 16px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
+            padding: 'clamp(6px,1vw,10px) 16px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
           }}
         >
-          <span style={{ fontSize: 36 }}>🚚</span>
+          <span style={{ fontSize: 26 }}>🚚</span>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(16px,1.8vw,24px)', lineHeight: 1, letterSpacing: '0.05em' }}>
+            <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(13px,1.4vw,18px)', lineHeight: 1, letterSpacing: '0.05em' }}>
               ENVÍOS A TODO EL PAÍS
             </span>
-            <span style={{ color: '#7a8a9a', fontSize: 12, marginTop: 3 }}>Tocá para ver opciones de transporte y contacto</span>
+            <span style={{ color: '#7a8a9a', fontSize: 10, marginTop: 2 }}>Tocá para ver opciones de transporte y contacto</span>
           </div>
-          <span style={{ fontSize: 28, marginLeft: 8 }}>🇦🇷</span>
+          <span style={{ fontSize: 20, marginLeft: 4 }}>🇦🇷</span>
 
           {/* Separador */}
-          <div style={{ width: 1, height: 36, background: 'rgba(0,0,0,0.12)', margin: '0 4px' }} />
+          <div style={{ width: 1, height: 28, background: 'rgba(0,0,0,0.12)', margin: '0 4px' }} />
 
           {/* Logo Mercado Pago */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/mp-logo.png" alt="Mercado Pago" style={{ height: 28, objectFit: 'contain', display: 'block' }} />
-            <span style={{ color: '#009ee3', fontSize: 10, fontWeight: 700 }}>Aceptamos</span>
+            <img src="/mp-logo.png" alt="Mercado Pago" style={{ height: 22, objectFit: 'contain', display: 'block' }} />
+            <span style={{ color: '#009ee3', fontSize: 9, fontWeight: 700 }}>Aceptamos</span>
           </div>
         </div>
       </section>
