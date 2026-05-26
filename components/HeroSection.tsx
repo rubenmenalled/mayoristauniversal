@@ -96,7 +96,7 @@ export default function HeroSection() {
                 0 0 90px #cc0000
               `,
             }}>
-              ✦ Nuevo Local Online<br />24/7
+              ✦ Importador Online<br />24/7
             </div>
           </div>
 
