@@ -84,10 +84,10 @@ export default function HeroSection() {
             text-shadow:
               0 0 4px #fff,
               0 0 10px #fff,
-              0 0 20px #ff00cc,
-              0 0 40px #ff00cc,
-              0 0 70px #ff00cc,
-              0 0 90px #ff00cc;
+              0 0 20px #00ff88,
+              0 0 40px #00ff88,
+              0 0 70px #00ff88,
+              0 0 90px #00cc66;
           }
           20%, 24%, 55% {
             text-shadow: none;
@@ -115,31 +115,31 @@ export default function HeroSection() {
             <div style={{
               fontFamily: "'Montserrat', sans-serif",
               fontWeight: 900,
-              fontSize: 'clamp(16px, 3.2vw, 42px)',
+              fontSize: 'clamp(10px, 1.8vw, 22px)',
               textTransform: 'uppercase',
-              letterSpacing: '0.05em',
+              letterSpacing: '0.08em',
               color: '#fff',
-              lineHeight: 1.15,
+              lineHeight: 1.2,
               animation: 'neon-flicker 4s infinite',
               textShadow: `
                 0 0 4px #fff,
                 0 0 10px #fff,
-                0 0 20px #ff00cc,
-                0 0 40px #ff00cc,
-                0 0 70px #ff00cc,
-                0 0 90px #ff00cc
+                0 0 20px #00ff88,
+                0 0 40px #00ff88,
+                0 0 70px #00ff88,
+                0 0 90px #00cc66
               `,
             }}>
-              ✦ Gran<br />Inauguración
+              ✦ Nuevo Local<br />Online 24/7
             </div>
             <div style={{
               fontFamily: "'Montserrat', sans-serif",
               fontWeight: 700,
               fontSize: 'clamp(9px, 1.4vw, 16px)',
-              color: '#ffaaee',
+              color: '#aaffcc',
               letterSpacing: '0.15em',
               marginTop: 4,
-              textShadow: '0 0 8px #ff00cc, 0 0 20px #ff00cc',
+              textShadow: '0 0 8px #00ff88, 0 0 20px #00ff88',
             }}>
               ¡Precios de lanzamiento!
             </div>
