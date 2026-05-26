@@ -13,6 +13,13 @@ const navLinks = [
   { name: 'CÓMO COMPRAR', href: '/como-comprar'},
 ]
 
+const FRASES = [
+  { emoji: '🛒', texto: 'Tu supermercado mayorista, con un solo click' },
+  { emoji: '🏪', texto: 'Todo lo que tu negocio necesita, en un solo lugar' },
+  { emoji: '⚡', texto: 'Comprá mayorista desde donde estés, 24/7' },
+  { emoji: '💼', texto: 'Miles de productos. Precios mayoristas. Sin salir de casa.' },
+]
+
 export default function Header() {
   const router = useRouter()
   const [scrolled,   setScrolled]   = useState(false)
@@ -22,6 +29,8 @@ export default function Header() {
   const [mobileCatOpen, setMobileCatOpen] = useState(false)
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
   const [mobileSearch, setMobileSearch] = useState('')
+  const [fraseIdx, setFraseIdx] = useState(0)
+  const [fraseVisible, setFraseVisible] = useState(true)
   const { count, cartOpen, setCartOpen } = useCart()
   const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
   const catRef = useRef<HTMLDivElement>(null)
@@ -57,6 +66,17 @@ export default function Header() {
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFraseVisible(false)
+      setTimeout(() => {
+        setFraseIdx(i => (i + 1) % FRASES.length)
+        setFraseVisible(true)
+      }, 400)
+    }, 3500)
+    return () => clearInterval(interval)
   }, [])
 
   return (
@@ -324,59 +344,25 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ── Mobile Nav bar (CATEGORÍAS + CÓMO COMPRAR) ── */}
-      <div className="lg:hidden border-t border-black/10"
-        style={{ background: 'rgba(240,240,240,0.92)' }}>
-        <div className="flex items-center px-2">
-          {/* Categorías mobile dropdown */}
-          <div style={{ position: 'relative' }}>
-            <button
-              onClick={() => setMobileCatOpen(v => !v)}
-              className="flex items-center gap-1.5 px-3 py-2 font-bold text-xs border-r border-black/10 transition-colors"
-              style={{ color: '#1565C0' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}>
-              <Grid size={13} /> CATEGORÍAS <ChevronDown size={11} style={{ transform: mobileCatOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
-            </button>
-            {mobileCatOpen && (
-              <div style={{
-                position: 'absolute', top: '100%', left: 0, zIndex: 200,
-                background: 'rgba(240,240,240,0.98)',
-                border: '1px solid rgba(212,175,55,0.3)',
-                borderRadius: 10, padding: '6px',
-                minWidth: 200, maxHeight: 320, overflowY: 'auto',
-                boxShadow: '0 12px 30px rgba(0,0,0,0.3)',
-              }}>
-                {categorias.map(c => (
-                  <a key={c.id} href={`/categorias/${encodeURIComponent(c.nombre)}`}
-                    onClick={() => setMobileCatOpen(false)}
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: 8,
-                      padding: '8px 12px', borderRadius: 7,
-                      color: '#CC0000', fontSize: 13, fontWeight: 700,
-                      textDecoration: 'none', transition: 'all 0.15s',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(212,175,55,0.15)'; e.currentTarget.style.color = '#D4AF37' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#CC0000' }}>
-                    <span style={{ fontSize: 16 }}>{c.emoji}</span>
-                    {c.nombre}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-          <a href="/como-comprar"
-            className="flex items-center px-3 py-2 font-bold text-xs transition-colors"
-            style={{ color: '#1565C0' }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-            onMouseLeave={e => (e.currentTarget.style.color = '#1565C0')}>
-            CÓMO COMPRAR
-          </a>
-
-          {/* Logo Mercado Pago mobile */}
-          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', background: '#e6f4fb', border: '1px solid #009ee3', borderRadius: 6, padding: '3px 8px' }}>
-            <Image src="/mp-logo.png" alt="Mercado Pago" width={72} height={19} style={{ objectFit: 'contain', display: 'block' }} />
-          </div>
+      {/* ── Franja azul de frases rotativas ── */}
+      <div style={{
+        background: 'linear-gradient(135deg, #0D1B2A 0%, #1A2E45 100%)',
+        borderTop: '1px solid rgba(212,175,55,0.25)',
+        padding: '7px 16px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        minHeight: 36, overflow: 'hidden',
+      }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 10,
+          opacity: fraseVisible ? 1 : 0,
+          transform: fraseVisible ? 'translateY(0)' : 'translateY(8px)',
+          transition: 'opacity 0.4s ease, transform 0.4s ease',
+        }}>
+          <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
+          <span style={{ color: '#D4AF37', fontWeight: 800, fontSize: 'clamp(11px, 1.6vw, 13px)', letterSpacing: '0.03em', textTransform: 'uppercase' }}>
+            {FRASES[fraseIdx].texto}
+          </span>
+          <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
         </div>
       </div>
 

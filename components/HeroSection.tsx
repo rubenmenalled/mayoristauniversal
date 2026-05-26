@@ -1,29 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
-const FRASES = [
-  { emoji: '🛒', texto: 'Tu supermercado mayorista, con un solo click' },
-  { emoji: '🏪', texto: 'Todo lo que tu negocio necesita, en un solo lugar' },
-  { emoji: '⚡', texto: 'Comprá mayorista desde donde estés, 24/7' },
-  { emoji: '💼', texto: 'Miles de productos. Precios mayoristas. Sin salir de casa.' },
-]
-
-
 export default function HeroSection() {
-  const [fraseIdx, setFraseIdx] = useState(0)
-  const [visible, setVisible] = useState(true)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisible(false)
-      setTimeout(() => {
-        setFraseIdx(i => (i + 1) % FRASES.length)
-        setVisible(true)
-      }, 400)
-    }, 3500)
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <>
@@ -143,36 +120,6 @@ export default function HeroSection() {
                 filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))',
               }}
             />
-          </div>
-        </div>
-
-        {/* Franja de frases rotativas */}
-        <div style={{
-          background: 'linear-gradient(135deg, #0D1B2A 0%, #1A2E45 100%)',
-          borderTop: '1px solid rgba(212,175,55,0.25)',
-          borderBottom: '1px solid rgba(212,175,55,0.25)',
-          padding: '7px 16px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          minHeight: 36,
-          overflow: 'hidden',
-        }}>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 10,
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(8px)',
-            transition: 'opacity 0.4s ease, transform 0.4s ease',
-          }}>
-            <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
-            <span style={{
-              color: '#D4AF37', fontWeight: 800,
-              fontSize: 'clamp(11px, 1.6vw, 13px)',
-              letterSpacing: '0.03em',
-              textAlign: 'center',
-              textTransform: 'uppercase',
-            }}>
-              {FRASES[fraseIdx].texto}
-            </span>
-            <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
           </div>
         </div>
 

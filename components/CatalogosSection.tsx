@@ -185,14 +185,26 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </div>
         </div>
 
-        <h2 style={{
-          color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(20px, 2.5vw, 28px)',
-          textTransform: 'uppercase', letterSpacing: '0.08em',
-          marginBottom: 24, borderBottom: '2px solid rgba(212,175,55,0.3)',
-          paddingBottom: 12,
-        }}>
-          📋 Nuestros Catálogos
-        </h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, borderBottom: '2px solid rgba(212,175,55,0.3)', paddingBottom: 12 }}>
+          <h2 style={{
+            color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(20px, 2.5vw, 28px)',
+            textTransform: 'uppercase', letterSpacing: '0.08em',
+            margin: 0,
+          }}>
+            📋 Nuestros Catálogos
+          </h2>
+          <a href="/como-comprar" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+            color: '#0D1B2A', fontWeight: 900,
+            fontSize: 'clamp(10px,1.4vw,12px)',
+            padding: '7px 14px', borderRadius: 8,
+            textDecoration: 'none', whiteSpace: 'nowrap',
+            letterSpacing: '0.05em', textTransform: 'uppercase',
+          }}>
+            ❓ Cómo Comprar
+          </a>
+        </div>
 
         {/* Grid de tarjetas */}
         <div style={{
