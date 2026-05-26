@@ -76,14 +76,14 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0D1B2A 0%, #071018 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0D1B2A 0%, #071018 100%)', paddingTop: 38 }}>
 
       {/* Header */}
       <div style={{
         background: 'rgba(13,27,42,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
-        position: 'sticky', top: 0, zIndex: 50,
+        position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
