@@ -194,26 +194,26 @@ export default function HeroSection() {
           style={{
             background: 'rgba(255,255,255,0.98)',
             borderTop: '1px solid rgba(212,175,55,0.24)',
-            padding: 'clamp(6px,1vw,10px) 16px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
+            padding: '5px 16px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
           }}
         >
-          <span style={{ fontSize: 26 }}>🚚</span>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(13px,1.4vw,18px)', lineHeight: 1, letterSpacing: '0.05em' }}>
+          <span style={{ fontSize: 18 }}>🚚</span>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(11px,1.2vw,13px)', lineHeight: 1, letterSpacing: '0.05em' }}>
               ENVÍOS A TODO EL PAÍS
             </span>
-            <span style={{ color: '#7a8a9a', fontSize: 10, marginTop: 2 }}>Tocá para ver opciones de transporte y contacto</span>
+            <span style={{ color: '#7a8a9a', fontSize: 10 }}>· Tocá para ver transportes</span>
           </div>
-          <span style={{ fontSize: 20, marginLeft: 4 }}>🇦🇷</span>
+          <span style={{ fontSize: 16 }}>🇦🇷</span>
 
           {/* Separador */}
-          <div style={{ width: 1, height: 28, background: 'rgba(0,0,0,0.12)', margin: '0 4px' }} />
+          <div style={{ width: 1, height: 20, background: 'rgba(0,0,0,0.12)', margin: '0 2px' }} />
 
           {/* Logo Mercado Pago */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/mp-logo.png" alt="Mercado Pago" style={{ height: 22, objectFit: 'contain', display: 'block' }} />
+            <img src="/mp-logo.png" alt="Mercado Pago" style={{ height: 18, objectFit: 'contain', display: 'block' }} />
             <span style={{ color: '#009ee3', fontSize: 9, fontWeight: 700 }}>Aceptamos</span>
           </div>
         </div>
