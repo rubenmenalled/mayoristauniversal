@@ -24,6 +24,7 @@ const FOTOS: Record<string, string> = {
   OPTICA:       'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=90',
   PELUCHES:            '/cat_peluches.jpg',
   'PELUCHES ENAMORADOS':   'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=800&q=90&auto=format&fit=crop',
+  LENCERIA:                'https://images.unsplash.com/photo-1614093302611-8efc4c765bf5?w=800&q=90',
   'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
   RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=90',
@@ -164,6 +165,7 @@ export default function CatalogoPage() {
             {filtradas.map((c, i) => {
               const nombre = c.nombre || c.name || ''
               const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
+              const esProximamente = ['PERFUMERIA', 'OPTICA', 'BLANQUERIA', 'LENCERIA'].includes(nombre.toUpperCase())
               return (
                 <motion.div
                   key={c.id}
@@ -188,7 +190,19 @@ export default function CatalogoPage() {
                     onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />
-                  <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                  {esProximamente && (
+                    <div style={{
+                      position: 'absolute', top: 14, left: 14, zIndex: 10,
+                      background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
+                      color: '#fff', fontWeight: 900, fontSize: 11,
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                      padding: '5px 12px', borderRadius: 20,
+                      boxShadow: '0 3px 12px rgba(255,78,0,0.6)',
+                    }}>
+                      🔜 Próximamente
+                    </div>
+                  )}
+                  <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)', marginTop: esProximamente ? 32 : 0 }}>
                     {nombre}
                   </div>
                   <div style={{ position: 'absolute', bottom: 16, left: 16, color: '#D4AF37', fontWeight: 800, fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>

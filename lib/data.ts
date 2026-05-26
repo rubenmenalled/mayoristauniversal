@@ -29,6 +29,7 @@ const ORDEN_CATEGORIAS = [
   'BLANQUERIA',
   'OPTICA',
   'PELUCHES ENAMORADOS',
+  'LENCERIA',
 ]
 
 function sortCategorias(cats: any[]) {
