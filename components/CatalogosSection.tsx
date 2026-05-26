@@ -161,39 +161,28 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
         {/* Barra envíos — fondo blanco */}
-        <style dangerouslySetInnerHTML={{ __html: `
-          .envios-row { flex-wrap: nowrap; }
-          .envios-subtexto { display: inline; }
-          @media (max-width: 480px) {
-            .envios-row { flex-wrap: wrap; row-gap: 4px; }
-            .envios-subtexto { display: none; }
-          }
-        `}} />
         <div
           onClick={() => setModalOpen(true)}
-          className="envios-row"
           style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            padding: '6px 10px', marginBottom: 10, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+            padding: '7px 12px', marginBottom: 10, cursor: 'pointer',
             background: 'rgba(255,255,255,0.97)',
             borderRadius: 8,
             border: '1px solid rgba(212,175,55,0.2)',
           }}
         >
-          <span style={{ color: '#0D1B2A', fontWeight: 900, fontSize: 'clamp(10px,1.2vw,12px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
-            IMPORTADOR DIRECTO
-          </span>
-          <div style={{ width: 1, height: 16, background: 'rgba(0,0,0,0.15)', margin: '0 4px', flexShrink: 0 }} />
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🚚</span>
-          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(10px,1.2vw,12px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
-            ENVÍOS A TODO EL PAÍS
-          </span>
-          <span className="envios-subtexto" style={{ color: '#7a8a9a', fontSize: 10, whiteSpace: 'nowrap' }}>· Tocá para ver transportes</span>
-          <span style={{ fontSize: 14, flexShrink: 0 }}>🇦🇷</span>
-          <div style={{ width: 1, height: 16, background: 'rgba(0,0,0,0.12)', margin: '0 2px', flexShrink: 0 }} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 3, flexShrink: 0 }}>
+          <span style={{ fontSize: 18 }}>🚚</span>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(11px,1.2vw,13px)', letterSpacing: '0.05em' }}>
+              ENVÍOS A TODO EL PAÍS
+            </span>
+            <span style={{ color: '#7a8a9a', fontSize: 10 }}>· Tocá para ver transportes</span>
+          </div>
+          <span style={{ fontSize: 16 }}>🇦🇷</span>
+          <div style={{ width: 1, height: 20, background: 'rgba(0,0,0,0.12)', margin: '0 2px' }} />
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/mp-logo.png" alt="Mercado Pago" style={{ height: 16, objectFit: 'contain', display: 'block' }} />
+            <img src="/mp-logo.png" alt="Mercado Pago" style={{ height: 18, objectFit: 'contain', display: 'block' }} />
             <span style={{ color: '#009ee3', fontSize: 9, fontWeight: 700 }}>Aceptamos</span>
           </div>
         </div>
