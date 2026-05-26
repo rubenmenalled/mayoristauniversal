@@ -79,6 +79,14 @@ export default function HeroSection() {
           0%, 100% { box-shadow: 0 0 0 3px rgba(212,175,55,0.35), 0 8px 32px rgba(0,0,0,0.6); }
           50%       { box-shadow: 0 0 0 6px rgba(212,175,55,0.55), 0 8px 40px rgba(0,0,0,0.7); }
         }
+        @keyframes inaug-glow {
+          0%, 100% { box-shadow: 0 0 18px rgba(212,175,55,0.7), 0 4px 24px rgba(0,0,0,0.5); }
+          50%       { box-shadow: 0 0 32px rgba(212,175,55,1), 0 4px 32px rgba(0,0,0,0.6); }
+        }
+        @keyframes inaug-shine {
+          0%   { left: -80%; }
+          100% { left: 140%; }
+        }
       `}</style>
 
       <section id="hero-section">
@@ -87,6 +95,51 @@ export default function HeroSection() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
           </div>
+          {/* Cartel GRAN INAUGURACIÓN */}
+          <div style={{
+            position: 'absolute',
+            top: 'clamp(12px, 3vw, 28px)',
+            right: 'clamp(12px, 3vw, 32px)',
+            zIndex: 20,
+            background: 'linear-gradient(135deg, #D4AF37 0%, #F0C030 50%, #D4AF37 100%)',
+            borderRadius: 16,
+            padding: 'clamp(8px,1.5vw,14px) clamp(14px,2.5vw,28px)',
+            animation: 'inaug-glow 2s ease-in-out infinite',
+            overflow: 'hidden',
+            cursor: 'default',
+          }}>
+            {/* Efecto brillo que pasa */}
+            <div style={{
+              position: 'absolute',
+              top: 0, bottom: 0,
+              width: '60%',
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)',
+              animation: 'inaug-shine 2.5s ease-in-out infinite',
+              pointerEvents: 'none',
+            }} />
+            <div style={{
+              color: '#0D1B2A',
+              fontWeight: 900,
+              fontSize: 'clamp(11px, 1.8vw, 18px)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              textAlign: 'center',
+              lineHeight: 1.3,
+              position: 'relative',
+            }}>
+              🎉 GRAN INAUGURACIÓN
+              <div style={{
+                fontSize: 'clamp(9px, 1.2vw, 13px)',
+                fontWeight: 700,
+                letterSpacing: '0.06em',
+                marginTop: 2,
+                opacity: 0.8,
+              }}>
+                ¡Precios de lanzamiento!
+              </div>
+            </div>
+          </div>
+
           {/* Panda — caminando de lado a lado */}
           <div style={{
             position: 'absolute',
