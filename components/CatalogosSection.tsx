@@ -78,7 +78,7 @@ const KEYFRAMES = `
   box-shadow: 0 16px 40px rgba(212,175,55,0.35) !important;
 }
 .cat-card:hover .cat-overlay {
-  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.7) 100%) !important;
+  background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
 }
 .cat-card:hover .cat-ver-mas {
   letter-spacing: 0.18em !important;
@@ -189,13 +189,14 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                   animation: `${kbAnims[i % 3]} ${14 + (i % 3) * 3}s ease-in-out infinite`,
                   transformOrigin: 'center center',
                   willChange: 'transform',
+                  filter: 'brightness(1.15) saturate(1.1)',
                 }}
               />
 
               {/* Overlay */}
               <div className="cat-overlay" style={{
                 position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.65) 100%)',
+                background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)',
                 transition: 'background 0.35s ease',
               }} />
 
