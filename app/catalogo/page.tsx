@@ -183,11 +183,11 @@ export default function CatalogoPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={foto} alt={nombre}
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', filter: 'brightness(1.15) saturate(1.1)' }}
                     onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.65) 100%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />
                   <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>
