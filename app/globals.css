@@ -8,12 +8,16 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
   background-color: #0D1B2A;
   color: white;
   overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
 }
 
 /* Custom scrollbar */
