@@ -25,7 +25,6 @@ const FOTOS: Record<string, string> = {
   'RODADOS':               'https://images.pexels.com/photos/9168370/pexels-photo-9168370.jpeg?w=800&h=600&fit=crop',
   'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
-  RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=90',
   HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
   COCINA:       'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=90',
   DEPORTES:     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=90',
