@@ -26,7 +26,6 @@ const ORDEN_CATEGORIAS = [
   'PERFUMERIA',
   'BLANQUERIA',
   'OPTICA',
-  'PELUCHES ENAMORADOS',
   'LENCERIA',
   'RODADOS',
 ]
@@ -73,9 +72,11 @@ export async function GET() {
 
   if (error) return NextResponse.json([], { status: 500 })
 
+  const OCULTAS = new Set(['PELUCHES ENAMORADOS'])
+
   const fromDB = Array.from(new Set(
     (data ?? []).map((p: any) => (p.categoria || '').trim().toUpperCase()).filter(Boolean)
-  ))
+  )).filter(n => !OCULTAS.has(n))
   const uniqueNames = Array.from(new Set([...fromDB, ...CATEGORIAS_FIJAS]))
 
   const EMOJIS: Record<string, string> = {
