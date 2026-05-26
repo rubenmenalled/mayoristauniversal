@@ -63,10 +63,12 @@ export default function CatalogoPage() {
       .catch(() => setLoading(false))
   }, [])
 
-  // Eliminar duplicados (ej: BEBE y BEBES)
+  // Eliminar duplicados solo para BEBE/BEBES, no para RODADOS u otros
   const vistas = new Set<string>()
   const sinDuplicados = categorias.filter(c => {
-    const key = (c.nombre || '').toUpperCase().replace(/S$/, '')
+    const nombre = (c.nombre || '').toUpperCase()
+    // Solo colapsar BEBE/BEBES, no tocar RODADOS ni otros
+    const key = nombre === 'BEBES' ? 'BEBE' : nombre
     if (vistas.has(key)) return false
     vistas.add(key)
     return true

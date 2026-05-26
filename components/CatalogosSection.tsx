@@ -128,10 +128,11 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   if (categorias === undefined) return null
   if (categorias.length === 0) return <SkeletonGrid />
 
-  // Eliminar duplicados (ej: BEBE y BEBES)
+  // Eliminar duplicados solo para BEBE/BEBES
   const vistas = new Set<string>()
   const unicas = categorias.filter(cat => {
-    const key = cat.name.toUpperCase().replace(/S$/, '') // BEBES → BEBE
+    const nombre = cat.name.toUpperCase()
+    const key = nombre === 'BEBES' ? 'BEBE' : nombre
     if (vistas.has(key)) return false
     vistas.add(key)
     return true
