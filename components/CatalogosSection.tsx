@@ -22,6 +22,7 @@ const FOTOS: Record<string, string> = {
   PELUCHES:            '/cat_peluches.jpg',
   'PELUCHES ENAMORADOS':   'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=800&q=90&auto=format&fit=crop',
   'LENCERIA':              'https://images.pexels.com/photos/6879815/pexels-photo-6879815.jpeg?w=800&h=600&fit=crop',
+  'RODADOS':               'https://images.pexels.com/photos/9168370/pexels-photo-9168370.jpeg?w=800&h=600&fit=crop',
   'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
   RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=90',
@@ -138,7 +139,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   })
 
   const kbAnims = ['kenburns-1', 'kenburns-2', 'kenburns-3']
-  const PROXIMAMENTE = new Set(['PERFUMERIA', 'OPTICA', 'BLANQUERIA', 'LENCERIA'])
+  const PROXIMAMENTE = new Set(['PERFUMERIA', 'OPTICA', 'BLANQUERIA', 'LENCERIA', 'RODADOS'])
 
   return (
     <section id="catalogos" style={{ background: '#0D1B2A', padding: '4px 16px 16px' }}>

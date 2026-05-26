@@ -25,6 +25,7 @@ const FOTOS: Record<string, string> = {
   PELUCHES:            '/cat_peluches.jpg',
   'PELUCHES ENAMORADOS':   'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=800&q=90&auto=format&fit=crop',
   LENCERIA:                'https://images.pexels.com/photos/6879815/pexels-photo-6879815.jpeg?w=800&h=600&fit=crop',
+  RODADOS:                 'https://images.pexels.com/photos/9168370/pexels-photo-9168370.jpeg?w=800&h=600&fit=crop',
   'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
   RODADOS:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=90',
@@ -165,7 +166,7 @@ export default function CatalogoPage() {
             {filtradas.map((c, i) => {
               const nombre = c.nombre || c.name || ''
               const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
-              const esProximamente = ['PERFUMERIA', 'OPTICA', 'BLANQUERIA', 'LENCERIA'].includes(nombre.toUpperCase())
+              const esProximamente = ['PERFUMERIA', 'OPTICA', 'BLANQUERIA', 'LENCERIA', 'RODADOS'].includes(nombre.toUpperCase())
               return (
                 <motion.div
                   key={c.id}
