@@ -96,7 +96,7 @@ export default function HeroSection() {
                 0 0 90px #cc0000
               `,
             }}>
-              ✦ OPEN 24/7
+              ✦ IMPORTADOR DIRECTO<br />ESPECIAL REVENDEDORES
             </div>
           </div>
 
