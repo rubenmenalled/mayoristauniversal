@@ -68,38 +68,6 @@ export default function HeroSection() {
             <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
           </div>
 
-          {/* Cartel neon */}
-          <div style={{
-            position: 'absolute',
-            bottom: 'clamp(30px, 8vw, 60px)',
-            right: 'clamp(12px, 3vw, 36px)',
-            zIndex: 20,
-            pointerEvents: 'none',
-            textAlign: 'right',
-          }}>
-            <div style={{
-              fontFamily: "'Montserrat', sans-serif",
-              fontWeight: 900,
-              fontSize: 'clamp(12px, 2vw, 26px)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              color: '#fff',
-              lineHeight: 1.25,
-              whiteSpace: 'nowrap',
-              animation: 'neon-flicker 4s infinite',
-              textShadow: `
-                0 0 4px #fff,
-                0 0 10px #fff,
-                0 0 20px #ff2020,
-                0 0 40px #ff2020,
-                0 0 70px #ff0000,
-                0 0 90px #cc0000
-              `,
-            }}>
-              ✦ IMPORTADOR DIRECTO<br />ESPECIAL REVENDEDORES
-            </div>
-          </div>
-
           {/* Panda — caminando de lado a lado */}
           <div style={{
             position: 'absolute',
