@@ -29,8 +29,8 @@ const ORDEN_CATEGORIAS = [
   'PELUCHES ENAMORADOS',
 ]
 
-// Categorías que siempre aparecen aunque no tengan productos aún
-const CATEGORIAS_FIJAS = ['RELOJES', 'BIJOUTERIE', 'ACCESORIOS DE PELO']
+// Todas las categorías del orden siempre aparecen aunque no tengan productos aún
+const CATEGORIAS_FIJAS = ORDEN_CATEGORIAS
 
 const FOTOS: Record<string, string> = {
   'INVIERNO 2026':    'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
