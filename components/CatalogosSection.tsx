@@ -173,6 +173,10 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         >
           <span style={{ fontSize: 18 }}>🚚</span>
           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <span style={{ color: '#0D1B2A', fontWeight: 900, fontSize: 'clamp(11px,1.2vw,13px)', letterSpacing: '0.05em' }}>
+              IMPORTADOR DIRECTO
+            </span>
+            <span style={{ color: '#7a8a9a', fontSize: 11 }}>·</span>
             <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(11px,1.2vw,13px)', letterSpacing: '0.05em' }}>
               ENVÍOS A TODO EL PAÍS
             </span>
