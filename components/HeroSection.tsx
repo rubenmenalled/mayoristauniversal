@@ -157,24 +157,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Botón catálogos debajo de la imagen */}
-        <div style={{ background: 'rgba(255,255,255,0.98)', padding: '14px 16px', display: 'flex', justifyContent: 'center' }}>
-          <a href="/catalogo" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#FFFFFF', fontWeight: 900,
-            fontSize: 'clamp(13px,1.8vw,16px)',
-            padding: 'clamp(10px,1.5vw,14px) clamp(24px,3vw,48px)',
-            borderRadius: 12,
-            boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
-            textDecoration: 'none',
-            whiteSpace: 'nowrap',
-            transition: 'all 0.2s ease',
-          }}>
-            📋 VER TODOS LOS CATÁLOGOS
-          </a>
-        </div>
-
         {/* Franja de frases rotativas */}
         <div style={{
           background: 'linear-gradient(135deg, #0D1B2A 0%, #1A2E45 100%)',
