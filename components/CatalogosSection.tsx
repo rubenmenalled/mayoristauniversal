@@ -137,6 +137,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   })
 
   const kbAnims = ['kenburns-1', 'kenburns-2', 'kenburns-3']
+  const PROXIMAMENTE = new Set(['PERFUMERIA', 'OPTICA', 'BLANQUERIA'])
 
   return (
     <section id="catalogos" style={{ background: '#0D1B2A', padding: '4px 16px 16px' }}>
@@ -199,6 +200,26 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)',
                 transition: 'background 0.35s ease',
               }} />
+
+              {/* Cartel PRÓXIMAMENTE */}
+              {PROXIMAMENTE.has(cat.name.toUpperCase()) && (
+                <div style={{
+                  position: 'absolute', top: 14, left: 14,
+                  background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
+                  color: '#fff',
+                  fontWeight: 900,
+                  fontSize: 11,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  padding: '5px 12px',
+                  borderRadius: 20,
+                  boxShadow: '0 3px 12px rgba(255,78,0,0.6)',
+                  zIndex: 10,
+                  textShadow: '0 1px 3px rgba(0,0,0,0.3)',
+                }}>
+                  🔜 Próximamente
+                </div>
+              )}
 
               {/* Emoji flotante */}
               <div style={{
