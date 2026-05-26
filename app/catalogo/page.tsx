@@ -86,7 +86,7 @@ export default function CatalogoPage() {
         background: 'rgba(13,27,42,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
-        position: 'sticky', top: 38, zIndex: 50,
+        position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>

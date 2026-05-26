@@ -3,7 +3,6 @@ import { Montserrat, Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/lib/CartContext'
-import AnnouncementBar from '@/components/AnnouncementBar'
 import ExitIntentPopup from '@/components/ExitIntentPopup'
 import ScrollToTop from '@/components/ScrollToTop'
 
@@ -101,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</Script>
           </>
         )}
-        <CartProvider><AnnouncementBar />{children}<ExitIntentPopup /><ScrollToTop /></CartProvider>
+        <CartProvider>{children}<ExitIntentPopup /><ScrollToTop /></CartProvider>
       </body>
     </html>
   )
