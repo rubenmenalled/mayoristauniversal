@@ -171,12 +171,12 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             border: '1px solid rgba(212,175,55,0.2)',
           }}
         >
+          <span style={{ color: '#0D1B2A', fontWeight: 900, fontSize: 'clamp(11px,1.2vw,13px)', letterSpacing: '0.05em' }}>
+            IMPORTADOR DIRECTO
+          </span>
+          <div style={{ width: 1, height: 18, background: 'rgba(0,0,0,0.15)', margin: '0 10px' }} />
           <span style={{ fontSize: 18 }}>🚚</span>
           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-            <span style={{ color: '#0D1B2A', fontWeight: 900, fontSize: 'clamp(11px,1.2vw,13px)', letterSpacing: '0.05em' }}>
-              IMPORTADOR DIRECTO
-            </span>
-            <div style={{ width: 1, height: 16, background: 'rgba(0,0,0,0.15)', margin: '0 6px' }} />
             <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(11px,1.2vw,13px)', letterSpacing: '0.05em' }}>
               ENVÍOS A TODO EL PAÍS
             </span>
