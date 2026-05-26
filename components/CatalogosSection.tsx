@@ -205,7 +205,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* Cartel PRÓXIMAMENTE */}
               {PROXIMAMENTE.has(cat.name.toUpperCase()) && (
                 <div style={{
-                  position: 'absolute', top: 14, left: 14,
+                  position: 'absolute', bottom: 14, right: 14,
                   background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
                   color: '#fff',
                   fontWeight: 900,

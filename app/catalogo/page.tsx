@@ -192,7 +192,7 @@ export default function CatalogoPage() {
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />
                   {esProximamente && (
                     <div style={{
-                      position: 'absolute', top: 14, left: 14, zIndex: 10,
+                      position: 'absolute', bottom: 14, right: 14, zIndex: 10,
                       background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
                       color: '#fff', fontWeight: 900, fontSize: 11,
                       letterSpacing: '0.12em', textTransform: 'uppercase',
@@ -202,7 +202,7 @@ export default function CatalogoPage() {
                       🔜 Próximamente
                     </div>
                   )}
-                  <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)', marginTop: esProximamente ? 32 : 0 }}>
+                  <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>
                   <div style={{ position: 'absolute', bottom: 16, left: 16, color: '#D4AF37', fontWeight: 800, fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>
