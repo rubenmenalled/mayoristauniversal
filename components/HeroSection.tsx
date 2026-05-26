@@ -84,10 +84,10 @@ export default function HeroSection() {
             text-shadow:
               0 0 4px #fff,
               0 0 10px #fff,
-              0 0 20px #00ff88,
-              0 0 40px #00ff88,
-              0 0 70px #00ff88,
-              0 0 90px #00cc66;
+              0 0 20px #ff2020,
+              0 0 40px #ff2020,
+              0 0 70px #ff0000,
+              0 0 90px #cc0000;
           }
           20%, 24%, 55% {
             text-shadow: none;
@@ -102,46 +102,35 @@ export default function HeroSection() {
             <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
           </div>
 
-          {/* Cartel neon inclinado */}
+          {/* Cartel neon */}
           <div style={{
             position: 'absolute',
-            top: 'clamp(14px, 4vw, 40px)',
-            right: 'clamp(16px, 4vw, 48px)',
+            bottom: 'clamp(30px, 8vw, 60px)',
+            right: 'clamp(12px, 3vw, 36px)',
             zIndex: 20,
-            transform: 'rotate(-8deg)',
             pointerEvents: 'none',
-            textAlign: 'center',
+            textAlign: 'right',
           }}>
             <div style={{
               fontFamily: "'Montserrat', sans-serif",
               fontWeight: 900,
-              fontSize: 'clamp(10px, 1.8vw, 22px)',
+              fontSize: 'clamp(12px, 2vw, 26px)',
               textTransform: 'uppercase',
-              letterSpacing: '0.08em',
+              letterSpacing: '0.1em',
               color: '#fff',
-              lineHeight: 1.2,
+              lineHeight: 1.25,
+              whiteSpace: 'nowrap',
               animation: 'neon-flicker 4s infinite',
               textShadow: `
                 0 0 4px #fff,
                 0 0 10px #fff,
-                0 0 20px #00ff88,
-                0 0 40px #00ff88,
-                0 0 70px #00ff88,
-                0 0 90px #00cc66
+                0 0 20px #ff2020,
+                0 0 40px #ff2020,
+                0 0 70px #ff0000,
+                0 0 90px #cc0000
               `,
             }}>
-              ✦ Nuevo Local<br />Online 24/7
-            </div>
-            <div style={{
-              fontFamily: "'Montserrat', sans-serif",
-              fontWeight: 700,
-              fontSize: 'clamp(9px, 1.4vw, 16px)',
-              color: '#aaffcc',
-              letterSpacing: '0.15em',
-              marginTop: 4,
-              textShadow: '0 0 8px #00ff88, 0 0 20px #00ff88',
-            }}>
-              ¡Precios de lanzamiento!
+              ✦ Nuevo Local Online<br />24/7
             </div>
           </div>
 
