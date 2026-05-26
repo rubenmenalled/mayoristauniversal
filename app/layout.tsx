@@ -23,9 +23,10 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.mayoristauniversal.com'),
   title: 'Mayorista Universal | Compra Mayorista Multirubro Argentina',
-  description: 'Los mejores precios mayoristas en todos los rubros. Compra directa al por mayor en toda Argentina.',
-  keywords: 'mayorista, argentina, productos mayoristas, compra al por mayor',
+  description: 'Los mejores precios mayoristas en todos los rubros. Más de 20 categorías: indumentaria, bazar, juguetes, electrónica y más. Compra al por mayor en toda Argentina.',
+  keywords: 'mayorista argentina, compra al por mayor, productos mayoristas, mayorista multirubro, venta mayorista argentina',
   verification: {
     google: 's3q2W7UQQi6KEELYQRfiRmI42GRRjTkE31_WoEr4QQg',
   },
@@ -33,6 +34,12 @@ export const metadata: Metadata = {
     title: 'Mayorista Universal | Compra Mayorista en Argentina',
     description: 'Todos los rubros mayoristas en un solo lugar, con los mejores precios del mercado en toda Argentina.',
     type: 'website',
+    url: 'https://www.mayoristauniversal.com',
+    siteName: 'Mayorista Universal',
+    locale: 'es_AR',
+  },
+  alternates: {
+    canonical: 'https://www.mayoristauniversal.com',
   },
 }
 
