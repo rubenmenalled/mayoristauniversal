@@ -43,10 +43,53 @@ export const metadata: Metadata = {
   },
 }
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.mayoristauniversal.com/#organization',
+      name: 'Mayorista Universal',
+      url: 'https://www.mayoristauniversal.com',
+      description: 'Distribuidora mayorista multirubro en Argentina. Más de 20 categorías: indumentaria, bazar, juguetes, electrónica y más.',
+      areaServed: { '@type': 'Country', name: 'Argentina' },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        availableLanguage: 'Spanish',
+      },
+      sameAs: [],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.mayoristauniversal.com/#website',
+      url: 'https://www.mayoristauniversal.com',
+      name: 'Mayorista Universal',
+      description: 'Compra mayorista multirubro en Argentina',
+      publisher: { '@id': 'https://www.mayoristauniversal.com/#organization' },
+      inLanguage: 'es-AR',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: 'https://www.mayoristauniversal.com/buscar?q={search_term_string}',
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+  ],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${montserrat.variable} ${inter.variable}`}>
       <body className="font-body antialiased">
+        <Script
+          id="jsonld-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          strategy="beforeInteractive"
+        />
         {GA_ID && (
           <>
             <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
