@@ -59,13 +59,13 @@ export default function HeroSection() {
         }
         @media (max-width: 767px) {
           #hero-section { padding-top: 92px; }
-          #hero-banner { height: 58vw; overflow: hidden; }
+          #hero-banner { height: 58vw; position: relative; }
           #hero-banner .kenburns-wrap { width: 100%; height: 100%; overflow: hidden; }
           #hero-banner .kenburns-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 98px; }
-          #hero-banner { width: 100%; overflow: hidden; }
+          #hero-banner { width: 100%; position: relative; }
           #hero-banner .kenburns-wrap { overflow: hidden; width: 100%; }
           #hero-banner .kenburns-wrap img { width: 100%; height: auto; display: block; max-width: none; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
         }
@@ -79,22 +79,70 @@ export default function HeroSection() {
           0%, 100% { box-shadow: 0 0 0 3px rgba(212,175,55,0.35), 0 8px 32px rgba(0,0,0,0.6); }
           50%       { box-shadow: 0 0 0 6px rgba(212,175,55,0.55), 0 8px 40px rgba(0,0,0,0.7); }
         }
-        @keyframes inaug-glow {
-          0%, 100% { box-shadow: 0 4px 24px rgba(255,0,153,0.6), 0 0 18px rgba(204,0,255,0.5); }
-          50%       { box-shadow: 0 4px 36px rgba(255,0,153,0.9), 0 0 32px rgba(204,0,255,0.8); }
-        }
-        @keyframes inaug-shine {
-          0%   { left: -80%; }
-          100% { left: 140%; }
+        @keyframes neon-flicker {
+          0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+            text-shadow:
+              0 0 4px #fff,
+              0 0 10px #fff,
+              0 0 20px #ff00cc,
+              0 0 40px #ff00cc,
+              0 0 70px #ff00cc,
+              0 0 90px #ff00cc;
+          }
+          20%, 24%, 55% {
+            text-shadow: none;
+          }
         }
       `}</style>
 
       <section id="hero-section">
-        <div style={{ position: 'relative' }}>
-        <div id="hero-banner" style={{ position: 'relative' }}>
+        <div id="hero-banner">
           <div className="kenburns-wrap">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
+          </div>
+
+          {/* Cartel neon inclinado */}
+          <div style={{
+            position: 'absolute',
+            top: 'clamp(14px, 4vw, 40px)',
+            right: 'clamp(16px, 4vw, 48px)',
+            zIndex: 20,
+            transform: 'rotate(-8deg)',
+            pointerEvents: 'none',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontWeight: 900,
+              fontSize: 'clamp(16px, 3.2vw, 42px)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              color: '#fff',
+              lineHeight: 1.15,
+              animation: 'neon-flicker 4s infinite',
+              textShadow: `
+                0 0 4px #fff,
+                0 0 10px #fff,
+                0 0 20px #ff00cc,
+                0 0 40px #ff00cc,
+                0 0 70px #ff00cc,
+                0 0 90px #ff00cc
+              `,
+            }}>
+              ✦ Gran<br />Inauguración
+            </div>
+            <div style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(9px, 1.4vw, 16px)',
+              color: '#ffaaee',
+              letterSpacing: '0.15em',
+              marginTop: 4,
+              textShadow: '0 0 8px #ff00cc, 0 0 20px #ff00cc',
+            }}>
+              ¡Precios de lanzamiento!
+            </div>
           </div>
 
           {/* Panda — caminando de lado a lado */}
@@ -117,50 +165,6 @@ export default function HeroSection() {
                 filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))',
               }}
             />
-          </div>
-        </div>
-
-          {/* Cartel GRAN INAUGURACIÓN — fuera del overflow:hidden */}
-          <div style={{
-            position: 'absolute',
-            top: 'clamp(10px, 2.5vw, 24px)',
-            right: 'clamp(10px, 2.5vw, 28px)',
-            zIndex: 20,
-            background: 'linear-gradient(135deg, #FF0099 0%, #CC00FF 100%)',
-            borderRadius: 16,
-            padding: 'clamp(8px,1.5vw,13px) clamp(14px,2.5vw,26px)',
-            animation: 'inaug-glow 2s ease-in-out infinite',
-            overflow: 'hidden',
-            cursor: 'default',
-            boxShadow: '0 4px 24px rgba(255,0,153,0.6)',
-          }}>
-            <div style={{
-              position: 'absolute', top: 0, bottom: 0, width: '60%',
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)',
-              animation: 'inaug-shine 2.5s ease-in-out infinite',
-              pointerEvents: 'none',
-            }} />
-            <div style={{
-              color: '#FFFFFF', fontWeight: 900,
-              fontSize: 'clamp(11px, 1.6vw, 17px)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              textAlign: 'center',
-              lineHeight: 1.3,
-              position: 'relative',
-              textShadow: '0 1px 4px rgba(0,0,0,0.3)',
-            }}>
-              🎉 GRAN INAUGURACIÓN
-              <div style={{
-                fontSize: 'clamp(9px, 1vw, 12px)',
-                fontWeight: 700,
-                letterSpacing: '0.05em',
-                marginTop: 2,
-                opacity: 0.9,
-              }}>
-                ¡Precios de lanzamiento!
-              </div>
-            </div>
           </div>
         </div>
 
