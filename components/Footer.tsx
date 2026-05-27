@@ -61,7 +61,7 @@ export default function Footer() {
             {/* Contact */}
             <div className="space-y-2 text-sm text-gray-400 mb-6">
               <div className="flex items-center gap-2"><Phone size={14} className="text-gold" /> +54 116 4660482</div>
-              <div className="flex items-center gap-2"><Mail  size={14} className="text-gold" /> info@mayoristauniversal.com.ar</div>
+              <div className="flex items-center gap-2"><Mail  size={14} className="text-gold" /> info@mayoristauniversal.com</div>
               <div className="flex items-center gap-2"><MapPin size={14} className="text-gold" /> Buenos Aires, Argentina</div>
             </div>
 
