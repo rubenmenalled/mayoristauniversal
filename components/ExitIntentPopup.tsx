@@ -152,7 +152,7 @@ export default function ExitIntentPopup() {
         </button>
 
         <span style={emojiStyle}>🛒</span>
-        <h2 style={titleStyle}>¡Espera! ¿Tenés dudas?</h2>
+        <h2 style={titleStyle}>¡Esperá! ¿Tenés dudas?</h2>
         <p style={subtitleStyle}>
           Nuestro equipo está disponible para ayudarte a armar tu pedido mayorista
         </p>

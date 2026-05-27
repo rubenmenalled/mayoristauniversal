@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -136,6 +137,7 @@ function SkeletonGrid() {
 
 export default function CatalogosSection({ categorias }: { categorias?: Categoria[] }) {
   const [modalOpen, setModalOpen] = useState(false)
+  const router = useRouter()
 
   if (categorias === undefined) return null
   if (categorias.length === 0) return <SkeletonGrid />
@@ -226,9 +228,9 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           gap: 12,
         }}>
           {unicas.map((cat, i) => (
-            <a
+            <div
               key={cat.id}
-              href={`/categorias/${encodeURIComponent(cat.name)}`}
+              onClick={() => router.push(`/categorias/${encodeURIComponent(cat.name)}`)}
               className="cat-card"
               style={{
                 position: 'relative',
@@ -237,7 +239,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 borderRadius: 12,
                 overflow: 'hidden',
                 cursor: 'pointer',
-                textDecoration: 'none',
                 background: '#F0F0F0',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
                 animation: `fadeSlideUp 0.55s ease both`,
@@ -331,7 +332,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 transition: 'border-color 0.3s',
                 pointerEvents: 'none',
               }} />
-            </a>
+            </div>
           ))}
         </div>
       </div>
@@ -373,7 +374,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               </div>
             ))}
           </div>
-          <a href={`${WA}?text=${encodeURIComponent('Hola! Quiero consultar sobre opciones de envío y transporte.')}`} target="_blank" rel="noopener noreferrer"
+          <a href={`${WA}?text=${encodeURIComponent('¡Hola! Quiero consultar sobre opciones de envío y transporte.')}`} target="_blank" rel="noopener noreferrer"
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'linear-gradient(135deg,#16a34a,#15803d)', borderRadius: 14, padding: 16, width: '100%', color: '#FFFFFF', fontWeight: 900, fontSize: 16, textDecoration: 'none', boxShadow: '0 4px 20px rgba(22,163,74,0.4)' }}>
             <span style={{ fontSize: 22 }}>💬</span> Consultar por WhatsApp
           </a>

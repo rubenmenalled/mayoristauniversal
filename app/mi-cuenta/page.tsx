@@ -207,7 +207,7 @@ export default function MiCuentaPage() {
               </div>
             </a>
 
-            <a href={`https://wa.me/5491164660482?text=Hola! Soy ${encodeURIComponent(nombre)}, quiero hacer un pedido.`}
+            <a href={`https://wa.me/5491164660482?text=¡Hola! Soy ${encodeURIComponent(nombre)}, quiero hacer un pedido.`}
               target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
               <div style={{
                 ...cardStyle, cursor: 'pointer',

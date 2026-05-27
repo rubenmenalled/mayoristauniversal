@@ -26,7 +26,7 @@ const PASOS = [
     titulo: 'Coordiná por WhatsApp',
     desc: 'Te contactamos por WhatsApp para confirmar disponibilidad, acordar el medio de pago (transferencia, Mercado Pago o efectivo) y el transporte de entrega.',
     accion: 'Escribinos →',
-    href: 'https://wa.me/5491164660482?text=Hola! Quiero hacer un pedido.',
+    href: 'https://wa.me/5491164660482?text=¡Hola! Quiero hacer un pedido.',
   },
   {
     numero: '4',
@@ -126,7 +126,7 @@ export default function ComoComprarPage() {
           <p style={{ color: '#4A5568', fontSize: 15, marginBottom: 20 }}>
             ¿Tenés alguna duda? ¡Estamos para ayudarte!
           </p>
-          <a href="https://wa.me/5491164660482?text=Hola! Tengo una consulta sobre cómo comprar."
+          <a href="https://wa.me/5491164660482?text=¡Hola! Tengo una consulta sobre cómo comprar."
             target="_blank" rel="noopener noreferrer"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -136,6 +136,7 @@ export default function ComoComprarPage() {
               boxShadow: '0 4px 20px rgba(22,163,74,0.3)',
             }}>
             💬 Consultanos por WhatsApp
+
           </a>
         </div>
       </div>
