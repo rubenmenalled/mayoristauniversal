@@ -51,6 +51,13 @@ const jsonLd = {
       '@id': 'https://www.mayoristauniversal.com/#organization',
       name: 'Mayorista Universal',
       url: 'https://www.mayoristauniversal.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.mayoristauniversal.com/logo.png',
+        width: 512,
+        height: 512,
+      },
+      image: 'https://www.mayoristauniversal.com/logo.png',
       description: 'Distribuidora mayorista multirubro en Argentina. Más de 20 categorías: indumentaria, bazar, juguetes, electrónica y más.',
       areaServed: { '@type': 'Country', name: 'Argentina' },
       contactPoint: {
