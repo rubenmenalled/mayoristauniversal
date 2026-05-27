@@ -64,8 +64,11 @@ export default function HeroSection() {
       <section id="hero-section">
         <div id="hero-banner">
           <div className="kenburns-wrap">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/portada_mobile.png" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
+            </picture>
           </div>
 
           {/* Panda — caminando de lado a lado */}
