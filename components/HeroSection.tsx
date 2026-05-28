@@ -3,22 +3,10 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES = [
-  { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png' },
-  // Tecnología y Herramientas
-  { desktop: '/b1_1.png', mobile: '/b1_1.png' },
-  { desktop: '/b1_2.png', mobile: '/b1_2.png' },
-  { desktop: '/b1_3.png', mobile: '/b1_3.png' },
-  { desktop: '/b1_4.png', mobile: '/b1_4.png' },
-  { desktop: '/b1_5.png', mobile: '/b1_5.png' },
-  // Bazar / Grifería / Iluminación
-  { desktop: '/b2_1.png', mobile: '/b2_1.png' },
-  { desktop: '/b2_2.png', mobile: '/b2_2.png' },
-  { desktop: '/b2_3.png', mobile: '/b2_3.png' },
-  // Maquillajes / Cosmética / Marroquinería / Perfumería
-  { desktop: '/b3_1.png', mobile: '/b3_1.png' },
-  { desktop: '/b3_2.png', mobile: '/b3_2.png' },
-  { desktop: '/b3_3.png', mobile: '/b3_3.png' },
-  { desktop: '/b3_4.png', mobile: '/b3_4.png' },
+  { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png', fit: 'cover'   as const },
+  { desktop: '/banner1.png',         mobile: '/banner1.png',         fit: 'contain' as const },
+  { desktop: '/banner2.png',         mobile: '/banner2.png',         fit: 'contain' as const },
+  { desktop: '/banner3.png',         mobile: '/banner3.png',         fit: 'contain' as const },
 ]
 
 export default function HeroSection() {
@@ -51,28 +39,30 @@ export default function HeroSection() {
         }
         @media (max-width: 767px) {
           #hero-section { padding-top: 195px; }
-          #hero-banner { height: 58vw; }
+          #hero-banner { aspect-ratio: 3/2; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
-          #hero-banner { aspect-ratio: 16/5; }
+          #hero-banner { aspect-ratio: 3/2; }
         }
         .hero-slide {
           position: absolute;
           inset: 0;
           transition: opacity 0.8s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #000;
         }
         .hero-slide img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
           object-position: center center;
           display: block;
         }
         .hero-slide.active {
           opacity: 1;
           z-index: 2;
-          animation: hero-kenburns 12s ease-in-out infinite;
         }
         .hero-slide.inactive {
           opacity: 0;
@@ -88,7 +78,7 @@ export default function HeroSection() {
               <picture>
                 <source media="(max-width: 767px)" srcSet={slide.mobile} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={slide.desktop} alt={`Banner ${i + 1}`} />
+                <img src={slide.desktop} alt={`Banner ${i + 1}`} style={{ objectFit: slide.fit }} />
               </picture>
             </div>
           ))}
