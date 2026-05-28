@@ -278,99 +278,41 @@ export default function Header() {
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
         <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
-          <style>{`
-            @keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-            .cat-scroll::-webkit-scrollbar{display:none}
-            @media(max-width:767px){
-              .cat-bar-inner{ overflow-x:auto !important; flex-wrap:nowrap !important; max-height:none !important; }
-              .cat-dropdown{ position:fixed !important; left:8px !important; right:8px !important; width:auto !important; min-width:unset !important; top:auto !important; }
-            }
-          `}</style>
-          <div className="cat-scroll cat-bar-inner" style={{ display: 'flex', flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'visible', position: 'relative', zIndex: 400 }}>
+          <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
+
+          {/* ── DESKTOP: 2 renglones con dropdown ── */}
+          <div className="hidden md:flex" style={{ flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'visible', position: 'relative', zIndex: 400 }}>
             {categorias.map((cat) => {
               const isOpen = openCat === cat.nombre
               return (
-                <div
-                  key={cat.id}
-                  style={{ position: 'relative', flexShrink: 0 }}
+                <div key={cat.id} style={{ position: 'relative' }}
                   onMouseEnter={() => setHoveredCat(cat.nombre)}
-                  onMouseLeave={() => setHoveredCat(null)}
-                >
-                  {/* Botón de categoría — NO navega, abre dropdown */}
-                  <button
-                    onClick={() => setOpenCat(isOpen ? null : cat.nombre)}
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 4,
-                      padding: '8px 10px',
-                      color: '#FFFFFF',
-                      fontWeight: 700,
-                      fontSize: '12px',
-                      background: 'none',
-                      border: 'none',
-                      whiteSpace: 'nowrap',
-                      cursor: 'pointer',
-                      WebkitTapHighlightColor: 'transparent',
-                    }}
-                  >
+                  onMouseLeave={() => setHoveredCat(null)}>
+                  <button onClick={() => setOpenCat(isOpen ? null : cat.nombre)}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '8px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: '12px', background: 'none', border: 'none', whiteSpace: 'nowrap', cursor: 'pointer' }}>
                     <span style={{ fontSize: 14 }}>{cat.emoji}</span>
-                    <span style={{
-                      borderBottom: (hoveredCat === cat.nombre || isOpen) ? '1px solid #fff' : '1px solid transparent',
-                      transition: 'border-color 0.15s',
-                    }}>
-                      {cat.nombre}
-                    </span>
-                    <span style={{
-                      fontSize: 9,
-                      transition: 'transform 0.2s',
-                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                      display: 'inline-block',
-                    }}>▼</span>
+                    <span style={{ borderBottom: (hoveredCat === cat.nombre || isOpen) ? '1px solid #fff' : '1px solid transparent', transition: 'border-color 0.15s' }}>{cat.nombre}</span>
+                    <span style={{ fontSize: 9, transition: 'transform 0.2s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
                   </button>
-
-                  {/* Dropdown */}
                   {isOpen && (
-                    <div className="cat-dropdown" style={{
-                      position: 'absolute',
-                      top: '100%',
-                      left: 0,
-                      zIndex: 500,
-                      background: '#FFFFFF',
-                      border: '1px solid rgba(0,0,0,0.1)',
-                      borderRadius: 8,
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-                      minWidth: 230,
-                      padding: '8px 0',
-                      animation: 'fadeInDown 0.15s ease',
-                      maxHeight: '70vh',
-                      overflowY: 'auto',
-                    }}>
-                      {/* Header del dropdown */}
+                    <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 8, boxShadow: '0 8px 24px rgba(0,0,0,0.2)', minWidth: 230, padding: '8px 0', animation: 'fadeInDown 0.15s ease', maxHeight: '70vh', overflowY: 'auto' }}>
                       <div style={{ padding: '8px 16px 10px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ fontSize: 20 }}>{cat.emoji}</span>
                         <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 13 }}>{cat.nombre}</span>
                       </div>
-                      {/* Subcategorías */}
                       {cat.subcategorias && cat.subcategorias.map((sub) => (
-                        <a
-                          key={sub}
-                          href={`/categorias/${encodeURIComponent(cat.nombre)}?sub=${encodeURIComponent(sub)}`}
-                          onClick={() => setOpenCat(null)}
-                          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', color: '#444', fontWeight: 600, fontSize: 13, textDecoration: 'none', transition: 'background 0.1s' }}
+                        <a key={sub} href={`/categorias/${encodeURIComponent(cat.nombre)}?sub=${encodeURIComponent(sub)}`} onClick={() => setOpenCat(null)}
+                          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', color: '#444', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}
                           onMouseEnter={e => { e.currentTarget.style.background = '#FFF5F5'; e.currentTarget.style.color = '#CC0000' }}
-                          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#444' }}
-                        >
+                          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#444' }}>
                           <span style={{ color: '#CC0000', fontSize: 10 }}>▸</span> {sub}
                         </a>
                       ))}
-                      {/* Ver todos */}
                       <div style={{ borderTop: '1px solid #f0f0f0', marginTop: 4 }}>
-                        <a
-                          href={`/categorias/${encodeURIComponent(cat.nombre)}`}
-                          onClick={() => setOpenCat(null)}
+                        <a href={`/categorias/${encodeURIComponent(cat.nombre)}`} onClick={() => setOpenCat(null)}
                           style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', color: '#CC0000', fontWeight: 800, fontSize: 12, textDecoration: 'none' }}
                           onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
-                          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                        >
+                          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
                           Ver todos los productos <span style={{ fontSize: 14 }}>→</span>
                         </a>
                       </div>
@@ -379,6 +321,58 @@ export default function Header() {
                 </div>
               )
             })}
+          </div>
+
+          {/* ── MOBILE: grilla de todas las categorías ── */}
+          <div className="md:hidden">
+            {/* Botón toggle */}
+            <button
+              onClick={() => setOpenCat(openCat === '__mobile__' ? null : '__mobile__')}
+              style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '9px 16px', background: 'none', border: 'none', color: '#FFFFFF', fontWeight: 800, fontSize: 13, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
+              <span>📋 TODAS LAS CATEGORÍAS</span>
+              <span style={{ fontSize: 10, transition: 'transform 0.2s', transform: openCat === '__mobile__' ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
+            </button>
+
+            {/* Grilla expandible */}
+            {openCat === '__mobile__' && (
+              <div style={{ background: '#FFFFFF', padding: '12px', animation: 'fadeInDown 0.2s ease' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+                  {categorias.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => { setOpenCat(cat.nombre === openCat ? '__mobile__' : cat.nombre) }}
+                      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '10px 6px', background: openCat === cat.nombre ? '#FFF0F0' : '#F9F9F9', border: openCat === cat.nombre ? '1.5px solid #CC0000' : '1px solid #EEE', borderRadius: 10, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
+                      <span style={{ fontSize: 22 }}>{cat.emoji}</span>
+                      <span style={{ color: '#333', fontWeight: 700, fontSize: 10, textAlign: 'center', lineHeight: 1.3 }}>{cat.nombre}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Subcategorías de la cat seleccionada en mobile */}
+                {openCat && openCat !== '__mobile__' && categorias.find(c => c.nombre === openCat) && (
+                  <div style={{ marginTop: 12, background: '#FFF5F5', borderRadius: 10, padding: '10px 12px', border: '1px solid rgba(204,0,0,0.15)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+                      <span style={{ fontSize: 20 }}>{categorias.find(c => c.nombre === openCat)?.emoji}</span>
+                      <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
+                      {categorias.find(c => c.nombre === openCat)?.subcategorias?.map((sub) => (
+                        <a key={sub} href={`/categorias/${encodeURIComponent(openCat)}?sub=${encodeURIComponent(sub)}`}
+                          onClick={() => setOpenCat(null)}
+                          style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '8px 10px', background: '#FFFFFF', border: '1px solid #EEE', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none' }}>
+                          <span style={{ color: '#CC0000', fontSize: 10 }}>▸</span>{sub}
+                        </a>
+                      ))}
+                      <a href={`/categorias/${encodeURIComponent(openCat)}`}
+                        onClick={() => setOpenCat(null)}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5, padding: '8px 10px', background: '#CC0000', borderRadius: 8, color: '#FFFFFF', fontWeight: 800, fontSize: 12, textDecoration: 'none', gridColumn: 'span 2' }}>
+                        Ver todos los productos →
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
