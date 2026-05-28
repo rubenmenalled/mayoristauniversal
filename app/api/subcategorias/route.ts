@@ -3,6 +3,36 @@ import { NextRequest, NextResponse } from 'next/server'
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const SERVICE_KEY  = process.env.SUPABASE_SERVICE_ROLE_KEY!
 
+// Fallback estático para categorías que aún no tienen subcategorías en la DB
+const STATIC_SUBS: Record<string, string[]> = {
+  'PELUCHES': [
+    'Personajes Disney',
+    'Personajes Anime',
+    'Animales',
+    'Peluches Gigantes',
+    'Peluches Bebé',
+    'Muñecos de Tela',
+  ],
+  'BEBE': [
+    'Sonajeros',
+    'Cuneros y Móviles',
+    'Mordillos',
+    'Juguetes de Baño',
+    'Accesorios Bebé',
+    'Ropa de Bebé',
+  ],
+  'JUGUETERIA': [
+    'Muñecas y Accesorios',
+    'Autos y Vehículos',
+    'Juguetes Educativos',
+    'Juegos de Mesa',
+    'Figuras y Coleccionables',
+    'Juguetes de Exterior',
+    'Construcción y Armado',
+    'Peluches y Muñecos',
+  ],
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -43,6 +73,14 @@ export async function GET(request: NextRequest) {
           merged.push({ id: merged.length + 100, nombre, emoji: '📦', categoria_id: 0 })
         }
       })
+
+      // 4) Si no hay nada en DB, usar fallback estático
+      if (merged.length === 0) {
+        const catKey = (categoria || '').trim().toUpperCase()
+        const staticList = STATIC_SUBS[catKey] || []
+        const staticMapped = staticList.map((nombre, i) => ({ id: 900 + i, nombre, emoji: '📦', categoria_id: 0 }))
+        return NextResponse.json(staticMapped)
+      }
 
       return NextResponse.json(merged)
     }
