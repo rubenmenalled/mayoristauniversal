@@ -41,11 +41,11 @@ export default function ResetPasswordPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 16px', borderRadius: 10, outline: 'none',
-    background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(10,31,92,0.2)',
-    color: '#1565C0', fontSize: 15, boxSizing: 'border-box',
+    background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(92,10,10,0.2)',
+    color: '#C01515', fontSize: 15, boxSizing: 'border-box',
   }
   const labelStyle: React.CSSProperties = {
-    color: '#1565C0', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
+    color: '#C01515', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
   }
 
   return (
@@ -69,10 +69,10 @@ export default function ResetPasswordPage() {
         </div>
 
         <div style={{
-          background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(10,31,92,0.15)',
+          background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(92,10,10,0.15)',
           borderRadius: 20, padding: '32px 28px',
         }}>
-          <h2 style={{ color: '#1565C0', fontWeight: 900, fontSize: 20, marginBottom: 6 }}>Nueva contraseña</h2>
+          <h2 style={{ color: '#C01515', fontWeight: 900, fontSize: 20, marginBottom: 6 }}>Nueva contraseña</h2>
           <p style={{ color: '#4b5563', fontSize: 13, marginBottom: 24 }}>Ingresá tu nueva contraseña para continuar.</p>
 
           <form onSubmit={handleSubmit}>
@@ -111,7 +111,7 @@ export default function ResetPasswordPage() {
               style={{
                 width: '100%', padding: '14px', borderRadius: 12, border: 'none',
                 cursor: loading ? 'not-allowed' : 'pointer',
-                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#1565C0',
+                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#C01515',
                 fontWeight: 900, fontSize: 15, opacity: loading ? 0.7 : 1,
               }}>
               {loading ? 'Guardando...' : 'GUARDAR CONTRASEÑA'}

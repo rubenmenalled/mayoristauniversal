@@ -151,7 +151,7 @@ export default function Testimonios() {
     justifyContent: 'center',
     fontSize: '22px',
     fontWeight: 700,
-    color: '#1565C0',
+    color: '#C01515',
     flexShrink: 0,
   }
 

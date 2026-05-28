@@ -139,7 +139,7 @@ export default function ComoComprar() {
               style={{
                 fontSize: '32px',
                 fontWeight: 800,
-                color: '#1565C0',
+                color: '#C01515',
                 marginBottom: '12px',
                 letterSpacing: '-0.02em',
               }}
@@ -198,7 +198,7 @@ export default function ComoComprar() {
                       justifyContent: 'center',
                       fontWeight: 800,
                       fontSize: '16px',
-                      color: '#1565C0',
+                      color: '#C01515',
                       marginBottom: '16px',
                       flexShrink: 0,
                     }}
@@ -212,7 +212,7 @@ export default function ComoComprar() {
                       style={{
                         fontSize: '16px',
                         fontWeight: 700,
-                        color: '#1565C0',
+                        color: '#C01515',
                         marginBottom: '8px',
                         lineHeight: 1.3,
                       }}
@@ -249,7 +249,7 @@ export default function ComoComprar() {
               style={{
                 display: 'inline-block',
                 backgroundColor: '#D4AF37',
-                color: '#1565C0',
+                color: '#C01515',
                 fontWeight: 800,
                 fontSize: '14px',
                 letterSpacing: '0.08em',

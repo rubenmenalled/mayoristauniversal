@@ -114,7 +114,7 @@ export default function CategoriaPage() {
             style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13 }}>
             <ArrowLeft size={16} /> Inicio
           </button>
-          <div style={{ color: '#1565C0', fontWeight: 900, fontSize: 20, flex: 1 }}>{nombreDecoded}</div>
+          <div style={{ color: '#C01515', fontWeight: 900, fontSize: 20, flex: 1 }}>{nombreDecoded}</div>
           <a href="/catalogo" style={{
             display: 'flex', alignItems: 'center', gap: 6,
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
@@ -124,7 +124,7 @@ export default function CategoriaPage() {
           }}>
             📋 VER CATÁLOGO
           </a>
-          <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#1565C0', padding: 6 }}>
+          <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#C01515', padding: 6 }}>
             <ShoppingCart size={24} />
             {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
           </button>
@@ -185,7 +185,7 @@ export default function CategoriaPage() {
         ) : productosFiltrados.length === 0 ? (
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
             <div style={{ fontSize: 60, marginBottom: 16 }}>📦</div>
-            <div style={{ color: '#1565C0', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
+            <div style={{ color: '#C01515', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
               {subActiva ? `No hay productos en ${subActiva}` : `No hay productos en ${nombreDecoded} todavía`}
             </div>
             {subActiva && (

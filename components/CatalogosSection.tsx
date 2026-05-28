@@ -361,7 +361,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           <div style={{ background: 'rgba(0,158,227,0.08)', border: '1px solid rgba(0,158,227,0.3)', borderRadius: 10, padding: '10px 14px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ fontSize: 20, flexShrink: 0 }}>⏱️</span>
             <span style={{ color: '#555', fontSize: 13, lineHeight: 1.5 }}>
-              <strong style={{ color: '#333' }}>Demoras de entrega:</strong> pueden tardar de <strong style={{ color: '#1565C0' }}>1 a 7 días hábiles</strong> aproximadamente.
+              <strong style={{ color: '#333' }}>Demoras de entrega:</strong> pueden tardar de <strong style={{ color: '#C01515' }}>1 a 7 días hábiles</strong> aproximadamente.
             </span>
           </div>
           <div style={{ color: '#333', fontWeight: 800, fontSize: 13, letterSpacing: '0.06em', marginBottom: 12 }}>TRANSPORTES DISPONIBLES</div>

@@ -116,7 +116,7 @@ export default function ExitIntentPopup() {
     width: '100%',
     padding: '14px 20px',
     background: 'linear-gradient(135deg, #F0C030 0%, #D4AF37 100%)',
-    color: '#1565C0',
+    color: '#C01515',
     fontWeight: 800,
     fontSize: '15px',
     textAlign: 'center',

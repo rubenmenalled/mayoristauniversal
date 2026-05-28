@@ -30,7 +30,7 @@ function MPLogo({ height = 28, white = false }: { height?: number; white?: boole
 }
 
 const GOLD = '#D4AF37'
-const BLUE = '#1565C0'
+const BLUE = '#C01515'
 const MIN_COMPRA = 150000
 
 const STEPS = [
@@ -255,7 +255,7 @@ export default function CheckoutPage() {
               </div>
 
               {/* Alias para copiar — bien destacado */}
-              <div style={{ background: '#F0F8FF', border: '2px solid #009ee3', borderRadius: 14, padding: '16px 20px', marginBottom: 16 }}>
+              <div style={{ background: '#FFF5F5', border: '2px solid #009ee3', borderRadius: 14, padding: '16px 20px', marginBottom: 16 }}>
                 <p style={{ color: '#555', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', margin: '0 0 6px 0' }}>ALIAS DE MERCADO PAGO</p>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                   <div>
@@ -316,9 +316,9 @@ export default function CheckoutPage() {
               </p>
 
               {/* Aviso demora entrega */}
-              <div style={{ background: '#EFF6FF', border: '1px solid #93C5FD', borderRadius: 10, padding: '10px 14px', marginTop: 12, display: 'flex', gap: 8 }}>
+              <div style={{ background: '#FFF5F5', border: '1px solid #FCA5A5', borderRadius: 10, padding: '10px 14px', marginTop: 12, display: 'flex', gap: 8 }}>
                 <span style={{ fontSize: 16, flexShrink: 0 }}>🚚</span>
-                <p style={{ color: '#1E40AF', fontSize: 12, margin: 0, lineHeight: 1.5 }}>
+                <p style={{ color: '#991B1B', fontSize: 12, margin: 0, lineHeight: 1.5 }}>
                   <strong>Tiempo de entrega:</strong> los pedidos pueden demorar de <strong>3 a 7 días hábiles</strong> según el transporte y destino.
                 </p>
               </div>
@@ -424,7 +424,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Preview MP */}
-          <div style={{ marginTop: 24, background: '#F0F8FF', border: '1.5px solid #009ee3', borderRadius: 12, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ marginTop: 24, background: '#FFF5F5', border: '1.5px solid #009ee3', borderRadius: 12, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
             <MPLogo height={28} />
             <div>
               <p style={{ color: '#0076c0', fontWeight: 800, fontSize: 13, margin: '0 0 2px 0' }}>Pago con Mercado Pago</p>
@@ -506,9 +506,9 @@ export default function CheckoutPage() {
           </div>
 
           {/* Aviso demora entrega */}
-          <div style={{ marginTop: 14, background: '#EFF6FF', border: '1px solid #93C5FD', borderRadius: 10, padding: '10px 14px', display: 'flex', gap: 8 }}>
+          <div style={{ marginTop: 14, background: '#FFF5F5', border: '1px solid #FCA5A5', borderRadius: 10, padding: '10px 14px', display: 'flex', gap: 8 }}>
             <span style={{ fontSize: 15, flexShrink: 0 }}>🚚</span>
-            <p style={{ color: '#1E40AF', fontSize: 12, margin: 0, lineHeight: 1.5 }}>
+            <p style={{ color: '#991B1B', fontSize: 12, margin: 0, lineHeight: 1.5 }}>
               <strong>Tiempo de entrega:</strong> los pedidos pueden demorar de <strong>3 a 7 días hábiles</strong> según el transporte y destino.
             </p>
           </div>

@@ -59,7 +59,7 @@ export default function ComoComprarPage() {
             }}>
             <ArrowLeft size={16} /> Inicio
           </button>
-          <div style={{ color: '#1565C0', fontWeight: 900, fontSize: 20 }}>¿Cómo Comprar?</div>
+          <div style={{ color: '#C01515', fontWeight: 900, fontSize: 20 }}>¿Cómo Comprar?</div>
         </div>
       </div>
 
@@ -97,7 +97,7 @@ export default function ComoComprarPage() {
               {/* Contenido */}
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 24, marginBottom: 6 }}>{paso.emoji}</div>
-                <div style={{ color: '#1565C0', fontWeight: 800, fontSize: 18, marginBottom: 8 }}>
+                <div style={{ color: '#C01515', fontWeight: 800, fontSize: 18, marginBottom: 8 }}>
                   {paso.titulo}
                 </div>
                 <div style={{ color: '#4A5568', fontSize: 15, lineHeight: 1.7, marginBottom: paso.accion ? 14 : 0 }}>

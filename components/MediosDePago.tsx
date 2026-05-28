@@ -122,7 +122,7 @@ export default function MediosDePago() {
   const cardTitleStyle: React.CSSProperties = {
     fontSize: '15px',
     fontWeight: 700,
-    color: '#1565C0',
+    color: '#C01515',
     marginBottom: '6px',
     lineHeight: 1.3,
   };

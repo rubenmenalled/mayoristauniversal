@@ -91,12 +91,12 @@ export default function LoginPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 16px', borderRadius: 10, outline: 'none',
-    background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(10,31,92,0.2)',
-    color: '#1565C0', fontSize: 15, boxSizing: 'border-box',
+    background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(92,10,10,0.2)',
+    color: '#C01515', fontSize: 15, boxSizing: 'border-box',
   }
 
   const labelStyle: React.CSSProperties = {
-    color: '#1565C0', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
+    color: '#C01515', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
   }
 
   return (
@@ -122,20 +122,20 @@ export default function LoginPage() {
 
         {/* Card */}
         <div style={{
-          background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(10,31,92,0.15)',
+          background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(92,10,10,0.15)',
           borderRadius: 20, padding: '32px 28px',
         }}>
 
           {/* Tabs — solo cuando no es forgot */}
           {mode !== 'forgot' && (
-            <div style={{ display: 'flex', marginBottom: 28, background: 'rgba(10,31,92,0.08)', borderRadius: 12, padding: 4 }}>
+            <div style={{ display: 'flex', marginBottom: 28, background: 'rgba(92,10,10,0.08)', borderRadius: 12, padding: 4 }}>
               {(['login', 'register'] as const).map(m => (
                 <button key={m} onClick={() => { setMode(m); setError(''); setSuccess('') }}
                   style={{
                     flex: 1, padding: '10px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
                     fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
                     background: mode === m ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'transparent',
-                    color: mode === m ? '#FFFFFF' : '#1565C0',
+                    color: mode === m ? '#FFFFFF' : '#C01515',
                   }}>
                   {m === 'login' ? 'Ingresar' : 'Registrarse'}
                 </button>
@@ -146,7 +146,7 @@ export default function LoginPage() {
           {/* Título modo forgot */}
           {mode === 'forgot' && (
             <div style={{ marginBottom: 20 }}>
-              <h2 style={{ color: '#1565C0', fontWeight: 900, fontSize: 18, margin: 0 }}>Recuperar contraseña</h2>
+              <h2 style={{ color: '#C01515', fontWeight: 900, fontSize: 18, margin: 0 }}>Recuperar contraseña</h2>
               <p style={{ color: '#4b5563', fontSize: 13, marginTop: 6 }}>
                 Ingresá tu email y te enviamos un link para crear una nueva contraseña.
               </p>
@@ -193,7 +193,7 @@ export default function LoginPage() {
                           fontWeight: 800, fontSize: 13, transition: 'all 0.2s', border: '2px solid',
                           borderColor: reemplazo === op.val ? '#D4AF37' : 'rgba(212,175,55,0.2)',
                           background: reemplazo === op.val ? 'rgba(212,175,55,0.15)' : 'rgba(255,255,255,0.04)',
-                          color: reemplazo === op.val ? '#D4AF37' : '#1565C0',
+                          color: reemplazo === op.val ? '#D4AF37' : '#C01515',
                         }}>
                         {op.label}
                       </button>
@@ -255,7 +255,7 @@ export default function LoginPage() {
             <button type="submit" disabled={loading}
               style={{
                 width: '100%', padding: '14px', borderRadius: 12, border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#1565C0',
+                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#C01515',
                 fontWeight: 900, fontSize: 15, letterSpacing: '0.05em',
                 opacity: loading ? 0.7 : 1,
               }}>
@@ -266,7 +266,7 @@ export default function LoginPage() {
             {mode === 'forgot' && (
               <button type="button"
                 onClick={() => { setMode('login'); setError(''); setSuccess('') }}
-                style={{ width: '100%', marginTop: 12, padding: '12px', borderRadius: 12, border: '1px solid rgba(10,31,92,0.2)', background: 'transparent', color: '#1565C0', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
+                style={{ width: '100%', marginTop: 12, padding: '12px', borderRadius: 12, border: '1px solid rgba(92,10,10,0.2)', background: 'transparent', color: '#C01515', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
                 ← Volver al login
               </button>
             )}
