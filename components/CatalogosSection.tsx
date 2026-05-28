@@ -101,7 +101,7 @@ const KEYFRAMES = `
 
 function SkeletonGrid() {
   return (
-    <section style={{ background: '#0D1B2A', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+    <section style={{ background: '#5C0000', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Título skeleton */}
@@ -157,7 +157,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
   return (
     <>
-    <section id="catalogos" style={{ background: '#0D1B2A', padding: '4px 16px 16px' }}>
+    <section id="catalogos" style={{ background: '#5C0000', padding: '4px 16px 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -183,7 +183,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             overflow: 'hidden',
           }}
         >
-          <span style={{ color: '#0D1B2A', fontWeight: 900, fontSize: 'clamp(10px,2.5vw,13px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+          <span style={{ color: '#5C0000', fontWeight: 900, fontSize: 'clamp(10px,2.5vw,13px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
             IMPORTADOR DIRECTO
           </span>
           <div style={{ width: 1, height: 14, background: 'rgba(0,0,0,0.15)', flexShrink: 0 }} />
@@ -211,7 +211,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           <a href="/como-comprar" style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#0D1B2A', fontWeight: 900,
+            color: '#5C0000', fontWeight: 900,
             fontSize: 'clamp(10px,1.4vw,12px)',
             padding: '7px 14px', borderRadius: 8,
             textDecoration: 'none', whiteSpace: 'nowrap',

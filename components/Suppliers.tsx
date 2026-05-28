@@ -7,7 +7,7 @@ import { Star, MapPin, Package, MessageCircle, CheckCircle } from 'lucide-react'
 export default function Suppliers() {
   return (
     <section id="proveedores" className="py-24 relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #F0F0F0 0%, #0A1D3D 50%, #F0F0F0 100%)' }}>
+      style={{ background: 'linear-gradient(180deg, #F0F0F0 0%, #5C0000 50%, #F0F0F0 100%)' }}>
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(212,175,55,0.05) 0%, transparent 60%)' }} />
