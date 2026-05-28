@@ -1,6 +1,31 @@
 'use client'
 
+import { useState, useEffect } from 'react'
+
+const SLIDES = [
+  { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png' },
+  { desktop: '/banner1.jpg',         mobile: '/banner1.jpg' },
+  { desktop: '/banner2.jpg',         mobile: '/banner2.jpg' },
+  { desktop: '/banner3.jpg',         mobile: '/banner3.jpg' },
+]
+
 export default function HeroSection() {
+  const [current, setCurrent] = useState(0)
+  const [prev, setPrev]       = useState<number | null>(null)
+  const [animating, setAnimating] = useState(false)
+
+  useEffect(() => {
+    const t = setInterval(() => goTo((current + 1) % SLIDES.length), 5000)
+    return () => clearInterval(t)
+  }, [current])
+
+  function goTo(idx: number) {
+    if (idx === current || animating) return
+    setAnimating(true)
+    setPrev(current)
+    setCurrent(idx)
+    setTimeout(() => { setPrev(null); setAnimating(false) }, 700)
+  }
 
   return (
     <>
@@ -23,60 +48,57 @@ export default function HeroSection() {
           94%   { transform: translateX(88vw)  scaleX(1);  }
           100%  { transform: translateX(88vw)  scaleX(-1); }
         }
+        @keyframes slide-in {
+          from { opacity: 0; transform: scale(1.03); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slide-out {
+          from { opacity: 1; }
+          to   { opacity: 0; }
+        }
         @media (max-width: 767px) {
           #hero-section { padding-top: 195px; }
           #hero-banner { height: 58vw; position: relative; overflow: hidden; }
-          #hero-banner .kenburns-wrap { width: 100%; height: 100%; overflow: hidden; }
-          #hero-banner .kenburns-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
+          #hero-banner .slide-img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
           #hero-banner { width: 100%; position: relative; overflow: hidden; }
-          #hero-banner .kenburns-wrap { overflow: hidden; width: 100%; }
-          #hero-banner .kenburns-wrap img { width: 100%; height: auto; display: block; max-width: none; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
-        }
-        .envios-bar:hover { opacity: 0.92; transform: scale(1.01); }
-        .envios-bar { transition: all 0.2s ease; cursor: pointer; }
-        .transporte-card:hover { transform: translateY(-2px); background: rgba(212,175,55,0.12) !important; }
-        .transporte-card { transition: all 0.18s ease; }
-
-        /* Animación marco panda */
-        @keyframes panda-pulse {
-          0%, 100% { box-shadow: 0 0 0 3px rgba(212,175,55,0.35), 0 8px 32px rgba(0,0,0,0.6); }
-          50%       { box-shadow: 0 0 0 6px rgba(212,175,55,0.55), 0 8px 40px rgba(0,0,0,0.7); }
-        }
-        @keyframes neon-flicker {
-          0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-            text-shadow:
-              0 0 4px #fff,
-              0 0 10px #fff,
-              0 0 20px #ff2020,
-              0 0 40px #ff2020,
-              0 0 70px #ff0000,
-              0 0 90px #cc0000;
-          }
-          20%, 24%, 55% {
-            text-shadow: none;
-          }
+          #hero-banner .slide-img { width: 100%; height: auto; display: block; max-width: none; }
         }
       `}</style>
 
       <section id="hero-section">
         <div id="hero-banner">
-          <div className="kenburns-wrap">
+
+          {/* Slide anterior (fade out) */}
+          {prev !== null && (
+            <div style={{ position: 'absolute', inset: 0, zIndex: 1, animation: 'slide-out 0.7s ease forwards' }}>
+              <picture>
+                <source media="(max-width: 767px)" srcSet={SLIDES[prev].mobile} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={SLIDES[prev].desktop} alt="" className="slide-img" />
+              </picture>
+            </div>
+          )}
+
+          {/* Slide actual (fade in + leve zoom) */}
+          <div style={{ position: prev !== null ? 'absolute' : 'relative', inset: 0, zIndex: 2, animation: animating ? 'slide-in 0.7s ease forwards' : undefined }}>
             <picture>
-              <source media="(max-width: 767px)" srcSet="/portada_mobile.png" />
+              <source media="(max-width: 767px)" srcSet={SLIDES[current].mobile} />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/portada_desktop.png" alt="Mayorista Universal - Multirubros Mayoristas" />
+              <img
+                src={SLIDES[current].desktop}
+                alt="Mayorista Universal"
+                className="slide-img"
+                style={ !animating ? { animation: 'hero-kenburns 18s ease-in-out infinite', transformOrigin: 'center center' } : undefined }
+              />
             </picture>
           </div>
 
           {/* Panda — caminando de lado a lado */}
           <div style={{
-            position: 'absolute',
-            bottom: '4%',
-            left: 0,
-            zIndex: 10,
+            position: 'absolute', bottom: '4%', left: 0, zIndex: 10,
             pointerEvents: 'none',
             animation: 'panda-mover 28s linear infinite',
           }}>
@@ -84,18 +106,35 @@ export default function HeroSection() {
             <img
               src="/panda-v2.gif"
               alt="Panda caminando"
-              style={{
-                height: 'clamp(80px, 11vw, 150px)',
-                width: 'auto',
-                display: 'block',
-                filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))',
-              }}
+              style={{ height: 'clamp(80px, 11vw, 150px)', width: 'auto', display: 'block', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))' }}
             />
           </div>
+
+          {/* Puntos de navegación */}
+          <div style={{ position: 'absolute', bottom: 14, left: '50%', transform: 'translateX(-50%)', zIndex: 20, display: 'flex', gap: 8 }}>
+            {SLIDES.map((_, i) => (
+              <button key={i} onClick={() => goTo(i)}
+                style={{
+                  width: i === current ? 24 : 8, height: 8,
+                  borderRadius: 99, border: 'none', cursor: 'pointer', padding: 0,
+                  background: i === current ? '#D4AF37' : 'rgba(255,255,255,0.5)',
+                  transition: 'all 0.35s ease',
+                }} />
+            ))}
+          </div>
+
+          {/* Flechas prev / next */}
+          <button onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)}
+            style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', zIndex: 20, background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: '50%', width: 38, height: 38, color: '#FFF', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+            ‹
+          </button>
+          <button onClick={() => goTo((current + 1) % SLIDES.length)}
+            style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', zIndex: 20, background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: '50%', width: 38, height: 38, color: '#FFF', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+            ›
+          </button>
+
         </div>
-
       </section>
-
     </>
   )
 }
