@@ -280,29 +280,21 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile search bar */}
-      <AnimatePresence>
-        {mobileSearchOpen && (
-          <motion.div className="lg:hidden border-t border-white/10"
-            style={{ background: 'rgba(204,0,0,0.98)' }}
-            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
-            <form className="px-4 py-3 flex gap-2"
-              onSubmit={e => { e.preventDefault(); if (mobileSearch.trim()) { window.location.href = `/buscar?q=${encodeURIComponent(mobileSearch.trim())}` } }}>
-              <input
-                type="text" value={mobileSearch} onChange={e => setMobileSearch(e.target.value)}
-                placeholder="Buscar productos, categorías o marcas..."
-                autoFocus
-                className="flex-1 bg-white border border-gold/30 text-gray-800 placeholder-gray-400 rounded-lg px-4 py-2.5 outline-none text-sm"
-              />
-              <button type="submit" className="px-4 py-2.5 rounded-lg flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
-                <Search size={18} className="text-navy" strokeWidth={2.5} />
-              </button>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile search bar — siempre visible */}
+      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(204,0,0,0.98)' }}>
+        <form className="px-3 py-2 flex gap-2"
+          onSubmit={e => { e.preventDefault(); if (mobileSearch.trim()) { window.location.href = `/buscar?q=${encodeURIComponent(mobileSearch.trim())}` } }}>
+          <input
+            type="text" value={mobileSearch} onChange={e => setMobileSearch(e.target.value)}
+            placeholder="Buscar productos, categorías o marcas..."
+            className="flex-1 bg-white border border-gold/30 text-gray-800 placeholder-gray-400 rounded-lg px-3 py-2 outline-none text-sm"
+          />
+          <button type="submit" className="px-4 py-2 rounded-lg flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+            <Search size={18} className="text-navy" strokeWidth={2.5} />
+          </button>
+        </form>
+      </div>
 
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
