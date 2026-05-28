@@ -36,6 +36,8 @@ export default function Header() {
   const catRef = useRef<HTMLDivElement>(null)
   const [userName, setUserName] = useState<string | null>(null)
   const [hoveredCat, setHoveredCat] = useState<string | null>(null)
+  const [openCat, setOpenCat] = useState<string | null>(null)
+  const catBarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
@@ -63,6 +65,9 @@ export default function Header() {
     function handleClick(e: MouseEvent) {
       if (catRef.current && !catRef.current.contains(e.target as Node)) {
         setCatOpen(false)
+      }
+      if (catBarRef.current && !catBarRef.current.contains(e.target as Node)) {
+        setOpenCat(null)
       }
     }
     document.addEventListener('mousedown', handleClick)
@@ -272,83 +277,81 @@ export default function Header() {
 
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
-        <div style={{
-          background: 'rgba(170,0,0,0.97)',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-        }}>
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            padding: '2px 8px',
-            maxHeight: '68px',
-            overflow: 'hidden',
-          }}>
-            {categorias.map((cat) => (
-              <div
-                key={cat.id}
-                style={{ position: 'relative' }}
-                onMouseEnter={() => setHoveredCat(cat.nombre)}
-                onMouseLeave={() => setHoveredCat(null)}
-              >
-                <a
-                  href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 4,
-                    padding: '7px 10px',
-                    color: '#FFFFFF',
-                    fontWeight: 700,
-                    fontSize: 'clamp(10px,1.1vw,12px)',
-                    textDecoration: 'none',
-                    whiteSpace: 'nowrap',
-                    transition: 'color 0.15s',
-                    cursor: 'pointer',
-                  }}
+        <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
+          <div style={{ display: 'flex', flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'hidden' }}>
+            {categorias.map((cat) => {
+              const isOpen = openCat === cat.nombre
+              return (
+                <div
+                  key={cat.id}
+                  style={{ position: 'relative' }}
+                  onMouseEnter={() => setHoveredCat(cat.nombre)}
+                  onMouseLeave={() => setHoveredCat(null)}
                 >
-                  <span style={{ fontSize: 13 }}>{cat.emoji}</span>
-                  <span style={{ borderBottom: hoveredCat === cat.nombre ? '1px solid #fff' : '1px solid transparent', transition: 'border-color 0.15s' }}>
-                    {cat.nombre}
-                  </span>
-                  <span style={{
-                    fontSize: 9,
-                    opacity: hoveredCat === cat.nombre ? 1 : 0.5,
-                    transition: 'opacity 0.15s, transform 0.15s',
-                    transform: hoveredCat === cat.nombre ? 'rotate(180deg)' : 'rotate(0deg)',
-                    display: 'inline-block',
-                  }}>▼</span>
-                </a>
+                  {/* Botón de categoría — NO navega, abre dropdown */}
+                  <button
+                    onClick={() => setOpenCat(isOpen ? null : cat.nombre)}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 4,
+                      padding: '7px 10px',
+                      color: '#FFFFFF',
+                      fontWeight: 700,
+                      fontSize: 'clamp(10px,1.1vw,12px)',
+                      background: 'none',
+                      border: 'none',
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <span style={{ fontSize: 13 }}>{cat.emoji}</span>
+                    <span style={{
+                      borderBottom: (hoveredCat === cat.nombre || isOpen) ? '1px solid #fff' : '1px solid transparent',
+                      transition: 'border-color 0.15s',
+                    }}>
+                      {cat.nombre}
+                    </span>
+                    <span style={{
+                      fontSize: 9,
+                      transition: 'transform 0.2s',
+                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      display: 'inline-block',
+                    }}>▼</span>
+                  </button>
 
-                {/* Dropdown */}
-                {hoveredCat === cat.nombre && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: 0,
-                    zIndex: 200,
-                    background: '#FFFFFF',
-                    border: '1px solid rgba(0,0,0,0.1)',
-                    borderRadius: 8,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                    minWidth: 200,
-                    padding: '8px 0',
-                    animation: 'fadeInDown 0.15s ease',
-                  }}>
-                    <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
-                    <div style={{ padding: '6px 16px 8px', borderBottom: '1px solid #f0f0f0' }}>
-                      <span style={{ fontSize: 20 }}>{cat.emoji}</span>
-                      <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 13, marginLeft: 6 }}>{cat.nombre}</span>
+                  {/* Dropdown */}
+                  {isOpen && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      zIndex: 200,
+                      background: '#FFFFFF',
+                      border: '1px solid rgba(0,0,0,0.1)',
+                      borderRadius: 8,
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                      minWidth: 220,
+                      padding: '8px 0',
+                      animation: 'fadeInDown 0.15s ease',
+                    }}>
+                      <div style={{ padding: '8px 16px 10px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{ fontSize: 22 }}>{cat.emoji}</span>
+                        <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 14 }}>{cat.nombre}</span>
+                      </div>
+                      <a
+                        href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
+                        onClick={() => setOpenCat(null)}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 16px', color: '#333', fontWeight: 700, fontSize: 13, textDecoration: 'none' }}
+                        onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
+                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                      >
+                        Ver todos los productos <span style={{ color: '#CC0000', fontSize: 16 }}>→</span>
+                      </a>
                     </div>
-                    <a
-                      href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
-                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', color: '#333', fontWeight: 700, fontSize: 13, textDecoration: 'none' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
-                      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                    >
-                      Ver todos los productos <span style={{ color: '#CC0000' }}>→</span>
-                    </a>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       )}
