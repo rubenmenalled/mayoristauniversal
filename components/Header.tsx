@@ -38,6 +38,7 @@ export default function Header() {
   const [hoveredCat, setHoveredCat] = useState<string | null>(null)
   const [openCat, setOpenCat] = useState<string | null>(null)
   const catBarRef = useRef<HTMLDivElement>(null)
+  const [subsByCategory, setSubsByCategory] = useState<Record<string, string[]>>({})
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
@@ -73,6 +74,19 @@ export default function Header() {
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
+
+  // Cargar subcategorías reales de la DB cuando se abre una categoría
+  useEffect(() => {
+    if (!openCat || openCat === '__mobile__') return
+    if (subsByCategory[openCat] !== undefined) return // ya cargadas
+    fetch(`/api/subcategorias?categoria=${encodeURIComponent(openCat)}`)
+      .then(r => r.json())
+      .then((data: {nombre:string}[]) => {
+        const names = data.map((s: {nombre:string}) => s.nombre).filter(Boolean)
+        setSubsByCategory(prev => ({ ...prev, [openCat]: names }))
+      })
+      .catch(() => {})
+  }, [openCat, subsByCategory])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -300,7 +314,9 @@ export default function Header() {
                         <span style={{ fontSize: 20 }}>{cat.emoji}</span>
                         <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 13 }}>{cat.nombre}</span>
                       </div>
-                      {cat.subcategorias && cat.subcategorias.map((sub) => (
+                      {(subsByCategory[cat.nombre] ?? cat.subcategorias ?? []).length === 0 ? (
+                        <div style={{ padding: '10px 16px', color: '#999', fontSize: 12 }}>Cargando...</div>
+                      ) : (subsByCategory[cat.nombre] ?? cat.subcategorias ?? []).map((sub) => (
                         <a key={sub} href={`/categorias/${encodeURIComponent(cat.nombre)}?sub=${encodeURIComponent(sub)}`} onClick={() => setOpenCat(null)}
                           style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', color: '#444', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}
                           onMouseEnter={e => { e.currentTarget.style.background = '#FFF5F5'; e.currentTarget.style.color = '#CC0000' }}
@@ -356,7 +372,7 @@ export default function Header() {
                       <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
-                      {categorias.find(c => c.nombre === openCat)?.subcategorias?.map((sub) => (
+                      {(subsByCategory[openCat] ?? categorias.find(c => c.nombre === openCat)?.subcategorias ?? []).map((sub) => (
                         <a key={sub} href={`/categorias/${encodeURIComponent(openCat)}?sub=${encodeURIComponent(sub)}`}
                           onClick={() => setOpenCat(null)}
                           style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '8px 10px', background: '#FFFFFF', border: '1px solid #EEE', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none' }}>
