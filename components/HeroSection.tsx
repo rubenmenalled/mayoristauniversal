@@ -4,9 +4,21 @@ import { useState, useEffect } from 'react'
 
 const SLIDES = [
   { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png' },
-  { desktop: '/banner1.png',         mobile: '/banner1.png' },
-  { desktop: '/banner2.png',         mobile: '/banner2.png' },
-  { desktop: '/banner3.png',         mobile: '/banner3.png' },
+  // Tecnología y Herramientas
+  { desktop: '/b1_1.png', mobile: '/b1_1.png' },
+  { desktop: '/b1_2.png', mobile: '/b1_2.png' },
+  { desktop: '/b1_3.png', mobile: '/b1_3.png' },
+  { desktop: '/b1_4.png', mobile: '/b1_4.png' },
+  { desktop: '/b1_5.png', mobile: '/b1_5.png' },
+  // Bazar / Grifería / Iluminación
+  { desktop: '/b2_1.png', mobile: '/b2_1.png' },
+  { desktop: '/b2_2.png', mobile: '/b2_2.png' },
+  { desktop: '/b2_3.png', mobile: '/b2_3.png' },
+  // Maquillajes / Cosmética / Marroquinería / Perfumería
+  { desktop: '/b3_1.png', mobile: '/b3_1.png' },
+  { desktop: '/b3_2.png', mobile: '/b3_2.png' },
+  { desktop: '/b3_3.png', mobile: '/b3_3.png' },
+  { desktop: '/b3_4.png', mobile: '/b3_4.png' },
 ]
 
 export default function HeroSection() {
