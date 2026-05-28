@@ -10,10 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         navy: {
-          DEFAULT: '#5C0000',
-          light: '#700000',
-          mid: '#5C0000',
-          dark: '#2D0000',
+          DEFAULT: '#CC0000',
+          light: '#DD1111',
+          mid: '#CC0000',
+          dark: '#990000',
         },
         gold: {
           DEFAULT: '#D4AF37',
@@ -61,8 +61,8 @@ const config: Config = {
       },
       backgroundImage: {
         'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F0D060 50%, #D4AF37 100%)',
-        'navy-gradient': 'linear-gradient(135deg, #4A0000 0%, #700000 50%, #4A0000 100%)',
-        'hero-radial': 'radial-gradient(ellipse at center, #700000 0%, #4A0000 60%, #2D0000 100%)',
+        'navy-gradient': 'linear-gradient(135deg, #AA0000 0%, #DD1111 50%, #AA0000 100%)',
+        'hero-radial': 'radial-gradient(ellipse at center, #DD1111 0%, #AA0000 60%, #990000 100%)',
       },
       dropShadow: {
         'gold': '0 0 20px rgba(212,175,55,0.6)',

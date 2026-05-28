@@ -271,7 +271,7 @@ export default function Header() {
 
       {/* ── Franja azul de frases rotativas ── */}
       <div style={{
-        background: 'linear-gradient(135deg, #5C0000 0%, #6B0000 100%)',
+        background: 'linear-gradient(135deg, #CC0000 0%, #CC0000 100%)',
         borderTop: '1px solid rgba(212,175,55,0.25)',
         padding: '7px 16px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',

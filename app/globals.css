@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  background-color: #5C0000;
+  background-color: #CC0000;
   color: white;
   overflow-x: hidden;
   max-width: 100%;
@@ -22,7 +22,7 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #6B0000; }
+::-webkit-scrollbar-track { background: #CC0000; }
 ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #F0D060; }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .glass-card {
-  background: #6B0000;
+  background: #CC0000;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(212, 175, 55, 0.25);
@@ -98,7 +98,7 @@ body {
 
 /* Hero radial glow */
 .hero-glow {
-  background: radial-gradient(ellipse at 50% 0%, #700000 0%, #E5E5E5 55%, #2D0000 100%);
+  background: radial-gradient(ellipse at 50% 0%, #DD1111 0%, #E5E5E5 55%, #990000 100%);
 }
 
 /* Section divider */

@@ -7,7 +7,7 @@ export default function PromoBanner() {
 
   return (
     <div className="relative overflow-hidden py-3 border-y border-gold/20"
-      style={{ background: 'linear-gradient(135deg, #5C0000 0%, #F0F0F0 50%, #5C0000 100%)' }}>
+      style={{ background: 'linear-gradient(135deg, #CC0000 0%, #F0F0F0 50%, #CC0000 100%)' }}>
       {/* Left & right fade masks */}
       <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to right, #F0F0F0, transparent)' }} />
