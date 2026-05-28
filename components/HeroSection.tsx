@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES = [
-  { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png', fit: 'cover'   as const, bg: '#0D1B2A' },
-  { desktop: '/banner1.png',         mobile: '/banner1.png',         fit: 'contain' as const, bg: '#0D1828' },
-  { desktop: '/banner2.png',         mobile: '/banner2.png',         fit: 'contain' as const, bg: '#F5F0E8' },
-  { desktop: '/banner3.png',         mobile: '/banner3.png',         fit: 'contain' as const, bg: '#FDF0F5' },
+  { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png' },
+  { desktop: '/banner1.png',         mobile: '/banner1.png' },
+  { desktop: '/banner2.png',         mobile: '/banner2.png' },
+  { desktop: '/banner3.png',         mobile: '/banner3.png' },
 ]
 
 export default function HeroSection() {
@@ -39,21 +39,21 @@ export default function HeroSection() {
         }
         @media (max-width: 767px) {
           #hero-section { padding-top: 195px; }
-          #hero-banner { aspect-ratio: 4/3; }
+          #hero-banner { aspect-ratio: 5/3; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
-          #hero-banner { aspect-ratio: 16/7; }
+          #hero-banner { aspect-ratio: 5/2; }
         }
         .hero-slide {
           position: absolute;
           inset: 0;
           transition: opacity 0.8s ease;
-          background: #fff;
         }
         .hero-slide img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
           object-position: center center;
           display: block;
         }
@@ -71,11 +71,11 @@ export default function HeroSection() {
         <div id="hero-banner" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
 
           {SLIDES.map((slide, i) => (
-            <div key={i} className={`hero-slide ${i === current ? 'active' : 'inactive'}`} style={{ background: slide.bg }}>
+            <div key={i} className={`hero-slide ${i === current ? 'active' : 'inactive'}`}>
               <picture>
                 <source media="(max-width: 767px)" srcSet={slide.mobile} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={slide.desktop} alt={`Banner ${i + 1}`} style={{ objectFit: slide.fit }} />
+                <img src={slide.desktop} alt={`Banner ${i + 1}`} />
               </picture>
             </div>
           ))}
