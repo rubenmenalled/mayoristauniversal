@@ -309,8 +309,9 @@ export default function Header() {
         <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
           <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
-          {/* ── DESKTOP: 2 renglones con dropdown ── */}
-          <div className="hidden md:flex" style={{ flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'visible', position: 'relative', zIndex: 400 }}>
+          {/* ── DESKTOP: fila única con scroll horizontal ── */}
+          <style>{`.cat-bar::-webkit-scrollbar{display:none}`}</style>
+          <div className="cat-bar hidden md:flex" style={{ flexWrap: 'nowrap', overflowX: 'auto', overflowY: 'visible', padding: '0 8px', position: 'relative', zIndex: 400, scrollbarWidth: 'none' }}>
             {categorias.map((cat) => {
               const isOpen = openCat === cat.nombre
               return (
