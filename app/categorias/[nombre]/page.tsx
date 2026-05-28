@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { useCart } from '@/lib/CartContext'
 import CartSidebar from '@/components/CartSidebar'
 
@@ -69,6 +69,7 @@ export default function CategoriaPage() {
     searchParams.get('sub') ? decodeURIComponent(searchParams.get('sub')!) : ''
   )
   const [loading, setLoading] = useState(true)
+  const [busquedaInterna, setBusquedaInterna] = useState('')
   const [lightbox, setLightbox] = useState<Producto | null>(null)
   const [lightboxImgIdx, setLightboxImgIdx] = useState(0)
   const [zoom, setZoom] = useState(false)
@@ -100,16 +101,23 @@ export default function CategoriaPage() {
       .catch(() => {})
   }, [nombreDecoded])
 
-  const productosFiltrados = subActiva === '' || subActiva === '__todos__'
+  const porSubcategoria = subActiva === '' || subActiva === '__todos__'
     ? productos
     : productos.filter(p => {
-        // 1) Filtrar por subcategory exacto si existe en el producto
         if (p.subcategory && p.subcategory.trim() !== '') {
           return p.subcategory.toLowerCase() === subActiva.toLowerCase()
         }
-        // 2) Fallback: buscar la subcategoría como palabra en el nombre del producto
         const keyword = subActiva.toLowerCase().split(' ')[0]
         return p.name?.toLowerCase().includes(keyword)
+      })
+
+  const productosFiltrados = busquedaInterna.trim() === ''
+    ? porSubcategoria
+    : porSubcategoria.filter(p => {
+        const q = normalizar(busquedaInterna)
+        return normalizar(p.name || '').includes(q) ||
+               normalizar(p.brand || '').includes(q) ||
+               normalizar(p.subcategory || '').includes(q)
       })
 
   return (
@@ -120,25 +128,44 @@ export default function CategoriaPage() {
         padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
-          <button onClick={() => router.push('/')}
-            style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13 }}>
-            <ArrowLeft size={16} /> Inicio
-          </button>
-          <div style={{ color: '#C01515', fontWeight: 900, fontSize: 20, flex: 1 }}>{nombreDecoded}</div>
-          <a href="/catalogo" style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#FFFFFF', fontWeight: 900, fontSize: 12,
-            padding: '6px 14px', borderRadius: 8, textDecoration: 'none',
-            whiteSpace: 'nowrap', letterSpacing: '0.04em',
-          }}>
-            📋 VER CATÁLOGO
-          </a>
-          <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#C01515', padding: 6 }}>
-            <ShoppingCart size={24} />
-            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
-          </button>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {/* Fila 1: navegación */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <button onClick={() => router.push('/')}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
+              <ArrowLeft size={16} /> Inicio
+            </button>
+            <div style={{ color: '#C01515', fontWeight: 900, fontSize: 18, flex: 1 }}>{nombreDecoded}</div>
+            <a href="/catalogo" style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+              color: '#FFFFFF', fontWeight: 900, fontSize: 11,
+              padding: '5px 12px', borderRadius: 8, textDecoration: 'none',
+              whiteSpace: 'nowrap', letterSpacing: '0.04em', flexShrink: 0,
+            }}>
+              📋 VER CATÁLOGO
+            </a>
+            <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#C01515', padding: 4, flexShrink: 0 }}>
+              <ShoppingCart size={22} />
+              {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
+            </button>
+          </div>
+          {/* Fila 2: buscador interno */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#FFFFFF', border: '1.5px solid rgba(204,0,0,0.25)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
+            onFocus={() => {}} >
+            <Search size={16} color="#CC0000" style={{ flexShrink: 0 }} />
+            <input
+              type="text"
+              value={busquedaInterna}
+              onChange={e => setBusquedaInterna(e.target.value)}
+              placeholder={`Buscar en ${nombreDecoded}...`}
+              style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#333', background: 'transparent', minWidth: 0 }}
+            />
+            {busquedaInterna && (
+              <button onClick={() => setBusquedaInterna('')}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', fontSize: 16, lineHeight: 1, padding: 0, flexShrink: 0 }}>✕</button>
+            )}
+          </div>
         </div>
       </div>
 
