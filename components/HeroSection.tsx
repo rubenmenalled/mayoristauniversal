@@ -7,6 +7,8 @@ const SLIDES = [
   { desktop: '/banner1.png',         mobile: '/banner1.png' },
   { desktop: '/banner2.png',         mobile: '/banner2.png' },
   { desktop: '/banner3.png',         mobile: '/banner3.png' },
+  { desktop: '/banner4.png',         mobile: '/banner4.png' },
+  { desktop: '/banner5.png',         mobile: '/banner5.png' },
 ]
 
 export default function HeroSection() {
