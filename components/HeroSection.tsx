@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 
 const SLIDES = [
   { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png' },
-  { desktop: '/banner1.jpg',         mobile: '/banner1.jpg' },
-  { desktop: '/banner2.jpg',         mobile: '/banner2.jpg' },
-  { desktop: '/banner3.jpg',         mobile: '/banner3.jpg' },
+  { desktop: '/banner1.png',         mobile: '/banner1.png' },
+  { desktop: '/banner2.png',         mobile: '/banner2.png' },
+  { desktop: '/banner3.png',         mobile: '/banner3.png' },
 ]
 
 export default function HeroSection() {
