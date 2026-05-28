@@ -32,7 +32,7 @@ export default function Header() {
   const [fraseIdx, setFraseIdx] = useState(0)
   const [fraseVisible, setFraseVisible] = useState(true)
   const { count, cartOpen, setCartOpen } = useCart()
-  const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
+  const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string,subcategorias:string[]}[]>([])
   const catRef = useRef<HTMLDivElement>(null)
   const [userName, setUserName] = useState<string | null>(null)
   const [hoveredCat, setHoveredCat] = useState<string | null>(null)
@@ -330,23 +330,40 @@ export default function Header() {
                       border: '1px solid rgba(0,0,0,0.1)',
                       borderRadius: 8,
                       boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                      minWidth: 220,
+                      minWidth: 230,
                       padding: '8px 0',
                       animation: 'fadeInDown 0.15s ease',
                     }}>
+                      {/* Header del dropdown */}
                       <div style={{ padding: '8px 16px 10px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <span style={{ fontSize: 22 }}>{cat.emoji}</span>
-                        <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 14 }}>{cat.nombre}</span>
+                        <span style={{ fontSize: 20 }}>{cat.emoji}</span>
+                        <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 13 }}>{cat.nombre}</span>
                       </div>
-                      <a
-                        href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
-                        onClick={() => setOpenCat(null)}
-                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 16px', color: '#333', fontWeight: 700, fontSize: 13, textDecoration: 'none' }}
-                        onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
-                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                      >
-                        Ver todos los productos <span style={{ color: '#CC0000', fontSize: 16 }}>→</span>
-                      </a>
+                      {/* Subcategorías */}
+                      {cat.subcategorias && cat.subcategorias.map((sub) => (
+                        <a
+                          key={sub}
+                          href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}&sub=${encodeURIComponent(sub)}`}
+                          onClick={() => setOpenCat(null)}
+                          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', color: '#444', fontWeight: 600, fontSize: 13, textDecoration: 'none', transition: 'background 0.1s' }}
+                          onMouseEnter={e => { e.currentTarget.style.background = '#FFF5F5'; e.currentTarget.style.color = '#CC0000' }}
+                          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#444' }}
+                        >
+                          <span style={{ color: '#CC0000', fontSize: 10 }}>▸</span> {sub}
+                        </a>
+                      ))}
+                      {/* Ver todos */}
+                      <div style={{ borderTop: '1px solid #f0f0f0', marginTop: 4 }}>
+                        <a
+                          href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
+                          onClick={() => setOpenCat(null)}
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', color: '#CC0000', fontWeight: 800, fontSize: 12, textDecoration: 'none' }}
+                          onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
+                          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                        >
+                          Ver todos los productos <span style={{ fontSize: 14 }}>→</span>
+                        </a>
+                      </div>
                     </div>
                   )}
                 </div>

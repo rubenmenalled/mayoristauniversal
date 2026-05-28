@@ -107,6 +107,33 @@ export async function GET() {
     'ACCESORIOS DE PELO':  '💇',
   }
 
+  const SUBCATEGORIAS: Record<string, string[]> = {
+    'INVIERNO 2026':      ['Camperas', 'Sweaters', 'Ropa Térmica', 'Gorros y Guantes', 'Medias'],
+    'HOGAR Y BAZAR':      ['Cocina', 'Baño', 'Decoración', 'Organización', 'Limpieza'],
+    'PELUCHES':           ['Peluches Chicos', 'Peluches Grandes', 'Muñecos', 'Animales de Peluche'],
+    'ACCESORIOS DE PELO': ['Vinchas', 'Colitas', 'Hebillas', 'Pinches', 'Turbantes'],
+    'BELLEZA':            ['Maquillaje', 'Skincare', 'Uñas', 'Cabello', 'Herramientas Belleza'],
+    'MARROQUINERIA':      ['Carteras', 'Billeteras', 'Cinturones', 'Mochilas', 'Riñoneras'],
+    'RELOJES':            ['Relojes Hombre', 'Relojes Mujer', 'Relojes Niño', 'Smartwatch'],
+    'LIBRERIA':           ['Cuadernos', 'Útiles Escolares', 'Arte y Manualidades', 'Mochilas'],
+    'ELECTRONICA':        ['Accesorios Celular', 'Audio y Auriculares', 'Cargadores', 'Smartwatch'],
+    'HERRAMIENTAS':       ['Herramientas Manuales', 'Herramientas Eléctricas', 'Medición', 'Accesorios'],
+    'ILUMINACION':        ['Iluminación Interior', 'Iluminación Exterior', 'Tiras LED', 'Lámparas'],
+    'JUGUETERIA':         ['Juguetes Bebé', 'Juguetes Niño', 'Juguetes Niña', 'Juegos Educativos'],
+    'AUTOMOTOR':          ['Accesorios Auto', 'Limpieza Auto', 'Seguridad Vial', 'Electrónica Auto'],
+    'FITNESS':            ['Ropa Deportiva', 'Equipamiento Gym', 'Accesorios Fitness', 'Yoga'],
+    'CAMPING':            ['Carpas', 'Sleeping', 'Iluminación Camping', 'Cocina Outdoor'],
+    'BEBE':               ['Ropa de Bebé', 'Juguetes Bebé', 'Higiene Bebé', 'Accesorios Bebé'],
+    'MASCOTAS':           ['Accesorios Perro', 'Accesorios Gato', 'Juguetes Mascotas', 'Higiene Mascotas'],
+    'BIJOUTERIE':         ['Collares', 'Aros', 'Pulseras', 'Anillos', 'Sets de Bijou'],
+    'PRODUCTOS REGIONALES':['Alimentos Regionales', 'Dulces y Conservas', 'Artesanías', 'Bebidas'],
+    'PERFUMERIA':         ['Perfumes Mujer', 'Perfumes Hombre', 'Desodorantes', 'Cremas y Lociones'],
+    'BLANQUERIA':         ['Sábanas', 'Toallas', 'Almohadas', 'Edredones', 'Acolchados'],
+    'OPTICA':             ['Anteojos de Sol', 'Anteojos de Lectura', 'Estuches', 'Limpiadores'],
+    'LENCERIA':           ['Ropa Interior Mujer', 'Pijamas', 'Medias y Medias Cañas', 'Camisones'],
+    'RODADOS':            ['Bicicletas', 'Patines', 'Scooters', 'Accesorios Rodados'],
+  }
+
   const mapped = uniqueNames.map((nombre, i) => ({
     id:    i + 1,
     name:  nombre,
@@ -114,6 +141,7 @@ export async function GET() {
     emoji: EMOJIS[nombre] || '📦',
     image: FOTOS[nombre] || '',
     description: '',
+    subcategorias: SUBCATEGORIAS[nombre] || [],
     count: (data ?? []).filter((p: any) => (p.categoria || '').trim().toUpperCase() === nombre).length,
   }))
 
