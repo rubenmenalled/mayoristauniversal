@@ -75,7 +75,7 @@ function ProductCard({ p }: { p: Product }) {
       <div className="absolute inset-0 rounded-xl border border-gold/0 group-hover:border-gold/40 transition-all duration-300 pointer-events-none z-10" />
 
       {/* Image */}
-      <div className="relative h-56 bg-navy-mid overflow-hidden" style={{ background: '#F0F0F0' }}>
+      <div className="relative h-80 bg-navy-mid overflow-hidden" style={{ background: '#F0F0F0' }}>
         <Image src={p.image} alt={p.name} fill
           className="object-contain transition-transform duration-500 group-hover:scale-105 p-2"
           sizes="(max-width:640px) 100vw, 200px" />

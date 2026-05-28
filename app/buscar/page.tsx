@@ -136,7 +136,7 @@ function BuscarContent() {
                     className="glass-card rounded-xl overflow-hidden"
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }} whileHover={{ y: -4 }}>
-                    <div style={{ position: 'relative', height: 220, background: '#F0F0F0', overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', height: 340, background: '#F0F0F0', overflow: 'hidden' }}>
                       {p.image ? (
                         <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="220px" />
                       ) : (
