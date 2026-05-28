@@ -309,52 +309,71 @@ export default function Header() {
         <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
           <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
-          {/* ── DESKTOP: fila única con scroll horizontal ── */}
-          <style>{`.cat-bar::-webkit-scrollbar{display:none}`}</style>
-          <div className="cat-bar hidden md:flex" style={{ flexWrap: 'nowrap', overflowX: 'auto', overflowY: 'visible', padding: '0 8px', position: 'relative', zIndex: 400, scrollbarWidth: 'none' }}>
-            {categorias.map((cat) => {
-              const isOpen = openCat === cat.nombre
-              return (
-                <div key={cat.id} style={{ position: 'relative' }}
-                  onMouseEnter={() => setHoveredCat(cat.nombre)}
-                  onMouseLeave={() => setHoveredCat(null)}>
-                  <button onClick={() => setOpenCat(isOpen ? null : cat.nombre)}
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '8px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: '12px', background: 'none', border: 'none', whiteSpace: 'nowrap', cursor: 'pointer' }}>
-                    <span style={{ fontSize: 14 }}>{cat.emoji}</span>
-                    <span style={{ borderBottom: (hoveredCat === cat.nombre || isOpen) ? '1px solid #fff' : '1px solid transparent', transition: 'border-color 0.15s' }}>{cat.nombre}</span>
-                    <span style={{ fontSize: 9, transition: 'transform 0.2s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
+          {/* ── DESKTOP: botón + mega-menú ── */}
+          <div className="hidden md:flex" style={{ alignItems: 'center', padding: '0 8px', position: 'relative', zIndex: 400 }}>
+            <button
+              onClick={() => setOpenCat(openCat === '__desktop__' ? null : '__desktop__')}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 16px', color: '#FFFFFF', fontWeight: 800, fontSize: 13, background: openCat === '__desktop__' ? 'rgba(255,255,255,0.15)' : 'none', border: 'none', whiteSpace: 'nowrap', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}>
+              <span style={{ fontSize: 16 }}>☰</span> CATEGORÍAS
+              <span style={{ fontSize: 9, transition: 'transform 0.2s', transform: openCat === '__desktop__' ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
+            </button>
+
+            {openCat === '__desktop__' && (
+              <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 12, boxShadow: '0 12px 40px rgba(0,0,0,0.25)', width: 720, padding: '16px', animation: 'fadeInDown 0.15s ease' }}>
+                {!openCat || openCat === '__desktop__' ? (
+                  /* Grilla de todas las categorías */
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8 }}>
+                    {categorias.map((cat) => (
+                      <button key={cat.id}
+                        onClick={() => { setOpenCat(cat.nombre); fetchSubs(cat.nombre) }}
+                        style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', background: '#F9F9F9', border: '1px solid #EEE', borderRadius: 8, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#FFF0F0'; e.currentTarget.style.borderColor = '#CC0000' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#F9F9F9'; e.currentTarget.style.borderColor = '#EEE' }}>
+                        <span style={{ fontSize: 18, flexShrink: 0 }}>{cat.emoji}</span>
+                        <span style={{ color: '#333', fontWeight: 700, fontSize: 11, lineHeight: 1.2 }}>{cat.nombre}</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            )}
+
+            {/* Panel de subcategorías cuando se selecciona una cat desde el mega-menú */}
+            {openCat && openCat !== '__desktop__' && openCat !== '__mobile__' && (
+              <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 12, boxShadow: '0 12px 40px rgba(0,0,0,0.25)', width: 480, padding: '14px', animation: 'fadeInDown 0.15s ease' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid #F0F0F0' }}>
+                  <button onClick={() => setOpenCat('__desktop__')}
+                    style={{ background: 'none', border: 'none', color: '#CC0000', fontWeight: 700, fontSize: 13, cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    ← Volver
                   </button>
-                  {isOpen && (
-                    <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 8, boxShadow: '0 8px 24px rgba(0,0,0,0.2)', minWidth: 230, padding: '8px 0', animation: 'fadeInDown 0.15s ease', maxHeight: '70vh', overflowY: 'auto' }}>
-                      <div style={{ padding: '8px 16px 10px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <span style={{ fontSize: 20 }}>{cat.emoji}</span>
-                        <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 13 }}>{cat.nombre}</span>
-                      </div>
-                      {subsByCategory[cat.nombre] === undefined ? (
-                        <div style={{ padding: '10px 16px', color: '#999', fontSize: 12 }}>Cargando...</div>
-                      ) : subsByCategory[cat.nombre].length === 0 ? (
-                        <div style={{ padding: '10px 16px', color: '#bbb', fontSize: 12 }}>Sin subcategorías</div>
-                      ) : subsByCategory[cat.nombre].map((sub) => (
-                        <a key={sub} href={`/categorias/${encodeURIComponent(cat.nombre)}?sub=${encodeURIComponent(sub)}`} onClick={() => setOpenCat(null)}
-                          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', color: '#444', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}
-                          onMouseEnter={e => { e.currentTarget.style.background = '#FFF5F5'; e.currentTarget.style.color = '#CC0000' }}
-                          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#444' }}>
-                          <span style={{ color: '#CC0000', fontSize: 10 }}>▸</span> {sub}
-                        </a>
-                      ))}
-                      <div style={{ borderTop: '1px solid #f0f0f0', marginTop: 4 }}>
-                        <a href={`/categorias/${encodeURIComponent(cat.nombre)}`} onClick={() => setOpenCat(null)}
-                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', color: '#CC0000', fontWeight: 800, fontSize: 12, textDecoration: 'none' }}
-                          onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
-                          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
-                          Ver todos los productos <span style={{ fontSize: 14 }}>→</span>
-                        </a>
-                      </div>
-                    </div>
-                  )}
+                  <span style={{ color: '#CCC' }}>|</span>
+                  <span style={{ fontSize: 20 }}>{categorias.find(c => c.nombre === openCat)?.emoji}</span>
+                  <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
                 </div>
-              )
-            })}
+                {subsByCategory[openCat] === undefined ? (
+                  <div style={{ color: '#999', fontSize: 12, padding: '8px 0' }}>Cargando...</div>
+                ) : subsByCategory[openCat].length === 0 ? (
+                  <div style={{ color: '#bbb', fontSize: 12, padding: '8px 0' }}>Sin subcategorías</div>
+                ) : (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
+                    {subsByCategory[openCat].map((sub) => (
+                      <a key={sub} href={`/categorias/${encodeURIComponent(openCat)}?sub=${encodeURIComponent(sub)}`}
+                        onClick={() => setOpenCat(null)}
+                        style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 10px', background: '#FFF5F5', border: '1px solid rgba(204,0,0,0.12)', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none', transition: 'all 0.15s' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#FFE8E8'; e.currentTarget.style.color = '#CC0000' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#FFF5F5'; e.currentTarget.style.color = '#444' }}>
+                        <span style={{ color: '#CC0000', fontSize: 10, flexShrink: 0 }}>▸</span>{sub}
+                      </a>
+                    ))}
+                  </div>
+                )}
+                <a href={`/categorias/${encodeURIComponent(openCat)}`}
+                  onClick={() => setOpenCat(null)}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 12, padding: '10px', background: '#CC0000', borderRadius: 8, color: '#FFFFFF', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>
+                  Ver todos los productos →
+                </a>
+              </div>
+            )}
           </div>
 
           {/* ── MOBILE: overlay fullscreen ── */}
