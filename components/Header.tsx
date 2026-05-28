@@ -277,9 +277,9 @@ export default function Header() {
 
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
-        <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+        <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
           <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
-          <div style={{ display: 'flex', flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'hidden' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'visible', position: 'relative', zIndex: 400 }}>
             {categorias.map((cat) => {
               const isOpen = openCat === cat.nombre
               return (
@@ -325,7 +325,7 @@ export default function Header() {
                       position: 'absolute',
                       top: '100%',
                       left: 0,
-                      zIndex: 200,
+                      zIndex: 500,
                       background: '#FFFFFF',
                       border: '1px solid rgba(0,0,0,0.1)',
                       borderRadius: 8,
