@@ -84,7 +84,7 @@ export default function Header() {
     <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ top: 38, background: scrolled ? 'rgba(240,240,240,0.97)' : 'rgba(240,240,240,0.92)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(204,0,0,0.97)' : 'rgba(204,0,0,0.92)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
@@ -115,7 +115,7 @@ export default function Header() {
               onSubmit={e => { e.preventDefault(); if (search.trim()) window.location.href = `/buscar?q=${encodeURIComponent(search.trim())}` }}>
               <input type="text" value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Buscar productos, categorías o marcas..."
-                className="flex-1 bg-navy-light text-white placeholder-gray-500 px-4 py-2.5 outline-none text-sm min-w-0" />
+                className="flex-1 bg-white text-gray-800 placeholder-gray-400 px-4 py-2.5 outline-none text-sm min-w-0" />
               <button type="submit" className="px-5 py-2.5 flex items-center justify-center flex-shrink-0 transition-all"
                 style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
                 <Search size={18} className="text-navy" strokeWidth={2.5} />
@@ -249,7 +249,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileSearchOpen && (
           <motion.div className="lg:hidden border-t border-white/10"
-            style={{ background: 'rgba(240,240,240,0.98)' }}
+            style={{ background: 'rgba(204,0,0,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
             <form className="px-4 py-3 flex gap-2"
@@ -258,7 +258,7 @@ export default function Header() {
                 type="text" value={mobileSearch} onChange={e => setMobileSearch(e.target.value)}
                 placeholder="Buscar productos, categorías o marcas..."
                 autoFocus
-                className="flex-1 bg-navy-light border border-gold/30 text-white placeholder-gray-500 rounded-lg px-4 py-2.5 outline-none text-sm"
+                className="flex-1 bg-white border border-gold/30 text-gray-800 placeholder-gray-400 rounded-lg px-4 py-2.5 outline-none text-sm"
               />
               <button type="submit" className="px-4 py-2.5 rounded-lg flex-shrink-0"
                 style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
@@ -271,7 +271,7 @@ export default function Header() {
 
       {/* ── Franja azul de frases rotativas ── */}
       <div style={{
-        background: 'linear-gradient(135deg, #CC0000 0%, #CC0000 100%)',
+        background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
         borderTop: '1px solid rgba(212,175,55,0.25)',
         padding: '7px 16px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -295,7 +295,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div className="lg:hidden border-t border-white/10 overflow-hidden"
-            style={{ background: 'rgba(240,240,240,0.98)' }}
+            style={{ background: 'rgba(204,0,0,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
             <div className="px-4 py-4 space-y-3">
