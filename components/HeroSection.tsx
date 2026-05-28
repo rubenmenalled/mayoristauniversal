@@ -57,6 +57,9 @@ export default function HeroSection() {
         }
         @media (max-width: 767px) {
           #hero-section { padding-top: 195px; }
+          #hero-banner { aspect-ratio: 3/2; }
+          .hero-slide { position: absolute !important; inset: 0; }
+          .hero-slide img { width: 100%; height: 100%; object-fit: contain; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
