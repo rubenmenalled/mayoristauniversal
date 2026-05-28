@@ -39,6 +39,8 @@ export default function Header() {
   const [openCat, setOpenCat] = useState<string | null>(null)
   const catBarRef = useRef<HTMLDivElement>(null)
   const [subsByCategory, setSubsByCategory] = useState<Record<string, string[]>>({})
+  const [mobileGridOpen, setMobileGridOpen] = useState(false)
+  const [mobileSelectedCat, setMobileSelectedCat] = useState<string | null>(null)
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
@@ -75,18 +77,19 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  // Cargar subcategorías reales de la DB cuando se abre una categoría
+  // Cargar subcategorías reales de la DB cuando se abre una categoría (desktop o mobile)
   useEffect(() => {
-    if (!openCat || openCat === '__mobile__') return
-    if (subsByCategory[openCat] !== undefined) return // ya cargadas
-    fetch(`/api/subcategorias?categoria=${encodeURIComponent(openCat)}`)
+    const cat = openCat && openCat !== '__mobile__' ? openCat : mobileSelectedCat
+    if (!cat) return
+    if (subsByCategory[cat] !== undefined) return
+    fetch(`/api/subcategorias?categoria=${encodeURIComponent(cat)}`)
       .then(r => r.json())
       .then((data: {nombre:string}[]) => {
         const names = data.map((s: {nombre:string}) => s.nombre).filter(Boolean)
-        setSubsByCategory(prev => ({ ...prev, [openCat]: names }))
+        setSubsByCategory(prev => ({ ...prev, [cat]: names }))
       })
       .catch(() => {})
-  }, [openCat, subsByCategory])
+  }, [openCat, mobileSelectedCat, subsByCategory])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -345,21 +348,21 @@ export default function Header() {
           <div className="md:hidden">
             {/* Botón toggle */}
             <button
-              onClick={() => setOpenCat(openCat === '__mobile__' ? null : '__mobile__')}
+              onClick={() => { setMobileGridOpen(v => !v); setMobileSelectedCat(null) }}
               style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '9px 16px', background: 'none', border: 'none', color: '#FFFFFF', fontWeight: 800, fontSize: 13, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
               <span>📋 TODAS LAS CATEGORÍAS</span>
-              <span style={{ fontSize: 10, transition: 'transform 0.2s', transform: openCat === '__mobile__' ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
+              <span style={{ fontSize: 10, transition: 'transform 0.2s', transform: mobileGridOpen ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
             </button>
 
             {/* Grilla expandible */}
-            {openCat === '__mobile__' && (
+            {mobileGridOpen && (
               <div style={{ background: '#FFFFFF', padding: '12px', animation: 'fadeInDown 0.2s ease' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
                   {categorias.map((cat) => (
                     <button
                       key={cat.id}
-                      onClick={() => { setOpenCat(cat.nombre === openCat ? '__mobile__' : cat.nombre) }}
-                      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '10px 6px', background: openCat === cat.nombre ? '#FFF0F0' : '#F9F9F9', border: openCat === cat.nombre ? '1.5px solid #CC0000' : '1px solid #EEE', borderRadius: 10, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
+                      onClick={() => setMobileSelectedCat(mobileSelectedCat === cat.nombre ? null : cat.nombre)}
+                      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '10px 6px', background: mobileSelectedCat === cat.nombre ? '#FFF0F0' : '#F9F9F9', border: mobileSelectedCat === cat.nombre ? '1.5px solid #CC0000' : '1px solid #EEE', borderRadius: 10, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
                       <span style={{ fontSize: 22 }}>{cat.emoji}</span>
                       <span style={{ color: '#333', fontWeight: 700, fontSize: 10, textAlign: 'center', lineHeight: 1.3 }}>{cat.nombre}</span>
                     </button>
@@ -367,24 +370,24 @@ export default function Header() {
                 </div>
 
                 {/* Subcategorías de la cat seleccionada en mobile */}
-                {openCat && openCat !== '__mobile__' && categorias.find(c => c.nombre === openCat) && (
+                {mobileSelectedCat && categorias.find(c => c.nombre === mobileSelectedCat) && (
                   <div style={{ marginTop: 12, background: '#FFF5F5', borderRadius: 10, padding: '10px 12px', border: '1px solid rgba(204,0,0,0.15)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
-                      <span style={{ fontSize: 20 }}>{categorias.find(c => c.nombre === openCat)?.emoji}</span>
-                      <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
+                      <span style={{ fontSize: 20 }}>{categorias.find(c => c.nombre === mobileSelectedCat)?.emoji}</span>
+                      <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 14 }}>{mobileSelectedCat}</span>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
-                      {subsByCategory[openCat] === undefined ? (
+                      {subsByCategory[mobileSelectedCat] === undefined ? (
                         <div style={{ gridColumn: 'span 2', padding: '8px', color: '#999', fontSize: 12, textAlign: 'center' }}>Cargando...</div>
-                      ) : subsByCategory[openCat].length === 0 ? null : subsByCategory[openCat].map((sub) => (
-                        <a key={sub} href={`/categorias/${encodeURIComponent(openCat)}?sub=${encodeURIComponent(sub)}`}
-                          onClick={() => setOpenCat(null)}
+                      ) : subsByCategory[mobileSelectedCat].length === 0 ? null : subsByCategory[mobileSelectedCat].map((sub) => (
+                        <a key={sub} href={`/categorias/${encodeURIComponent(mobileSelectedCat)}?sub=${encodeURIComponent(sub)}`}
+                          onClick={() => { setMobileGridOpen(false); setMobileSelectedCat(null) }}
                           style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '8px 10px', background: '#FFFFFF', border: '1px solid #EEE', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none' }}>
                           <span style={{ color: '#CC0000', fontSize: 10 }}>▸</span>{sub}
                         </a>
                       ))}
-                      <a href={`/categorias/${encodeURIComponent(openCat)}`}
-                        onClick={() => setOpenCat(null)}
+                      <a href={`/categorias/${encodeURIComponent(mobileSelectedCat)}`}
+                        onClick={() => { setMobileGridOpen(false); setMobileSelectedCat(null) }}
                         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5, padding: '8px 10px', background: '#CC0000', borderRadius: 8, color: '#FFFFFF', fontWeight: 800, fontSize: 12, textDecoration: 'none', gridColumn: 'span 2' }}>
                         Ver todos los productos →
                       </a>
