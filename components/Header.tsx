@@ -269,6 +269,46 @@ export default function Header() {
         )}
       </AnimatePresence>
 
+      {/* ── Barra de categorías ── */}
+      {categorias.length > 0 && (
+        <div style={{
+          background: 'rgba(180,0,0,0.97)',
+          borderTop: '1px solid rgba(255,255,255,0.1)',
+          overflowX: 'auto',
+          whiteSpace: 'nowrap',
+          scrollbarWidth: 'none',
+        }}>
+          <style>{`.cat-bar::-webkit-scrollbar{display:none}`}</style>
+          <div className="cat-bar" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 0,
+            padding: '0 8px', minWidth: '100%',
+          }}>
+            {categorias.map((cat) => (
+              <a
+                key={cat.id}
+                href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 5,
+                  padding: '8px 14px',
+                  color: '#FFFFFF',
+                  fontWeight: 700,
+                  fontSize: 'clamp(11px,1.4vw,13px)',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                  borderRight: '1px solid rgba(255,255,255,0.1)',
+                  transition: 'background 0.15s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              >
+                <span style={{ fontSize: 15 }}>{cat.emoji}</span>
+                {cat.nombre.toUpperCase()}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ── Franja azul de frases rotativas ── */}
       <div style={{
         background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',

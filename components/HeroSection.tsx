@@ -24,13 +24,13 @@ export default function HeroSection() {
           100%  { transform: translateX(88vw)  scaleX(-1); }
         }
         @media (max-width: 767px) {
-          #hero-section { padding-top: 128px; }
+          #hero-section { padding-top: 162px; }
           #hero-banner { height: 58vw; position: relative; overflow: hidden; }
           #hero-banner .kenburns-wrap { width: 100%; height: 100%; overflow: hidden; }
           #hero-banner .kenburns-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
         }
         @media (min-width: 768px) {
-          #hero-section { padding-top: 134px; }
+          #hero-section { padding-top: 168px; }
           #hero-banner { width: 100%; position: relative; overflow: hidden; }
           #hero-banner .kenburns-wrap { overflow: hidden; width: 100%; }
           #hero-banner .kenburns-wrap img { width: 100%; height: auto; display: block; max-width: none; animation: hero-kenburns 18s ease-in-out infinite; transform-origin: center center; }
