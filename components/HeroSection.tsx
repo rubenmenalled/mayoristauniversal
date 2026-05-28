@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES = [
-  { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png', fit: 'cover'   as const },
-  { desktop: '/banner1.png',         mobile: '/banner1.png',         fit: 'contain' as const },
-  { desktop: '/banner2.png',         mobile: '/banner2.png',         fit: 'contain' as const },
-  { desktop: '/banner3.png',         mobile: '/banner3.png',         fit: 'contain' as const },
+  { desktop: '/portada_desktop.png', mobile: '/portada_mobile.png', fit: 'cover'   as const, bg: '#0D1B2A' },
+  { desktop: '/banner1.png',         mobile: '/banner1.png',         fit: 'contain' as const, bg: '#0D1828' },
+  { desktop: '/banner2.png',         mobile: '/banner2.png',         fit: 'contain' as const, bg: '#F5F0E8' },
+  { desktop: '/banner3.png',         mobile: '/banner3.png',         fit: 'contain' as const, bg: '#FDF0F5' },
 ]
 
 export default function HeroSection() {
@@ -39,20 +39,17 @@ export default function HeroSection() {
         }
         @media (max-width: 767px) {
           #hero-section { padding-top: 195px; }
-          #hero-banner { aspect-ratio: 3/2; }
+          #hero-banner { aspect-ratio: 4/3; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
-          #hero-banner { aspect-ratio: 3/2; }
+          #hero-banner { aspect-ratio: 16/7; }
         }
         .hero-slide {
           position: absolute;
           inset: 0;
           transition: opacity 0.8s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #000;
+          background: #fff;
         }
         .hero-slide img {
           width: 100%;
@@ -74,7 +71,7 @@ export default function HeroSection() {
         <div id="hero-banner" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
 
           {SLIDES.map((slide, i) => (
-            <div key={i} className={`hero-slide ${i === current ? 'active' : 'inactive'}`}>
+            <div key={i} className={`hero-slide ${i === current ? 'active' : 'inactive'}`} style={{ background: slide.bg }}>
               <picture>
                 <source media="(max-width: 767px)" srcSet={slide.mobile} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
