@@ -221,7 +221,7 @@ export default function CategoriaPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}>
 
-                  <div style={{ position: 'relative', height: 150, background: '#F0F0F0', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
+                  <div style={{ position: 'relative', height: 220, background: '#F0F0F0', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => { if (p.image) { setLightbox(p); setLightboxImgIdx(0) } }}>
                     {p.image ? (
                       <Image src={p.image} alt={p.name} fill className="object-contain" sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 280px" quality={95} />
@@ -240,9 +240,9 @@ export default function CategoriaPage() {
                       <span className={`absolute top-2 right-2 text-white text-[10px] font-black px-2 py-0.5 rounded-full ${BADGE[p.badge] ?? 'bg-gray-600'}`}>{p.badge}</span>
                     )}
                   </div>
-                  <div style={{ padding: 10 }}>
-                    {p.brand && <div style={{ color: '#CBD5E1', fontSize: 10, fontWeight: 600, marginBottom: 2 }}>Marca: {p.brand}</div>}
-                    <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
+                  <div style={{ padding: 8 }}>
+                    {p.brand && <div style={{ color: '#CBD5E1', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
+                    <h3 style={{ color: '#FFFFFF', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
                     <Stars n={p.rating} />
                     {(() => {
                       const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)

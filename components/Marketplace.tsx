@@ -75,7 +75,7 @@ function ProductCard({ p }: { p: Product }) {
       <div className="absolute inset-0 rounded-xl border border-gold/0 group-hover:border-gold/40 transition-all duration-300 pointer-events-none z-10" />
 
       {/* Image */}
-      <div className="relative h-40 bg-navy-mid overflow-hidden" style={{ background: '#F0F0F0' }}>
+      <div className="relative h-56 bg-navy-mid overflow-hidden" style={{ background: '#F0F0F0' }}>
         <Image src={p.image} alt={p.name} fill
           className="object-contain transition-transform duration-500 group-hover:scale-105 p-2"
           sizes="(max-width:640px) 100vw, 200px" />
@@ -94,9 +94,9 @@ function ProductCard({ p }: { p: Product }) {
       </div>
 
       {/* Body */}
-      <div className="p-3">
-        <div className="text-gray-400 text-[10px] font-semibold mb-0.5">Marca: {p.brand}</div>
-        <h3 className="text-white text-xs font-bold leading-tight mb-1.5 line-clamp-2 group-hover:text-gold transition-colors min-h-[2rem]">
+      <div className="p-2">
+        <div className="text-gray-400 text-[9px] font-semibold mb-0.5">Marca: {p.brand}</div>
+        <h3 className="text-white text-[11px] font-bold leading-tight mb-1 line-clamp-2 group-hover:text-gold transition-colors min-h-[1.8rem]">
           {p.name}
         </h3>
         <Stars n={p.rating} />

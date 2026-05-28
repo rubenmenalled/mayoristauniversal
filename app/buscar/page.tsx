@@ -136,7 +136,7 @@ function BuscarContent() {
                     className="glass-card rounded-xl overflow-hidden"
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }} whileHover={{ y: -4 }}>
-                    <div style={{ position: 'relative', height: 160, background: '#F0F0F0', overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', height: 220, background: '#F0F0F0', overflow: 'hidden' }}>
                       {p.image ? (
                         <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="220px" />
                       ) : (
@@ -147,9 +147,9 @@ function BuscarContent() {
                         <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#FFFFFF', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
                       )}
                     </div>
-                    <div style={{ padding: 12 }}>
-                      {p.brand && <div style={{ color: '#7a8a9a', fontSize: 10, fontWeight: 600, marginBottom: 2 }}>Marca: {p.brand}</div>}
-                      <h3 style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, minHeight: 32 }}>{p.name}</h3>
+                    <div style={{ padding: 8 }}>
+                      {p.brand && <div style={{ color: '#7a8a9a', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
+                      <h3 style={{ color: '#FFFFFF', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
                       <Stars n={p.rating} />
                       <div style={{ marginTop: 8 }}>
                         <div style={{ color: '#7a8a9a', fontSize: 10, marginTop: 2 }}>
