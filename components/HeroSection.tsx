@@ -39,31 +39,33 @@ export default function HeroSection() {
         }
         @media (max-width: 767px) {
           #hero-section { padding-top: 195px; }
-          #hero-banner { aspect-ratio: 5/3; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
-          #hero-banner { aspect-ratio: 5/2; }
         }
         .hero-slide {
-          position: absolute;
-          inset: 0;
           transition: opacity 0.8s ease;
         }
         .hero-slide img {
           width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center center;
+          height: auto;
           display: block;
         }
         .hero-slide.active {
+          position: relative;
           opacity: 1;
           z-index: 2;
         }
         .hero-slide.inactive {
+          position: absolute;
+          inset: 0;
           opacity: 0;
           z-index: 1;
+          overflow: hidden;
+        }
+        .hero-slide.inactive img {
+          height: 100%;
+          object-fit: cover;
         }
       `}</style>
 
