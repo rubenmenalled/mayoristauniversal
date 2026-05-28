@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -59,12 +59,15 @@ function Stars({ n }: { n: number }) {
 export default function CategoriaPage() {
   const { nombre } = useParams()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const nombreDecoded = decodeURIComponent(nombre as string)
 
   const { addItem, count, cartOpen, setCartOpen } = useCart()
   const [productos, setProductos] = useState<Producto[]>([])
   const [subcategorias, setSubcategorias] = useState<Subcategoria[]>([])
-  const [subActiva, setSubActiva] = useState<string>('')
+  const [subActiva, setSubActiva] = useState<string>(
+    searchParams.get('sub') ? decodeURIComponent(searchParams.get('sub')!) : ''
+  )
   const [loading, setLoading] = useState(true)
   const [lightbox, setLightbox] = useState<Producto | null>(null)
   const [lightboxImgIdx, setLightboxImgIdx] = useState(0)
@@ -99,7 +102,15 @@ export default function CategoriaPage() {
 
   const productosFiltrados = subActiva === '' || subActiva === '__todos__'
     ? productos
-    : productos.filter(p => p.subcategory?.toLowerCase() === subActiva.toLowerCase())
+    : productos.filter(p => {
+        // 1) Filtrar por subcategory exacto si existe en el producto
+        if (p.subcategory && p.subcategory.trim() !== '') {
+          return p.subcategory.toLowerCase() === subActiva.toLowerCase()
+        }
+        // 2) Fallback: buscar la subcategoría como palabra en el nombre del producto
+        const keyword = subActiva.toLowerCase().split(' ')[0]
+        return p.name?.toLowerCase().includes(keyword)
+      })
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', paddingTop: 38 }}>

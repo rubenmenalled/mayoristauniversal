@@ -343,7 +343,7 @@ export default function Header() {
                       {cat.subcategorias && cat.subcategorias.map((sub) => (
                         <a
                           key={sub}
-                          href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}&sub=${encodeURIComponent(sub)}`}
+                          href={`/categorias/${encodeURIComponent(cat.nombre)}?sub=${encodeURIComponent(sub)}`}
                           onClick={() => setOpenCat(null)}
                           style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', color: '#444', fontWeight: 600, fontSize: 13, textDecoration: 'none', transition: 'background 0.1s' }}
                           onMouseEnter={e => { e.currentTarget.style.background = '#FFF5F5'; e.currentTarget.style.color = '#CC0000' }}
@@ -355,7 +355,7 @@ export default function Header() {
                       {/* Ver todos */}
                       <div style={{ borderTop: '1px solid #f0f0f0', marginTop: 4 }}>
                         <a
-                          href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
+                          href={`/categorias/${encodeURIComponent(cat.nombre)}`}
                           onClick={() => setOpenCat(null)}
                           style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', color: '#CC0000', fontWeight: 800, fontSize: 12, textDecoration: 'none' }}
                           onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
