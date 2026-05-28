@@ -278,14 +278,21 @@ export default function Header() {
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
         <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
-          <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
-          <div style={{ display: 'flex', flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'visible', position: 'relative', zIndex: 400 }}>
+          <style>{`
+            @keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+            .cat-scroll::-webkit-scrollbar{display:none}
+            @media(max-width:767px){
+              .cat-bar-inner{ overflow-x:auto !important; flex-wrap:nowrap !important; max-height:none !important; }
+              .cat-dropdown{ position:fixed !important; left:8px !important; right:8px !important; width:auto !important; min-width:unset !important; top:auto !important; }
+            }
+          `}</style>
+          <div className="cat-scroll cat-bar-inner" style={{ display: 'flex', flexWrap: 'wrap', padding: '2px 8px', maxHeight: '68px', overflow: 'visible', position: 'relative', zIndex: 400 }}>
             {categorias.map((cat) => {
               const isOpen = openCat === cat.nombre
               return (
                 <div
                   key={cat.id}
-                  style={{ position: 'relative' }}
+                  style={{ position: 'relative', flexShrink: 0 }}
                   onMouseEnter={() => setHoveredCat(cat.nombre)}
                   onMouseLeave={() => setHoveredCat(null)}
                 >
@@ -294,17 +301,18 @@ export default function Header() {
                     onClick={() => setOpenCat(isOpen ? null : cat.nombre)}
                     style={{
                       display: 'inline-flex', alignItems: 'center', gap: 4,
-                      padding: '7px 10px',
+                      padding: '8px 10px',
                       color: '#FFFFFF',
                       fontWeight: 700,
-                      fontSize: 'clamp(10px,1.1vw,12px)',
+                      fontSize: '12px',
                       background: 'none',
                       border: 'none',
                       whiteSpace: 'nowrap',
                       cursor: 'pointer',
+                      WebkitTapHighlightColor: 'transparent',
                     }}
                   >
-                    <span style={{ fontSize: 13 }}>{cat.emoji}</span>
+                    <span style={{ fontSize: 14 }}>{cat.emoji}</span>
                     <span style={{
                       borderBottom: (hoveredCat === cat.nombre || isOpen) ? '1px solid #fff' : '1px solid transparent',
                       transition: 'border-color 0.15s',
@@ -321,7 +329,7 @@ export default function Header() {
 
                   {/* Dropdown */}
                   {isOpen && (
-                    <div style={{
+                    <div className="cat-dropdown" style={{
                       position: 'absolute',
                       top: '100%',
                       left: 0,
@@ -329,10 +337,12 @@ export default function Header() {
                       background: '#FFFFFF',
                       border: '1px solid rgba(0,0,0,0.1)',
                       borderRadius: 8,
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
                       minWidth: 230,
                       padding: '8px 0',
                       animation: 'fadeInDown 0.15s ease',
+                      maxHeight: '70vh',
+                      overflowY: 'auto',
                     }}>
                       {/* Header del dropdown */}
                       <div style={{ padding: '8px 16px 10px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: 8 }}>
