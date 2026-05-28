@@ -9,8 +9,6 @@ const SLIDES_DESKTOP = [
   { src: '/banner3.png' },
   { src: '/banner4.png' },
   { src: '/banner5.png' },
-  { src: '/banner6.png' },
-  { src: '/banner7.png' },
 ]
 
 const SLIDES_MOBILE = [
@@ -18,8 +16,6 @@ const SLIDES_MOBILE = [
   { src: '/banner1_m.png' },
   { src: '/banner2_m.png' },
   { src: '/banner3_m.png' },
-  { src: '/banner6.png' },
-  { src: '/banner7.png' },
 ]
 
 export default function HeroSection() {
