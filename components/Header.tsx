@@ -35,6 +35,7 @@ export default function Header() {
   const [categorias, setCategorias] = useState<{id:number,nombre:string,emoji:string}[]>([])
   const catRef = useRef<HTMLDivElement>(null)
   const [userName, setUserName] = useState<string | null>(null)
+  const [hoveredCat, setHoveredCat] = useState<string | null>(null)
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
@@ -272,38 +273,81 @@ export default function Header() {
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
         <div style={{
-          background: 'rgba(180,0,0,0.97)',
+          background: 'rgba(170,0,0,0.97)',
           borderTop: '1px solid rgba(255,255,255,0.1)',
-          overflowX: 'auto',
-          whiteSpace: 'nowrap',
-          scrollbarWidth: 'none',
         }}>
-          <style>{`.cat-bar::-webkit-scrollbar{display:none}`}</style>
-          <div className="cat-bar" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 0,
-            padding: '0 8px', minWidth: '100%',
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            padding: '2px 8px',
+            maxHeight: '68px',
+            overflow: 'hidden',
           }}>
             {categorias.map((cat) => (
-              <a
+              <div
                 key={cat.id}
-                href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 5,
-                  padding: '8px 14px',
-                  color: '#FFFFFF',
-                  fontWeight: 700,
-                  fontSize: 'clamp(11px,1.4vw,13px)',
-                  textDecoration: 'none',
-                  whiteSpace: 'nowrap',
-                  borderRight: '1px solid rgba(255,255,255,0.1)',
-                  transition: 'background 0.15s',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
-                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                style={{ position: 'relative' }}
+                onMouseEnter={() => setHoveredCat(cat.nombre)}
+                onMouseLeave={() => setHoveredCat(null)}
               >
-                <span style={{ fontSize: 15 }}>{cat.emoji}</span>
-                {cat.nombre.toUpperCase()}
-              </a>
+                <a
+                  href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                    padding: '7px 10px',
+                    color: '#FFFFFF',
+                    fontWeight: 700,
+                    fontSize: 'clamp(10px,1.1vw,12px)',
+                    textDecoration: 'none',
+                    whiteSpace: 'nowrap',
+                    transition: 'color 0.15s',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <span style={{ fontSize: 13 }}>{cat.emoji}</span>
+                  <span style={{ borderBottom: hoveredCat === cat.nombre ? '1px solid #fff' : '1px solid transparent', transition: 'border-color 0.15s' }}>
+                    {cat.nombre}
+                  </span>
+                  <span style={{
+                    fontSize: 9,
+                    opacity: hoveredCat === cat.nombre ? 1 : 0.5,
+                    transition: 'opacity 0.15s, transform 0.15s',
+                    transform: hoveredCat === cat.nombre ? 'rotate(180deg)' : 'rotate(0deg)',
+                    display: 'inline-block',
+                  }}>▼</span>
+                </a>
+
+                {/* Dropdown */}
+                {hoveredCat === cat.nombre && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    zIndex: 200,
+                    background: '#FFFFFF',
+                    border: '1px solid rgba(0,0,0,0.1)',
+                    borderRadius: 8,
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                    minWidth: 200,
+                    padding: '8px 0',
+                    animation: 'fadeInDown 0.15s ease',
+                  }}>
+                    <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
+                    <div style={{ padding: '6px 16px 8px', borderBottom: '1px solid #f0f0f0' }}>
+                      <span style={{ fontSize: 20 }}>{cat.emoji}</span>
+                      <span style={{ color: '#CC0000', fontWeight: 900, fontSize: 13, marginLeft: 6 }}>{cat.nombre}</span>
+                    </div>
+                    <a
+                      href={`/catalogo?cat=${encodeURIComponent(cat.nombre)}`}
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', color: '#333', fontWeight: 700, fontSize: 13, textDecoration: 'none' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = '#FFF5F5')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                    >
+                      Ver todos los productos <span style={{ color: '#CC0000' }}>→</span>
+                    </a>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
