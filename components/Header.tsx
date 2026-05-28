@@ -77,19 +77,31 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  // Cargar subcategorías reales de la DB cuando se abre una categoría (desktop o mobile)
+  // Cargar subcategorías reales de la DB cuando se abre una categoría (solo desktop)
   useEffect(() => {
-    const cat = openCat && openCat !== '__mobile__' ? openCat : mobileSelectedCat
-    if (!cat) return
-    if (subsByCategory[cat] !== undefined) return
-    fetch(`/api/subcategorias?categoria=${encodeURIComponent(cat)}`)
+    if (!openCat || openCat === '__mobile__') return
+    if (subsByCategory[openCat] !== undefined) return
+    fetch(`/api/subcategorias?categoria=${encodeURIComponent(openCat)}`)
       .then(r => r.json())
       .then((data: {nombre:string}[]) => {
-        const names = data.map((s: {nombre:string}) => s.nombre).filter(Boolean)
-        setSubsByCategory(prev => ({ ...prev, [cat]: names }))
+        const names = (data || []).map((s: {nombre:string}) => s.nombre).filter(Boolean)
+        setSubsByCategory(prev => ({ ...prev, [openCat]: names }))
       })
-      .catch(() => {})
-  }, [openCat, mobileSelectedCat, subsByCategory])
+      .catch(() => setSubsByCategory(prev => ({ ...prev, [openCat]: [] })))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openCat])
+
+  async function fetchSubs(cat: string) {
+    if (subsByCategory[cat] !== undefined) return
+    try {
+      const res = await fetch(`/api/subcategorias?categoria=${encodeURIComponent(cat)}`)
+      const data = await res.json()
+      const names = (data || []).map((s: {nombre:string}) => s.nombre).filter(Boolean)
+      setSubsByCategory(prev => ({ ...prev, [cat]: names }))
+    } catch {
+      setSubsByCategory(prev => ({ ...prev, [cat]: [] }))
+    }
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -361,7 +373,11 @@ export default function Header() {
                   {categorias.map((cat) => (
                     <button
                       key={cat.id}
-                      onClick={() => setMobileSelectedCat(mobileSelectedCat === cat.nombre ? null : cat.nombre)}
+                      onClick={() => {
+                        const next = mobileSelectedCat === cat.nombre ? null : cat.nombre
+                        setMobileSelectedCat(next)
+                        if (next) fetchSubs(next)
+                      }}
                       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '10px 6px', background: mobileSelectedCat === cat.nombre ? '#FFF0F0' : '#F9F9F9', border: mobileSelectedCat === cat.nombre ? '1.5px solid #CC0000' : '1px solid #EEE', borderRadius: 10, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
                       <span style={{ fontSize: 22 }}>{cat.emoji}</span>
                       <span style={{ color: '#333', fontWeight: 700, fontSize: 10, textAlign: 'center', lineHeight: 1.3 }}>{cat.nombre}</span>
