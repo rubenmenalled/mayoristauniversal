@@ -8,6 +8,8 @@ export async function getProductos() {
 const ORDEN_CATEGORIAS = [
   'INVIERNO 2026',
   'HOGAR Y BAZAR',
+  'DECO CASA',
+  'DECO BAZAR',
   'PELUCHES',
   'ACCESORIOS DE PELO',
   'BELLEZA',
