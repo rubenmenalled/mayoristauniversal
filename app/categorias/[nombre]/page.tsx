@@ -113,11 +113,12 @@ export default function CategoriaPage() {
 
   const productosFiltrados = busquedaInterna.trim() === ''
     ? porSubcategoria
-    : porSubcategoria.filter(p => {
+    : productos.filter(p => {
         const q = normalizar(busquedaInterna)
         return normalizar(p.name || '').includes(q) ||
                normalizar(p.brand || '').includes(q) ||
-               normalizar(p.subcategory || '').includes(q)
+               normalizar(p.subcategory || '').includes(q) ||
+               normalizar(p.location || '').includes(q)
       })
 
   return (
@@ -223,12 +224,12 @@ export default function CategoriaPage() {
           <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80, fontSize: 16 }}>Cargando productos...</div>
         ) : productosFiltrados.length === 0 ? (
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
-            <div style={{ fontSize: 60, marginBottom: 16 }}>📦</div>
+            <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
             <div style={{ color: '#C01515', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
-              {subActiva ? `No hay productos en ${subActiva}` : `No hay productos en ${nombreDecoded} todavía`}
+              {busquedaInterna.trim() ? `Sin resultados para "${busquedaInterna}"` : subActiva ? `No hay productos en ${subActiva}` : `No hay productos en ${nombreDecoded} todavía`}
             </div>
-            {subActiva && (
-              <button onClick={() => setSubActiva('')}
+            {(subActiva || busquedaInterna.trim()) && (
+              <button onClick={() => { setSubActiva(''); setBusquedaInterna('') }}
                 style={{ marginTop: 16, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 24px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer' }}>
                 Ver todos
               </button>
@@ -237,8 +238,10 @@ export default function CategoriaPage() {
         ) : (
           <>
             <div style={{ color: '#CBD5E1', fontSize: 13, marginBottom: 24 }}>
-              {productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en{' '}
-              <span style={{ color: '#D4AF37', fontWeight: 700 }}>{subActiva || nombreDecoded}</span>
+              {busquedaInterna.trim()
+                ? <><span style={{ color: '#D4AF37', fontWeight: 700 }}>{productosFiltrados.length}</span> resultado{productosFiltrados.length !== 1 ? 's' : ''} para <span style={{ color: '#D4AF37', fontWeight: 700 }}>"{busquedaInterna}"</span></>
+                : <>{productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en <span style={{ color: '#D4AF37', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
+              }
             </div>
             <style dangerouslySetInnerHTML={{ __html: `.prod-card { transition: transform 0.2s ease, box-shadow 0.2s ease; } @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212,175,55,0.2); } }` }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 14 }}>
