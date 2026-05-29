@@ -153,7 +153,6 @@ export default function CategoriaPage() {
           {/* Fila 2: buscador interno */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#FFFFFF', border: '1.5px solid rgba(204,0,0,0.25)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
             onFocus={() => {}} >
-            <Search size={16} color="#CC0000" style={{ flexShrink: 0 }} />
             <input
               type="text"
               value={busquedaInterna}
@@ -161,16 +160,18 @@ export default function CategoriaPage() {
               placeholder={`Buscar en ${nombreDecoded}...`}
               style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#333', background: 'transparent', minWidth: 0 }}
             />
-            {busquedaInterna && (
+            {busquedaInterna ? (
               <button onClick={() => setBusquedaInterna('')}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', fontSize: 16, lineHeight: 1, padding: 0, flexShrink: 0 }}>✕</button>
+            ) : (
+              <Search size={16} color="#CC0000" style={{ flexShrink: 0 }} />
             )}
           </div>
         </div>
       </div>
 
       {/* Subcategorías como tarjetas — solo si no hay ninguna activa */}
-      {subcategorias.length > 0 && !subActiva && !loading && (
+      {subcategorias.length > 0 && !subActiva && !loading && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
           <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
             Seleccioná una subcategoría
