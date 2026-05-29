@@ -273,6 +273,14 @@ export default function CategoriaPage() {
                   </div>
                   <div style={{ padding: 8 }}>
                     {p.brand && <div style={{ color: '#CBD5E1', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
+                    {p.location && p.location !== 'Buenos Aires' && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
+                        <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>COD</span>
+                        <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 10 }}>
+                          {p.location.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : p.location}
+                        </span>
+                      </div>
+                    )}
                     <h3 style={{ color: '#FFFFFF', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
                     <Stars n={p.rating} />
                     {(() => {
@@ -398,6 +406,14 @@ export default function CategoriaPage() {
               {/* Info */}
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 10 }}>{lightbox.name}</div>
+                {lightbox.location && lightbox.location !== 'Buenos Aires' && !getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder) && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
+                    <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>COD</span>
+                    <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
+                      {lightbox.location.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : lightbox.location}
+                    </span>
+                  </div>
+                )}
                 {(() => {
                   const lbi = getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder)
                   if (!lbi) return <div style={{ marginBottom: 12 }} />
