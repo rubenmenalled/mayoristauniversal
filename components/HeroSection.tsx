@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 const SLIDES_DESKTOP = [
   { src: '/portada_desktop.png' },
+  { src: '/banner_peluches_madera.png' },
   { src: '/banner1.png' },
   { src: '/banner2.png' },
   { src: '/banner3.png' },
