@@ -14,6 +14,7 @@ const SLIDES_DESKTOP = [
 
 const SLIDES_MOBILE = [
   { src: '/portada_mobile.png' },
+  { src: '/banner_peluches_madera.png' },
   { src: '/banner1_m.png' },
   { src: '/banner2_m.png' },
   { src: '/banner3_m.png' },
