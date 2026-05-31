@@ -400,11 +400,11 @@ export default function CategoriaPage() {
                         const precioUnit = match ? match[2] : null
                         return (
                           <>
-                            {precioUnit && (
-                              <div style={{ color: '#333', fontSize: 11, fontWeight: 800, marginBottom: 3 }}>{precioUnit}</div>
-                            )}
                             <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: 4 }}>
                               <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
+                              {precioUnit && (
+                                <div style={{ color: '#333', fontSize: 11, fontWeight: 800, marginTop: 2 }}>{precioUnit}</div>
+                              )}
                               <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>Mayorista: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
                             </div>
                           </>
