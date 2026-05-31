@@ -174,11 +174,10 @@ function BuscarContent() {
                     transition={{ delay: i * 0.04 }} whileHover={{ y: -4 }}>
                     <div style={{ position: 'relative', height: 340, background: '#F0F0F0', overflow: 'hidden' }}>
                       {p.image ? (
-                        <Image src={p.image} alt={p.name} fill className="object-contain p-2" sizes="220px" />
+                        <Image src={p.image} alt={p.name} fill className="object-contain" sizes="220px" quality={95} />
                       ) : (
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                       )}
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(240,240,240,0.7), transparent)' }} />
                       {(p.discount ?? 0) > 0 && (
                         <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#FFFFFF', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
                       )}
