@@ -119,7 +119,7 @@ export default function Header() {
     <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ top: 38, background: scrolled ? 'rgba(204,0,0,0.97)' : 'rgba(204,0,0,0.92)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(122,140,106,0.97)' : 'rgba(122,140,106,0.92)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
@@ -191,9 +191,9 @@ export default function Header() {
             </motion.a>
 
             {/* Cart */}
-            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#C01515' }}
+            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#4A6040' }}
               onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#C01515')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#4A6040')}
               whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={24} />
               {count > 0 && <span className="absolute -top-0.5 -right-0.5 bg-gold text-navy text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">{count}</span>}
@@ -204,9 +204,9 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <motion.a href="/mi-cuenta"
                   className="flex items-center gap-2 transition-colors"
-                  style={{ color: '#C01515' }}
+                  style={{ color: '#4A6040' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#C01515')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#4A6040')}
                   whileHover={{ scale: 1.03 }}>
                   <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <User size={16} color="#FFFFFF" />
@@ -222,9 +222,9 @@ export default function Header() {
             ) : (
               <motion.a href="/login"
                 className="flex flex-col items-end transition-colors"
-                style={{ color: '#C01515' }}
+                style={{ color: '#4A6040' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#C01515')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#4A6040')}
                 whileHover={{ scale: 1.03 }}>
                 <span className="text-[11px] leading-none opacity-80">Ingresar / Registrarse</span>
                 <span className="text-[12px] font-bold leading-none flex items-center gap-1">Mi cuenta <ChevronDown size={11} /></span>
@@ -253,7 +253,7 @@ export default function Header() {
             <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.15)', margin: '0 2px' }} />
 
             {/* Búsqueda */}
-            <button style={{ padding: '4px', flexShrink: 0, color: '#C01515', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileSearchOpen(v => !v)}>
+            <button style={{ padding: '4px', flexShrink: 0, color: '#4A6040', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileSearchOpen(v => !v)}>
               <Search size={20} />
             </button>
 
@@ -273,7 +273,7 @@ export default function Header() {
             </a>
 
             {/* Menú hamburguesa */}
-            <button style={{ padding: '4px 2px', flexShrink: 0, color: '#C01515', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileOpen(v => !v)}>
+            <button style={{ padding: '4px 2px', flexShrink: 0, color: '#4A6040', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileOpen(v => !v)}>
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
@@ -281,7 +281,7 @@ export default function Header() {
       </div>
 
       {/* Mobile search bar — siempre visible */}
-      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(204,0,0,0.98)' }}>
+      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(122,140,106,0.98)' }}>
         <form className="px-3 py-2 flex gap-2"
           onSubmit={e => { e.preventDefault(); if (mobileSearch.trim()) { window.location.href = `/buscar?q=${encodeURIComponent(mobileSearch.trim())}` } }}>
           <input
@@ -298,7 +298,7 @@ export default function Header() {
 
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
-        <div ref={catBarRef} style={{ background: 'rgba(170,0,0,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
+        <div ref={catBarRef} style={{ background: 'rgba(90,110,80,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
           <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
           {/* ── DESKTOP: botón + mega-menú ── */}
@@ -319,7 +319,7 @@ export default function Header() {
                       <button key={cat.id}
                         onClick={() => { setOpenCat(cat.nombre); fetchSubs(cat.nombre) }}
                         style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', background: '#F9F9F9', border: '1px solid #EEE', borderRadius: 8, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#FFF0F0'; e.currentTarget.style.borderColor = '#7A8C6A' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#F0F5EE'; e.currentTarget.style.borderColor = '#7A8C6A' }}
                         onMouseLeave={e => { e.currentTarget.style.background = '#F9F9F9'; e.currentTarget.style.borderColor = '#EEE' }}>
                         <span style={{ fontSize: 18, flexShrink: 0 }}>{cat.emoji}</span>
                         <span style={{ color: '#333', fontWeight: 700, fontSize: 11, lineHeight: 1.2 }}>{cat.nombre}</span>
@@ -351,9 +351,9 @@ export default function Header() {
                     {subsByCategory[openCat].map((sub) => (
                       <a key={sub} href={`/categorias/${encodeURIComponent(openCat)}?sub=${encodeURIComponent(sub)}`}
                         onClick={() => setOpenCat(null)}
-                        style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 10px', background: '#FFF5F5', border: '1px solid rgba(204,0,0,0.12)', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none', transition: 'all 0.15s' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#FFE8E8'; e.currentTarget.style.color = '#7A8C6A' }}
-                        onMouseLeave={e => { e.currentTarget.style.background = '#FFF5F5'; e.currentTarget.style.color = '#444' }}>
+                        style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 10px', background: '#F0F5EE', border: '1px solid rgba(122,140,106,0.12)', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none', transition: 'all 0.15s' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#E8F0E4'; e.currentTarget.style.color = '#7A8C6A' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#F0F5EE'; e.currentTarget.style.color = '#444' }}>
                         <span style={{ color: '#7A8C6A', fontSize: 10, flexShrink: 0 }}>▸</span>{sub}
                       </a>
                     ))}
@@ -437,7 +437,7 @@ export default function Header() {
                             <a key={sub}
                               href={`/categorias/${encodeURIComponent(mobileSelectedCat)}?sub=${encodeURIComponent(sub)}`}
                               onClick={() => { setMobileGridOpen(false); setMobileSelectedCat(null) }}
-                              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 12px', background: '#FFF5F5', border: '1px solid rgba(204,0,0,0.15)', borderRadius: 10, color: '#333', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>
+                              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 12px', background: '#F0F5EE', border: '1px solid rgba(122,140,106,0.15)', borderRadius: 10, color: '#333', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>
                               <span style={{ color: '#7A8C6A', fontSize: 11, flexShrink: 0 }}>▸</span>{sub}
                             </a>
                           ))}
@@ -483,7 +483,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div className="lg:hidden border-t border-white/10 overflow-hidden"
-            style={{ background: 'rgba(204,0,0,0.98)' }}
+            style={{ background: 'rgba(122,140,106,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
             <div className="px-4 py-4 space-y-3">
@@ -523,7 +523,7 @@ export default function Header() {
               <div className="flex gap-2 pt-1">
                 {[
                   { name: 'Instagram', href: 'https://www.instagram.com/mayoristauniversal26', color: '#FF0090', bg: 'rgba(255,0,144,0.15)', border: 'rgba(255,0,144,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> },
-                  { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#C01515', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
+                  { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#4A6040', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
                   { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: 'rgba(255,255,255,0.12)', border: 'rgba(255,255,255,0.3)', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
                 ].map(s => (
                   <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
