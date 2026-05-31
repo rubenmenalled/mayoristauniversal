@@ -25,19 +25,43 @@ function Stars({ n }: { n: number }) {
   )
 }
 
-// Genera variantes singular/plural en español para un término dado
+// Quita diacríticos: á→a, é→e, ü→u, ñ→n, etc.
+function stripAccents(s: string): string {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '')
+}
+
+// Genera variantes con y sin acentos + singular/plural
 function getVariants(term: string): string[] {
   const t = term.toLowerCase().trim()
   if (!t) return []
-  const variants = new Set<string>([t])
-  // Agregar plural
-  if (!t.endsWith('s')) {
-    variants.add(t + 's')       // esponja → esponjas
-    variants.add(t + 'es')      // reloj → relojes
+  const base = stripAccents(t)   // sin acentos
+
+  const seeds = new Set<string>([t, base])
+
+  // Si el término original no tenía acentos, agregar variantes con ü y ñ
+  // (para encontrar "pingüino" al buscar "pinguino", etc.)
+  if (base === t) {
+    // u → ü en cada posición
+    for (let i = 0; i < t.length; i++) {
+      if (t[i] === 'u') seeds.add(t.slice(0, i) + 'ü' + t.slice(i + 1))
+    }
+    // n → ñ en cada posición
+    for (let i = 0; i < t.length; i++) {
+      if (t[i] === 'n') seeds.add(t.slice(0, i) + 'ñ' + t.slice(i + 1))
+    }
   }
-  // Agregar singular
-  if (t.endsWith('es') && t.length > 3) variants.add(t.slice(0, -2)) // relojes → reloj
-  if (t.endsWith('s') && t.length > 2)  variants.add(t.slice(0, -1)) // esponjas → esponja
+
+  // Agregar plural/singular para cada semilla
+  const variants = new Set<string>(seeds)
+  seeds.forEach(seed => {
+    if (!seed.endsWith('s')) {
+      variants.add(seed + 's')
+      variants.add(seed + 'es')
+    }
+    if (seed.endsWith('es') && seed.length > 3) variants.add(seed.slice(0, -2))
+    if (seed.endsWith('s') && seed.length > 2)  variants.add(seed.slice(0, -1))
+  })
+
   return Array.from(variants)
 }
 
