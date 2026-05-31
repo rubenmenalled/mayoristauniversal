@@ -112,10 +112,10 @@ function BuscarContent() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: '#7A8C6A', paddingTop: 38 }}>
       {/* Header */}
       <div style={{
-        background: 'rgba(240,240,240,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(122,140,106,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -145,10 +145,10 @@ function BuscarContent() {
       {/* Resultados */}
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
         {loading ? (
-          <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80 }}>Buscando...</div>
+          <div style={{ textAlign: 'center', color: '#FFFFFF', padding: 80 }}>Buscando...</div>
         ) : (
           <>
-            <div style={{ color: '#7a8a9a', fontSize: 13, marginBottom: 24 }}>
+            <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 24 }}>
               {productos.length === 0
                 ? `No se encontraron resultados para "${q}"`
                 : <>{productos.length} resultado{productos.length !== 1 ? 's' : ''} para <span style={{ color: '#D4AF37', fontWeight: 700 }}>"{q}"</span></>

@@ -168,10 +168,10 @@ export default function CategoriaPage() {
       })
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: '#7A8C6A', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
       <div style={{
-        background: 'rgba(240,240,240,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(122,140,106,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -182,7 +182,7 @@ export default function CategoriaPage() {
               style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
               <ArrowLeft size={16} /> Inicio
             </button>
-            <div style={{ color: '#C01515', fontWeight: 900, fontSize: 18, flex: 1 }}>{nombreDecoded}</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, flex: 1 }}>{nombreDecoded}</div>
             <a href="/catalogo" style={{
               display: 'flex', alignItems: 'center', gap: 6,
               background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
@@ -192,20 +192,20 @@ export default function CategoriaPage() {
             }}>
               📋 VER CATÁLOGO
             </a>
-            <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#C01515', padding: 4, flexShrink: 0 }}>
+            <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#FFFFFF', padding: 4, flexShrink: 0 }}>
               <ShoppingCart size={22} />
               {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
             </button>
           </div>
           {/* Fila 2: buscador interno */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#FFFFFF', border: '1.5px solid rgba(204,0,0,0.25)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(255,255,255,0.15)', border: '1.5px solid rgba(212,175,55,0.3)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
             onFocus={() => {}} >
             <input
               type="text"
               value={busquedaInterna}
               onChange={e => setBusquedaInterna(e.target.value)}
               placeholder={`Buscar en ${nombreDecoded}...`}
-              style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#333', background: 'transparent', minWidth: 0 }}
+              style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#FFFFFF', background: 'transparent', minWidth: 0 }}
             />
             {busquedaInterna ? (
               <button onClick={() => setBusquedaInterna('')}
@@ -302,7 +302,7 @@ export default function CategoriaPage() {
         {/* Botón volver — nivel 3: volver a BUBBLE */}
         {subActiva && subSubActiva && SUB_SUBS[subActiva] && (
           <button onClick={() => setSubSubActiva('')}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a {subActiva}
           </button>
         )}
@@ -310,7 +310,7 @@ export default function CategoriaPage() {
         {/* Botón volver — nivel 2: volver a subcategorías (solo si no hay sub-subs pendientes de elegir) */}
         {subActiva && subcategorias.length > 0 && (!SUB_SUBS[subActiva] || subSubActiva) && (
           <button onClick={() => { setSubActiva(''); setSubSubActiva('') }}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
         )}
@@ -318,18 +318,18 @@ export default function CategoriaPage() {
         {/* Botón volver — cuando estoy en sub-subs picker (BUBBLE sin subSubActiva), volver a subcategorías */}
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && subcategorias.length > 0 && (
           <button onClick={() => setSubActiva('')}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
         )}
 
         {/* No mostrar productos si estamos en el picker de sub-subcategorías */}
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : loading ? (
-          <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80, fontSize: 16 }}>Cargando productos...</div>
+          <div style={{ textAlign: 'center', color: '#FFFFFF', padding: 80, fontSize: 16 }}>Cargando productos...</div>
         ) : productosFiltrados.length === 0 ? (
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
             <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
-            <div style={{ color: '#C01515', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
               {busquedaInterna.trim() ? `Sin resultados para "${busquedaInterna}"` : subActiva ? `No hay productos en ${subActiva}` : `No hay productos en ${nombreDecoded} todavía`}
             </div>
             {(subActiva || busquedaInterna.trim()) && (
@@ -341,7 +341,7 @@ export default function CategoriaPage() {
           </div>
         ) : (
           <>
-            <div style={{ color: '#6B7280', fontSize: 13, marginBottom: 24 }}>
+            <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 24 }}>
               {busquedaInterna.trim()
                 ? <><span style={{ color: '#D4AF37', fontWeight: 700 }}>{productosFiltrados.length}</span> resultado{productosFiltrados.length !== 1 ? 's' : ''} para <span style={{ color: '#D4AF37', fontWeight: 700 }}>"{busquedaInterna}"</span></>
                 : <>{productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en <span style={{ color: '#D4AF37', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
