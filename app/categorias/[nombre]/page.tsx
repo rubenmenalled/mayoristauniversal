@@ -198,14 +198,14 @@ export default function CategoriaPage() {
             </button>
           </div>
           {/* Fila 2: buscador interno */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'rgba(255,255,255,0.15)', border: '1.5px solid rgba(212,175,55,0.3)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#FFFFFF', border: '1.5px solid rgba(212,175,55,0.3)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
             onFocus={() => {}} >
             <input
               type="text"
               value={busquedaInterna}
               onChange={e => setBusquedaInterna(e.target.value)}
               placeholder={`Buscar en ${nombreDecoded}...`}
-              style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#FFFFFF', background: 'transparent', minWidth: 0 }}
+              style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#333', background: 'transparent', minWidth: 0 }}
             />
             {busquedaInterna ? (
               <button onClick={() => setBusquedaInterna('')}
