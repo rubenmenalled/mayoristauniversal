@@ -239,11 +239,11 @@ export default function ProductosAdmin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#FFFFFF 0%,#F0F0F0 100%)' }}>
+    <div style={{ minHeight: '100vh', background: '#0F172A' }}>
       {/* Header */}
       <div style={{
-        background: 'rgba(255,255,255,0.03)',
-        borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: '#1E293B',
+        borderBottom: '1px solid rgba(212,175,55,0.3)',
         padding: '16px 24px',
         display: 'flex', alignItems: 'center', gap: 16,
       }}>

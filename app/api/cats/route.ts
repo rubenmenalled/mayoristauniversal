@@ -110,7 +110,7 @@ export async function GET() {
   const SUBCATEGORIAS: Record<string, string[]> = {
     'INVIERNO 2026':      ['Camperas', 'Sweaters', 'Ropa Térmica', 'Gorros y Guantes', 'Medias'],
     'HOGAR Y BAZAR':      ['Cocina', 'Baño', 'Decoración', 'Organización', 'Limpieza'],
-    'PELUCHES':           ['Peluches Chicos', 'Peluches Grandes', 'Muñecos', 'Animales de Peluche'],
+    'PELUCHES':           ['Peluches Chicos', 'Peluches Grandes', 'Muñecos', 'Animales de Peluche', 'BUBBLE'],
     'ACCESORIOS DE PELO': ['Vinchas', 'Colitas', 'Hebillas', 'Pinches', 'Turbantes'],
     'BELLEZA':            ['Maquillaje', 'Skincare', 'Uñas', 'Cabello', 'Herramientas Belleza'],
     'MARROQUINERIA':      ['Carteras', 'Billeteras', 'Cinturones', 'Mochilas', 'Riñoneras'],

@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 
 const SECRET = new TextEncoder().encode(
-  process.env.ADMIN_SECRET || 'mayorista-universal-secret-2024'
+  process.env.ADMIN_SECRET ?? ''
 )
 
 export async function signToken() {

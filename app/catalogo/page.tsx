@@ -79,7 +79,7 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #CC0000 0%, #071018 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #74ACDF 0%, #071018 100%)', paddingTop: 38 }}>
 
       {/* Header */}
       <div style={{
@@ -167,7 +167,7 @@ export default function CatalogoPage() {
             {filtradas.map((c, i) => {
               const nombre = c.nombre || c.name || ''
               const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
-              const esProximamente = ['PERFUMERIA', 'OPTICA', 'BLANQUERIA', 'LENCERIA', 'RODADOS'].includes(nombre.toUpperCase())
+              const esProximamente = ['OPTICA', 'BLANQUERIA', 'LENCERIA', 'RODADOS'].includes(nombre.toUpperCase())
               return (
                 <motion.div
                   key={c.id}

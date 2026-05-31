@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
 
 const SECRET = new TextEncoder().encode(
-  process.env.ADMIN_SECRET || 'mayorista-universal-secret-2024'
+  process.env.ADMIN_SECRET ?? ''
 )
 
 export async function middleware(request: NextRequest) {

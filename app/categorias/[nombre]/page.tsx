@@ -211,7 +211,7 @@ export default function CategoriaPage() {
               <button onClick={() => setBusquedaInterna('')}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', fontSize: 16, lineHeight: 1, padding: 0, flexShrink: 0 }}>✕</button>
             ) : (
-              <Search size={16} color="#CC0000" style={{ flexShrink: 0 }} />
+              <Search size={16} color="#74ACDF" style={{ flexShrink: 0 }} />
             )}
           </div>
         </div>

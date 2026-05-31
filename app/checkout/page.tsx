@@ -121,6 +121,10 @@ export default function CheckoutPage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [copiado, setCopiado] = useState(false)
   const [totalPago, setTotalPago] = useState(0)
+  const [metodoPago, setMetodoPago] = useState<'transferencia' | 'mp_saldo' | 'mp_tarjeta'>('transferencia')
+
+  const recargo = metodoPago === 'mp_tarjeta' ? Math.round(total * 0.10) : 0
+  const totalFinal = total + recargo
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -163,11 +167,11 @@ export default function CheckoutPage() {
       const res = await fetch('/api/confirmar-pedido', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, items, total, user_id: userId, metodoPago: 'mercadopago' }),
+        body: JSON.stringify({ ...form, items, total: totalFinal, user_id: userId, metodoPago }),
       })
       const data = await res.json()
       if (data.ok) {
-        setTotalPago(total)   // guardar total ANTES de vaciar el carrito
+        setTotalPago(totalFinal)   // guardar total ANTES de vaciar el carrito
         clearCart()
         setWaUrl(data.waUrl)
         setStep('pago')
@@ -212,7 +216,7 @@ export default function CheckoutPage() {
   // ── STEP: PAGO ────────────────────────────────────────────────────────────
   if (step === 'pago') {
     return (
-      <div style={{ minHeight: '100vh', background: '#F7F8FA' }}>
+      <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 38 }}>
         <StepBar current="pago" />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ maxWidth: 520, width: '100%' }}>
@@ -346,7 +350,7 @@ export default function CheckoutPage() {
   // ── STEP: LISTO ───────────────────────────────────────────────────────────
   if (step === 'listo') {
     return (
-      <div style={{ minHeight: '100vh', background: '#F7F8FA' }}>
+      <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 38 }}>
         <StepBar current="listo" />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ maxWidth: 480, width: '100%', textAlign: 'center' }}>
@@ -379,9 +383,9 @@ export default function CheckoutPage() {
 
   // ── STEP: FORM ────────────────────────────────────────────────────────────
   return (
-    <div style={{ minHeight: '100vh', background: '#F7F8FA' }}>
+    <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 38 }}>
       {/* Header */}
-      <div style={{ background: '#FFFFFF', borderBottom: '1px solid #EEE', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50 }}>
+      <div style={{ background: '#FFFFFF', borderBottom: '1px solid #EEE', padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50 }}>
         <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
           <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: GOLD, fontWeight: 700, fontSize: 13 }}>
             <ArrowLeft size={16} /> Volver
@@ -423,12 +427,70 @@ export default function CheckoutPage() {
             ))}
           </div>
 
-          {/* Preview MP */}
-          <div style={{ marginTop: 24, background: '#FFF5F5', border: '1.5px solid #009ee3', borderRadius: 12, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
-            <MPLogo height={28} />
-            <div>
-              <p style={{ color: '#0076c0', fontWeight: 800, fontSize: 13, margin: '0 0 2px 0' }}>Pago con Mercado Pago</p>
-              <p style={{ color: '#555', fontSize: 12, margin: 0 }}>Alias: <strong>{MP_ALIAS}</strong></p>
+          {/* Selector de método de pago */}
+          <div style={{ marginTop: 24 }}>
+            <p style={{ color: '#555', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>Método de pago</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+
+              {/* Transferencia bancaria */}
+              {(['transferencia', 'mp_saldo', 'mp_tarjeta'] as const).map((opcion) => {
+                const selected = metodoPago === opcion
+                const config = {
+                  transferencia: {
+                    color: '#22c55e', bg: '#F0FFF4',
+                    label: '🏦 Transferencia bancaria',
+                    sub: `Transferís desde tu banco o billetera al alias ${MP_ALIAS}`,
+                    badge: null,
+                  },
+                  mp_saldo: {
+                    color: '#009ee3', bg: '#F0F9FF',
+                    label: '💙 Mercado Pago — con saldo en cuenta',
+                    sub: 'Pagás con el saldo de tu cuenta de Mercado Pago',
+                    badge: null,
+                  },
+                  mp_tarjeta: {
+                    color: '#DC2626', bg: '#FFF5F5',
+                    label: '💳 Mercado Pago — con tarjeta de crédito',
+                    sub: 'La tarjeta de crédito genera un recargo automático del 10%',
+                    badge: '+10% de recargo',
+                  },
+                }[opcion]
+
+                return (
+                  <div
+                    key={opcion}
+                    onClick={() => setMetodoPago(opcion)}
+                    style={{
+                      border: `2px solid ${selected ? config.color : '#E0E0E0'}`,
+                      borderRadius: 12, padding: '14px 16px', cursor: 'pointer',
+                      background: selected ? config.bg : '#FAFAFA',
+                      transition: 'all 0.2s',
+                    }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <div style={{
+                        width: 20, height: 20, borderRadius: '50%', flexShrink: 0,
+                        border: `2px solid ${selected ? config.color : '#CCC'}`,
+                        background: selected ? config.color : 'white',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      }}>
+                        {selected && <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'white' }} />}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                          <span style={{ color: '#1A1A1A', fontWeight: 800, fontSize: 13 }}>{config.label}</span>
+                          {config.badge && (
+                            <span style={{ background: '#FEE2E2', color: '#DC2626', fontWeight: 800, fontSize: 11, padding: '2px 8px', borderRadius: 20 }}>{config.badge}</span>
+                          )}
+                          {!config.badge && (
+                            <span style={{ background: '#DCFCE7', color: '#166534', fontWeight: 800, fontSize: 11, padding: '2px 8px', borderRadius: 20 }}>SIN RECARGO</span>
+                          )}
+                        </div>
+                        <p style={{ color: '#777', fontSize: 11, margin: '3px 0 0 0' }}>{config.sub}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
 
@@ -455,6 +517,7 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
+                  {item.brand && <div style={{ color: '#9CA3AF', fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 1 }}>Marca: {item.brand}</div>}
                   <div style={{ color: '#1A1A1A', fontSize: 12, fontWeight: 700, lineHeight: 1.3 }}>{item.name}</div>
                   <div style={{ color: '#888', fontSize: 11 }}>x{item.quantity}</div>
                 </div>
@@ -465,9 +528,19 @@ export default function CheckoutPage() {
             ))}
           </div>
           <div style={{ borderTop: '1px solid #EEE', paddingTop: 16, marginBottom: 24 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <span style={{ color: '#888', fontSize: 13 }}>Subtotal</span>
+              <span style={{ color: '#555', fontWeight: 700, fontSize: 14 }}>${total.toLocaleString('es-AR')}</span>
+            </div>
+            {recargo > 0 && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                <span style={{ color: '#DC2626', fontSize: 13 }}>Recargo Mercado Pago (10%)</span>
+                <span style={{ color: '#DC2626', fontWeight: 700, fontSize: 14 }}>+${recargo.toLocaleString('es-AR')}</span>
+              </div>
+            )}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: recargo > 0 ? '1px solid #EEE' : 'none', paddingTop: recargo > 0 ? 8 : 0 }}>
               <span style={{ color: BLUE, fontWeight: 900, fontSize: 16 }}>TOTAL</span>
-              <span style={{ color: GOLD, fontWeight: 900, fontSize: 24 }}>${total.toLocaleString('es-AR')}</span>
+              <span style={{ color: GOLD, fontWeight: 900, fontSize: 24 }}>${totalFinal.toLocaleString('es-AR')}</span>
             </div>
           </div>
 
@@ -485,20 +558,23 @@ export default function CheckoutPage() {
               width: '100%', padding: '15px', borderRadius: 12, border: 'none',
               background: loading || total < MIN_COMPRA
                 ? '#E5E7EB'
-                : 'linear-gradient(135deg, #009ee3, #0076c0)',
+                : metodoPago === 'mp_tarjeta'
+                  ? 'linear-gradient(135deg, #E55252, #C94040)'
+                  : metodoPago === 'mp_saldo'
+                    ? 'linear-gradient(135deg, #009ee3, #0076c0)'
+                    : 'linear-gradient(135deg, #22c55e, #16a34a)',
               color: loading || total < MIN_COMPRA ? '#9CA3AF' : '#FFFFFF',
               fontWeight: 900, fontSize: 15,
               cursor: loading || total < MIN_COMPRA ? 'not-allowed' : 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
               transition: 'all 0.2s ease',
             }}>
-            {loading ? (
-              'Procesando...'
+            {loading ? 'Procesando...' : metodoPago === 'mp_tarjeta' ? (
+              <><MPLogo height={22} white /> PAGAR CON TARJETA (+10%)</>
+            ) : metodoPago === 'mp_saldo' ? (
+              <><MPLogo height={22} white /> PAGAR CON SALDO MP</>
             ) : (
-              <>
-                <MPLogo height={22} white />
-                PAGAR CON MERCADO PAGO
-              </>
+              '🏦 CONFIRMAR — PAGAR POR TRANSFERENCIA'
             )}
           </button>
           <div style={{ textAlign: 'center', color: '#999', fontSize: 11, marginTop: 10 }}>

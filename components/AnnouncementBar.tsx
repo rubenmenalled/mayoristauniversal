@@ -15,6 +15,7 @@ const separator = '   ·   ';
 const tickerContent = messages.join(separator) + separator;
 
 export default function AnnouncementBar() {
+  if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')) return null
   return (
     <div
       style={{

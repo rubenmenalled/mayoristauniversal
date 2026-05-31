@@ -65,6 +65,9 @@ export default function HeroSection() {
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
+          #hero-banner { aspect-ratio: 5/2; }
+          .hero-slide { position: absolute !important; inset: 0; }
+          .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
         }
         .hero-slide {
           transition: opacity 0.8s ease;
