@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  background-color: #CC0000;
+  background-color: #74ACDF;
   color: white;
   overflow-x: hidden;
   max-width: 100%;
@@ -22,7 +22,7 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #CC0000; }
+::-webkit-scrollbar-track { background: #74ACDF; }
 ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #F0D060; }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .glass-card {
-  background: #CC0000;
+  background: #5A9BD4;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(212, 175, 55, 0.25);
