@@ -267,7 +267,10 @@ export default function CategoriaPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
             {/* Tarjetas de subcategorías */}
             {subcategorias.map((sub, i) => {
-              const primeraFoto = sub.preview_image || undefined
+              const FALLBACK_IMGS: Record<string, string> = {
+                'BUBBLE': 'https://usimg.k2049.com/files/x/bb5e793a31f0477c88994b2decee6035.jpg',
+              }
+              const primeraFoto = sub.preview_image || FALLBACK_IMGS[sub.nombre.toUpperCase()] || undefined
               const bg = BG_SUBS[i % BG_SUBS.length]
               return (
                 <motion.div key={sub.id}
@@ -369,8 +372,14 @@ export default function CategoriaPage() {
                     {(p.discount ?? 0) > 0 && (
                       <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#FFFFFF', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
                     )}
-                    {p.badge && (
+                    {p.badge && p.badge !== 'x6 UNIDADES' && (
                       <span className={`absolute top-2 right-2 text-white text-[10px] font-black px-2 py-0.5 rounded-full ${BADGE[p.badge] ?? 'bg-gray-600'}`}>{p.badge}</span>
+                    )}
+                    {p.badge === 'x6 UNIDADES' && (
+                      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(135deg,#7C3AED,#A855F7)', padding: '5px 8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+                        <span style={{ fontSize: 13 }}>🎁</span>
+                        <span style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 900, letterSpacing: '0.06em' }}>PRECIO POR 6 UNIDADES</span>
+                      </div>
                     )}
                   </div>
                   <div style={{ padding: 8 }}>
@@ -384,8 +393,14 @@ export default function CategoriaPage() {
                       </div>
                     )}
                     <h3 style={{ color: '#111827', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
-                    {p.descripcion && (
+                    {p.descripcion && p.badge !== 'x6 UNIDADES' && (
                       <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                    )}
+                    {p.badge === 'x6 UNIDADES' && (
+                      <div style={{ background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.35)', borderRadius: 6, padding: '3px 7px', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <span style={{ fontSize: 11 }}>🎁</span>
+                        <span style={{ color: '#7C3AED', fontSize: 10, fontWeight: 800 }}>PRECIO POR 6 UNIDADES</span>
+                      </div>
                     )}
                     <Stars n={p.rating} />
                     {(() => {

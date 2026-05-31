@@ -44,7 +44,28 @@ export async function GET(request: NextRequest) {
         }
       })
 
-      return NextResponse.json(merged)
+      // 4) Obtener primera imagen de cada subcategoría — una query por subcategoría para evitar el límite de 1000 filas
+      const imgBySub: Record<string, string> = {}
+      await Promise.all(
+        merged.map(async (s) => {
+          const urlImg = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=ilike.${encodeURIComponent(s.nombre)}&imagen=neq.&select=imagen&limit=1`
+          const resImg = await fetch(urlImg, {
+            headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
+            cache: 'no-store',
+          })
+          const imgData: { imagen: string }[] = resImg.ok ? await resImg.json() : []
+          if (imgData.length > 0 && imgData[0].imagen) {
+            imgBySub[s.nombre.toLowerCase()] = imgData[0].imagen.split('|')[0]
+          }
+        })
+      )
+
+      const mergedWithImg = merged.map(s => ({
+        ...s,
+        preview_image: imgBySub[s.nombre.toLowerCase()] || '',
+      }))
+
+      return NextResponse.json(mergedWithImg)
     }
 
     // Sin categoria: devolver tabla subcategorias completa (admin)
