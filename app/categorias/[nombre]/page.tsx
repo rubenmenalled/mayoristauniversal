@@ -394,11 +394,21 @@ export default function CategoriaPage() {
                     )}
                     <h3 style={{ color: '#111827', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
                     {p.descripcion && p.badge !== 'x6 UNIDADES' && (
-                      p.descripcion.startsWith('PRECIO POR') ? (
-                        <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: 4 }}>
-                          <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{p.descripcion}</span>
-                        </div>
-                      ) : (
+                      p.descripcion.startsWith('PRECIO POR') ? (() => {
+                        const match = p.descripcion.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
+                        const titulo = match ? match[1] : p.descripcion
+                        const precioUnit = match ? match[2] : null
+                        return (
+                          <>
+                            {precioUnit && (
+                              <div style={{ color: '#333', fontSize: 11, fontWeight: 800, marginBottom: 3 }}>{precioUnit}</div>
+                            )}
+                            <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: 4 }}>
+                              <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
+                            </div>
+                          </>
+                        )
+                      })() : (
                         <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
                       )
                     )}
