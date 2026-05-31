@@ -405,6 +405,7 @@ export default function CategoriaPage() {
                             )}
                             <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: 4 }}>
                               <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
+                              <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>Mayorista: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
                             </div>
                           </>
                         )
@@ -440,11 +441,13 @@ export default function CategoriaPage() {
                         </div>
                       )
                     })()}
-                    <div style={{ marginTop: 6 }}>
-                      <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
-                        {getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)?.label ?? 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                    {!(p.descripcion?.startsWith('PRECIO POR')) && (
+                      <div style={{ marginTop: 6 }}>
+                        <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
+                          {getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)?.label ?? 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <button
                       style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
                       onClick={() => addItem({ id: p.id, name: p.name, brand: p.brand, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder, category: p.category })}>
