@@ -60,9 +60,14 @@ export async function GET(request: NextRequest) {
         })
       )
 
+      // Imágenes hardcodeadas para subcategorías que no tienen productos con imagen en los primeros resultados
+      const HARDCODED_IMGS: Record<string, string> = {
+        'bubble': 'https://usimg.k2049.com/files/x/bb5e793a31f0477c88994b2decee6035.jpg',
+      }
+
       const mergedWithImg = merged.map(s => ({
         ...s,
-        preview_image: imgBySub[s.nombre.toLowerCase()] || '',
+        preview_image: imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
       }))
 
       return NextResponse.json(mergedWithImg)
