@@ -71,10 +71,15 @@ export default function CategoriaPage() {
   const [subSubActiva, setSubSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
 
-  // Sub-subcategorías hardcodeadas por subcategoría con función de filtro
-  const SUB_SUBS: Record<string, { nombre: string; emoji: string; filtro: (p: Producto) => boolean }[]> = {
+  // Sub-subcategorías hardcodeadas por subcategoría
+  const SUB_SUBS: Record<string, { nombre: string; emoji: string; imagen: string; filtro: (p: Producto) => boolean }[]> = {
     'BUBBLE': [
-      { nombre: 'BOLSAS DE REGALO', emoji: '🎁', filtro: (p) => p.name.toLowerCase().includes('bolsa') },
+      {
+        nombre: 'BOLSAS DE REGALO',
+        emoji: '🎁',
+        imagen: 'https://usimg.k2049.com/files/x/3e2f4a1b8c9d4e5f6a7b8c9d0e1f2a3b.jpg',
+        filtro: (p) => p.name.toLowerCase().includes('bolsa'),
+      },
     ],
   }
   const [busquedaInterna, setBusquedaInterna] = useState('')
@@ -133,8 +138,8 @@ export default function CategoriaPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subActiva, nombreDecoded])
 
-  // Filtro de sub-subcategoría (client-side, dentro de BUBBLE)
-  const subSubConfig = subActiva && SUB_SUBS[subActiva] && subSubActiva
+  // Filtro de sub-subcategoría (client-side)
+  const subSubConfig = subActiva && SUB_SUBS[subActiva] && subSubActiva && subSubActiva !== '__todos__'
     ? SUB_SUBS[subActiva].find(ss => ss.nombre === subSubActiva)
     : null
 
@@ -212,6 +217,47 @@ export default function CategoriaPage() {
         </div>
       </div>
 
+      {/* Sub-subcategorías como tarjetas — cuando hay subActiva con sub-subs y no hay subSubActiva */}
+      {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
+          <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
+            Seleccioná una categoría
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
+            {/* Tarjeta "Ver todos" */}
+            <motion.div
+              onClick={() => setSubSubActiva('__todos__')}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0 }}
+              style={{ position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', background: '#E8EAF6', transition: 'transform 0.2s ease' }}
+              onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
+              onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                <span style={{ fontSize: 40 }}>🧸</span>
+                <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>VER TODOS</span>
+                <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
+              </div>
+            </motion.div>
+            {/* Tarjetas de sub-subcategorías */}
+            {SUB_SUBS[subActiva].map((ss, i) => (
+              <motion.div key={ss.nombre}
+                onClick={() => setSubSubActiva(ss.nombre)}
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: (i + 1) * 0.05 }}
+                style={{ position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden', cursor: 'pointer', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', background: BG_SUBS[(i + 1) % BG_SUBS.length], transition: 'transform 0.2s ease' }}
+                onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
+                onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 40 }}>{ss.emoji}</span>
+                  <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>{ss.nombre}</span>
+                  <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Subcategorías como tarjetas — solo si no hay ninguna activa */}
       {subcategorias.length > 0 && !subActiva && !loading && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
@@ -250,34 +296,32 @@ export default function CategoriaPage() {
       {/* Content — productos */}
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
 
-        {/* Botón volver a subcategorías */}
-        {subActiva && subcategorias.length > 0 && (
+        {/* Botón volver — nivel 3: volver a BUBBLE */}
+        {subActiva && subSubActiva && SUB_SUBS[subActiva] && (
+          <button onClick={() => setSubSubActiva('')}
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            ← Volver a {subActiva}
+          </button>
+        )}
+
+        {/* Botón volver — nivel 2: volver a subcategorías (solo si no hay sub-subs pendientes de elegir) */}
+        {subActiva && subcategorias.length > 0 && (!SUB_SUBS[subActiva] || subSubActiva) && (
           <button onClick={() => { setSubActiva(''); setSubSubActiva('') }}
             style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
         )}
 
-        {/* Sub-subcategorías dentro de BUBBLE */}
-        {subActiva && SUB_SUBS[subActiva] && (
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
-            <button
-              onClick={() => setSubSubActiva('')}
-              style={{ padding: '7px 16px', borderRadius: 20, border: '1.5px solid rgba(212,175,55,0.4)', background: !subSubActiva ? '#D4AF37' : '#FFFFFF', color: !subSubActiva ? '#FFFFFF' : '#D4AF37', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}>
-              🧸 Todos
-            </button>
-            {SUB_SUBS[subActiva].map(ss => (
-              <button
-                key={ss.nombre}
-                onClick={() => setSubSubActiva(ss.nombre)}
-                style={{ padding: '7px 16px', borderRadius: 20, border: '1.5px solid rgba(212,175,55,0.4)', background: subSubActiva === ss.nombre ? '#D4AF37' : '#FFFFFF', color: subSubActiva === ss.nombre ? '#FFFFFF' : '#D4AF37', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}>
-                {ss.emoji} {ss.nombre}
-              </button>
-            ))}
-          </div>
+        {/* Botón volver — cuando estoy en sub-subs picker (BUBBLE sin subSubActiva), volver a subcategorías */}
+        {subActiva && SUB_SUBS[subActiva] && !subSubActiva && subcategorias.length > 0 && (
+          <button onClick={() => setSubActiva('')}
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            ← Volver a subcategorías
+          </button>
         )}
 
-        {loading ? (
+        {/* No mostrar productos si estamos en el picker de sub-subcategorías */}
+        {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : loading ? (
           <div style={{ textAlign: 'center', color: '#7a8a9a', padding: 80, fontSize: 16 }}>Cargando productos...</div>
         ) : productosFiltrados.length === 0 ? (
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
