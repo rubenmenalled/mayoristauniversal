@@ -71,9 +71,11 @@ export default function CategoriaPage() {
   const [subSubActiva, setSubSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
 
-  // Sub-subcategorías hardcodeadas por subcategoría
-  const SUB_SUBS: Record<string, { nombre: string; emoji: string }[]> = {
-    'BUBBLE': [{ nombre: 'BOLSAS DE REGALO', emoji: '🎁' }],
+  // Sub-subcategorías hardcodeadas por subcategoría con función de filtro
+  const SUB_SUBS: Record<string, { nombre: string; emoji: string; filtro: (p: Producto) => boolean }[]> = {
+    'BUBBLE': [
+      { nombre: 'BOLSAS DE REGALO', emoji: '🎁', filtro: (p) => p.name.toLowerCase().includes('bolsa') },
+    ],
   }
   const [busquedaInterna, setBusquedaInterna] = useState('')
   const [lightbox, setLightbox] = useState<Producto | null>(null)
@@ -122,16 +124,19 @@ export default function CategoriaPage() {
         .catch(() => setLoading(false))
       return
     }
-    // Si hay sub-subcategoría activa, cargar por esa
-    const subcatParam = subSubActiva || subActiva
     setLoading(true)
     setProductos([])
-    fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded) + '&subcategoria=' + encodeURIComponent(subcatParam))
+    fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded) + '&subcategoria=' + encodeURIComponent(subActiva))
       .then(r => r.json())
       .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
       .catch(() => setLoading(false))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subActiva, subSubActiva, nombreDecoded])
+  }, [subActiva, nombreDecoded])
+
+  // Filtro de sub-subcategoría (client-side, dentro de BUBBLE)
+  const subSubConfig = subActiva && SUB_SUBS[subActiva] && subSubActiva
+    ? SUB_SUBS[subActiva].find(ss => ss.nombre === subSubActiva)
+    : null
 
   const porSubcategoria = subActiva === '' || subActiva === '__todos__'
     ? productos
@@ -143,9 +148,13 @@ export default function CategoriaPage() {
         return p.name?.toLowerCase().includes(keyword)
       })
 
+  const porSubSub = subSubConfig
+    ? porSubcategoria.filter(subSubConfig.filtro)
+    : porSubcategoria
+
   const productosFiltrados = busquedaInterna.trim() === ''
-    ? porSubcategoria
-    : productos.filter(p => {
+    ? porSubSub
+    : porSubSub.filter(p => {
         const q = normalizar(busquedaInterna)
         return normalizar(p.name || '').includes(q) ||
                normalizar(p.brand || '').includes(q) ||
