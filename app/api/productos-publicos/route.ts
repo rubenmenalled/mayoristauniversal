@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const categoria = searchParams.get('categoria')
@@ -14,7 +17,10 @@ export async function GET(request: NextRequest) {
     .order('created_at', { ascending: false })
     .range(0, 4999)
 
+  const subcategoria = searchParams.get('subcategoria')
+
   if (categoria) query = query.ilike('categoria', categoria)
+  if (subcategoria) query = query.ilike('subcategoria', subcategoria)
   if (q) query = query.ilike('nombre', `%${q}%`)
 
   const { data, error } = await query
@@ -36,9 +42,12 @@ export async function GET(request: NextRequest) {
     badge:          p.badge || '',
     discount:       p.descuento ?? 0,
     location:       p.ubicacion || 'Buenos Aires',
+    descripcion:    p.descripcion || '',
     rating:         4.5,
     reviews:        12,
   }))
 
-  return NextResponse.json(mapped)
+  return NextResponse.json(mapped, {
+    headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' }
+  })
 }
