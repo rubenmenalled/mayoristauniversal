@@ -68,7 +68,13 @@ export default function CategoriaPage() {
   const [subActiva, setSubActiva] = useState<string>(
     searchParams.get('sub') ? decodeURIComponent(searchParams.get('sub')!) : ''
   )
+  const [subSubActiva, setSubSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
+
+  // Sub-subcategorías hardcodeadas por subcategoría
+  const SUB_SUBS: Record<string, { nombre: string; emoji: string }[]> = {
+    'BUBBLE': [{ nombre: 'BOLSAS DE REGALO', emoji: '🎁' }],
+  }
   const [busquedaInterna, setBusquedaInterna] = useState('')
   const [lightbox, setLightbox] = useState<Producto | null>(null)
   const [lightboxImgIdx, setLightboxImgIdx] = useState(0)
@@ -116,14 +122,16 @@ export default function CategoriaPage() {
         .catch(() => setLoading(false))
       return
     }
+    // Si hay sub-subcategoría activa, cargar por esa
+    const subcatParam = subSubActiva || subActiva
     setLoading(true)
     setProductos([])
-    fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded) + '&subcategoria=' + encodeURIComponent(subActiva))
+    fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded) + '&subcategoria=' + encodeURIComponent(subcatParam))
       .then(r => r.json())
       .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
       .catch(() => setLoading(false))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subActiva, nombreDecoded])
+  }, [subActiva, subSubActiva, nombreDecoded])
 
   const porSubcategoria = subActiva === '' || subActiva === '__todos__'
     ? productos
@@ -235,10 +243,29 @@ export default function CategoriaPage() {
 
         {/* Botón volver a subcategorías */}
         {subActiva && subcategorias.length > 0 && (
-          <button onClick={() => setSubActiva('')}
+          <button onClick={() => { setSubActiva(''); setSubSubActiva('') }}
             style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
+        )}
+
+        {/* Sub-subcategorías dentro de BUBBLE */}
+        {subActiva && SUB_SUBS[subActiva] && (
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
+            <button
+              onClick={() => setSubSubActiva('')}
+              style={{ padding: '7px 16px', borderRadius: 20, border: '1.5px solid rgba(212,175,55,0.4)', background: !subSubActiva ? '#D4AF37' : '#FFFFFF', color: !subSubActiva ? '#FFFFFF' : '#D4AF37', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}>
+              🧸 Todos
+            </button>
+            {SUB_SUBS[subActiva].map(ss => (
+              <button
+                key={ss.nombre}
+                onClick={() => setSubSubActiva(ss.nombre)}
+                style={{ padding: '7px 16px', borderRadius: 20, border: '1.5px solid rgba(212,175,55,0.4)', background: subSubActiva === ss.nombre ? '#D4AF37' : '#FFFFFF', color: subSubActiva === ss.nombre ? '#FFFFFF' : '#D4AF37', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}>
+                {ss.emoji} {ss.nombre}
+              </button>
+            ))}
+          </div>
         )}
 
         {loading ? (
