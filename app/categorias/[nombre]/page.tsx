@@ -393,61 +393,63 @@ export default function CategoriaPage() {
                       </div>
                     )}
                     <h3 style={{ color: '#111827', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
-                    {p.descripcion && p.badge !== 'x6 UNIDADES' && (
-                      p.descripcion.startsWith('PRECIO POR') ? (() => {
+                    {(() => {
+                      let titulo: string | null = null
+                      let precioUnit: string | null = null
+                      const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
+
+                      if (p.descripcion?.startsWith('PRECIO POR')) {
                         const match = p.descripcion.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
-                        const titulo = match ? match[1] : p.descripcion
-                        const precioUnit = match ? match[2] : null
-                        return (
-                          <>
-                            <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: 4 }}>
-                              <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
-                              {precioUnit && (
-                                <div style={{ color: '#333', fontSize: 11, fontWeight: 800, marginTop: 2 }}>{precioUnit}</div>
-                              )}
-                              <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>Mayorista: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
-                            </div>
-                          </>
-                        )
-                      })() : (
-                        <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                        titulo = match ? match[1] : p.descripcion
+                        precioUnit = match ? match[2] : null
+                      } else if (p.badge === 'x6 UNIDADES') {
+                        titulo = 'PRECIO POR 6 UNIDADES'
+                        precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
+                      } else if (bi?.badge && p.minOrder > 1) {
+                        const m = bi.badgeText.match(/PRECIO POR \w+ \(x\d+\)/)
+                        titulo = m ? m[0] : bi.badgeText.replace('📦 ', '').replace(' DE COLORES SURTIDOS', '')
+                        precioUnit = `$${Math.round(p.wholesalePrice / p.minOrder).toLocaleString('es-AR')} c/u`
+                      }
+
+                      return titulo ? (
+                        <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: 4 }}>
+                          <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
+                          {precioUnit && (
+                            <div style={{ color: '#333', fontSize: 11, fontWeight: 800, marginTop: 2 }}>{precioUnit}</div>
+                          )}
+                          <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>Mayorista: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
+                        </div>
+                      ) : (
+                        p.descripcion ? (
+                          <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                        ) : null
                       )
-                    )}
-                    {p.badge === 'x6 UNIDADES' && (
-                      <div style={{ background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.35)', borderRadius: 6, padding: '3px 7px', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
-                        <span style={{ fontSize: 11 }}>🎁</span>
-                        <span style={{ color: '#7C3AED', fontSize: 10, fontWeight: 800 }}>PRECIO POR 6 UNIDADES</span>
-                      </div>
-                    )}
-                    <Stars n={p.rating} />
+                    })()}
                     {(() => {
                       const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
-                      if (!bi) return null
+                      if (!bi?.sku) return null
                       return (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, marginBottom: 2 }}>
-                          {bi.badge && (
-                            <div style={{ background: 'linear-gradient(135deg,#7C3AED,#A855F7)', borderRadius: 6, padding: '3px 7px' }}>
-                              <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 900, letterSpacing: '0.05em' }}>{bi.badgeText}</span>
-                            </div>
-                          )}
-                          {bi.sku && (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px' }}>
-                              <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
-                              <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>
-                                {p.location?.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : 'Sin código'}
-                              </span>
-                            </div>
-                          )}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 4 }}>
+                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
+                          <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>
+                            {p.location?.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : 'Sin código'}
+                          </span>
                         </div>
                       )
                     })()}
-                    {!(p.descripcion?.startsWith('PRECIO POR')) && (
-                      <div style={{ marginTop: 6 }}>
-                        <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
-                          {getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)?.label ?? 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                    <Stars n={p.rating} />
+                    {(() => {
+                      const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
+                      const isBulk = p.descripcion?.startsWith('PRECIO POR') || p.badge === 'x6 UNIDADES' || (bi?.badge && p.minOrder > 1)
+                      if (isBulk) return null
+                      return (
+                        <div style={{ marginTop: 6 }}>
+                          <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
+                            {bi?.label ?? 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )
+                    })()}
                     <button
                       style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
                       onClick={() => addItem({ id: p.id, name: p.name, brand: p.brand, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder, category: p.category })}>
