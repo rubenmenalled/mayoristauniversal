@@ -58,16 +58,28 @@ function BuscarContent() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!q.trim()) { setProductos([]); setLoading(false); return }
     setLoading(true)
-    fetch('/api/productos-publicos')
-      .then(r => r.json())
-      .then((data: Producto[]) => {
-        const variants = getVariants(q)
-        const filtrados = data.filter(p => matchesSearch(p, variants))
-        setProductos(filtrados)
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
+    // Buscar todas las variantes en paralelo vía API (server-side, sin límite de 1000 filas)
+    const variants = getVariants(q)
+    Promise.all(
+      variants.map(v =>
+        fetch(`/api/productos-publicos?q=${encodeURIComponent(v)}`)
+          .then(r => r.json())
+          .catch(() => [] as Producto[])
+      )
+    ).then(results => {
+      const seen = new Set<number>()
+      const merged: Producto[] = []
+      for (const arr of results) {
+        if (!Array.isArray(arr)) continue
+        for (const p of arr) {
+          if (!seen.has(p.id)) { seen.add(p.id); merged.push(p) }
+        }
+      }
+      setProductos(merged)
+      setLoading(false)
+    }).catch(() => setLoading(false))
   }, [q])
 
   const handleSearch = (e: React.FormEvent) => {

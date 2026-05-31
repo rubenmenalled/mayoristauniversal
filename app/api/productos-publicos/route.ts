@@ -11,13 +11,15 @@ export async function GET(request: NextRequest) {
 
   const supabase = getAdminClient()
 
+  const subcategoria = searchParams.get('subcategoria')
+
+  // Cuando hay búsqueda por texto (q), no aplicar rango para buscar en toda la DB
   let query = supabase
     .from('productos')
     .select('*')
     .order('created_at', { ascending: false })
-    .range(0, 4999)
 
-  const subcategoria = searchParams.get('subcategoria')
+  if (!q) query = (query as any).range(0, 4999)
 
   if (categoria) query = query.ilike('categoria', categoria)
   if (subcategoria) query = query.ilike('subcategoria', subcategoria)
