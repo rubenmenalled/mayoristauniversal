@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     .select('*')
     .order('created_at', { ascending: false })
 
-  if (!q) query = (query as any).range(0, 4999)
+  if (!q) query = (query as any).range(0, 19999)
 
   if (categoria) query = query.ilike('categoria', categoria)
   if (subcategoria) query = query.ilike('subcategoria', subcategoria)
