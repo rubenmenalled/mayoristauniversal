@@ -12,11 +12,11 @@ interface Producto {
   id: number; name: string; brand: string; category: string
   subcategory?: string; price: number; wholesalePrice: number; minOrder: number
   rating: number; reviews: number; image: string; images?: string[]
-  badge?: string; discount?: number; location: string
+  badge?: string; discount?: number; location: string; descripcion?: string
 }
 
 interface Subcategoria {
-  id: number; nombre: string; emoji: string; categoria_id: number
+  id: number; nombre: string; emoji: string; categoria_id: number; preview_image?: string
 }
 
 const BADGE: Record<string, string> = {
@@ -84,22 +84,46 @@ export default function CategoriaPage() {
       .replace(/\s+/g, ' ')
   }
 
+  // Cargar subcategorías al entrar
   useEffect(() => {
-    // Cargar productos filtrados por categoría directamente
-    fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded))
-      .then(r => r.json())
-      .then((data: Producto[]) => {
-        setProductos(Array.isArray(data) ? data : [])
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
-
-    // Cargar subcategorías
     fetch('/api/subcategorias?categoria=' + encodeURIComponent(nombreDecoded))
       .then(r => r.json())
-      .then(data => { if (Array.isArray(data)) setSubcategorias(data) })
-      .catch(() => {})
+      .then(data => {
+        if (Array.isArray(data)) setSubcategorias(data)
+        // Si no hay subcategorías, cargar todos los productos directamente
+        if (!Array.isArray(data) || data.length === 0) {
+          setLoading(true)
+          fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded))
+            .then(r => r.json())
+            .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
+            .catch(() => setLoading(false))
+        } else {
+          setLoading(false)
+        }
+      })
+      .catch(() => setLoading(false))
   }, [nombreDecoded])
+
+  // Cargar productos cuando cambia la subcategoría activa
+  useEffect(() => {
+    if (!subActiva || subActiva === '__todos__') {
+      // Solo cargar todos si no hay subcategorías
+      if (subcategorias.length === 0) return
+      setLoading(true)
+      fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded))
+        .then(r => r.json())
+        .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
+        .catch(() => setLoading(false))
+      return
+    }
+    setLoading(true)
+    setProductos([])
+    fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded) + '&subcategoria=' + encodeURIComponent(subActiva))
+      .then(r => r.json())
+      .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
+      .catch(() => setLoading(false))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subActiva, nombreDecoded])
 
   const porSubcategoria = subActiva === '' || subActiva === '__todos__'
     ? productos
@@ -180,10 +204,7 @@ export default function CategoriaPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
             {/* Tarjetas de subcategorías */}
             {subcategorias.map((sub, i) => {
-              const cant = productos.filter(p => p.subcategory?.toLowerCase() === sub.nombre.toLowerCase()).length
-              const primeraFoto = productos.find(
-                p => p.subcategory?.toLowerCase() === sub.nombre.toLowerCase() && p.image
-              )?.image
+              const primeraFoto = sub.preview_image || undefined
               const bg = BG_SUBS[i % BG_SUBS.length]
               return (
                 <motion.div key={sub.id}
@@ -200,7 +221,7 @@ export default function CategoriaPage() {
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: 4, padding: 12 }}>
                     <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>{sub.nombre}</span>
-                    {cant > 0 && <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>{cant} productos</span>}
+                    <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
                   </div>
                 </motion.div>
               )
@@ -215,7 +236,7 @@ export default function CategoriaPage() {
         {/* Botón volver a subcategorías */}
         {subActiva && subcategorias.length > 0 && (
           <button onClick={() => setSubActiva('')}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
         )}
@@ -237,7 +258,7 @@ export default function CategoriaPage() {
           </div>
         ) : (
           <>
-            <div style={{ color: '#CBD5E1', fontSize: 13, marginBottom: 24 }}>
+            <div style={{ color: '#6B7280', fontSize: 13, marginBottom: 24 }}>
               {busquedaInterna.trim()
                 ? <><span style={{ color: '#D4AF37', fontWeight: 700 }}>{productosFiltrados.length}</span> resultado{productosFiltrados.length !== 1 ? 's' : ''} para <span style={{ color: '#D4AF37', fontWeight: 700 }}>"{busquedaInterna}"</span></>
                 : <>{productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en <span style={{ color: '#D4AF37', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
@@ -247,10 +268,11 @@ export default function CategoriaPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 14 }}>
               {productosFiltrados.map((p, i) => (
                 <motion.div key={p.id}
-                  className="prod-card glass-card rounded-xl overflow-hidden relative"
+                  className="prod-card rounded-xl overflow-hidden relative"
+                  style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}>
+                  transition={{ delay: Math.min(i * 0.04, 0.4) }}>
 
                   <div style={{ position: 'relative', height: 340, background: '#F0F0F0', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => { if (p.image) { setLightbox(p); setLightboxImgIdx(0) } }}>
@@ -272,16 +294,19 @@ export default function CategoriaPage() {
                     )}
                   </div>
                   <div style={{ padding: 8 }}>
-                    {p.brand && <div style={{ color: '#CBD5E1', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
+                    {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
                     {p.location && p.location !== 'Buenos Aires' && (
                       <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
                         <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>COD</span>
-                        <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 10 }}>
+                        <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>
                           {p.location.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : p.location}
                         </span>
                       </div>
                     )}
-                    <h3 style={{ color: '#FFFFFF', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
+                    <h3 style={{ color: '#111827', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
+                    {p.descripcion && (
+                      <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                    )}
                     <Stars n={p.rating} />
                     {(() => {
                       const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
@@ -296,7 +321,7 @@ export default function CategoriaPage() {
                           {bi.sku && (
                             <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px' }}>
                               <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
-                              <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 10 }}>
+                              <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>
                                 {p.location?.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : 'Sin código'}
                               </span>
                             </div>
@@ -305,13 +330,13 @@ export default function CategoriaPage() {
                       )
                     })()}
                     <div style={{ marginTop: 6 }}>
-                      <div style={{ color: '#CBD5E1', fontSize: 10, marginTop: 2 }}>
+                      <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
                         {getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)?.label ?? 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                       </div>
                     </div>
                     <button
                       style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
-                      onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder, category: p.category })}>
+                      onClick={() => addItem({ id: p.id, name: p.name, brand: p.brand, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder, category: p.category })}>
                       <ShoppingCart size={11} /> AGREGAR
                     </button>
                   </div>
@@ -335,12 +360,12 @@ export default function CategoriaPage() {
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => { if (zoom) { setZoom(false); setOffset({x:0,y:0}) } else setLightbox(null) }}
-            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: zoom ? 0 : 16, cursor: zoom ? 'zoom-out' : 'default' }}>
-            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: zoom ? '100%' : 680, maxHeight: zoom ? '100vh' : 'calc(100vh - 40px)', background: '#0a1628', borderRadius: zoom ? 0 : 20, overflow: zoom ? 'hidden' : 'auto', border: zoom ? 'none' : '1px solid rgba(212,175,55,0.3)', transition: 'all 0.25s ease' }}>
+            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: zoom ? 0 : 16, cursor: zoom ? 'zoom-out' : 'default' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: zoom ? '100%' : 680, maxHeight: zoom ? '100vh' : 'calc(100vh - 40px)', background: '#FFFFFF', borderRadius: zoom ? 0 : 20, overflow: zoom ? 'hidden' : 'auto', border: zoom ? 'none' : '1px solid rgba(212,175,55,0.3)', transition: 'all 0.25s ease' }}>
               {/* Foto grande */}
               <div
                 ref={imgRef}
-                style={{ position: 'relative', width: '100%', height: zoom ? '100vh' : 'min(520px, 72vh)', background: lightbox.category?.toUpperCase() === 'ACCESORIOS DE PELO' ? '#FFFFFF' : '#111', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
+                style={{ position: 'relative', width: '100%', height: zoom ? '100vh' : 'min(360px, 52vh)', background: '#F9FAFB', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
                 onClick={e => { e.stopPropagation(); if (!dragging) { setZoom(z => !z); setOffset({x:0,y:0}) } }}
                 onMouseDown={e => { if (zoom) { setDragStart({x: e.clientX - offset.x, y: e.clientY - offset.y}); setDragging(false) } }}
                 onMouseMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.clientX - dragStart.x, y: e.clientY - dragStart.y}) } }}
@@ -395,7 +420,7 @@ export default function CategoriaPage() {
                 <div style={{ display: 'flex', gap: 8, padding: '10px 16px 0', justifyContent: 'center' }}>
                   {lbImages.map((src, i) => (
                     <button key={i} onClick={() => { setLightboxImgIdx(i); setZoom(false); setOffset({x:0,y:0}) }}
-                      style={{ width: 52, height: 52, borderRadius: 8, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #D4AF37' : '2px solid rgba(255,255,255,0.15)', padding: 0, cursor: 'pointer', background: '#111', flexShrink: 0, transition: 'border-color 0.2s' }}>
+                      style={{ width: 52, height: 52, borderRadius: 8, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #D4AF37' : '2px solid #E5E7EB', padding: 0, cursor: 'pointer', background: '#F3F4F6', flexShrink: 0, transition: 'border-color 0.2s' }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={src} alt={`foto ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </button>
@@ -405,11 +430,19 @@ export default function CategoriaPage() {
 
               {/* Info */}
               {!zoom && <div style={{ padding: '16px 20px 20px' }}>
-                <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 10 }}>{lightbox.name}</div>
+                {lightbox.brand && (
+                  <div style={{ color: '#9CA3AF', fontSize: 11, fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Marca: {lightbox.brand}</div>
+                )}
+                <div style={{ color: '#111827', fontWeight: 900, fontSize: 15, marginBottom: lightbox.descripcion ? 6 : 10 }}>{lightbox.name}</div>
+                {lightbox.descripcion && (
+                  <div style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.5, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #D4AF37' }}>
+                    {lightbox.descripcion}
+                  </div>
+                )}
                 {lightbox.location && lightbox.location !== 'Buenos Aires' && !getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder) && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
                     <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>COD</span>
-                    <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
+                    <span style={{ color: '#111827', fontWeight: 800, fontSize: 15 }}>
                       {lightbox.location.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : lightbox.location}
                     </span>
                   </div>
@@ -427,7 +460,7 @@ export default function CategoriaPage() {
                       {lbi.sku && (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
                           <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
-                          <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>
+                          <span style={{ color: '#111827', fontWeight: 800, fontSize: 15 }}>
                             {lightbox.location?.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : 'Sin código'}
                           </span>
                         </div>
@@ -440,18 +473,18 @@ export default function CategoriaPage() {
                 </div>
                 <div style={{ display: 'flex', gap: 10 }}>
                   <button onClick={() => setLightbox(null)}
-                    style={{ flex: 1, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '10px', color: '#ccc', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
+                    style={{ flex: 1, background: '#F3F4F6', border: '1px solid #E5E7EB', borderRadius: 10, padding: '10px', color: '#374151', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
                     Cerrar
                   </button>
                   <motion.button whileTap={{ scale: 0.97 }}
-                    onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.minOrder, category: lightbox.category }); setLightbox(null) }}
+                    onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, brand: lightbox.brand, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.minOrder, category: lightbox.category }); setLightbox(null) }}
                     style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
                     <ShoppingCart size={14} /> AGREGAR AL CARRITO
                   </motion.button>
                 </div>
               </div>}
             </div>
-            {!zoom && <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>}
+            {!zoom && <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>}
           </motion.div>
         )
       })()}
