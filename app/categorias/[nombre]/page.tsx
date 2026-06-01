@@ -405,9 +405,8 @@ export default function CategoriaPage() {
                       } else if (p.badge === 'x6 UNIDADES') {
                         titulo = 'PRECIO POR 6 UNIDADES'
                         precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
-                      } else if (bi?.badge && p.minOrder > 1) {
-                        const m = bi.badgeText.match(/PRECIO POR \w+ \(x\d+\)/)
-                        titulo = m ? m[0] : bi.badgeText.replace('📦 ', '').replace(' DE COLORES SURTIDOS', '')
+                      } else if (p.minOrder > 1) {
+                        titulo = `PRECIO POR ${p.minOrder} UNIDADES`
                         precioUnit = `$${Math.round(p.wholesalePrice / p.minOrder).toLocaleString('es-AR')} c/u`
                       }
 
@@ -440,7 +439,7 @@ export default function CategoriaPage() {
                     <Stars n={p.rating} />
                     {(() => {
                       const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
-                      const isBulk = p.descripcion?.startsWith('PRECIO POR') || p.badge === 'x6 UNIDADES' || (bi?.badge && p.minOrder > 1)
+                      const isBulk = p.descripcion?.startsWith('PRECIO POR') || p.badge === 'x6 UNIDADES' || p.minOrder > 1
                       if (isBulk) return null
                       return (
                         <div style={{ marginTop: 6 }}>
