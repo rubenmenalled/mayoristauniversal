@@ -6,6 +6,7 @@ export async function getProductos() {
 }
 
 const ORDEN_CATEGORIAS = [
+  'LENCERIA',
   'INVIERNO 2026',
   'ELECTROHOGAR',
   'DECO CASA',
@@ -31,7 +32,6 @@ const ORDEN_CATEGORIAS = [
   'PERFUMERIA',
   'BLANQUERIA',
   'AUTOMOTOR',
-  'LENCERIA',
   'RODADOS',
 ]
 
