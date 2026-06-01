@@ -326,7 +326,7 @@ export default function CategoriaPage() {
         {/* No mostrar productos si estamos en el picker de sub-subcategorías */}
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : loading ? (
           <div style={{ textAlign: 'center', color: '#FFFFFF', padding: 80, fontSize: 16 }}>Cargando productos...</div>
-        ) : productosFiltrados.length === 0 ? (
+        ) : productosFiltrados.length === 0 && (!subcategorias.length || subActiva || busquedaInterna.trim()) ? (
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
             <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
             <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
