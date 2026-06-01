@@ -416,7 +416,7 @@ export default function CategoriaPage() {
                             <div style={{ color: '#333', fontSize: 11, fontWeight: 800 }}>{precioUnit}</div>
                           )}
                           <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
-                          <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>${p.wholesalePrice.toLocaleString('es-AR')}</div>
+                          <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>LA DOCENA: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
                         </div>
                       ) : (
                         p.descripcion ? (
