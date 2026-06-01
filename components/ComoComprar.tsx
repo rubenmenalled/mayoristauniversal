@@ -13,26 +13,26 @@ const pasos: Paso[] = [
   {
     numero: 1,
     emoji: '🔍',
-    titulo: 'Explorá los catálogos',
-    descripcion: 'Navegá por más de 20 categorías y encontrá lo que necesitás',
+    titulo: 'Explorá y elegí tus productos',
+    descripcion: 'Explorá nuestro amplio catálogo de productos, donde podrás buscar por categorías. Elegí el artículo de tu preferencia y hacé click en «Agregar». Recordá que el mínimo de compra es de $150.000.',
   },
   {
     numero: 2,
-    emoji: '📱',
-    titulo: 'Contactanos por WhatsApp',
-    descripcion: 'Mandanos los productos que te interesan y la cantidad',
+    emoji: '🛒',
+    titulo: 'Revisá tu carrito',
+    descripcion: 'Una vez agregado el/los productos, aparecerá el recuadro del carrito a tu derecha. También podés hacer click en el ícono del carrito (abajo a la derecha). Luego seleccioná «Ir a Pagar».',
   },
   {
     numero: 3,
-    emoji: '💰',
-    titulo: 'Coordinamos el pago',
-    descripcion: 'Te enviamos la factura y los medios de pago disponibles',
+    emoji: '💳',
+    titulo: 'Ingresá tus datos y pagá',
+    descripcion: 'Completá tus datos personales, de facturación y de envío. Los pagos con tarjeta de crédito o débito vía MercadoPago tienen un recargo del 11% adicional que se verá al elegir ese medio de pago.',
   },
   {
     numero: 4,
     emoji: '🚚',
-    titulo: 'Recibís tu pedido',
-    descripcion: 'Enviamos a todo el país. Demoras de entrega: 1 a 7 días hábiles aproximadamente.',
+    titulo: 'Confirmación y envío',
+    descripcion: 'Al realizar el pedido verás el detalle y, si elegís transferencia, los datos bancarios para acreditar el pago. Una vez recibido el pago nos ponemos en contacto y procedemos con el envío.',
   },
 ];
 
