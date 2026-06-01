@@ -26,7 +26,7 @@ const pasos: Paso[] = [
     numero: 3,
     emoji: '💳',
     titulo: 'Ingresá tus datos y pagá',
-    descripcion: 'Completá tus datos personales, de facturación y de envío. Luego elegí tu método de pago: 🏦 Transferencia bancaria (sin recargo) al alias ruby.mena.1972 · 💙 Mercado Pago con saldo en cuenta (sin recargo) · 💳 Mercado Pago con tarjeta de crédito (+10% de recargo automático).',
+    descripcion: 'Completá tus datos personales, de facturación y de envío. Luego elegí tu método de pago: 🏦 Transferencia bancaria (sin recargo) · 💙 Mercado Pago con saldo en cuenta (sin recargo) · 💳 Mercado Pago con tarjeta de crédito (+10% de recargo automático).',
   },
   {
     numero: 4,
