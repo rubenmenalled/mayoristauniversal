@@ -153,7 +153,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   })
 
   const kbAnims = ['kenburns-1', 'kenburns-2', 'kenburns-3']
-  const PROXIMAMENTE = new Set(['OPTICA', 'BLANQUERIA', 'LENCERIA', 'RODADOS'])
+  const PROXIMAMENTE = new Set(['BLANQUERIA', 'LENCERIA', 'RODADOS'])
 
   return (
     <>
