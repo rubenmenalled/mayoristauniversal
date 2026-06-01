@@ -11,7 +11,7 @@ const preguntas = [
   {
     pregunta: '¿Cómo hago un pedido?',
     respuesta:
-      'Explorás nuestros catálogos, elegís los productos y nos contactás por WhatsApp con el detalle. Te respondemos en el día con disponibilidad y precios.',
+      'Seguí estos pasos: 1° Explorá el catálogo y agregá los productos al carrito. 2° Hacé click en el ícono del carrito y seleccioná «Ir a Pagar». 3° Completá tus datos y elegí el método de pago. 4° Confirmá el pedido y listo.',
   },
   {
     pregunta: '¿Envían a todo el país?',
