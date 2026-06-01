@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       let fromTable: { id: number; nombre: string; emoji: string; categoria_id: number }[] = []
       if (catData.length > 0) {
         const catId = catData[0].id
-        const urlSubs = `${SUPABASE_URL}/rest/v1/subcategorias?categoria_id=eq.${catId}&order=nombre`
+        const urlSubs = `${SUPABASE_URL}/rest/v1/subcategorias?categoria_id=eq.${catId}&order=id`
         const resSubs = await fetch(urlSubs, {
           headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
           cache: 'no-store',
