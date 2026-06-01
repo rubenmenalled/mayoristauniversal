@@ -129,7 +129,7 @@ export async function GET() {
     'PRODUCTOS REGIONALES':['Alimentos Regionales', 'Dulces y Conservas', 'Artesanías', 'Bebidas'],
     'PERFUMERIA':         ['Perfumes Mujer', 'Perfumes Hombre', 'Desodorantes', 'Cremas y Lociones'],
     'BLANQUERIA':         ['Sábanas', 'Toallas', 'Almohadas', 'Edredones', 'Acolchados'],
-    'OPTICA':             ['Anteojos de Sol', 'Anteojos de Lectura', 'Estuches', 'Limpiadores'],
+    'OPTICA':             ['Anteojos de Sol', 'Anteojos de Lectura', 'LENTES DE SOL', 'LENTES INYECTADOS', 'LENTES CICLISMO', 'Estuches', 'Limpiadores'],
     'LENCERIA':           ['Ropa Interior Mujer', 'Pijamas', 'Medias y Medias Cañas', 'Camisones'],
     'RODADOS':            ['Bicicletas', 'Patines', 'Scooters', 'Accesorios Rodados'],
   }
