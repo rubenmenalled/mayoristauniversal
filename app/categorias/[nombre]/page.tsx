@@ -550,9 +550,21 @@ export default function CategoriaPage() {
                 )}
                 <div style={{ color: '#111827', fontWeight: 900, fontSize: 15, marginBottom: lightbox.descripcion ? 6 : 10 }}>{lightbox.name}</div>
                 {lightbox.descripcion && (
-                  <div style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.5, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #D4AF37' }}>
-                    {lightbox.descripcion}
-                  </div>
+                  lightbox.descripcion.startsWith('PRECIO POR') ? (() => {
+                    const match = lightbox.descripcion!.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
+                    const titulo = match ? match[1] : lightbox.descripcion
+                    const precioUnit = match ? match[2] : null
+                    return (
+                      <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: 10 }}>
+                        <div style={{ color: '#111', fontSize: 12, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</div>
+                        {precioUnit && <div style={{ color: '#111', fontSize: 13, fontWeight: 900, marginTop: 3 }}>{precioUnit}</div>}
+                      </div>
+                    )
+                  })() : (
+                    <div style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.5, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #D4AF37' }}>
+                      {lightbox.descripcion}
+                    </div>
+                  )
                 )}
                 {lightbox.location && lightbox.location !== 'Buenos Aires' && !getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder) && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
