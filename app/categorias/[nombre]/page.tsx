@@ -475,12 +475,12 @@ export default function CategoriaPage() {
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => { if (zoom) { setZoom(false); setOffset({x:0,y:0}) } else setLightbox(null) }}
-            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: zoom ? 0 : 16, cursor: zoom ? 'zoom-out' : 'default' }}>
-            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: zoom ? '100%' : 680, maxHeight: zoom ? '100vh' : 'calc(100vh - 40px)', background: '#FFFFFF', borderRadius: zoom ? 0 : 20, overflow: zoom ? 'hidden' : 'auto', border: zoom ? 'none' : '1px solid rgba(212,175,55,0.3)', transition: 'all 0.25s ease' }}>
+            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'default' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 680, maxHeight: 'calc(100vh - 40px)', background: '#FFFFFF', borderRadius: 20, overflow: 'auto', border: '1px solid rgba(212,175,55,0.3)', transition: 'all 0.25s ease' }}>
               {/* Foto grande */}
               <div
                 ref={imgRef}
-                style={{ position: 'relative', width: '100%', height: zoom ? '100vh' : 'min(360px, 52vh)', background: '#F9FAFB', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
+                style={{ position: 'relative', width: '100%', height: zoom ? 'min(520px, 70vh)' : 'min(360px, 52vh)', background: '#F9FAFB', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
                 onClick={e => { e.stopPropagation(); if (!dragging) { setZoom(z => !z); setOffset({x:0,y:0}) } }}
                 onMouseDown={e => { if (zoom) { setDragStart({x: e.clientX - offset.x, y: e.clientY - offset.y}); setDragging(false) } }}
                 onMouseMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.clientX - dragStart.x, y: e.clientY - dragStart.y}) } }}
@@ -490,7 +490,7 @@ export default function CategoriaPage() {
                 onTouchMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.touches[0].clientX - dragStart.x, y: e.touches[0].clientY - dragStart.y}) } }}
                 onTouchEnd={() => { setTimeout(() => setDragging(false), 50); setDragStart(null) }}
               >
-                <div style={{ position: 'absolute', inset: 0, transform: zoom ? `scale(2.5) translate(${offset.x/2.5}px, ${offset.y/2.5}px)` : 'scale(1)', transition: dragStart ? 'none' : 'transform 0.3s ease', transformOrigin: 'center center' }}>
+                <div style={{ position: 'absolute', inset: 0, transform: zoom ? `scale(1.8) translate(${offset.x/1.8}px, ${offset.y/1.8}px)` : 'scale(1)', transition: dragStart ? 'none' : 'transform 0.3s ease', transformOrigin: 'center center' }}>
                   <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: zoom ? 0 : 16 }} sizes="(max-width: 768px) 95vw, 800px" quality={95} />
                 </div>
 
