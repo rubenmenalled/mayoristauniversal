@@ -476,28 +476,21 @@ export default function CategoriaPage() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => { if (zoom) { setZoom(false); setOffset({x:0,y:0}) } else setLightbox(null) }}
             style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'default' }}>
-            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 680, maxHeight: 'calc(100vh - 40px)', background: '#FFFFFF', borderRadius: 20, overflow: 'auto', border: '1px solid rgba(212,175,55,0.3)', transition: 'all 0.25s ease' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: zoom ? 900 : 680, maxHeight: 'calc(100vh - 40px)', background: '#FFFFFF', borderRadius: 20, overflow: 'auto', border: '1px solid rgba(212,175,55,0.3)', transition: 'all 0.3s ease' }}>
               {/* Foto grande */}
               <div
                 ref={imgRef}
-                style={{ position: 'relative', width: '100%', height: zoom ? 'min(520px, 70vh)' : 'min(360px, 52vh)', background: '#F9FAFB', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
-                onClick={e => { e.stopPropagation(); if (!dragging) { setZoom(z => !z); setOffset({x:0,y:0}) } }}
-                onMouseDown={e => { if (zoom) { setDragStart({x: e.clientX - offset.x, y: e.clientY - offset.y}); setDragging(false) } }}
-                onMouseMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.clientX - dragStart.x, y: e.clientY - dragStart.y}) } }}
-                onMouseUp={() => { setTimeout(() => setDragging(false), 50); setDragStart(null) }}
-                onMouseLeave={() => { setDragStart(null) }}
-                onTouchStart={e => { if (zoom) setDragStart({x: e.touches[0].clientX - offset.x, y: e.touches[0].clientY - offset.y}) }}
-                onTouchMove={e => { if (zoom && dragStart) { setDragging(true); setOffset({x: e.touches[0].clientX - dragStart.x, y: e.touches[0].clientY - dragStart.y}) } }}
-                onTouchEnd={() => { setTimeout(() => setDragging(false), 50); setDragStart(null) }}
+                style={{ position: 'relative', width: '100%', height: zoom ? 'min(600px, 80vh)' : 'min(360px, 52vh)', background: '#F9FAFB', overflow: 'hidden', cursor: 'zoom-in', transition: 'height 0.3s ease' }}
+                onClick={e => { e.stopPropagation(); setZoom(z => !z); setOffset({x:0,y:0}) }}
               >
-                <div style={{ position: 'absolute', inset: 0, transform: zoom ? `scale(1.8) translate(${offset.x/1.8}px, ${offset.y/1.8}px)` : 'scale(1)', transition: dragStart ? 'none' : 'transform 0.3s ease', transformOrigin: 'center center' }}>
-                  <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: zoom ? 0 : 16 }} sizes="(max-width: 768px) 95vw, 800px" quality={95} />
+                <div style={{ position: 'absolute', inset: 0 }}>
+                  <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: zoom ? 8 : 16 }} sizes="(max-width: 768px) 95vw, 900px" quality={100} />
                 </div>
 
                 {/* Hint zoom */}
                 {!zoom && (
                   <div style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11, pointerEvents: 'none' }}>
-                    🔍 Toca para zoom
+                    🔍 Toca para ampliar
                   </div>
                 )}
 
@@ -519,9 +512,9 @@ export default function CategoriaPage() {
 
                 {/* Contador / cerrar zoom */}
                 {zoom ? (
-                  <button onClick={e => { e.stopPropagation(); setZoom(false); setOffset({x:0,y:0}) }}
+                  <button onClick={e => { e.stopPropagation(); setZoom(false) }}
                     style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '4px 12px', color: '#fff', fontSize: 12, cursor: 'pointer', zIndex: 20 }}>
-                    ✕ Cerrar zoom
+                    ✕ Reducir
                   </button>
                 ) : (
                   <div style={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11 }}>
