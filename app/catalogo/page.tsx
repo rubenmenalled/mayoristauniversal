@@ -15,7 +15,7 @@ const FOTOS: Record<string, string> = {
   BLANQUERIA:   '/cat_blanqueria.jpg',
   COTILLON:     'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
   ELECTRONICA:  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
-  FITNESS:      'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=90',
+  DEPORTIVOS:   'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=90',
   HERRAMIENTAS: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800&q=90',
   JUGUETERIA:   'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
   LIBRERIA:     'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
