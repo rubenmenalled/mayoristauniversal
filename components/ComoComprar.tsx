@@ -20,7 +20,7 @@ const pasos: Paso[] = [
     numero: 2,
     emoji: '🛒',
     titulo: 'Revisá tu carrito',
-    descripcion: 'Una vez agregado el/los productos, aparecerá el recuadro del carrito a tu derecha. También podés hacer click en el ícono del carrito (abajo a la derecha). Luego seleccioná «Ir a Pagar».',
+    descripcion: 'Una vez agregado el/los productos, aparecerá el recuadro del carrito a tu derecha. Luego seleccioná «Ir a Pagar».',
   },
   {
     numero: 3,
