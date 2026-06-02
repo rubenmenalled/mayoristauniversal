@@ -14,6 +14,12 @@ const nextConfig = {
         destination: 'https://mayoristauniversal.vercel.app/:path*',
         permanent: true,
       },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'mayoristauniversal.com' }],
+        destination: 'https://www.mayoristauniversal.com/:path*',
+        permanent: true,
+      },
     ]
   },
   async headers() {
