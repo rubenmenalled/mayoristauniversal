@@ -396,11 +396,15 @@ export default function CategoriaPage() {
                     {(() => {
                       let titulo: string | null = null
                       let precioUnit: string | null = null
+                      let extraInfo: string | null = null
                       const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
 
                       if (p.descripcion?.startsWith('PRECIO POR')) {
-                        const match = p.descripcion.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
-                        titulo = match ? match[1] : p.descripcion
+                        const sepIdx = p.descripcion.indexOf(') | ')
+                        const pricePart = sepIdx >= 0 ? p.descripcion.slice(0, sepIdx + 1) : p.descripcion
+                        extraInfo = sepIdx >= 0 ? p.descripcion.slice(sepIdx + 4) : null
+                        const match = pricePart.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
+                        titulo = match ? match[1] : pricePart
                         precioUnit = match ? match[2] : null
                       } else if (p.badge === 'x6 UNIDADES') {
                         titulo = 'PRECIO POR 6 UNIDADES'
@@ -411,13 +415,18 @@ export default function CategoriaPage() {
                       }
 
                       return titulo ? (
-                        <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: 4 }}>
-                          {precioUnit && (
-                            <div style={{ color: '#333', fontSize: 11, fontWeight: 800 }}>{precioUnit}</div>
+                        <>
+                          <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: extraInfo ? 2 : 4 }}>
+                            {precioUnit && (
+                              <div style={{ color: '#333', fontSize: 11, fontWeight: 800 }}>{precioUnit}</div>
+                            )}
+                            <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
+                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>LA DOCENA: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
+                          </div>
+                          {extraInfo && (
+                            <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>
                           )}
-                          <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
-                          <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>LA DOCENA: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
-                        </div>
+                        </>
                       ) : (
                         p.descripcion ? (
                           <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
@@ -544,14 +553,24 @@ export default function CategoriaPage() {
                 <div style={{ color: '#111827', fontWeight: 900, fontSize: 15, marginBottom: lightbox.descripcion ? 6 : 10 }}>{lightbox.name}</div>
                 {lightbox.descripcion && (
                   lightbox.descripcion.startsWith('PRECIO POR') ? (() => {
-                    const match = lightbox.descripcion!.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
-                    const titulo = match ? match[1] : lightbox.descripcion
+                    const sepIdx = lightbox.descripcion!.indexOf(') | ')
+                    const pricePart = sepIdx >= 0 ? lightbox.descripcion!.slice(0, sepIdx + 1) : lightbox.descripcion!
+                    const extra = sepIdx >= 0 ? lightbox.descripcion!.slice(sepIdx + 4) : null
+                    const match = pricePart.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
+                    const titulo = match ? match[1] : pricePart
                     const precioUnit = match ? match[2] : null
                     return (
-                      <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: 10 }}>
-                        <div style={{ color: '#111', fontSize: 12, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</div>
-                        {precioUnit && <div style={{ color: '#111', fontSize: 13, fontWeight: 900, marginTop: 3 }}>{precioUnit}</div>}
-                      </div>
+                      <>
+                        <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: extra ? 6 : 10 }}>
+                          <div style={{ color: '#111', fontSize: 12, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</div>
+                          {precioUnit && <div style={{ color: '#111', fontSize: 13, fontWeight: 900, marginTop: 3 }}>{precioUnit}</div>}
+                        </div>
+                        {extra && (
+                          <div style={{ color: '#6B7280', fontSize: 12, lineHeight: 1.6, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #D4AF37', whiteSpace: 'pre-line' }}>
+                            {extra}
+                          </div>
+                        )}
+                      </>
                     )
                   })() : (
                     <div style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.5, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #D4AF37' }}>
