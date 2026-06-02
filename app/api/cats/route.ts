@@ -47,7 +47,7 @@ const FOTOS: Record<string, string> = {
   'HERRAMIENTAS':        'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800&q=90',
   'AUTOMOTOR':           'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=90',
   'CAMPING':             'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=90',
-  'TODO PARA EL DEPORTE': 'https://images.pexels.com/photos/1432039/pexels-photo-1432039.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'TODO PARA EL DEPORTE': 'https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=800&q=90',
   'JUGUETERIA':          'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
   'LIBRERIA':            'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
   'BELLEZA':             'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=90',
