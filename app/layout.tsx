@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   description: 'Los mejores precios mayoristas en todos los rubros. Más de 20 categorías: indumentaria, bazar, juguetes, electrónica y más. Compra al por mayor en toda Argentina.',
   keywords: 'mayorista argentina, compra al por mayor, productos mayoristas, mayorista multirubro, venta mayorista argentina',
   verification: {
-    google: 's3q2W7UQQi6KEELYQRfiRmI42GRRjTkE31_WoEr4QQg',
+    google: 'lDQe0hIh43G49tCwjNSEswlsKxwFQDQKjfnEDPq2Glk',
   },
   openGraph: {
     title: 'Mayorista Universal | Compra Mayorista en Argentina',
