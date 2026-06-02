@@ -167,7 +167,7 @@ export default function CatalogoPage() {
             {filtradas.map((c, i) => {
               const nombre = c.nombre || c.name || ''
               const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
-              const esProximamente = ['BLANQUERIA', 'RODADOS'].includes(nombre.toUpperCase())
+              const esProximamente = ['RODADOS'].includes(nombre.toUpperCase())
               return (
                 <motion.div
                   key={c.id}
