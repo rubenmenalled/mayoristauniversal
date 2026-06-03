@@ -2,6 +2,11 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
+export const WHOLESALE_MIN = 180000
+export const RETAIL_MARKUP = 1.40
+export const EXPENSIVE_THRESHOLD = 100000  // productos > este precio tienen su propia regla
+export const EXPENSIVE_MIN_QTY = 2         // necesitan 2+ unidades para precio mayorista
+
 export interface CartItem {
   id: number
   name: string
@@ -14,6 +19,14 @@ export interface CartItem {
   category?: string
 }
 
+// Determina si un producto puntual está en modo mayorista
+export function itemIsWholesale(item: CartItem, globalIsWholesale: boolean): boolean {
+  if (item.wholesalePrice > EXPENSIVE_THRESHOLD) {
+    return item.quantity >= EXPENSIVE_MIN_QTY
+  }
+  return globalIsWholesale
+}
+
 interface CartContextType {
   items: CartItem[]
   addItem: (item: Omit<CartItem, 'quantity'>) => void
@@ -24,6 +37,11 @@ interface CartContextType {
   count: number
   cartOpen: boolean
   setCartOpen: (v: boolean) => void
+  wholesaleTotal: number
+  isWholesale: boolean
+  displayTotal: number
+  retailProgress: number
+  faltaMayorista: number
 }
 
 const CartContext = createContext<CartContextType | null>(null)
@@ -49,7 +67,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { ...item, quantity: item.minOrder }]
     })
-    setCartOpen(true) // Abrir carrito al agregar
+    setCartOpen(true)
   }
 
   function removeItem(id: number) {
@@ -64,11 +82,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([])
   }
 
-  const total = items.reduce((sum, i) => sum + i.wholesalePrice * i.quantity, 0)
+  const wholesaleTotal = items.reduce((sum, i) => sum + i.wholesalePrice * i.quantity, 0)
+  const isWholesale = wholesaleTotal >= WHOLESALE_MIN
+
+  // displayTotal: suma por producto según su regla individual
+  const displayTotal = items.reduce((sum, i) => {
+    const ws = itemIsWholesale(i, isWholesale)
+    return sum + (ws ? i.wholesalePrice : Math.round(i.wholesalePrice * RETAIL_MARKUP)) * i.quantity
+  }, 0)
+
+  const total = wholesaleTotal
+  const retailProgress = Math.min((wholesaleTotal / WHOLESALE_MIN) * 100, 100)
+  const faltaMayorista = Math.max(0, WHOLESALE_MIN - wholesaleTotal)
   const count = items.reduce((sum, i) => sum + i.quantity, 0)
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, total, count, cartOpen, setCartOpen }}>
+    <CartContext.Provider value={{
+      items, addItem, removeItem, updateQty, clearCart,
+      total, count, cartOpen, setCartOpen,
+      wholesaleTotal, isWholesale, displayTotal, retailProgress, faltaMayorista,
+    }}>
       {children}
     </CartContext.Provider>
   )

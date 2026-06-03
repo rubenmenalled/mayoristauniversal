@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Search, Star, ShoppingCart } from 'lucide-react'
-import { useCart } from '@/lib/CartContext'
+import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
 import CartSidebar from '@/components/CartSidebar'
 
 interface Producto {
@@ -43,7 +43,7 @@ function getVariants(term: string): string[] {
 function BuscarContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const { addItem, count, cartOpen, setCartOpen } = useCart()
+  const { addItem, count, cartOpen, setCartOpen, isWholesale } = useCart()
   const q = searchParams.get('q') || ''
   const [query, setQuery] = useState(q)
   const [productos, setProductos] = useState<Producto[]>([])

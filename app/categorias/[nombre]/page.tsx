@@ -5,7 +5,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight, Search } from 'lucide-react'
-import { useCart } from '@/lib/CartContext'
+import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
 import CartSidebar from '@/components/CartSidebar'
 
 interface Producto {
@@ -62,7 +62,7 @@ export default function CategoriaPage() {
   const searchParams = useSearchParams()
   const nombreDecoded = decodeURIComponent(nombre as string)
 
-  const { addItem, count, cartOpen, setCartOpen } = useCart()
+  const { addItem, count, cartOpen, setCartOpen, isWholesale } = useCart()
   const [productos, setProductos] = useState<Producto[]>([])
   const [subcategorias, setSubcategorias] = useState<Subcategoria[]>([])
   const [subActiva, setSubActiva] = useState<string>(
@@ -148,18 +148,21 @@ export default function CategoriaPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subActiva, nombreDecoded])
 
-  // Búsqueda interna: consulta directa a la API para buscar en TODA la categoría
+  // Búsqueda interna: si hay subcategoría activa busca solo en ella, si no en toda la categoría
   useEffect(() => {
     if (!busquedaInterna.trim()) { setProductosBusqueda([]); return }
     setLoadingBusqueda(true)
     const timer = setTimeout(() => {
-      fetch(`/api/productos-publicos?categoria=${encodeURIComponent(nombreDecoded)}&q=${encodeURIComponent(busquedaInterna.trim())}`)
+      const subParam = subActiva && subActiva !== '__todos__'
+        ? `&subcategoria=${encodeURIComponent(subActiva)}`
+        : ''
+      fetch(`/api/productos-publicos?categoria=${encodeURIComponent(nombreDecoded)}${subParam}&q=${encodeURIComponent(busquedaInterna.trim())}`)
         .then(r => r.json())
         .then(d => { setProductosBusqueda(Array.isArray(d) ? d : []); setLoadingBusqueda(false) })
         .catch(() => setLoadingBusqueda(false))
-    }, 300) // debounce 300ms
+    }, 300)
     return () => clearTimeout(timer)
-  }, [busquedaInterna, nombreDecoded])
+  }, [busquedaInterna, nombreDecoded, subActiva])
 
   // Filtro de sub-subcategoría (client-side)
   const subSubConfig = subActiva && SUB_SUBS[subActiva] && subSubActiva && subSubActiva !== '__todos__'
@@ -223,7 +226,7 @@ export default function CategoriaPage() {
               type="text"
               value={busquedaInterna}
               onChange={e => setBusquedaInterna(e.target.value)}
-              placeholder={`Buscar en ${nombreDecoded}...`}
+              placeholder={subActiva && subActiva !== '__todos__' ? `Buscar en ${subActiva}...` : `Buscar en ${nombreDecoded}...`}
               style={{ flex: 1, border: 'none', outline: 'none', fontSize: 13, color: '#333', background: 'transparent', minWidth: 0 }}
             />
             {busquedaInterna ? (
@@ -376,10 +379,10 @@ export default function CategoriaPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(i * 0.04, 0.4) }}>
 
-                  <div style={{ position: 'relative', height: 190, background: '#F8F8F8', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
+                  <div style={{ position: 'relative', height: 190, background: nombreDecoded.toUpperCase() === 'ELECTRONICA' ? '#FFFFFF' : '#F8F8F8', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => { if (p.image) { setLightbox(p); setLightboxImgIdx(0) } }}>
                     {p.image ? (
-                      <Image src={p.image} alt={p.name} fill className="object-cover" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={95} />
+                      <Image src={p.image} alt={p.name} fill className={nombreDecoded.toUpperCase() === 'ELECTRONICA' ? 'object-contain' : 'object-cover'} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={95} />
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                     )}
