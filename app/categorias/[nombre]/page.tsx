@@ -89,7 +89,15 @@ export default function CategoriaPage() {
   const [dragStart, setDragStart] = useState<{x:number,y:number}|null>(null)
   const [offset, setOffset] = useState({x:0,y:0})
   const [dragging, setDragging] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const imgRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   function normalizar(s: string) {
     return (s || '').toLowerCase().trim()
@@ -485,9 +493,9 @@ export default function CategoriaPage() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => { if (zoom) { setZoom(false); setOffset({x:0,y:0}) } else setLightbox(null) }}
             style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'default' }}>
-            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 860, height: 'calc(100vh - 48px)', maxHeight: 640, background: '#FFFFFF', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)', display: 'flex', flexDirection: 'row' }}>
-              {/* IZQUIERDA — imagen + thumbnails */}
-              <div style={{ flex: '0 0 58%', display: 'flex', flexDirection: 'column', background: '#F5F5F5', borderRight: '1px solid #E5E7EB', overflow: 'hidden' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: isMobile ? '100%' : 860, height: isMobile ? 'calc(100vh - 32px)' : 'calc(100vh - 48px)', maxHeight: isMobile ? '100%' : 640, background: '#FFFFFF', borderRadius: isMobile ? 16 : 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+              {/* IMAGEN — izquierda en desktop, arriba en mobile */}
+              <div style={{ flex: isMobile ? '0 0 45%' : '0 0 58%', display: 'flex', flexDirection: 'column', background: '#F5F5F5', borderRight: isMobile ? 'none' : '1px solid #E5E7EB', borderBottom: isMobile ? '1px solid #E5E7EB' : 'none', overflow: 'hidden' }}>
               {/* Foto grande */}
               <div
                 ref={imgRef}
@@ -544,12 +552,12 @@ export default function CategoriaPage() {
               )}
               </div>{/* fin izquierda */}
 
-              {/* DERECHA — info scrollable */}
-              {!zoom && <div style={{ flex: 1, overflow: 'auto', padding: '18px 18px 18px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+              {/* INFO — derecha en desktop, abajo en mobile */}
+              {!zoom && <div style={{ flex: 1, overflow: 'auto', padding: isMobile ? '12px 14px 14px' : '18px 18px 18px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
                 {lightbox.brand && (
                   <div style={{ color: '#9CA3AF', fontSize: 10, fontWeight: 600, marginBottom: 3, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Marca: {lightbox.brand}</div>
                 )}
-                <div style={{ color: '#111827', fontWeight: 900, fontSize: 14, marginBottom: 8, lineHeight: 1.3 }}>{lightbox.name}</div>
+                <div style={{ color: '#111827', fontWeight: 900, fontSize: isMobile ? 16 : 14, marginBottom: 8, lineHeight: 1.3 }}>{lightbox.name}</div>
                 {lightbox.descripcion && (
                   lightbox.descripcion.startsWith('PRECIO POR') ? (() => {
                     const sepIdx = lightbox.descripcion!.indexOf(') | ')
@@ -606,17 +614,17 @@ export default function CategoriaPage() {
                     </div>
                   )
                 })()}
-                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginTop: 'auto', paddingTop: 10 }}>
+                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: isMobile ? 26 : 22, marginTop: 'auto', paddingTop: 8 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
                 </div>
                 <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                   <button onClick={() => setLightbox(null)}
-                    style={{ flex: 1, background: '#F3F4F6', border: '1px solid #E5E7EB', borderRadius: 10, padding: '10px 6px', color: '#374151', fontWeight: 700, cursor: 'pointer', fontSize: 12 }}>
+                    style={{ flex: 1, background: '#F3F4F6', border: '1px solid #E5E7EB', borderRadius: 10, padding: isMobile ? '14px 6px' : '10px 6px', color: '#374151', fontWeight: 700, cursor: 'pointer', fontSize: isMobile ? 15 : 12 }}>
                     Cerrar
                   </button>
                   <motion.button whileTap={{ scale: 0.97 }}
                     onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, brand: lightbox.brand, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.descripcion?.startsWith('PRECIO POR') ? 1 : lightbox.minOrder, category: lightbox.category }); setLightbox(null) }}
-                    style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 6px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                    style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: isMobile ? '14px 6px' : '10px 6px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: isMobile ? 15 : 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
                     <ShoppingCart size={13} /> AGREGAR
                   </motion.button>
                 </div>
