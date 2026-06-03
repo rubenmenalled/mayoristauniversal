@@ -23,7 +23,9 @@ export async function GET(request: NextRequest) {
 
   if (categoria) query = query.ilike('categoria', categoria)
   if (subcategoria) query = query.ilike('subcategoria', subcategoria)
-  if (q) query = query.ilike('nombre', `%${q}%`)
+  if (q) query = query.or(
+    `nombre.ilike.%${q}%,marca.ilike.%${q}%,subcategoria.ilike.%${q}%,descripcion.ilike.%${q}%`
+  )
 
   const { data, error } = await query
 

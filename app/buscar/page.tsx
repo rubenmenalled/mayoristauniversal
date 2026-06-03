@@ -30,46 +30,14 @@ function stripAccents(s: string): string {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '')
 }
 
-// Genera variantes con y sin acentos + singular/plural
+// Genera variantes: original + sin acentos (para búsqueda robusta en la API)
 function getVariants(term: string): string[] {
   const t = term.toLowerCase().trim()
   if (!t) return []
-  const base = stripAccents(t)   // sin acentos
-
-  const seeds = new Set<string>([t, base])
-
-  // Si el término original no tenía acentos, agregar variantes con ü y ñ
-  // (para encontrar "pingüino" al buscar "pinguino", etc.)
-  if (base === t) {
-    // u → ü en cada posición
-    for (let i = 0; i < t.length; i++) {
-      if (t[i] === 'u') seeds.add(t.slice(0, i) + 'ü' + t.slice(i + 1))
-    }
-    // n → ñ en cada posición
-    for (let i = 0; i < t.length; i++) {
-      if (t[i] === 'n') seeds.add(t.slice(0, i) + 'ñ' + t.slice(i + 1))
-    }
-  }
-
-  // Agregar plural/singular para cada semilla
-  const variants = new Set<string>(seeds)
-  seeds.forEach(seed => {
-    if (!seed.endsWith('s')) {
-      variants.add(seed + 's')
-      variants.add(seed + 'es')
-    }
-    if (seed.endsWith('es') && seed.length > 3) variants.add(seed.slice(0, -2))
-    if (seed.endsWith('s') && seed.length > 2)  variants.add(seed.slice(0, -1))
-  })
-
+  const base = stripAccents(t)
+  const variants = new Set<string>([t])
+  if (base !== t) variants.add(base)
   return Array.from(variants)
-}
-
-function matchesSearch(p: Producto, variants: string[]): boolean {
-  const name  = (p.name     || '').toLowerCase()
-  const brand = (p.brand    || '').toLowerCase()
-  const cat   = (p.category || '').toLowerCase()
-  return variants.some(v => name.includes(v) || brand.includes(v) || cat.includes(v))
 }
 
 function BuscarContent() {
