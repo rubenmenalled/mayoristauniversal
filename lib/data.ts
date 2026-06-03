@@ -13,7 +13,7 @@ const ORDEN_CATEGORIAS = [
   'INVIERNO 2026',
   'BELLEZA',
   'ACCESORIOS DE PELO',
-  'BLANQUERIA LICENCIAS Y MAS...',
+  'LICENCIA (blanqueria y accesorios)',
   'BIJOUTERIE',
   'PERFUMERIA',
   'DECO CASA',
