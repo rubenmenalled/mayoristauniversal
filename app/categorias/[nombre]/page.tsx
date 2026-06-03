@@ -499,10 +499,51 @@ export default function CategoriaPage() {
               {/* Foto grande */}
               <div
                 ref={imgRef}
-                style={{ flex: 1, position: 'relative', overflow: 'hidden', cursor: zoom ? 'zoom-out' : 'zoom-in' }}
-                onClick={e => { e.stopPropagation(); setZoom(z => !z); setOffset({x:0,y:0}) }}
+                style={{ flex: 1, position: 'relative', overflow: 'hidden', cursor: zoom ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
+                onClick={e => {
+                  e.stopPropagation()
+                  if (dragging) return
+                  if (!zoom) { setZoom(true); setOffset({x:0,y:0}) }
+                }}
+                onMouseDown={e => {
+                  if (!zoom) return
+                  e.preventDefault()
+                  setDragStart({x: e.clientX - offset.x * 1.8, y: e.clientY - offset.y * 1.8})
+                }}
+                onMouseMove={e => {
+                  if (!dragStart || !zoom) return
+                  const nx = (e.clientX - dragStart.x) / 1.8
+                  const ny = (e.clientY - dragStart.y) / 1.8
+                  const max = 110
+                  setOffset({ x: Math.max(-max, Math.min(max, nx)), y: Math.max(-max, Math.min(max, ny)) })
+                  setDragging(true)
+                }}
+                onMouseUp={() => { setDragStart(null); setTimeout(() => setDragging(false), 50) }}
+                onMouseLeave={() => { setDragStart(null); setTimeout(() => setDragging(false), 50) }}
+                onTouchStart={e => {
+                  if (!zoom) return
+                  const t = e.touches[0]
+                  setDragStart({x: t.clientX - offset.x * 1.8, y: t.clientY - offset.y * 1.8})
+                }}
+                onTouchMove={e => {
+                  if (!dragStart || !zoom) return
+                  e.stopPropagation()
+                  const t = e.touches[0]
+                  const nx = (t.clientX - dragStart.x) / 1.8
+                  const ny = (t.clientY - dragStart.y) / 1.8
+                  const max = 110
+                  setOffset({ x: Math.max(-max, Math.min(max, nx)), y: Math.max(-max, Math.min(max, ny)) })
+                  setDragging(true)
+                }}
+                onTouchEnd={() => { setDragStart(null); setTimeout(() => setDragging(false), 100) }}
               >
-                <div style={{ position: 'absolute', inset: 0 }}>
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  transform: zoom ? `scale(1.8) translate(${offset.x}px, ${offset.y}px)` : 'scale(1)',
+                  transition: dragging ? 'none' : 'transform 0.25s ease',
+                  transformOrigin: 'center center',
+                  willChange: 'transform',
+                }}>
                   <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 10 }} sizes="500px" quality={100} />
                 </div>
 
@@ -527,8 +568,8 @@ export default function CategoriaPage() {
                 )}
 
                 {zoom ? (
-                  <button onClick={e => { e.stopPropagation(); setZoom(false) }}
-                    style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '4px 12px', color: '#fff', fontSize: 12, cursor: 'pointer', zIndex: 20 }}>
+                  <button onClick={e => { e.stopPropagation(); setZoom(false); setOffset({x:0,y:0}); setDragging(false) }}
+                    style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.65)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '6px 14px', color: '#fff', fontSize: 13, cursor: 'pointer', zIndex: 20, fontWeight: 700 }}>
                     ✕ Reducir
                   </button>
                 ) : (
