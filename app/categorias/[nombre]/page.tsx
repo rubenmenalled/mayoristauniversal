@@ -348,7 +348,7 @@ export default function CategoriaPage() {
               }
             </div>
             <style dangerouslySetInnerHTML={{ __html: `.prod-card { transition: transform 0.2s ease, box-shadow 0.2s ease; } @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212,175,55,0.2); } }` }} />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 14 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 14 }}>
               {productosFiltrados.map((p, i) => (
                 <motion.div key={p.id}
                   className="prod-card rounded-xl overflow-hidden relative"
@@ -357,10 +357,10 @@ export default function CategoriaPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(i * 0.04, 0.4) }}>
 
-                  <div style={{ position: 'relative', height: 340, background: '#F0F0F0', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
+                  <div style={{ position: 'relative', height: 190, background: '#F8F8F8', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => { if (p.image) { setLightbox(p); setLightboxImgIdx(0) } }}>
                     {p.image ? (
-                      <Image src={p.image} alt={p.name} fill className="object-contain" sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 280px" quality={95} />
+                      <Image src={p.image} alt={p.name} fill className="object-cover" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={95} />
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                     )}
