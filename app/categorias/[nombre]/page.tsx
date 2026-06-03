@@ -482,7 +482,17 @@ export default function CategoriaPage() {
                     })()}
                     <button
                       style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
-                      onClick={() => addItem({ id: p.id, name: p.name, brand: p.brand, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.descripcion?.startsWith('PRECIO POR') ? 1 : p.minOrder, category: p.category })}>
+                      onClick={() => {
+                        const isDescPor = p.descripcion?.startsWith('PRECIO POR')
+                        const isMinOrder = !isDescPor && p.minOrder > 1
+                        addItem({
+                          id: p.id, name: p.name, brand: p.brand, price: p.price,
+                          wholesalePrice: isMinOrder ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice,
+                          image: p.image,
+                          minOrder: isDescPor ? 1 : p.minOrder,
+                          category: p.category,
+                        })
+                      }}>
                       <ShoppingCart size={11} /> AGREGAR
                     </button>
                   </div>
@@ -678,7 +688,18 @@ export default function CategoriaPage() {
                     Cerrar
                   </button>
                   <motion.button whileTap={{ scale: 0.97 }}
-                    onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, brand: lightbox.brand, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.descripcion?.startsWith('PRECIO POR') ? 1 : lightbox.minOrder, category: lightbox.category }); setLightbox(null) }}
+                    onClick={() => {
+                      const isDescPor = lightbox.descripcion?.startsWith('PRECIO POR')
+                      const isMinOrder = !isDescPor && lightbox.minOrder > 1
+                      addItem({
+                        id: lightbox.id, name: lightbox.name, brand: lightbox.brand, price: lightbox.price,
+                        wholesalePrice: isMinOrder ? Math.round(lightbox.wholesalePrice / lightbox.minOrder) : lightbox.wholesalePrice,
+                        image: lightbox.image,
+                        minOrder: isDescPor ? 1 : lightbox.minOrder,
+                        category: lightbox.category,
+                      })
+                      setLightbox(null)
+                    }}
                     style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: isMobile ? '14px 6px' : '10px 6px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: isMobile ? 15 : 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
                     <ShoppingCart size={13} /> AGREGAR
                   </motion.button>

@@ -162,7 +162,15 @@ function BuscarContent() {
                       <motion.button
                         style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                         whileTap={{ scale: 0.97 }}
-                        onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>
+                        onClick={() => {
+                          const isMinOrder = p.minOrder > 1
+                          addItem({
+                            id: p.id, name: p.name, price: p.price,
+                            wholesalePrice: isMinOrder ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice,
+                            image: p.image,
+                            minOrder: p.minOrder,
+                          })
+                        }}>
                         <ShoppingCart size={11} /> AGREGAR
                       </motion.button>
                     </div>
