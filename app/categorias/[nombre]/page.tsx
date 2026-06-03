@@ -484,73 +484,72 @@ export default function CategoriaPage() {
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => { if (zoom) { setZoom(false); setOffset({x:0,y:0}) } else setLightbox(null) }}
-            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'default' }}>
-            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: zoom ? 900 : 680, maxHeight: 'calc(100vh - 40px)', background: '#FFFFFF', borderRadius: 20, overflow: 'auto', border: '1px solid rgba(212,175,55,0.3)', transition: 'all 0.3s ease' }}>
+            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'default' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: 860, height: 'calc(100vh - 48px)', maxHeight: 640, background: '#FFFFFF', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)', display: 'flex', flexDirection: 'row' }}>
+              {/* IZQUIERDA — imagen + thumbnails */}
+              <div style={{ flex: '0 0 58%', display: 'flex', flexDirection: 'column', background: '#F5F5F5', borderRight: '1px solid #E5E7EB', overflow: 'hidden' }}>
               {/* Foto grande */}
               <div
                 ref={imgRef}
-                style={{ position: 'relative', width: '100%', height: zoom ? 'min(600px, 80vh)' : 'min(360px, 52vh)', background: '#F9FAFB', overflow: 'hidden', cursor: 'zoom-in', transition: 'height 0.3s ease' }}
+                style={{ flex: 1, position: 'relative', overflow: 'hidden', cursor: zoom ? 'zoom-out' : 'zoom-in' }}
                 onClick={e => { e.stopPropagation(); setZoom(z => !z); setOffset({x:0,y:0}) }}
               >
                 <div style={{ position: 'absolute', inset: 0 }}>
-                  <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: zoom ? 8 : 16 }} sizes="(max-width: 768px) 95vw, 900px" quality={100} />
+                  <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 10 }} sizes="500px" quality={100} />
                 </div>
 
                 {/* Hint zoom */}
                 {!zoom && (
-                  <div style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11, pointerEvents: 'none' }}>
-                    🔍 Toca para ampliar
+                  <div style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.45)', borderRadius: 20, padding: '3px 9px', color: 'rgba(255,255,255,0.8)', fontSize: 11, pointerEvents: 'none' }}>
+                    🔍 Ampliar
                   </div>
                 )}
 
-                {/* Flecha izquierda (producto anterior) */}
                 {prev && !zoom && (
                   <button onClick={e => { e.stopPropagation(); setLightbox(prev); setLightboxImgIdx(0); setZoom(false); setOffset({x:0,y:0}) }}
-                    style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
-                    <ChevronLeft size={22} color="#fff" />
+                    style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10 }}>
+                    <ChevronLeft size={20} color="#fff" />
                   </button>
                 )}
-
-                {/* Flecha derecha (producto siguiente) */}
                 {next && !zoom && (
                   <button onClick={e => { e.stopPropagation(); setLightbox(next); setLightboxImgIdx(0); setZoom(false); setOffset({x:0,y:0}) }}
-                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, backdropFilter: 'blur(4px)' }}>
-                    <ChevronRight size={22} color="#fff" />
+                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10 }}>
+                    <ChevronRight size={20} color="#fff" />
                   </button>
                 )}
 
-                {/* Contador / cerrar zoom */}
                 {zoom ? (
                   <button onClick={e => { e.stopPropagation(); setZoom(false) }}
                     style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '4px 12px', color: '#fff', fontSize: 12, cursor: 'pointer', zIndex: 20 }}>
                     ✕ Reducir
                   </button>
                 ) : (
-                  <div style={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.5)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.7)', fontSize: 11 }}>
+                  <div style={{ position: 'absolute', bottom: 8, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.45)', borderRadius: 20, padding: '3px 10px', color: 'rgba(255,255,255,0.8)', fontSize: 11 }}>
                     {idx + 1} / {lista.length}
                   </div>
                 )}
               </div>
 
-              {/* Thumbnails — solo cuando hay más de 1 imagen */}
+              {/* Thumbnails */}
               {lbImages.length > 1 && !zoom && (
-                <div style={{ display: 'flex', gap: 8, padding: '10px 16px 0', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', gap: 6, padding: '8px 10px', justifyContent: 'center', flexWrap: 'wrap', background: '#FFF', borderTop: '1px solid #E5E7EB', flexShrink: 0 }}>
                   {lbImages.map((src, i) => (
                     <button key={i} onClick={() => { setLightboxImgIdx(i); setZoom(false); setOffset({x:0,y:0}) }}
-                      style={{ width: 52, height: 52, borderRadius: 8, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #D4AF37' : '2px solid #E5E7EB', padding: 0, cursor: 'pointer', background: '#F3F4F6', flexShrink: 0, transition: 'border-color 0.2s' }}>
+                      style={{ width: 44, height: 44, borderRadius: 7, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #D4AF37' : '2px solid #E5E7EB', padding: 0, cursor: 'pointer', background: '#F3F4F6', flexShrink: 0, transition: 'border-color 0.2s' }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={src} alt={`foto ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </button>
                   ))}
                 </div>
               )}
+              </div>{/* fin izquierda */}
 
-              {/* Info */}
-              {!zoom && <div style={{ padding: '16px 20px 20px' }}>
+              {/* DERECHA — info scrollable */}
+              {!zoom && <div style={{ flex: 1, overflow: 'auto', padding: '18px 18px 18px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
                 {lightbox.brand && (
-                  <div style={{ color: '#9CA3AF', fontSize: 11, fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Marca: {lightbox.brand}</div>
+                  <div style={{ color: '#9CA3AF', fontSize: 10, fontWeight: 600, marginBottom: 3, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Marca: {lightbox.brand}</div>
                 )}
-                <div style={{ color: '#111827', fontWeight: 900, fontSize: 15, marginBottom: lightbox.descripcion ? 6 : 10 }}>{lightbox.name}</div>
+                <div style={{ color: '#111827', fontWeight: 900, fontSize: 14, marginBottom: 8, lineHeight: 1.3 }}>{lightbox.name}</div>
                 {lightbox.descripcion && (
                   lightbox.descripcion.startsWith('PRECIO POR') ? (() => {
                     const sepIdx = lightbox.descripcion!.indexOf(') | ')
@@ -607,23 +606,23 @@ export default function CategoriaPage() {
                     </div>
                   )
                 })()}
-                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginBottom: 4 }}>
+                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, marginTop: 'auto', paddingTop: 10 }}>
                   ${lightbox.wholesalePrice.toLocaleString('es-AR')}
                 </div>
-                <div style={{ display: 'flex', gap: 10 }}>
+                <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                   <button onClick={() => setLightbox(null)}
-                    style={{ flex: 1, background: '#F3F4F6', border: '1px solid #E5E7EB', borderRadius: 10, padding: '10px', color: '#374151', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
+                    style={{ flex: 1, background: '#F3F4F6', border: '1px solid #E5E7EB', borderRadius: 10, padding: '10px 6px', color: '#374151', fontWeight: 700, cursor: 'pointer', fontSize: 12 }}>
                     Cerrar
                   </button>
                   <motion.button whileTap={{ scale: 0.97 }}
                     onClick={() => { addItem({ id: lightbox.id, name: lightbox.name, brand: lightbox.brand, price: lightbox.price, wholesalePrice: lightbox.wholesalePrice, image: lightbox.image, minOrder: lightbox.descripcion?.startsWith('PRECIO POR') ? 1 : lightbox.minOrder, category: lightbox.category }); setLightbox(null) }}
-                    style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-                    <ShoppingCart size={14} /> AGREGAR AL CARRITO
+                    style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 6px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                    <ShoppingCart size={13} /> AGREGAR
                   </motion.button>
                 </div>
               </div>}
             </div>
-            {!zoom && <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, marginTop: 16 }}>Tocá afuera para cerrar</div>}
+            {!zoom && <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, marginTop: 12 }}>Tocá afuera para cerrar</div>}
           </motion.div>
         )
       })()}
