@@ -21,11 +21,13 @@ function buildWAMessage(items: ReturnType<typeof useCart>['items'], isWholesale:
   for (const item of items) {
     const unitPrice = Math.round(item.wholesalePrice * markup)
     const subtotal = unitPrice * item.quantity
-    msg += `▪ ${item.name}${item.brand ? ` (${item.brand})` : ''}\n`
+    msg += `▪ *${item.name}*${item.brand ? ` (${item.brand})` : ''}\n`
     msg += `  ${item.quantity} unid. × $${unitPrice.toLocaleString('es-AR')} = $${subtotal.toLocaleString('es-AR')}\n`
+    if (item.image) msg += `  🖼️ ${item.image}\n`
+    msg += `\n`
   }
   const total = items.reduce((s, i) => s + Math.round(i.wholesalePrice * markup) * i.quantity, 0)
-  msg += `\n💰 *Total: $${total.toLocaleString('es-AR')}*`
+  msg += `💰 *Total: $${total.toLocaleString('es-AR')}*`
   if (!isWholesale) {
     msg += `\n_(precio minorista, incluye recargo del ${Math.round((RETAIL_MARKUP - 1) * 100)}%)_`
   }
