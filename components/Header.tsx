@@ -14,7 +14,7 @@ const navLinks = [
 ]
 
 const FRASES = [
-  { emoji: '🛒', texto: 'Tu supermercado mayorista, con un solo clic' },
+  { emoji: '🛒', texto: 'Llevá todo a tu local u hogar con un solo click' },
   { emoji: '🏪', texto: 'Todo lo que tu negocio necesita, en un solo lugar' },
   { emoji: '⚡', texto: 'Comprá mayorista desde donde estés, 24/7' },
   { emoji: '💼', texto: 'Miles de productos. Precios mayoristas. Sin salir de casa.' },
