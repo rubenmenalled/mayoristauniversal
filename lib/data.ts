@@ -14,6 +14,7 @@ const ORDEN_CATEGORIAS = [
   'BELLEZA',
   'ACCESORIOS DE PELO',
   'LICENCIA (BLANQUERIA Y ACCESORIOS)',
+  'BLANQUERIA',
   'BIJOUTERIE',
   'PERFUMERIA',
   'DECO CASA',
@@ -33,7 +34,6 @@ const ORDEN_CATEGORIAS = [
   'TODO PARA EL DEPORTE',
   'MARROQUINERIA',
   'RODADOS',
-  'BLANQUERIA',
 ]
 
 function sortCategorias(cats: any[]) {

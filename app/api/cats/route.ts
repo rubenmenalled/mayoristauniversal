@@ -12,6 +12,7 @@ const ORDEN_CATEGORIAS = [
   'BELLEZA',
   'ACCESORIOS DE PELO',
   'LICENCIA (BLANQUERIA Y ACCESORIOS)',
+  'BLANQUERIA',
   'BIJOUTERIE',
   'PERFUMERIA',
   'MASCOTAS',
@@ -29,7 +30,6 @@ const ORDEN_CATEGORIAS = [
   'TODO PARA EL DEPORTE',
   'MARROQUINERIA',
   'RODADOS',
-  'BLANQUERIA',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
