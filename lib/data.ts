@@ -69,3 +69,4 @@ export async function getCategorias() {
     return sortCategorias(mapped)
   } catch { return [] }
 }
+
