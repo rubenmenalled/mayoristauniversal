@@ -83,6 +83,8 @@ export default function CategoriaPage() {
     ],
   }
   const [busquedaInterna, setBusquedaInterna] = useState('')
+  const [productosBusqueda, setProductosBusqueda] = useState<Producto[]>([])
+  const [loadingBusqueda, setLoadingBusqueda] = useState(false)
   const [lightbox, setLightbox] = useState<Producto | null>(null)
   const [lightboxImgIdx, setLightboxImgIdx] = useState(0)
   const [zoom, setZoom] = useState(false)
@@ -146,6 +148,19 @@ export default function CategoriaPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subActiva, nombreDecoded])
 
+  // Búsqueda interna: consulta directa a la API para buscar en TODA la categoría
+  useEffect(() => {
+    if (!busquedaInterna.trim()) { setProductosBusqueda([]); return }
+    setLoadingBusqueda(true)
+    const timer = setTimeout(() => {
+      fetch(`/api/productos-publicos?categoria=${encodeURIComponent(nombreDecoded)}&q=${encodeURIComponent(busquedaInterna.trim())}`)
+        .then(r => r.json())
+        .then(d => { setProductosBusqueda(Array.isArray(d) ? d : []); setLoadingBusqueda(false) })
+        .catch(() => setLoadingBusqueda(false))
+    }, 300) // debounce 300ms
+    return () => clearTimeout(timer)
+  }, [busquedaInterna, nombreDecoded])
+
   // Filtro de sub-subcategoría (client-side)
   const subSubConfig = subActiva && SUB_SUBS[subActiva] && subSubActiva && subSubActiva !== '__todos__'
     ? SUB_SUBS[subActiva].find(ss => ss.nombre === subSubActiva)
@@ -165,15 +180,11 @@ export default function CategoriaPage() {
     ? porSubcategoria.filter(subSubConfig.filtro)
     : porSubcategoria
 
-  const productosFiltrados = busquedaInterna.trim() === ''
-    ? porSubSub
-    : porSubSub.filter(p => {
-        const q = normalizar(busquedaInterna)
-        return normalizar(p.name || '').includes(q) ||
-               normalizar(p.brand || '').includes(q) ||
-               normalizar(p.subcategory || '').includes(q) ||
-               normalizar(p.location || '').includes(q)
-      })
+  // Si hay búsqueda activa → usar resultados de la API (busca en toda la categoría)
+  // Si no hay búsqueda → usar los productos del filtro local
+  const productosFiltrados = busquedaInterna.trim() !== ''
+    ? productosBusqueda
+    : porSubSub
 
   return (
     <div style={{ minHeight: '100vh', background: '#7A8C6A', paddingTop: 38 }}>
@@ -332,8 +343,8 @@ export default function CategoriaPage() {
         )}
 
         {/* No mostrar productos si estamos en el picker de sub-subcategorías */}
-        {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : loading ? (
-          <div style={{ textAlign: 'center', color: '#FFFFFF', padding: 80, fontSize: 16 }}>Cargando productos...</div>
+        {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : (loading || loadingBusqueda) ? (
+          <div style={{ textAlign: 'center', color: '#FFFFFF', padding: 80, fontSize: 16 }}>{loadingBusqueda ? `Buscando "${busquedaInterna}"...` : 'Cargando productos...'}</div>
         ) : productosFiltrados.length === 0 && (!subcategorias.length || subActiva || busquedaInterna.trim()) ? (
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
             <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
