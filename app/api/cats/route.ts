@@ -29,6 +29,7 @@ const ORDEN_CATEGORIAS = [
   'TODO PARA EL DEPORTE',
   'MARROQUINERIA',
   'RODADOS',
+  'BLANQUERIA',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
@@ -57,6 +58,7 @@ const FOTOS: Record<string, string> = {
   'COTILLON':            'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
   'LENTES':              'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=90',
   'LICENCIA (BLANQUERIA Y ACCESORIOS)':     'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/cat_blanqueria_licencias.jpg',
+  'BLANQUERIA':                            'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=90',
   'PERFUMERIA':          '/cat_perfumeria.jpg',
   'RELOJES':             'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
@@ -83,6 +85,7 @@ export async function GET() {
   const EMOJIS: Record<string, string> = {
     'HOGAR Y BAZAR':       '🍳',
     'LICENCIA (BLANQUERIA Y ACCESORIOS)':     '🛏️',
+    'BLANQUERIA':                            '🛏️',
     'PELUCHES':            '🧸',
     'PELUCHES ENAMORADOS': '💕',
     'LENCERIA':            '👙',

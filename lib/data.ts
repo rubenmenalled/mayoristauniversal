@@ -33,6 +33,7 @@ const ORDEN_CATEGORIAS = [
   'TODO PARA EL DEPORTE',
   'MARROQUINERIA',
   'RODADOS',
+  'BLANQUERIA',
 ]
 
 function sortCategorias(cats: any[]) {
