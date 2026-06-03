@@ -11,6 +11,7 @@ import Script           from 'next/script'
 import { getCategorias } from '@/lib/data'
 
 export const revalidate = 0
+export const dynamic = 'force-dynamic'
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
