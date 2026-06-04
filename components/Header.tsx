@@ -319,7 +319,7 @@ export default function Header() {
                       <button key={cat.id}
                         onClick={() => { setOpenCat(cat.nombre); fetchSubs(cat.nombre) }}
                         style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', background: '#F9F9F9', border: '1px solid #EEE', borderRadius: 8, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#F0F5EE'; e.currentTarget.style.borderColor = '#C4956A' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#F0F5EE'; e.currentTarget.style.borderColor = '#D4C5A9' }}
                         onMouseLeave={e => { e.currentTarget.style.background = '#F9F9F9'; e.currentTarget.style.borderColor = '#EEE' }}>
                         <span style={{ fontSize: 18, flexShrink: 0 }}>{cat.emoji}</span>
                         <span style={{ color: '#333', fontWeight: 700, fontSize: 11, lineHeight: 1.2 }}>{cat.nombre}</span>
@@ -335,12 +335,12 @@ export default function Header() {
               <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 12, boxShadow: '0 12px 40px rgba(0,0,0,0.25)', width: 480, padding: '14px', animation: 'fadeInDown 0.15s ease' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid #F0F0F0' }}>
                   <button onClick={() => setOpenCat('__desktop__')}
-                    style={{ background: 'none', border: 'none', color: '#C4956A', fontWeight: 700, fontSize: 13, cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    style={{ background: 'none', border: 'none', color: '#D4C5A9', fontWeight: 700, fontSize: 13, cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
                     ← Volver
                   </button>
                   <span style={{ color: '#CCC' }}>|</span>
                   <span style={{ fontSize: 20 }}>{categorias.find(c => c.nombre === openCat)?.emoji}</span>
-                  <span style={{ color: '#C4956A', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
+                  <span style={{ color: '#D4C5A9', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
                 </div>
                 {subsByCategory[openCat] === undefined ? (
                   <div style={{ color: '#999', fontSize: 12, padding: '8px 0' }}>Cargando...</div>
@@ -352,16 +352,16 @@ export default function Header() {
                       <a key={sub} href={`/categorias/${encodeURIComponent(openCat)}?sub=${encodeURIComponent(sub)}`}
                         onClick={() => setOpenCat(null)}
                         style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 10px', background: '#F0F5EE', border: '1px solid rgba(122,140,106,0.12)', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none', transition: 'all 0.15s' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#E8F0E4'; e.currentTarget.style.color = '#C4956A' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#E8F0E4'; e.currentTarget.style.color = '#D4C5A9' }}
                         onMouseLeave={e => { e.currentTarget.style.background = '#F0F5EE'; e.currentTarget.style.color = '#444' }}>
-                        <span style={{ color: '#C4956A', fontSize: 10, flexShrink: 0 }}>▸</span>{sub}
+                        <span style={{ color: '#D4C5A9', fontSize: 10, flexShrink: 0 }}>▸</span>{sub}
                       </a>
                     ))}
                   </div>
                 )}
                 <a href={`/categorias/${encodeURIComponent(openCat)}`}
                   onClick={() => setOpenCat(null)}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 12, padding: '10px', background: '#C4956A', borderRadius: 8, color: '#FFFFFF', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 12, padding: '10px', background: '#D4C5A9', borderRadius: 8, color: '#FFFFFF', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>
                   Ver todos los productos →
                 </a>
               </div>
@@ -396,7 +396,7 @@ export default function Header() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px 10px', borderBottom: '1px solid #EEE', flexShrink: 0 }}>
                   {mobileSelectedCat ? (
                     <button onClick={() => setMobileSelectedCat(null)}
-                      style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', color: '#C4956A', fontWeight: 700, fontSize: 14, cursor: 'pointer', padding: 0 }}>
+                      style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', color: '#D4C5A9', fontWeight: 700, fontSize: 14, cursor: 'pointer', padding: 0 }}>
                       ← Volver
                     </button>
                   ) : (
@@ -425,7 +425,7 @@ export default function Header() {
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, padding: '4px 0' }}>
                         <span style={{ fontSize: 26 }}>{categorias.find(c => c.nombre === mobileSelectedCat)?.emoji}</span>
-                        <span style={{ color: '#C4956A', fontWeight: 900, fontSize: 16 }}>{mobileSelectedCat}</span>
+                        <span style={{ color: '#D4C5A9', fontWeight: 900, fontSize: 16 }}>{mobileSelectedCat}</span>
                       </div>
                       {subsByCategory[mobileSelectedCat] === undefined ? (
                         <div style={{ textAlign: 'center', color: '#999', padding: 24, fontSize: 13 }}>Cargando subcategorías...</div>
@@ -438,14 +438,14 @@ export default function Header() {
                               href={`/categorias/${encodeURIComponent(mobileSelectedCat)}?sub=${encodeURIComponent(sub)}`}
                               onClick={() => { setMobileGridOpen(false); setMobileSelectedCat(null) }}
                               style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 12px', background: '#F0F5EE', border: '1px solid rgba(122,140,106,0.15)', borderRadius: 10, color: '#333', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>
-                              <span style={{ color: '#C4956A', fontSize: 11, flexShrink: 0 }}>▸</span>{sub}
+                              <span style={{ color: '#D4C5A9', fontSize: 11, flexShrink: 0 }}>▸</span>{sub}
                             </a>
                           ))}
                         </div>
                       )}
                       <a href={`/categorias/${encodeURIComponent(mobileSelectedCat)}`}
                         onClick={() => { setMobileGridOpen(false); setMobileSelectedCat(null) }}
-                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 14, padding: '13px', background: '#C4956A', borderRadius: 12, color: '#FFFFFF', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 14, padding: '13px', background: '#D4C5A9', borderRadius: 12, color: '#FFFFFF', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>
                         Ver todos los productos →
                       </a>
                     </div>
