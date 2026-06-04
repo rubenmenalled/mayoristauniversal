@@ -79,7 +79,7 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #E8DCC8 0%, #071018 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FAF7F2 0%, #071018 100%)', paddingTop: 38 }}>
 
       {/* Header */}
       <div style={{

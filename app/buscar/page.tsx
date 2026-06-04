@@ -80,7 +80,7 @@ function BuscarContent() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#E8DCC8', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: '#FAF7F2', paddingTop: 38 }}>
       {/* Header */}
       <div style={{
         background: 'rgba(122,140,106,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
