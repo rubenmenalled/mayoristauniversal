@@ -1,9 +1,10 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle } from 'lucide-react'
-import { useCart, RETAIL_MARKUP, RETAIL_MIN, EXPENSIVE_THRESHOLD, EXPENSIVE_MIN_QTY, itemIsWholesale } from '@/lib/CartContext'
+import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard } from 'lucide-react'
+import { useCart, RETAIL_MARKUP, RETAIL_MIN, itemIsWholesale } from '@/lib/CartContext'
 import Image from 'next/image'
+import { useState } from 'react'
 
 const WA_NUMBER = '5491164660482'
 
@@ -36,6 +37,7 @@ function buildWAMessage(items: ReturnType<typeof useCart>['items'], isWholesale:
 
 export default function CartSidebar({ open, onClose }: Props) {
   const { items, removeItem, updateQty, clearCart, isWholesale, displayTotal, wholesaleTotal, retailProgress, faltaMayorista } = useCart()
+  const [mpLoading, setMpLoading] = useState(false)
 
   // Verificar mínimos por categoría
   const alertasCategorias: string[] = []
@@ -52,6 +54,27 @@ export default function CartSidebar({ open, onClose }: Props) {
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
   const llegaMinimo = wholesaleTotal >= RETAIL_MIN
   const puedeComprar = items.length > 0 && alertasCategorias.length === 0 && llegaMinimo
+
+  async function handleMercadoPago() {
+    setMpLoading(true)
+    try {
+      const res = await fetch('/api/mp-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items, isWholesale }),
+      })
+      const data = await res.json()
+      if (data.init_point) {
+        window.location.href = data.init_point
+      } else {
+        alert('Error al iniciar el pago. Intentá de nuevo.')
+      }
+    } catch {
+      alert('Error al conectar con Mercado Pago.')
+    } finally {
+      setMpLoading(false)
+    }
+  }
 
   return (
     <AnimatePresence>
@@ -224,12 +247,19 @@ export default function CartSidebar({ open, onClose }: Props) {
                 {/* Checkout buttons */}
                 {puedeComprar ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <button
+                      onClick={handleMercadoPago}
+                      disabled={mpLoading}
+                      style={{ width: '100%', padding: '13px', borderRadius: 12, border: 'none', background: mpLoading ? '#9CA3AF' : 'linear-gradient(135deg,#009EE3,#0070BA)', color: '#FFFFFF', fontWeight: 900, fontSize: 14, cursor: mpLoading ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(0,158,227,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                      <CreditCard size={18} />
+                      {mpLoading ? 'REDIRIGIENDO...' : 'PAGAR CON MERCADO PAGO'}
+                    </button>
                     <a
                       href={waLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ width: '100%', padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#25D366,#128C7E)', color: '#FFFFFF', fontWeight: 900, fontSize: 14, cursor: 'pointer', boxShadow: '0 4px 14px rgba(37,211,102,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none' }}>
-                      <MessageCircle size={18} />
+                      style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none' }}>
+                      <MessageCircle size={16} />
                       PEDIR POR WHATSAPP
                     </a>
                   </div>
