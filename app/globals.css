@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  background-color: #D9CDB8;
+  background-color: #E8DCC8;
   color: white;
   overflow-x: hidden;
   max-width: 100%;
@@ -22,7 +22,7 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #D9CDB8; }
+::-webkit-scrollbar-track { background: #E8DCC8; }
 ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #F0D060; }
 

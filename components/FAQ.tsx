@@ -53,7 +53,7 @@ export default function FAQ() {
   }
 
   const sectionStyle: React.CSSProperties = {
-    background: '#D9CDB8',
+    background: '#E8DCC8',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',
