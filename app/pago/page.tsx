@@ -38,7 +38,7 @@ function PagoContent() {
   const c = config[status as keyof typeof config] ?? config.pending
 
   return (
-    <div style={{ minHeight: '100vh', background: '#D4C5A9', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+    <div style={{ minHeight: '100vh', background: '#D9CDB8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
       <div style={{ background: '#FFFFFF', borderRadius: 20, padding: 40, maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
         <div style={{ fontSize: 64, marginBottom: 16 }}>{c.emoji}</div>
         <h1 style={{ color: '#111827', fontWeight: 900, fontSize: 24, marginBottom: 12 }}>{c.title}</h1>
@@ -66,7 +66,7 @@ function PagoContent() {
 
 export default function PagoPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#D4C5A9' }} />}>
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#D9CDB8' }} />}>
       <PagoContent />
     </Suspense>
   )
