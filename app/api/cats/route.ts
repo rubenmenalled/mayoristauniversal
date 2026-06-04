@@ -5,7 +5,6 @@ export const dynamic = 'force-dynamic'
 
 const ORDEN_CATEGORIAS = [
   'LENCERIA',
-  'LLAVEROS',
   'PELUCHES',
   'BEBE',
   'INVIERNO 2026',
@@ -17,6 +16,7 @@ const ORDEN_CATEGORIAS = [
   'PERFUMERIA',
   'MASCOTAS',
   'HOGAR Y BAZAR',
+  'LLAVEROS',
   'JUGUETERIA',
   'LIBRERIA',
   'RELOJES',
