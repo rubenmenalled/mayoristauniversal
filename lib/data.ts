@@ -7,7 +7,6 @@ export async function getProductos() {
 
 const ORDEN_CATEGORIAS = [
   'LENCERIA',
-  'LLAVEROS',
   'PELUCHES',
   'BEBE',
   'INVIERNO 2026',
@@ -21,6 +20,7 @@ const ORDEN_CATEGORIAS = [
   'DECO BAZAR',
   'ACCESORIOS PARA MASCOTAS',
   'ELECTROHOGAR',
+  'LLAVEROS',
   'JUGUETERIA',
   'LIBRERIA',
   'RELOJES',
