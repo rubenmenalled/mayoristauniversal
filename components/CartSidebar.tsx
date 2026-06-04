@@ -118,7 +118,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                               ${subtotal.toLocaleString('es-AR')}
                             </span>
                             <span style={{ color: '#9CA3AF', fontWeight: 400, fontSize: 11 }}>
-                              (${unitDisplay.toLocaleString('es-AR')} c/u)
+                              ({item.minOrder > 1 ? `$${(unitDisplay * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${unitDisplay.toLocaleString('es-AR')} c/u`})
                             </span>
                             {ws
                               ? <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MAYORISTA</span>
@@ -139,7 +139,16 @@ export default function CartSidebar({ open, onClose }: Props) {
                               style={{ width: 28, height: 28, borderRadius: 7, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                               <Minus size={12} />
                             </button>
-                            <span style={{ color: '#111827', fontWeight: 800, fontSize: 14, minWidth: 24, textAlign: 'center' }}>{item.quantity}</span>
+                            <div style={{ textAlign: 'center', minWidth: 36 }}>
+                              {item.minOrder > 1 ? (
+                                <>
+                                  <div style={{ color: '#111827', fontWeight: 800, fontSize: 14, lineHeight: 1 }}>{item.quantity / item.minOrder}</div>
+                                  <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600 }}>doc.</div>
+                                </>
+                              ) : (
+                                <span style={{ color: '#111827', fontWeight: 800, fontSize: 14 }}>{item.quantity}</span>
+                              )}
+                            </div>
                             <button onClick={() => updateQty(item.id, item.quantity + item.minOrder)}
                               style={{ width: 28, height: 28, borderRadius: 7, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                               <Plus size={12} />
