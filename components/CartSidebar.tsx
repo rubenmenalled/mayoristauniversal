@@ -52,8 +52,7 @@ export default function CartSidebar({ open, onClose }: Props) {
   })
 
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
-  const llegaMinimo = wholesaleTotal >= RETAIL_MIN
-  const puedeComprar = items.length > 0 && alertasCategorias.length === 0 && llegaMinimo
+  const puedeComprar = items.length > 0 && alertasCategorias.length === 0
 
   async function handleMercadoPago() {
     setMpLoading(true)
@@ -216,12 +215,6 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 ))}
 
-                {/* Mínimo minorista */}
-                {!llegaMinimo && (
-                  <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 8, padding: '8px 12px', marginBottom: 8, fontSize: 12, color: '#DC2626', fontWeight: 700 }}>
-                    ⚠️ Mínimo de compra $30.000 — te faltan <strong>${(RETAIL_MIN - wholesaleTotal).toLocaleString('es-AR')}</strong>
-                  </div>
-                )}
 
                 {/* Barra de progreso compacta */}
                 {isWholesale ? (
