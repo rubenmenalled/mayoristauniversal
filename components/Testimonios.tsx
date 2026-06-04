@@ -89,7 +89,7 @@ export default function Testimonios() {
   const visibleTestimonios = testimonios.slice(currentIndex, currentIndex + visibleCount)
 
   const sectionStyle: React.CSSProperties = {
-    background: '#7A8C6A',
+    background: '#C4956A',
     padding: '80px 20px',
     width: '100%',
     boxSizing: 'border-box',

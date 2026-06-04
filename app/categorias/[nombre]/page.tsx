@@ -190,7 +190,7 @@ export default function CategoriaPage() {
     : porSubSub
 
   return (
-    <div style={{ minHeight: '100vh', background: '#7A8C6A', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: '#C4956A', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
       <div style={{
         background: 'rgba(122,140,106,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
@@ -233,7 +233,7 @@ export default function CategoriaPage() {
               <button onClick={() => setBusquedaInterna('')}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', fontSize: 16, lineHeight: 1, padding: 0, flexShrink: 0 }}>✕</button>
             ) : (
-              <Search size={16} color="#7A8C6A" style={{ flexShrink: 0 }} />
+              <Search size={16} color="#C4956A" style={{ flexShrink: 0 }} />
             )}
           </div>
         </div>

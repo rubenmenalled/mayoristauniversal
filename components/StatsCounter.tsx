@@ -34,7 +34,7 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 export default function StatsCounter() {
   return (
     <section className="py-20 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #7A8C6A 0%, #F0F0F0 50%, #7A8C6A 100%)' }}>
+      style={{ background: 'linear-gradient(135deg, #C4956A 0%, #F0F0F0 50%, #C4956A 100%)' }}>
       {/* Decorative lines */}
       <div className="absolute inset-0 grid-pattern opacity-50 pointer-events-none" />
 
