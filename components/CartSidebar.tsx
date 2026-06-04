@@ -119,11 +119,12 @@ export default function CartSidebar({ open, onClose }: Props) {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {items.map(item => {
                     const ws = itemIsWholesale(item, isWholesale)
+                    const baseSubtotal = item.wholesalePrice * item.quantity
                     const unitDisplay = ws ? item.wholesalePrice : Math.round(item.wholesalePrice * RETAIL_MARKUP)
                     const subtotal = unitDisplay * item.quantity
-                    const isExpensive = item.wholesalePrice > EXPENSIVE_THRESHOLD
+                    const recargo = subtotal - baseSubtotal
                     return (
-                      <div key={item.id} style={{ background: '#FFFFFF', border: `1px solid ${isExpensive && !ws ? '#BAE6FD' : '#E5E7EB'}`, borderRadius: 10, padding: 10, display: 'flex', gap: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+                      <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 10, padding: 10, display: 'flex', gap: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
                         {/* Image */}
                         <div style={{ width: 64, height: 64, borderRadius: 10, overflow: 'hidden', flexShrink: 0, background: '#F3F4F6', position: 'relative', border: '1px solid #E5E7EB' }}>
                           {item.image ? (
@@ -136,18 +137,41 @@ export default function CartSidebar({ open, onClose }: Props) {
                         <div style={{ flex: 1, minWidth: 0 }}>
                           {item.brand && <div style={{ color: '#9CA3AF', fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2 }}>Marca: {item.brand}</div>}
                           <div style={{ color: '#111827', fontWeight: 700, fontSize: 13, marginBottom: 4, lineHeight: 1.3 }}>{item.name}</div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                            <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>
-                              ${subtotal.toLocaleString('es-AR')}
-                            </span>
-                            <span style={{ color: '#9CA3AF', fontWeight: 400, fontSize: 11 }}>
-                              ({item.minOrder > 1 ? `$${(unitDisplay * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${unitDisplay.toLocaleString('es-AR')} c/u`})
-                            </span>
-                            {ws
-                              ? <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MAYORISTA</span>
-                              : <span style={{ background: '#DBEAFE', color: '#1E40AF', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MINORISTA</span>
-                            }
-                          </div>
+                          {ws ? (
+                            /* MAYORISTA: precio directo */
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                              <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>
+                                ${subtotal.toLocaleString('es-AR')}
+                              </span>
+                              <span style={{ color: '#9CA3AF', fontWeight: 400, fontSize: 11 }}>
+                                ({item.minOrder > 1 ? `$${(item.wholesalePrice * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${item.wholesalePrice.toLocaleString('es-AR')} c/u`})
+                              </span>
+                              <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MAYORISTA</span>
+                            </div>
+                          ) : (
+                            /* MINORISTA: desglose base + recargo + total */
+                            <div style={{ marginBottom: 4 }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ color: '#6B7280', fontSize: 11 }}>
+                                  {item.minOrder > 1 ? 'Precio docena' : 'Precio'}
+                                </span>
+                                <span style={{ color: '#374151', fontWeight: 700, fontSize: 12 }}>
+                                  ${baseSubtotal.toLocaleString('es-AR')}
+                                </span>
+                              </div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ color: '#0369A1', fontSize: 11 }}>+40% minorista</span>
+                                <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 12 }}>+${recargo.toLocaleString('es-AR')}</span>
+                              </div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #F3F4F6', marginTop: 2, paddingTop: 2 }}>
+                                <span style={{ color: '#111827', fontWeight: 800, fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
+                                  Total
+                                  <span style={{ background: '#DBEAFE', color: '#1E40AF', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MINORISTA</span>
+                                </span>
+                                <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${subtotal.toLocaleString('es-AR')}</span>
+                              </div>
+                            </div>
+                          )}
                           {/* Qty controls */}
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                             <button onClick={() => updateQty(item.id, Math.max(item.minOrder, item.quantity - item.minOrder))}
