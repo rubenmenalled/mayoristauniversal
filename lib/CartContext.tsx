@@ -22,9 +22,6 @@ export interface CartItem {
 
 // Determina si un producto puntual está en modo mayorista
 export function itemIsWholesale(item: CartItem, globalIsWholesale: boolean): boolean {
-  if (item.wholesalePrice > EXPENSIVE_THRESHOLD) {
-    return item.quantity >= EXPENSIVE_MIN_QTY
-  }
   return globalIsWholesale
 }
 

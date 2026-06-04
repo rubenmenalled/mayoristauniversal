@@ -125,14 +125,6 @@ export default function CartSidebar({ open, onClose }: Props) {
                               : <span style={{ background: '#DBEAFE', color: '#1E40AF', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MINORISTA</span>
                             }
                           </div>
-                          {isExpensive && !ws && (
-                            <div style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', borderRadius: 6, padding: '5px 9px', marginBottom: 6, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-                              <span style={{ fontSize: 13 }}>💡</span>
-                              <span style={{ color: '#FFFFFF', fontSize: 11, fontWeight: 900 }}>
-                                Productos mayores a $100.000 se venden de a 2 unidades para precio mayorista
-                              </span>
-                            </div>
-                          )}
                           {/* Qty controls */}
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                             <button onClick={() => updateQty(item.id, Math.max(item.minOrder, item.quantity - item.minOrder))}
