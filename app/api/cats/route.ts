@@ -68,12 +68,23 @@ const FOTOS: Record<string, string> = {
 export async function GET() {
   const supabase = getAdminClient()
 
-  // Leer categorías únicas desde la tabla productos
-  const { data, error } = await supabase
-    .from('productos')
-    .select('categoria')
+  // Leer categorías únicas con paginación para superar el límite de 1000 filas
+  let allData: any[] = []
+  let from = 0
+  const pageSize = 1000
+  while (true) {
+    const { data, error } = await supabase
+      .from('productos')
+      .select('categoria')
+      .range(from, from + pageSize - 1)
+    if (error || !data || data.length === 0) break
+    allData = allData.concat(data)
+    if (data.length < pageSize) break
+    from += pageSize
+  }
+  const data = allData
 
-  if (error) return NextResponse.json([], { status: 500 })
+  if (data.length === 0 && from === 0) return NextResponse.json([], { status: 500 })
 
   const OCULTAS = new Set(['PELUCHES ENAMORADOS'])
 
