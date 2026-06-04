@@ -24,9 +24,9 @@ export async function POST(request: NextRequest) {
   const preference = {
     items: mpItems,
     back_urls: {
-      success: 'https://mayoristauniversal.com/pago-exitoso',
-      failure: 'https://mayoristauniversal.com/pago-fallido',
-      pending: 'https://mayoristauniversal.com/pago-pendiente',
+      success: 'https://mayoristauniversal.com/pago?status=success',
+      failure: 'https://mayoristauniversal.com/pago?status=failure',
+      pending: 'https://mayoristauniversal.com/pago?status=pending',
     },
     auto_return: 'approved',
     statement_descriptor: 'Mayorista Universal',
