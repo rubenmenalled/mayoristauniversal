@@ -37,6 +37,10 @@ const FOTOS: Record<string, string> = {
   'RODADOS':               'https://images.pexels.com/photos/9168370/pexels-photo-9168370.jpeg?w=800&h=600&fit=crop',
   'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
   PERFUMERIA:   '/cat_perfumeria.jpg',
+  'DECO CASA':  'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
+  'DECO BAZAR': 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
+  ELECTROHOGAR: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=800&q=90',
+  'ACCESORIOS PARA MASCOTAS': 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
   COCINA:       'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=90',
   DEPORTES:     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=90',
@@ -101,7 +105,7 @@ const KEYFRAMES = `
 
 function SkeletonGrid() {
   return (
-    <section style={{ background: '#FAF7F2', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
+    <section style={{ background: '#FFFFFF', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Título skeleton */}
@@ -157,7 +161,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
   return (
     <>
-    <section id="catalogos" style={{ background: '#FAF7F2', padding: '4px 16px 16px' }}>
+    <section id="catalogos" style={{ background: '#FFFFFF', padding: '4px 16px 16px' }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -183,7 +187,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             overflow: 'hidden',
           }}
         >
-          <span style={{ color: '#FAF7F2', fontWeight: 900, fontSize: 'clamp(10px,2.5vw,13px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+          <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(10px,2.5vw,13px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
             IMPORTADOR DIRECTO
           </span>
           <div style={{ width: 1, height: 14, background: 'rgba(0,0,0,0.15)', flexShrink: 0 }} />
@@ -211,7 +215,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           <a href="/como-comprar" style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
             background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
-            color: '#FAF7F2', fontWeight: 900,
+            color: '#FFFFFF', fontWeight: 900,
             fontSize: 'clamp(10px,1.4vw,12px)',
             padding: '7px 14px', borderRadius: 8,
             textDecoration: 'none', whiteSpace: 'nowrap',

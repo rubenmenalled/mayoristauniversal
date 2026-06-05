@@ -7,6 +7,10 @@ import { ArrowLeft, Search } from 'lucide-react'
 
 const FOTOS: Record<string, string> = {
   'INVIERNO 2026': 'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
+  'DECO CASA':  'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
+  'DECO BAZAR': 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
+  'ELECTROHOGAR': 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=800&q=90',
+  'ACCESORIOS PARA MASCOTAS': 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   BAZAR:        '/cat_bazar.jpg',
   'HOGAR Y BAZAR': 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
   BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
@@ -79,11 +83,11 @@ export default function CatalogoPage() {
   )
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FAF7F2 0%, #071018 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: '#FFFFFF', paddingTop: 38 }}>
 
       {/* Header */}
       <div style={{
-        background: 'rgba(13,27,42,0.97)',
+        background: 'rgba(200,168,130,0.97)',
         borderBottom: '1px solid rgba(212,175,55,0.2)',
         padding: '16px 24px',
         position: 'sticky', top: 38, zIndex: 50,
@@ -94,11 +98,11 @@ export default function CatalogoPage() {
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
               background: 'none', border: 'none', cursor: 'pointer',
-              color: '#D4AF37', fontWeight: 700, fontSize: 14,
+              color: '#7A5C2E', fontWeight: 700, fontSize: 14,
             }}>
             <ArrowLeft size={16} /> Inicio
           </button>
-          <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, flex: 1 }}>
+          <div style={{ color: '#3D2B00', fontWeight: 900, fontSize: 20, flex: 1 }}>
             📋 Todos los Catálogos
           </div>
         </div>
@@ -109,9 +113,10 @@ export default function CatalogoPage() {
         {/* Buscador */}
         <div style={{
           display: 'flex', alignItems: 'center', gap: 12,
-          background: 'rgba(255,255,255,0.05)',
-          border: '1px solid rgba(212,175,55,0.25)',
+          background: '#FFFFFF',
+          border: '1px solid rgba(212,175,55,0.4)',
           borderRadius: 12, padding: '10px 16px', marginBottom: 32,
+          boxShadow: '0 1px 6px rgba(0,0,0,0.06)',
         }}>
           <Search size={18} color="#D4AF37" />
           <input

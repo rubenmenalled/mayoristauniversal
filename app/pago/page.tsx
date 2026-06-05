@@ -1,12 +1,30 @@
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { Suspense } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 
 function PagoContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const status = searchParams.get('status')
+  const emailSent = useRef(false)
+
+  useEffect(() => {
+    if (status === 'success' && !emailSent.current) {
+      emailSent.current = true
+      try {
+        const saved = localStorage.getItem('mp_pending_order')
+        if (saved) {
+          fetch('/api/mp-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: saved,
+          }).catch(() => {})
+          localStorage.removeItem('mp_pending_order')
+        }
+      } catch {}
+    }
+  }, [status])
 
   const config = {
     success: {
@@ -38,7 +56,7 @@ function PagoContent() {
   const c = config[status as keyof typeof config] ?? config.pending
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FAF7F2', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+    <div style={{ minHeight: '100vh', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
       <div style={{ background: '#FFFFFF', borderRadius: 20, padding: 40, maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
         <div style={{ fontSize: 64, marginBottom: 16 }}>{c.emoji}</div>
         <h1 style={{ color: '#111827', fontWeight: 900, fontSize: 24, marginBottom: 12 }}>{c.title}</h1>
@@ -66,7 +84,7 @@ function PagoContent() {
 
 export default function PagoPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#FAF7F2' }} />}>
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#FFFFFF' }} />}>
       <PagoContent />
     </Suspense>
   )

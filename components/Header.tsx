@@ -119,19 +119,22 @@ export default function Header() {
     <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ top: 38, background: scrolled ? 'rgba(122,140,106,0.97)' : 'rgba(122,140,106,0.92)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(160,18,18,0.98)' : 'rgba(183,28,28,0.95)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative">
 
-          {/* Logo */}
-          <motion.a href="/" className="flex-shrink-0 flex items-center gap-2.5" whileHover={{ scale: 1.02 }}>
-            {/* Cart icon logo */}
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C030)' }}>
-              <ShoppingCart size={20} className="text-navy" strokeWidth={2.5} />
-            </div>
+          {/* Cart icon — solo desktop */}
+          <a href="/" className="hidden lg:flex w-10 h-10 rounded-xl items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C030)' }}>
+            <ShoppingCart size={20} strokeWidth={2.5} color="#fff" />
+          </a>
+
+          {/* Logo texto — izquierda en desktop, centrado absoluto en mobile */}
+          <motion.a href="/"
+            className="hidden lg:flex items-center gap-2.5 flex-shrink-0"
+            whileHover={{ scale: 1.02 }}>
             <div className="leading-none">
               <div className="font-display font-black text-xl tracking-wide"
                 style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
@@ -143,6 +146,39 @@ export default function Header() {
               </div>
             </div>
           </motion.a>
+
+          {/* Mobile: ícono carrito a la izquierda + texto centrado absoluto */}
+          <a href="/" className="lg:hidden flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C030)' }}>
+            <ShoppingCart size={20} strokeWidth={2.5} color="#fff" />
+          </a>
+          <div className="lg:hidden absolute left-0 right-0 flex justify-center items-center pointer-events-none" style={{ zIndex: 1 }}>
+            <div className="flex items-center gap-2" style={{ transform: 'translateX(37px)' }}>
+            <a href="/" className="pointer-events-auto leading-none text-center">
+              <div className="font-display font-black text-xl tracking-wide"
+                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
+                MAYORISTA
+              </div>
+              <div className="font-display font-black text-xl tracking-widest"
+                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
+                UNIVERSAL
+              </div>
+            </a>
+            {/* Iconos redes — al lado derecho del texto */}
+            <div className="pointer-events-auto flex items-center gap-1">
+              {[
+                { name: 'Instagram', href: 'https://www.instagram.com/mayoristauniversal26', color: '#FFFFFF', bg: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)', border: 'transparent', icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> },
+                { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#FFFFFF', bg: '#1877F2', border: '#1877F2', icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
+                { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: '#000000', border: '#000000', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
+              ].map(s => (
+                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
+                  style={{ width: 22, height: 22, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', background: s.bg, border: `1px solid ${s.border}`, color: s.color, flexShrink: 0 }}>
+                  {s.icon}
+                </a>
+              ))}
+            </div>
+            </div>{/* end translateX wrapper */}
+          </div>
 
           {/* Search bar */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-2">
@@ -191,9 +227,9 @@ export default function Header() {
             </motion.a>
 
             {/* Cart */}
-            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#4A6040' }}
+            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#8B7355' }}
               onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#4A6040')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#8B7355')}
               whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={24} />
               {count > 0 && <span className="absolute -top-0.5 -right-0.5 bg-gold text-navy text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">{count}</span>}
@@ -204,9 +240,9 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <motion.a href="/mi-cuenta"
                   className="flex items-center gap-2 transition-colors"
-                  style={{ color: '#4A6040' }}
+                  style={{ color: '#8B7355' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#4A6040')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#8B7355')}
                   whileHover={{ scale: 1.03 }}>
                   <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <User size={16} color="#FFFFFF" />
@@ -222,9 +258,9 @@ export default function Header() {
             ) : (
               <motion.a href="/login"
                 className="flex flex-col items-end transition-colors"
-                style={{ color: '#4A6040' }}
+                style={{ color: '#8B7355' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#4A6040')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#8B7355')}
                 whileHover={{ scale: 1.03 }}>
                 <span className="text-[11px] leading-none opacity-80">Ingresar / Registrarse</span>
                 <span className="text-[12px] font-bold leading-none flex items-center gap-1">Mi cuenta <ChevronDown size={11} /></span>
@@ -232,30 +268,8 @@ export default function Header() {
             )}
           </div>
 
-          {/* Mobile: redes + controles en un solo bloque a la derecha */}
-          <div className="lg:hidden ml-auto flex items-center gap-1.5">
-            {/* Iconos redes sociales */}
-            {[
-              { name: 'Instagram', href: 'https://www.instagram.com/mayoristauniversal26', color: '#FFFFFF', bg: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)', border: 'transparent',
-                icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> },
-              { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#FFFFFF', bg: '#1877F2', border: '#1877F2',
-                icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
-              { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: '#000000', border: '#000000',
-                icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
-            ].map(s => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" title={s.name}
-                style={{ width: 26, height: 26, borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', background: s.bg, border: `1px solid ${s.border}`, color: s.color, flexShrink: 0 }}>
-                {s.icon}
-              </a>
-            ))}
-
-            {/* Separador */}
-            <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.15)', margin: '0 2px' }} />
-
-            {/* Búsqueda */}
-            <button style={{ padding: '4px', flexShrink: 0, color: '#4A6040', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileSearchOpen(v => !v)}>
-              <Search size={20} />
-            </button>
+          {/* Mobile: solo cuenta a la derecha */}
+          <div className="lg:hidden ml-auto flex items-center gap-2 flex-shrink-0">
 
             {/* Account */}
             <a href={userName ? '/mi-cuenta' : '/login'} style={{ textDecoration: 'none', flexShrink: 0 }}>
@@ -272,16 +286,12 @@ export default function Header() {
               </div>
             </a>
 
-            {/* Menú hamburguesa */}
-            <button style={{ padding: '4px 2px', flexShrink: 0, color: '#4A6040', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMobileOpen(v => !v)}>
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
           </div>
         </div>
       </div>
 
       {/* Mobile search bar — siempre visible */}
-      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(122,140,106,0.98)' }}>
+      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(160,18,18,0.98)' }}>
         <form className="px-3 py-2 flex gap-2"
           onSubmit={e => { e.preventDefault(); if (mobileSearch.trim()) { window.location.href = `/buscar?q=${encodeURIComponent(mobileSearch.trim())}` } }}>
           <input
@@ -298,7 +308,7 @@ export default function Header() {
 
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
-        <div ref={catBarRef} style={{ background: 'rgba(90,110,80,0.97)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
+        <div ref={catBarRef} style={{ background: 'rgba(140,14,14,0.98)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
           <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
           {/* ── DESKTOP: botón + mega-menú ── */}
@@ -319,7 +329,7 @@ export default function Header() {
                       <button key={cat.id}
                         onClick={() => { setOpenCat(cat.nombre); fetchSubs(cat.nombre) }}
                         style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', background: '#F9F9F9', border: '1px solid #EEE', borderRadius: 8, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#F0F5EE'; e.currentTarget.style.borderColor = '#FAF7F2' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#FAF3E8'; e.currentTarget.style.borderColor = '#FFFFFF' }}
                         onMouseLeave={e => { e.currentTarget.style.background = '#F9F9F9'; e.currentTarget.style.borderColor = '#EEE' }}>
                         <span style={{ fontSize: 18, flexShrink: 0 }}>{cat.emoji}</span>
                         <span style={{ color: '#333', fontWeight: 700, fontSize: 11, lineHeight: 1.2 }}>{cat.nombre}</span>
@@ -335,12 +345,12 @@ export default function Header() {
               <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 12, boxShadow: '0 12px 40px rgba(0,0,0,0.25)', width: 480, padding: '14px', animation: 'fadeInDown 0.15s ease' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid #F0F0F0' }}>
                   <button onClick={() => setOpenCat('__desktop__')}
-                    style={{ background: 'none', border: 'none', color: '#FAF7F2', fontWeight: 700, fontSize: 13, cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    style={{ background: 'none', border: 'none', color: '#FFFFFF', fontWeight: 700, fontSize: 13, cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
                     ← Volver
                   </button>
                   <span style={{ color: '#CCC' }}>|</span>
                   <span style={{ fontSize: 20 }}>{categorias.find(c => c.nombre === openCat)?.emoji}</span>
-                  <span style={{ color: '#FAF7F2', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
+                  <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
                 </div>
                 {subsByCategory[openCat] === undefined ? (
                   <div style={{ color: '#999', fontSize: 12, padding: '8px 0' }}>Cargando...</div>
@@ -351,17 +361,17 @@ export default function Header() {
                     {subsByCategory[openCat].map((sub) => (
                       <a key={sub} href={`/categorias/${encodeURIComponent(openCat)}?sub=${encodeURIComponent(sub)}`}
                         onClick={() => setOpenCat(null)}
-                        style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 10px', background: '#F0F5EE', border: '1px solid rgba(122,140,106,0.12)', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none', transition: 'all 0.15s' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#E8F0E4'; e.currentTarget.style.color = '#FAF7F2' }}
-                        onMouseLeave={e => { e.currentTarget.style.background = '#F0F5EE'; e.currentTarget.style.color = '#444' }}>
-                        <span style={{ color: '#FAF7F2', fontSize: 10, flexShrink: 0 }}>▸</span>{sub}
+                        style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 10px', background: '#FAF3E8', border: '1px solid rgba(200,168,130,0.12)', borderRadius: 8, color: '#444', fontWeight: 600, fontSize: 12, textDecoration: 'none', transition: 'all 0.15s' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#E8F0E4'; e.currentTarget.style.color = '#FFFFFF' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#FAF3E8'; e.currentTarget.style.color = '#444' }}>
+                        <span style={{ color: '#FFFFFF', fontSize: 10, flexShrink: 0 }}>▸</span>{sub}
                       </a>
                     ))}
                   </div>
                 )}
                 <a href={`/categorias/${encodeURIComponent(openCat)}`}
                   onClick={() => setOpenCat(null)}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 12, padding: '10px', background: '#FAF7F2', borderRadius: 8, color: '#FFFFFF', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 12, padding: '10px', background: '#FFFFFF', borderRadius: 8, color: '#FFFFFF', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>
                   Ver todos los productos →
                 </a>
               </div>
@@ -396,7 +406,7 @@ export default function Header() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px 10px', borderBottom: '1px solid #EEE', flexShrink: 0 }}>
                   {mobileSelectedCat ? (
                     <button onClick={() => setMobileSelectedCat(null)}
-                      style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', color: '#FAF7F2', fontWeight: 700, fontSize: 14, cursor: 'pointer', padding: 0 }}>
+                      style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', color: '#FFFFFF', fontWeight: 700, fontSize: 14, cursor: 'pointer', padding: 0 }}>
                       ← Volver
                     </button>
                   ) : (
@@ -425,7 +435,7 @@ export default function Header() {
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, padding: '4px 0' }}>
                         <span style={{ fontSize: 26 }}>{categorias.find(c => c.nombre === mobileSelectedCat)?.emoji}</span>
-                        <span style={{ color: '#FAF7F2', fontWeight: 900, fontSize: 16 }}>{mobileSelectedCat}</span>
+                        <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16 }}>{mobileSelectedCat}</span>
                       </div>
                       {subsByCategory[mobileSelectedCat] === undefined ? (
                         <div style={{ textAlign: 'center', color: '#999', padding: 24, fontSize: 13 }}>Cargando subcategorías...</div>
@@ -437,15 +447,15 @@ export default function Header() {
                             <a key={sub}
                               href={`/categorias/${encodeURIComponent(mobileSelectedCat)}?sub=${encodeURIComponent(sub)}`}
                               onClick={() => { setMobileGridOpen(false); setMobileSelectedCat(null) }}
-                              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 12px', background: '#F0F5EE', border: '1px solid rgba(122,140,106,0.15)', borderRadius: 10, color: '#333', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>
-                              <span style={{ color: '#FAF7F2', fontSize: 11, flexShrink: 0 }}>▸</span>{sub}
+                              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 12px', background: '#FAF3E8', border: '1px solid rgba(200,168,130,0.15)', borderRadius: 10, color: '#333', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>
+                              <span style={{ color: '#FFFFFF', fontSize: 11, flexShrink: 0 }}>▸</span>{sub}
                             </a>
                           ))}
                         </div>
                       )}
                       <a href={`/categorias/${encodeURIComponent(mobileSelectedCat)}`}
                         onClick={() => { setMobileGridOpen(false); setMobileSelectedCat(null) }}
-                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 14, padding: '13px', background: '#FAF7F2', borderRadius: 12, color: '#FFFFFF', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 14, padding: '13px', background: '#FFFFFF', borderRadius: 12, color: '#FFFFFF', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>
                         Ver todos los productos →
                       </a>
                     </div>
@@ -483,7 +493,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div className="lg:hidden border-t border-white/10 overflow-hidden"
-            style={{ background: 'rgba(122,140,106,0.98)' }}
+            style={{ background: 'rgba(160,18,18,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
             <div className="px-4 py-4 space-y-3">
@@ -523,7 +533,7 @@ export default function Header() {
               <div className="flex gap-2 pt-1">
                 {[
                   { name: 'Instagram', href: 'https://www.instagram.com/mayoristauniversal26', color: '#FF0090', bg: 'rgba(255,0,144,0.15)', border: 'rgba(255,0,144,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> },
-                  { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#4A6040', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
+                  { name: 'Facebook', href: 'https://www.facebook.com/mayoristauniversal', color: '#8B7355', bg: 'rgba(24,119,242,0.15)', border: 'rgba(24,119,242,0.4)', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
                   { name: 'X', href: 'https://www.x.com/mayoristauniversal', color: '#ffffff', bg: 'rgba(255,255,255,0.12)', border: 'rgba(255,255,255,0.3)', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
                 ].map(s => (
                   <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"

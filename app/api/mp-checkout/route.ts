@@ -10,16 +10,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'MP_ACCESS_TOKEN no configurado' }, { status: 500 })
   }
 
-  const mpItems = items.map((item: any) => ({
-    id: String(item.id),
-    title: item.name,
-    quantity: item.quantity,
-    unit_price: isWholesale
+  const mpItems = items.map((item: any) => {
+    const basePrice = isWholesale
       ? item.wholesalePrice
-      : Math.round(item.wholesalePrice * 1.40),
-    currency_id: 'ARS',
-    picture_url: item.image || undefined,
-  }))
+      : Math.round(item.wholesalePrice * 1.40)
+    const priceWithSurcharge = Math.round(basePrice * 1.10)
+    return {
+      id: String(item.id),
+      title: item.name,
+      quantity: item.quantity,
+      unit_price: priceWithSurcharge,
+      currency_id: 'ARS',
+      picture_url: item.image || undefined,
+    }
+  })
 
   const preference = {
     items: mpItems,

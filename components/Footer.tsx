@@ -39,7 +39,7 @@ const payment = ['🏦 Transferencia', '📱 Mercado Pago']
 export default function Footer() {
   return (
     <footer id="contacto" className="relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #FAF7F2 0%, #071018 100%)' }}>
+      style={{ background: '#FFFFFF' }}>
       {/* Gold top border */}
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 

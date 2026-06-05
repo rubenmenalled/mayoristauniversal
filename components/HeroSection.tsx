@@ -3,25 +3,25 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES_DESKTOP = [
-  { src: '/portada_desktop.png' },
+  { src: '/portada_desktop.jpg' },
   { src: '/banner_lenceria.jpg' },
-  { src: '/banner_peluches_madera.png' },
+  { src: '/banner_peluches_madera.jpg' },
   { src: '/banner_licencia_clubes.jpg' },
-  { src: '/banner1.png' },
-  { src: '/banner2.png' },
-  { src: '/banner3.png' },
-  { src: '/banner4.png' },
-  { src: '/banner5.png' },
+  { src: '/banner1.jpg' },
+  { src: '/banner2.jpg' },
+  { src: '/banner3.jpg' },
+  { src: '/banner4.jpg' },
+  { src: '/banner5.jpg' },
 ]
 
 const SLIDES_MOBILE = [
-  { src: '/portada_mobile.png' },
+  { src: '/portada_mobile.jpg' },
   { src: '/banner_lenceria.jpg' },
-  { src: '/banner_peluches_madera.png' },
+  { src: '/banner_peluches_madera.jpg' },
   { src: '/banner_licencia_clubes.jpg' },
-  { src: '/banner1_m.png' },
-  { src: '/banner2_m.png' },
-  { src: '/banner3_m.png' },
+  { src: '/banner1_m.jpg' },
+  { src: '/banner2_m.jpg' },
+  { src: '/banner3_m.jpg' },
 ]
 
 export default function HeroSection() {
@@ -105,7 +105,12 @@ export default function HeroSection() {
           {slides.map((slide, i) => (
             <div key={slide.src} className={`hero-slide ${i === current ? 'active' : 'inactive'}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={slide.src} alt={`Banner ${i + 1}`} />
+              <img
+                src={slide.src}
+                alt={`Banner ${i + 1}`}
+                fetchPriority={i === 0 ? 'high' : 'low'}
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
             </div>
           ))}
 
