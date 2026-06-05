@@ -286,6 +286,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                         <div style={{ fontSize: 11, fontWeight: 600, opacity: 0.9 }}>
                           ${Math.round(displayTotal * 1.10).toLocaleString('es-AR')} · +10% recargo tarjeta
                         </div>
+                        <div style={{ fontSize: 10, opacity: 0.75, marginTop: 1 }}>Los precios no incluyen IVA</div>
                       </div>
                     </button>
 
@@ -299,6 +300,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                         <div style={{ fontSize: 18, fontWeight: 900, color: '#DC2626', letterSpacing: '0.05em', lineHeight: 1.2, marginTop: 1 }}>
                           ✅ SIN RECARGO
                         </div>
+                        <div style={{ fontSize: 10, color: '#6B7280', marginTop: 1 }}>Los precios no incluyen IVA</div>
                       </div>
                     </button>
 
@@ -333,9 +335,12 @@ export default function CartSidebar({ open, onClose }: Props) {
                       href={waLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none' }}>
-                      <MessageCircle size={16} />
-                      PEDIR POR WHATSAPP
+                      style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', flexDirection: 'column' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <MessageCircle size={16} />
+                        PEDIR POR WHATSAPP
+                      </div>
+                      <div style={{ fontSize: 10, color: '#6B7280', fontWeight: 500 }}>Los precios no incluyen IVA</div>
                     </a>
                   </div>
                 ) : (
