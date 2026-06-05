@@ -443,7 +443,7 @@ export default function CategoriaPage() {
                               <div style={{ color: '#333', fontSize: 11, fontWeight: 800 }}>{precioUnit}</div>
                             )}
                             <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
-                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>LA DOCENA: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
+                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`}: ${p.wholesalePrice.toLocaleString('es-AR')}</div>
                           </div>
                           {extraInfo && (
                             <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>
