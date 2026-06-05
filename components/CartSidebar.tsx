@@ -133,9 +133,9 @@ export default function CartSidebar({ open, onClose }: Props) {
                     return (
                       <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 10, padding: 8, display: 'flex', gap: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
                         {/* Image */}
-                        <div style={{ width: 56, height: 56, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F3F4F6', position: 'relative', border: '1px solid #E5E7EB' }}>
+                        <div style={{ width: 72, height: 72, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', position: 'relative', border: '1px solid #E5E7EB' }}>
                           {item.image ? (
-                            <Image src={item.image} alt={item.name} fill className="object-cover" sizes="64px" />
+                            <Image src={item.image} alt={item.name} fill className="object-contain" sizes="72px" style={{ padding: 2 }} />
                           ) : (
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 24 }}>📦</div>
                           )}
