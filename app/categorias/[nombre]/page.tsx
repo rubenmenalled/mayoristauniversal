@@ -449,7 +449,9 @@ export default function CategoriaPage() {
                             <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>
                           )}
                           {!extraInfo && p.descripcion && !p.descripcion.startsWith('PRECIO POR') && (
-                            <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 2, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                            <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 6, padding: '4px 8px', marginTop: 4, marginBottom: 2 }}>
+                              <p style={{ color: '#1D4ED8', fontSize: 11, fontWeight: 700, lineHeight: 1.4, margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                            </div>
                           )}
                         </>
                       ) : (
