@@ -448,6 +448,9 @@ export default function CategoriaPage() {
                           {extraInfo && (
                             <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>
                           )}
+                          {!extraInfo && p.descripcion && !p.descripcion.startsWith('PRECIO POR') && (
+                            <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 2, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                          )}
                         </>
                       ) : (
                         p.descripcion ? (
