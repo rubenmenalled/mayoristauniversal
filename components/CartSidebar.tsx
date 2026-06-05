@@ -55,7 +55,27 @@ export default function CartSidebar({ open, onClose }: Props) {
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
   const puedeComprar = items.length > 0 && alertasCategorias.length === 0
 
+  // Notificar pedido iniciado (ntfy + WhatsApp) sin necesitar datos del cliente
+  async function notificarPedidoIniciado(metodo: string) {
+    try {
+      const total = items.reduce((s, i) => s + i.wholesalePrice * i.quantity, 0)
+      const lista = items.map(i => `• ${i.name} x${i.quantity} = $${(i.wholesalePrice * i.quantity).toLocaleString('es-AR')}`).join('\n')
+      await fetch('https://ntfy.sh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: 'mayorista-ruben-pedidos-2024',
+          title: `🛒 Pedido iniciado — ${metodo}`,
+          message: `TOTAL: $${total.toLocaleString('es-AR')} · ${items.length} artículo${items.length !== 1 ? 's' : ''}\n${lista}`,
+          priority: 5,
+          tags: ['shopping', 'moneybag'],
+        }),
+      })
+    } catch { /* silencioso */ }
+  }
+
   async function handleMercadoPago() {
+    notificarPedidoIniciado('Mercado Pago')
     setMpLoading(true)
     try {
       const res = await fetch('/api/mp-checkout', {
@@ -298,7 +318,7 @@ export default function CartSidebar({ open, onClose }: Props) {
 
                     {/* Transferencia bancaria */}
                     <button
-                      onClick={() => setShowTransfer(v => !v)}
+                      onClick={() => { notificarPedidoIniciado('Transferencia'); setShowTransfer(v => !v) }}
                       style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: '2px solid #15803D', background: showTransfer ? '#F0FDF4' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 2px 8px rgba(21,128,61,0.15)' }}>
                       <span style={{ fontSize: 18 }}>🏦</span>
                       <div style={{ textAlign: 'left' }}>
@@ -341,6 +361,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                       href={waLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => notificarPedidoIniciado('WhatsApp')}
                       style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', flexDirection: 'column' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <MessageCircle size={16} />
