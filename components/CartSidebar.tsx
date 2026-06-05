@@ -96,7 +96,7 @@ export default function CartSidebar({ open, onClose }: Props) {
           {/* Sidebar */}
           <motion.div
             className="fixed right-0 top-0 bottom-0 z-[101] flex flex-col"
-            style={{ width: '100%', maxWidth: 420, background: '#FFFFFF', borderLeft: '1px solid #E5E7EB', boxShadow: '-8px 0 40px rgba(0,0,0,0.12)' }}
+            style={{ width: '100%', maxWidth: 'min(520px, 95vw)', background: '#FFFFFF', borderLeft: '1px solid #E5E7EB', boxShadow: '-8px 0 40px rgba(0,0,0,0.12)' }}
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
 
@@ -131,19 +131,19 @@ export default function CartSidebar({ open, onClose }: Props) {
                     const subtotal = unitDisplay * item.quantity
                     const recargo = subtotal - baseSubtotal
                     return (
-                      <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 10, padding: 8, display: 'flex', gap: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+                      <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, padding: 12, display: 'flex', gap: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
                         {/* Image */}
-                        <div style={{ width: 72, height: 72, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', position: 'relative', border: '1px solid #E5E7EB' }}>
+                        <div style={{ width: 96, height: 96, borderRadius: 10, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', position: 'relative', border: '1px solid #E5E7EB' }}>
                           {item.image ? (
-                            <Image src={item.image} alt={item.name} fill className="object-contain" sizes="72px" style={{ padding: 2 }} />
+                            <Image src={item.image} alt={item.name} fill className="object-contain" sizes="96px" style={{ padding: 4 }} />
                           ) : (
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 24 }}>📦</div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 32 }}>📦</div>
                           )}
                         </div>
                         {/* Info */}
                         <div style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
-                          {item.brand && <div style={{ color: '#9CA3AF', fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Marca: {item.brand}</div>}
-                          <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, marginBottom: 4, lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{item.name}</div>
+                          {item.brand && <div style={{ color: '#9CA3AF', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Marca: {item.brand}</div>}
+                          <div style={{ color: '#111827', fontWeight: 700, fontSize: 13, marginBottom: 4, lineHeight: 1.35, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>{item.name}</div>
                           {ws ? (
                             /* MAYORISTA: precio directo */
                             <div style={{ marginBottom: 4 }}>
