@@ -693,7 +693,8 @@ export default function CategoriaPage() {
                     </div>
                   )}
                   <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: isMobile ? 26 : 22 }}>
-                    ${lightbox.minOrder > 1 ? Math.round(lightbox.wholesalePrice / lightbox.minOrder).toLocaleString('es-AR') : lightbox.wholesalePrice.toLocaleString('es-AR')} {lightbox.minOrder > 1 ? 'c/u' : ''}
+                    ${lightbox.wholesalePrice.toLocaleString('es-AR')}
+                    {lightbox.minOrder > 1 && <span style={{ fontSize: 13, fontWeight: 600, color: '#92400E', marginLeft: 6 }}>{lightbox.minOrder === 12 ? 'la docena' : `x ${lightbox.minOrder}`}</span>}
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
