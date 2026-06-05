@@ -271,6 +271,12 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 </div>
 
+                {/* Seguir comprando */}
+                <button onClick={onClose}
+                  style={{ width: '100%', padding: '10px', borderRadius: 10, border: '1.5px solid #D4AF37', background: 'transparent', color: '#B8941C', fontWeight: 800, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginBottom: 4 }}>
+                  ← Seguir comprando
+                </button>
+
                 {/* Checkout buttons */}
                 {puedeComprar ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
