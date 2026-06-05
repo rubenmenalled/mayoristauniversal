@@ -292,12 +292,12 @@ export default function CartSidebar({ open, onClose }: Props) {
                     {/* Transferencia bancaria */}
                     <button
                       onClick={() => setShowTransfer(v => !v)}
-                      style={{ width: '100%', padding: '11px 13px', borderRadius: 12, border: '1.5px solid #15803D', background: showTransfer ? '#F0FDF4' : 'transparent', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 16 }}>🏦</span>
+                      style={{ width: '100%', padding: '14px 16px', borderRadius: 12, border: '2.5px solid #15803D', background: showTransfer ? '#F0FDF4' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, boxShadow: '0 2px 10px rgba(21,128,61,0.2)' }}>
+                      <span style={{ fontSize: 22 }}>🏦</span>
                       <div style={{ textAlign: 'left' }}>
-                        <div style={{ fontSize: 14, fontWeight: 900 }}>TRANSFERENCIA BANCARIA</div>
-                        <div style={{ fontSize: 11, fontWeight: 600, color: '#16A34A' }}>
-                          ${displayTotal.toLocaleString('es-AR')} · Sin recargo ✓
+                        <div style={{ fontSize: 16, fontWeight: 900, letterSpacing: '0.02em' }}>TRANSFERENCIA BANCARIA</div>
+                        <div style={{ fontSize: 14, fontWeight: 900, color: '#16A34A', marginTop: 2 }}>
+                          💸 SIN RECARGO — ${displayTotal.toLocaleString('es-AR')}
                         </div>
                       </div>
                     </button>
