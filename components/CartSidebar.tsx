@@ -279,8 +279,8 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <button
                       onClick={handleMercadoPago}
                       disabled={mpLoading}
-                      style={{ width: '100%', padding: '11px 13px', borderRadius: 12, border: 'none', background: mpLoading ? '#9CA3AF' : 'linear-gradient(135deg,#009EE3,#0070BA)', color: '#FFFFFF', fontWeight: 900, cursor: mpLoading ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(0,158,227,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-                      <CreditCard size={18} />
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: 'none', background: mpLoading ? '#9CA3AF' : 'linear-gradient(135deg,#009EE3,#0070BA)', color: '#FFFFFF', fontWeight: 900, cursor: mpLoading ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(0,158,227,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                      <CreditCard size={16} />
                       <div style={{ textAlign: 'left' }}>
                         <div style={{ fontSize: 14, fontWeight: 900 }}>{mpLoading ? 'REDIRIGIENDO...' : 'PAGAR CON MERCADO PAGO'}</div>
                         <div style={{ fontSize: 11, fontWeight: 600, opacity: 0.9 }}>
@@ -292,11 +292,11 @@ export default function CartSidebar({ open, onClose }: Props) {
                     {/* Transferencia bancaria */}
                     <button
                       onClick={() => setShowTransfer(v => !v)}
-                      style={{ width: '100%', padding: '14px 16px', borderRadius: 12, border: '2.5px solid #15803D', background: showTransfer ? '#F0FDF4' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, boxShadow: '0 2px 10px rgba(21,128,61,0.2)' }}>
-                      <span style={{ fontSize: 22 }}>🏦</span>
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: '2px solid #15803D', background: showTransfer ? '#F0FDF4' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 2px 8px rgba(21,128,61,0.15)' }}>
+                      <span style={{ fontSize: 18 }}>🏦</span>
                       <div style={{ textAlign: 'left' }}>
-                        <div style={{ fontSize: 13, fontWeight: 700 }}>TRANSFERENCIA BANCARIA · ${displayTotal.toLocaleString('es-AR')}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: '#DC2626', letterSpacing: '0.04em', lineHeight: 1.1, marginTop: 2 }}>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#15803D' }}>TRANSFERENCIA BANCARIA · ${displayTotal.toLocaleString('es-AR')}</div>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: '#DC2626', letterSpacing: '0.05em', lineHeight: 1.2, marginTop: 1 }}>
                           ✅ SIN RECARGO
                         </div>
                       </div>
