@@ -650,8 +650,8 @@ export default function CategoriaPage() {
                       </>
                     )
                   })() : (
-                    <div style={{ color: '#6B7280', fontSize: 13, lineHeight: 1.5, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #D4AF37' }}>
-                      {lightbox.descripcion}
+                    <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 8, padding: '8px 12px', marginBottom: 10 }}>
+                      <p style={{ color: '#1D4ED8', fontSize: 13, fontWeight: 700, lineHeight: 1.5, margin: 0 }}>{lightbox.descripcion}</p>
                     </div>
                   )
                 )}
@@ -684,8 +684,17 @@ export default function CategoriaPage() {
                     </div>
                   )
                 })()}
-                <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: isMobile ? 26 : 22, marginTop: 'auto', paddingTop: 8 }}>
-                  ${lightbox.wholesalePrice.toLocaleString('es-AR')}
+                <div style={{ marginTop: 'auto', paddingTop: 8 }}>
+                  {lightbox.minOrder > 1 && (
+                    <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: 8 }}>
+                      <div style={{ color: '#92400E', fontSize: 12, fontWeight: 900 }}>PRECIO POR {lightbox.minOrder} UNIDADES</div>
+                      <div style={{ color: '#111', fontSize: 15, fontWeight: 900, marginTop: 2 }}>${Math.round(lightbox.wholesalePrice / lightbox.minOrder).toLocaleString('es-AR')} c/u</div>
+                      <div style={{ color: '#B45309', fontSize: 13, fontWeight: 700, marginTop: 2 }}>{lightbox.minOrder === 12 ? 'LA DOCENA' : `PACK X ${lightbox.minOrder}`}: ${lightbox.wholesalePrice.toLocaleString('es-AR')}</div>
+                    </div>
+                  )}
+                  <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: isMobile ? 26 : 22 }}>
+                    ${lightbox.minOrder > 1 ? Math.round(lightbox.wholesalePrice / lightbox.minOrder).toLocaleString('es-AR') : lightbox.wholesalePrice.toLocaleString('es-AR')} {lightbox.minOrder > 1 ? 'c/u' : ''}
+                  </div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                   <button onClick={() => setLightbox(null)}
