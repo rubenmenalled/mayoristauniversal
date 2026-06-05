@@ -315,6 +315,37 @@ export default function CategoriaPage() {
               )
             })}
 
+            {/* Botón WhatsApp lentes de sol — solo en LENTES */}
+            {nombreDecoded.toUpperCase() === 'LENTES' && (
+              <motion.a
+                href="https://wa.me/5491164660482?text=%C2%A1Hola!%20Quiero%20ver%20m%C3%A1s%20de%20200%20modelos%20de%20lentes%20de%20sol%20%F0%9F%95%B6%EF%B8%8F"
+                target="_blank" rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: subcategorias.length * 0.05 }}
+                style={{
+                  position: 'relative', height: 160, borderRadius: 12, overflow: 'hidden',
+                  cursor: 'pointer', boxShadow: '0 4px 20px rgba(22,163,74,0.5)',
+                  background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                  gap: 10, padding: 16, textDecoration: 'none',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 30px rgba(22,163,74,0.7)' }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(22,163,74,0.5)' }}
+              >
+                <span style={{ fontSize: 36 }}>💬</span>
+                <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 13, textAlign: 'center', lineHeight: 1.4, textShadow: '0 1px 4px rgba(0,0,0,0.3)' }}>
+                  Para ver más de 200 modelos de lentes de sol pedir por WhatsApp
+                </span>
+                <span style={{
+                  background: 'rgba(255,255,255,0.2)', border: '2px solid rgba(255,255,255,0.6)',
+                  borderRadius: 20, padding: '5px 16px',
+                  color: '#FFFFFF', fontWeight: 900, fontSize: 12, letterSpacing: '0.05em',
+                }}>
+                  CONSULTAR AHORA →
+                </span>
+              </motion.a>
+            )}
+
             {/* Botón WhatsApp relojes surtidos — solo en RELOJES */}
             {nombreDecoded.toUpperCase() === 'RELOJES' && (
               <motion.a
