@@ -169,7 +169,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                                 </span>
                               </div>
                               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#0369A1', fontSize: 11 }}>+40% minorista</span>
+                                <span style={{ color: '#0369A1', fontSize: 11 }}>+{Math.round((RETAIL_MARKUP - 1) * 100)}% minorista</span>
                                 <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 12 }}>+${recargo.toLocaleString('es-AR')}</span>
                               </div>
                               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #F3F4F6', marginTop: 2, paddingTop: 2 }}>
