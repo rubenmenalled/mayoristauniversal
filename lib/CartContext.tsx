@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 
 export const WHOLESALE_MIN = 150000
 export const RETAIL_MIN = 30000            // mínimo para compra minorista
-export const RETAIL_MARKUP = 1.40
+export const RETAIL_MARKUP = 1.30
 export const EXPENSIVE_THRESHOLD = 100000  // productos > este precio tienen su propia regla
 export const EXPENSIVE_MIN_QTY = 2         // necesitan 2+ unidades para precio mayorista
 
