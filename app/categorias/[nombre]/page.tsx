@@ -239,6 +239,29 @@ export default function CategoriaPage() {
         </div>
       </div>
 
+      {/* Cartel informativo LLAVEROS */}
+      {nombreDecoded.toUpperCase() === 'LLAVEROS' && !busquedaInterna.trim() && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 16px 0' }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #FFF8E1 0%, #FFF3CD 100%)',
+            border: '2px solid #D4AF37',
+            borderRadius: 14,
+            padding: '16px 20px',
+            display: 'flex', alignItems: 'center', gap: 14,
+          }}>
+            <span style={{ fontSize: 32, flexShrink: 0 }}>🔑</span>
+            <div>
+              <div style={{ color: '#92660A', fontWeight: 900, fontSize: 15, marginBottom: 4 }}>
+                Pedido mínimo: 6 llaveros
+              </div>
+              <div style={{ color: '#7a5c1e', fontSize: 13, lineHeight: 1.5 }}>
+                Podés combinar distintos modelos — 1 de cada uno hasta completar los 6 surtidos. ¡Elegí los que más te gusten!
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Sub-subcategorías como tarjetas — cuando hay subActiva con sub-subs y no hay subSubActiva */}
       {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
