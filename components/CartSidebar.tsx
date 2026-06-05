@@ -260,7 +260,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                         <span style={{ color: '#0369A1', fontSize: 12 }}>Recargo minorista (+{Math.round((RETAIL_MARKUP - 1) * 100)}%)</span>
                         <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 12 }}>${(displayTotal - wholesaleTotal).toLocaleString('es-AR')}</span>
                       </div>
-                      <div style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', borderRadius: 6, padding: '5px 8px', marginBottom: 6, fontSize: 11, fontWeight: 800, color: '#FFFFFF', textAlign: 'center' }}>
+                      <div style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', borderRadius: 8, padding: '10px 12px', marginBottom: 8, fontSize: 13, fontWeight: 900, color: '#FFFFFF', textAlign: 'center', boxShadow: '0 2px 8px rgba(212,175,55,0.4)', lineHeight: 1.4 }}>
                         🏆 Sumando más de $150.000 el total cambia a precios mayoristas
                       </div>
                     </>
