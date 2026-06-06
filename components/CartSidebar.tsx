@@ -55,21 +55,14 @@ export default function CartSidebar({ open, onClose }: Props) {
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
   const puedeComprar = items.length > 0 && alertasCategorias.length === 0
 
-  // Notificar pedido iniciado (ntfy + WhatsApp) sin necesitar datos del cliente
+  // Notificar pedido iniciado → ntfy + email + WhatsApp (via servidor)
   async function notificarPedidoIniciado(metodo: string) {
     try {
       const total = items.reduce((s, i) => s + i.wholesalePrice * i.quantity, 0)
-      const lista = items.map(i => `• ${i.name} x${i.quantity} = $${(i.wholesalePrice * i.quantity).toLocaleString('es-AR')}`).join('\n')
-      await fetch('https://ntfy.sh', {
+      await fetch('/api/notificar-carrito', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          topic: 'mayorista-ruben-pedidos-2024',
-          title: `🛒 Pedido iniciado — ${metodo}`,
-          message: `TOTAL: $${total.toLocaleString('es-AR')} · ${items.length} artículo${items.length !== 1 ? 's' : ''}\n${lista}`,
-          priority: 5,
-          tags: ['shopping', 'moneybag'],
-        }),
+        body: JSON.stringify({ items, total, metodo }),
       })
     } catch { /* silencioso */ }
   }
