@@ -245,7 +245,7 @@ export default function ComoComprar() {
           {/* CTA Button */}
           <div style={{ textAlign: 'center', marginTop: '52px' }}>
             <Link
-              href="/catalogo"
+              href="/#catalogos"
               style={{
                 display: 'inline-block',
                 backgroundColor: '#D4AF37',
