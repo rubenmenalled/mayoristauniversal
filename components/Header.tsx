@@ -227,9 +227,9 @@ export default function Header() {
             </motion.a>
 
             {/* Cart */}
-            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#8B7355' }}
+            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#FFFFFF' }}
               onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#8B7355')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
               whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={24} />
               {count > 0 && <span className="absolute -top-0.5 -right-0.5 bg-gold text-navy text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">{count}</span>}
@@ -240,9 +240,9 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <motion.a href="/mi-cuenta"
                   className="flex items-center gap-2 transition-colors"
-                  style={{ color: '#8B7355' }}
+                  style={{ color: '#FFFFFF' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#8B7355')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
                   whileHover={{ scale: 1.03 }}>
                   <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <User size={16} color="#FFFFFF" />
@@ -258,11 +258,11 @@ export default function Header() {
             ) : (
               <motion.a href="/login"
                 className="flex flex-col items-end transition-colors"
-                style={{ color: '#8B7355' }}
+                style={{ color: '#FFFFFF' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#8B7355')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
                 whileHover={{ scale: 1.03 }}>
-                <span className="text-[11px] leading-none opacity-80">Ingresar / Registrarse</span>
+                <span className="text-[11px] leading-none opacity-90">Ingresar / Registrarse</span>
                 <span className="text-[12px] font-bold leading-none flex items-center gap-1">Mi cuenta <ChevronDown size={11} /></span>
               </motion.a>
             )}
