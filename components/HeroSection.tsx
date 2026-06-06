@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 const SLIDES_DESKTOP = [
   { src: '/portada_desktop.jpg' },
   { src: '/banner_lenceria.jpg' },
+  { src: '/banner_pantuflas.jpg' },
   { src: '/banner_peluches_madera.jpg' },
   { src: '/banner_licencia_clubes.jpg' },
   { src: '/banner1.jpg' },
@@ -17,6 +18,7 @@ const SLIDES_DESKTOP = [
 const SLIDES_MOBILE = [
   { src: '/portada_mobile.jpg' },
   { src: '/banner_lenceria.jpg' },
+  { src: '/banner_pantuflas.jpg' },
   { src: '/banner_peluches_madera.jpg' },
   { src: '/banner_licencia_clubes.jpg' },
   { src: '/banner1_m.jpg' },
