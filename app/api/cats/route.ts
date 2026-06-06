@@ -7,17 +7,19 @@ const ORDEN_CATEGORIAS = [
   'LENCERIA',
   'PELUCHES',
   'BEBE',
+  'PANTUFLAS',
   'INVIERNO 2026',
+  'JUGUETERIA',
   'BELLEZA',
   'ACCESORIOS DE PELO',
   'LICENCIA (BLANQUERIA Y ACCESORIOS)',
-  'BLANQUERIA',
   'TODO PARA EL DEPORTE',
   'PERFUMERIA',
-  'MASCOTAS',
-  'HOGAR Y BAZAR',
+  'DECO CASA',
+  'DECO BAZAR',
+  'ACCESORIOS PARA MASCOTAS',
+  'ELECTROHOGAR',
   'LLAVEROS',
-  'JUGUETERIA',
   'LIBRERIA',
   'RELOJES',
   'ELECTRONICA',
@@ -30,6 +32,7 @@ const ORDEN_CATEGORIAS = [
   'BIJOUTERIE',
   'MARROQUINERIA',
   'RODADOS',
+  'BLANQUERIA',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
@@ -67,6 +70,11 @@ const FOTOS: Record<string, string> = {
   'RELOJES':             'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
+  'PANTUFLAS':           'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/pantuflas-banner-1780665741.jpg',
+  'DECO CASA':           'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
+  'DECO BAZAR':          'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
+  'ACCESORIOS PARA MASCOTAS': 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
+  'ELECTROHOGAR':        'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=800&q=90',
 }
 
 export async function GET() {
@@ -124,6 +132,11 @@ export async function GET() {
     'RELOJES':             '⌚',
     'BIJOUTERIE':          '💍',
     'ACCESORIOS DE PELO':  '💇',
+  'PANTUFLAS':           '🥿',
+  'DECO CASA':           '🏠',
+  'DECO BAZAR':          '🛍️',
+  'ACCESORIOS PARA MASCOTAS': '🐾',
+  'ELECTROHOGAR':        '🏠',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
