@@ -163,16 +163,22 @@ export async function POST(request: NextRequest) {
 
   // Notificación push via ntfy.sh (primero para asegurar entrega)
   try {
+    const primeraFoto = items.find((i: any) => i.image)?.image
+    const ntfyPayload: Record<string, any> = {
+      topic: NTFY_TOPIC,
+      title: `🛒 Nuevo pedido de ${nombre}`,
+      message: `💰 TOTAL: ${totalFormato} — ${cantidadTotal} unidades\n📱 Tel: ${telefono}\n📧 ${email}\n\n${listaProductos}`,
+      priority: 5,
+      tags: ['shopping', 'moneybag'],
+    }
+    if (primeraFoto) {
+      ntfyPayload.attach = primeraFoto
+      ntfyPayload.icon = primeraFoto
+    }
     await fetch('https://ntfy.sh', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        topic: NTFY_TOPIC,
-        title: `Nuevo pedido de ${nombre}`,
-        message: `TOTAL: ${totalFormato} - ${cantidadTotal} unidades\nTel: ${telefono}\nEmail: ${email}`,
-        priority: 5,
-        tags: ['shopping', 'moneybag'],
-      }),
+      body: JSON.stringify(ntfyPayload),
     })
   } catch (e) {
     console.error('Error ntfy:', e)

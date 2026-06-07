@@ -471,6 +471,10 @@ export default function CategoriaPage() {
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                     )}
+                    {/* Tapar watermark CX en fotos de marca XC */}
+                    {p.image && p.brand?.toUpperCase() === 'XC' && (
+                      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 42, background: `linear-gradient(to bottom, ${nombreDecoded.toUpperCase() === 'ELECTRONICA' ? '#FFFFFF' : '#F8F8F8'} 55%, transparent)`, zIndex: 2, pointerEvents: 'none' }} />
+                    )}
                     {p.image && (
                       <div style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.5)', borderRadius: 6, padding: '2px 5px', fontSize: 10, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: 3 }}>
                         🔍{p.images && p.images.length > 1 && <span style={{ fontSize: 9, color: '#D4AF37', fontWeight: 700 }}>{p.images.length}📷</span>}
@@ -659,6 +663,10 @@ export default function CategoriaPage() {
                   willChange: 'transform',
                 }}>
                   <Image src={activeSrc} alt={lightbox.name} fill style={{ objectFit: 'contain', padding: 10 }} sizes="500px" quality={100} />
+                  {/* Tapar watermark CX en fotos de marca XC */}
+                  {lightbox.brand?.toUpperCase() === 'XC' && !zoom && (
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '23%', background: 'linear-gradient(to bottom, #F5F5F5 60%, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+                  )}
                 </div>
 
                 {/* Hint zoom */}

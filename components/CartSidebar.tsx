@@ -1,10 +1,10 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard } from 'lucide-react'
+import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
 import { useCart, RETAIL_MARKUP, RETAIL_MIN, itemIsWholesale } from '@/lib/CartContext'
-import Image from 'next/image'
-import { useState } from 'react'
+import { supabase } from '@/lib/supabase'
+import { useState, useEffect } from 'react'
 
 const WA_NUMBER = '5491164660482'
 
@@ -40,6 +40,55 @@ export default function CartSidebar({ open, onClose }: Props) {
   const [mpLoading, setMpLoading] = useState(false)
   const [showTransfer, setShowTransfer] = useState(false)
 
+  // Sesión y datos del cliente
+  const [sessionUser, setSessionUser] = useState<{ nombre: string; email: string; telefono: string } | null>(null)
+  const [guestForm, setGuestForm] = useState({ nombre: '', email: '', telefono: '' })
+  const [guestSaved, setGuestSaved] = useState(false)
+  const [guestErrors, setGuestErrors] = useState<Record<string, string>>({})
+
+  useEffect(() => {
+    // Cargar datos guardados de invitado en localStorage
+    const saved = localStorage.getItem('guest_checkout')
+    if (saved) { try { const d = JSON.parse(saved); setGuestForm(d); setGuestSaved(true) } catch {} }
+
+    // Verificar sesión Supabase
+    supabase.auth.getSession().then(({ data }) => {
+      const u = data.session?.user
+      if (u) {
+        supabase.from('clientes').select('nombre,email,telefono,whatsapp').eq('user_id', u.id).single()
+          .then(({ data: f }) => {
+            setSessionUser({
+              nombre: f?.nombre || u.user_metadata?.nombre || '',
+              email: f?.email || u.email || '',
+              telefono: f?.telefono || f?.whatsapp || u.user_metadata?.whatsapp || '',
+            })
+          })
+      }
+    })
+    const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (!session) { setSessionUser(null) }
+    })
+    return () => listener.subscription.unsubscribe()
+  }, [])
+
+  // Datos efectivos del cliente (logueado o invitado guardado)
+  const clienteData = sessionUser ?? (guestSaved ? guestForm : null)
+
+  function validarGuest() {
+    const errs: Record<string, string> = {}
+    if (!guestForm.nombre.trim()) errs.nombre = 'Ingresá tu nombre'
+    if (!guestForm.email.trim() || !/\S+@\S+\.\S+/.test(guestForm.email)) errs.email = 'Email inválido'
+    if (!guestForm.telefono.trim() || guestForm.telefono.replace(/\D/g, '').length < 8) errs.telefono = 'Teléfono inválido'
+    setGuestErrors(errs)
+    return Object.keys(errs).length === 0
+  }
+
+  function guardarGuest() {
+    if (!validarGuest()) return
+    localStorage.setItem('guest_checkout', JSON.stringify(guestForm))
+    setGuestSaved(true)
+  }
+
   // Verificar mínimos por categoría
   const alertasCategorias: string[] = []
   Object.entries(MIN_CATEGORIA).forEach(([cat, minUnits]) => {
@@ -62,7 +111,7 @@ export default function CartSidebar({ open, onClose }: Props) {
       await fetch('/api/notificar-carrito', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, total, metodo }),
+        body: JSON.stringify({ items, total, metodo, cliente: clienteData }),
       })
     } catch { /* silencioso */ }
   }
@@ -146,11 +195,11 @@ export default function CartSidebar({ open, onClose }: Props) {
                     return (
                       <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, padding: 12, display: 'flex', gap: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
                         {/* Image */}
-                        <div style={{ width: 96, height: 96, borderRadius: 10, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', position: 'relative', border: '1px solid #E5E7EB' }}>
+                        <div style={{ width: 96, height: 96, borderRadius: 10, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', border: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           {item.image ? (
-                            <Image src={item.image} alt={item.name} fill className="object-contain" sizes="96px" style={{ padding: 4 }} />
+                            <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 4 }} />
                           ) : (
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 32 }}>📦</div>
+                            <div style={{ fontSize: 32 }}>📦</div>
                           )}
                         </div>
                         {/* Info */}
@@ -290,8 +339,79 @@ export default function CartSidebar({ open, onClose }: Props) {
                   ← Seguir comprando
                 </button>
 
+                {/* ─── FORMULARIO DATOS DEL CLIENTE ─── */}
+                {!sessionUser && (
+                  <div style={{ marginBottom: 8 }}>
+                    {guestSaved ? (
+                      /* Datos ya cargados — mostrar resumen editable */
+                      <div style={{ background: '#F0FDF4', border: '1.5px solid #86EFAC', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <User size={15} color="#15803D" />
+                          <div>
+                            <div style={{ color: '#111827', fontWeight: 800, fontSize: 13 }}>{guestForm.nombre}</div>
+                            <div style={{ color: '#6B7280', fontSize: 11 }}>{guestForm.telefono}</div>
+                          </div>
+                        </div>
+                        <button onClick={() => { setGuestSaved(false); setGuestErrors({}) }}
+                          style={{ background: 'none', border: 'none', color: '#15803D', fontSize: 12, fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}>
+                          Editar
+                        </button>
+                      </div>
+                    ) : (
+                      /* Formulario de datos */
+                      <div style={{ background: '#FFFBEB', border: '1.5px solid #FCD34D', borderRadius: 10, padding: '12px 14px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+                          <User size={14} color="#92400E" />
+                          <span style={{ color: '#92400E', fontWeight: 900, fontSize: 13 }}>Tus datos para el pedido</span>
+                        </div>
+                        {/* Nombre */}
+                        <div style={{ marginBottom: 8 }}>
+                          <input
+                            type="text"
+                            placeholder="Nombre y apellido *"
+                            value={guestForm.nombre}
+                            onChange={e => setGuestForm(p => ({ ...p, nombre: e.target.value }))}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.nombre ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                          />
+                          {guestErrors.nombre && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.nombre}</div>}
+                        </div>
+                        {/* Email */}
+                        <div style={{ marginBottom: 8 }}>
+                          <input
+                            type="email"
+                            placeholder="Email *"
+                            value={guestForm.email}
+                            onChange={e => setGuestForm(p => ({ ...p, email: e.target.value }))}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.email ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                          />
+                          {guestErrors.email && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.email}</div>}
+                        </div>
+                        {/* Teléfono */}
+                        <div style={{ marginBottom: 10 }}>
+                          <input
+                            type="tel"
+                            placeholder="WhatsApp / Teléfono *"
+                            value={guestForm.telefono}
+                            onChange={e => setGuestForm(p => ({ ...p, telefono: e.target.value }))}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.telefono ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                          />
+                          {guestErrors.telefono && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.telefono}</div>}
+                        </div>
+                        <button onClick={guardarGuest}
+                          style={{ width: '100%', padding: '9px', borderRadius: 8, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}>
+                          Confirmar datos →
+                        </button>
+                        <div style={{ textAlign: 'center', marginTop: 8, fontSize: 11, color: '#9CA3AF' }}>
+                          ¿Ya tenés cuenta?{' '}
+                          <a href="/login" style={{ color: '#D4AF37', fontWeight: 700, textDecoration: 'none' }}>Ingresá aquí</a>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Checkout buttons */}
-                {puedeComprar ? (
+                {puedeComprar && (sessionUser || guestSaved) ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
 
                     {/* MP con +10% recargo */}
@@ -363,13 +483,13 @@ export default function CartSidebar({ open, onClose }: Props) {
                       <div style={{ fontSize: 10, color: '#6B7280', fontWeight: 500 }}>Los precios no incluyen IVA</div>
                     </a>
                   </div>
-                ) : (
+                ) : !puedeComprar ? (
                   <button
                     onClick={onClose}
                     style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 16px rgba(212,175,55,0.35)' }}>
                     + SEGUIR AGREGANDO PRODUCTOS
                   </button>
-                )}
+                ) : null}
                 <button onClick={clearCart}
                   style={{ width: '100%', marginTop: 8, padding: '10px', borderRadius: 12, border: '1px solid #FECACA', background: '#FEF2F2', color: '#EF4444', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                   Vaciar carrito
