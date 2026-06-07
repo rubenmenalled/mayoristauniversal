@@ -39,6 +39,7 @@ type Estado = 'pendiente' | 'confirmado' | 'enviado'
 interface CartItem {
   id: number
   name: string
+  brand?: string
   price: number
   wholesalePrice: number
   image: string
@@ -91,6 +92,7 @@ function normItem(i: any): CartItem {
   return {
     id:             i.id ?? 0,
     name:           i.name || i.nombre || '—',
+    brand:          i.brand || i.marca || '',
     price:          Number(i.price ?? i.precio ?? 0),
     wholesalePrice: Number(i.wholesalePrice ?? i.precio_mayorista ?? i.precio ?? 0),
     image:          i.image || i.imagen || '',
@@ -114,6 +116,7 @@ function printPedido(pedido: Pedido) {
         }
       </td>
       <td style="padding:10px 8px;border-bottom:1px solid #eee;vertical-align:middle;">
+        ${item.brand ? `<div style="font-size:10px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">${item.brand}</div>` : ''}
         <div style="font-weight:800;font-size:13px;color:#111;margin-bottom:3px;">${item.name}</div>
         ${item.category ? `<div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.04em;">${item.category}</div>` : ''}
       </td>
@@ -320,6 +323,44 @@ export default function PedidosPage() {
     return matchFiltro && matchSearch
   })
 
+  // Exportar UN pedido individual a Excel/CSV
+  function exportarPedidoExcel(pedido: Pedido) {
+    const BOM = '﻿'
+    const items = (pedido.items || []).map(normItem)
+    const fecha = formatDateTime(pedido.created_at)
+    const filas: string[][] = []
+    filas.push(['Fecha', 'ID', 'Cliente', 'Email', 'Teléfono', 'Estado', 'Marca', 'Producto', 'Categoría', 'Cantidad', 'Precio Unit.', 'Subtotal', 'Total Pedido', 'URL Foto'])
+    items.forEach((item, idx) => {
+      filas.push([
+        idx === 0 ? fecha : '',
+        idx === 0 ? pedido.id.slice(0, 8).toUpperCase() : '',
+        idx === 0 ? pedido.nombre : '',
+        idx === 0 ? pedido.email : '',
+        idx === 0 ? (pedido.telefono || '') : '',
+        idx === 0 ? (ESTADO_LABELS[pedido.estado] || pedido.estado) : '',
+        item.brand || '',
+        item.name,
+        item.category || '',
+        String(item.quantity),
+        String(item.wholesalePrice),
+        String(item.wholesalePrice * item.quantity),
+        idx === 0 ? String(pedido.total) : '',
+        item.image || '',
+      ])
+    })
+    if (items.length === 0) {
+      filas.push([fecha, pedido.id.slice(0, 8).toUpperCase(), pedido.nombre, pedido.email, pedido.telefono || '', ESTADO_LABELS[pedido.estado] || pedido.estado, '', '', '', '', '', '', String(pedido.total), ''])
+    }
+    const csv = BOM + filas.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url  = URL.createObjectURL(blob)
+    const a    = document.createElement('a')
+    a.href     = url
+    a.download = `pedido-${pedido.nombre.replace(/\s+/g,'-')}-${pedido.id.slice(0,8)}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   const totalPedidos    = pedidos.length
   const totalPendientes = pedidos.filter(p => p.estado === 'pendiente').length
 
@@ -330,7 +371,7 @@ export default function PedidosPage() {
 
     // Una fila por PRODUCTO dentro de cada pedido
     const filas: string[][] = []
-    filas.push(['Fecha', 'ID Pedido', 'Cliente', 'Email', 'Teléfono', 'Estado', 'Producto', 'Categoría', 'Cantidad', 'Precio Unit.', 'Subtotal', 'Total Pedido'])
+    filas.push(['Fecha', 'ID Pedido', 'Cliente', 'Email', 'Teléfono', 'Estado', 'Marca', 'Producto', 'Categoría', 'Cantidad', 'Precio Unit.', 'Subtotal', 'Total Pedido', 'URL Foto'])
 
     pedidosExport.forEach(p => {
       const items = (p.items || []).map(normItem)
@@ -338,7 +379,7 @@ export default function PedidosPage() {
         filas.push([
           formatDateTime(p.created_at), p.id.slice(0, 8).toUpperCase(),
           p.nombre, p.email, p.telefono || '', ESTADO_LABELS[p.estado] || p.estado,
-          '', '', '', '', '', String(p.total),
+          '', '', '', '', '', '', String(p.total), '',
         ])
       } else {
         items.forEach((item, idx) => {
@@ -349,12 +390,14 @@ export default function PedidosPage() {
             idx === 0 ? p.email : '',
             idx === 0 ? (p.telefono || '') : '',
             idx === 0 ? (ESTADO_LABELS[p.estado] || p.estado) : '',
+            item.brand || '',
             item.name,
             item.category || '',
             String(item.quantity),
             String(item.wholesalePrice),
             String(item.wholesalePrice * item.quantity),
             idx === 0 ? String(p.total) : '',
+            item.image || '',
           ])
         })
       }
@@ -609,6 +652,13 @@ export default function PedidosPage() {
                             <option value="enviado"    style={{ background: NAVY2 }}>Enviado</option>
                           </select>
 
+                          {/* Botón Excel individual */}
+                          <button
+                            onClick={() => exportarPedidoExcel(pedido)}
+                            style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'linear-gradient(135deg,#16a34a,#15803d)', border: 'none', borderRadius: 10, padding: '10px 20px', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}
+                          >
+                            📊 Excel
+                          </button>
                           {/* Botón imprimir */}
                           <button
                             onClick={() => printPedido(pedido)}
