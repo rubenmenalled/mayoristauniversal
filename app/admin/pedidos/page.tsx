@@ -345,7 +345,7 @@ export default function PedidosPage() {
         String(item.wholesalePrice),
         String(item.wholesalePrice * item.quantity),
         idx === 0 ? String(pedido.total) : '',
-        item.image || '',
+        item.image ? `=IMAGE("${item.image}")` : '',
       ])
     })
     if (items.length === 0) {
@@ -397,7 +397,7 @@ export default function PedidosPage() {
             String(item.wholesalePrice),
             String(item.wholesalePrice * item.quantity),
             idx === 0 ? String(p.total) : '',
-            item.image || '',
+            item.image ? `=IMAGE("${item.image}")` : '',
           ])
         })
       }
