@@ -323,40 +323,52 @@ export default function PedidosPage() {
     return matchFiltro && matchSearch
   })
 
-  // Exportar UN pedido individual a Excel/CSV
+  // Genera HTML tabla para Excel con imágenes embebidas
+  function buildExcelHTML(filas: { fecha: string; id: string; cliente: string; email: string; telefono: string; estado: string; marca: string; nombre: string; categoria: string; cantidad: number; precioUnit: number; subtotal: number; totalPedido: string; image: string }[]) {
+    const th = (t: string) => `<th style="background:#0F3460;color:#D4AF37;font-weight:bold;padding:8px 10px;border:1px solid #ccc;white-space:nowrap;">${t}</th>`
+    const td = (t: string, bold = false) => `<td style="padding:6px 10px;border:1px solid #ddd;vertical-align:middle;${bold ? 'font-weight:bold;' : ''}">${t}</td>`
+    const rows = filas.map(f => `<tr>
+      ${td(f.fecha)}${td(f.id)}${td(f.cliente, true)}${td(f.email)}${td(f.telefono)}${td(f.estado)}${td(f.marca)}${td(f.nombre, true)}${td(f.categoria)}
+      ${td(String(f.cantidad))}
+      ${td(`$${f.precioUnit.toLocaleString('es-AR')}`)}
+      ${td(`$${f.subtotal.toLocaleString('es-AR')}`)}
+      ${td(f.totalPedido ? `$${Number(f.totalPedido).toLocaleString('es-AR')}` : '', true)}
+      <td style="padding:4px;border:1px solid #ddd;text-align:center;vertical-align:middle;">${f.image ? `<img src="${f.image}" width="70" height="70" style="object-fit:contain;display:block;margin:auto;" />` : '—'}</td>
+    </tr>`).join('')
+    return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Pedidos</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
+<style>table{border-collapse:collapse;font-family:Arial,sans-serif;font-size:12px;}tr:nth-child(even){background:#F9FAFB;}</style></head>
+<body><table>
+<thead><tr>${[th('Fecha'),th('ID'),th('Cliente'),th('Email'),th('Teléfono'),th('Estado'),th('Marca'),th('Producto'),th('Categoría'),th('Cant.'),th('P.Unit.'),th('Subtotal'),th('Total'),th('Foto')].join('')}</tr></thead>
+<tbody>${rows}</tbody></table></body></html>`
+  }
+
+  // Exportar UN pedido individual a Excel con imágenes
   function exportarPedidoExcel(pedido: Pedido) {
-    const BOM = '﻿'
     const items = (pedido.items || []).map(normItem)
     const fecha = formatDateTime(pedido.created_at)
-    const filas: string[][] = []
-    filas.push(['Fecha', 'ID', 'Cliente', 'Email', 'Teléfono', 'Estado', 'Marca', 'Producto', 'Categoría', 'Cantidad', 'Precio Unit.', 'Subtotal', 'Total Pedido', 'URL Foto'])
-    items.forEach((item, idx) => {
-      filas.push([
-        idx === 0 ? fecha : '',
-        idx === 0 ? pedido.id.slice(0, 8).toUpperCase() : '',
-        idx === 0 ? pedido.nombre : '',
-        idx === 0 ? pedido.email : '',
-        idx === 0 ? (pedido.telefono || '') : '',
-        idx === 0 ? (ESTADO_LABELS[pedido.estado] || pedido.estado) : '',
-        item.brand || '',
-        item.name,
-        item.category || '',
-        String(item.quantity),
-        String(item.wholesalePrice),
-        String(item.wholesalePrice * item.quantity),
-        idx === 0 ? String(pedido.total) : '',
-        item.image ? `=IMAGE("${item.image}")` : '',
-      ])
-    })
-    if (items.length === 0) {
-      filas.push([fecha, pedido.id.slice(0, 8).toUpperCase(), pedido.nombre, pedido.email, pedido.telefono || '', ESTADO_LABELS[pedido.estado] || pedido.estado, '', '', '', '', '', '', String(pedido.total), ''])
-    }
-    const csv = BOM + filas.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n')
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const filas = items.map((item, idx) => ({
+      fecha: idx === 0 ? fecha : '',
+      id: idx === 0 ? pedido.id.slice(0, 8).toUpperCase() : '',
+      cliente: idx === 0 ? pedido.nombre : '',
+      email: idx === 0 ? pedido.email : '',
+      telefono: idx === 0 ? (pedido.telefono || '') : '',
+      estado: idx === 0 ? (ESTADO_LABELS[pedido.estado] || pedido.estado) : '',
+      marca: item.brand || '',
+      nombre: item.name,
+      categoria: item.category || '',
+      cantidad: item.quantity,
+      precioUnit: item.wholesalePrice,
+      subtotal: item.wholesalePrice * item.quantity,
+      totalPedido: idx === 0 ? String(pedido.total) : '',
+      image: item.image || '',
+    }))
+    const html = buildExcelHTML(filas)
+    const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' })
     const url  = URL.createObjectURL(blob)
     const a    = document.createElement('a')
     a.href     = url
-    a.download = `pedido-${pedido.nombre.replace(/\s+/g,'-')}-${pedido.id.slice(0,8)}.csv`
+    a.download = `pedido-${pedido.nombre.replace(/\s+/g, '-')}-${pedido.id.slice(0, 8)}.xls`
     a.click()
     URL.revokeObjectURL(url)
   }
@@ -364,55 +376,40 @@ export default function PedidosPage() {
   const totalPedidos    = pedidos.length
   const totalPendientes = pedidos.filter(p => p.estado === 'pendiente').length
 
-  // Exportar a CSV (abre directo en Excel)
+  // Exportar TODOS los pedidos a Excel con imágenes
   function exportarExcel() {
     const pedidosExport = filtered.length > 0 ? filtered : pedidos
-    const BOM = '﻿' // UTF-8 BOM para que Excel muestre tildes
-
-    // Una fila por PRODUCTO dentro de cada pedido
-    const filas: string[][] = []
-    filas.push(['Fecha', 'ID Pedido', 'Cliente', 'Email', 'Teléfono', 'Estado', 'Marca', 'Producto', 'Categoría', 'Cantidad', 'Precio Unit.', 'Subtotal', 'Total Pedido', 'URL Foto'])
-
+    const filas: Parameters<typeof buildExcelHTML>[0] = []
     pedidosExport.forEach(p => {
       const items = (p.items || []).map(normItem)
       if (items.length === 0) {
-        filas.push([
-          formatDateTime(p.created_at), p.id.slice(0, 8).toUpperCase(),
-          p.nombre, p.email, p.telefono || '', ESTADO_LABELS[p.estado] || p.estado,
-          '', '', '', '', '', '', String(p.total), '',
-        ])
+        filas.push({ fecha: formatDateTime(p.created_at), id: p.id.slice(0,8).toUpperCase(), cliente: p.nombre, email: p.email, telefono: p.telefono||'', estado: ESTADO_LABELS[p.estado]||p.estado, marca:'', nombre:'', categoria:'', cantidad:0, precioUnit:0, subtotal:0, totalPedido: String(p.total), image:'' })
       } else {
-        items.forEach((item, idx) => {
-          filas.push([
-            idx === 0 ? formatDateTime(p.created_at) : '',
-            idx === 0 ? p.id.slice(0, 8).toUpperCase() : '',
-            idx === 0 ? p.nombre : '',
-            idx === 0 ? p.email : '',
-            idx === 0 ? (p.telefono || '') : '',
-            idx === 0 ? (ESTADO_LABELS[p.estado] || p.estado) : '',
-            item.brand || '',
-            item.name,
-            item.category || '',
-            String(item.quantity),
-            String(item.wholesalePrice),
-            String(item.wholesalePrice * item.quantity),
-            idx === 0 ? String(p.total) : '',
-            item.image || '',
-          ])
-        })
+        items.forEach((item, idx) => filas.push({
+          fecha: idx === 0 ? formatDateTime(p.created_at) : '',
+          id: idx === 0 ? p.id.slice(0,8).toUpperCase() : '',
+          cliente: idx === 0 ? p.nombre : '',
+          email: idx === 0 ? p.email : '',
+          telefono: idx === 0 ? (p.telefono||'') : '',
+          estado: idx === 0 ? (ESTADO_LABELS[p.estado]||p.estado) : '',
+          marca: item.brand||'',
+          nombre: item.name,
+          categoria: item.category||'',
+          cantidad: item.quantity,
+          precioUnit: item.wholesalePrice,
+          subtotal: item.wholesalePrice * item.quantity,
+          totalPedido: idx === 0 ? String(p.total) : '',
+          image: item.image||'',
+        }))
       }
     })
-
-    const csv = BOM + filas.map(row =>
-      row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(';')
-    ).join('\r\n')
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
-    const url  = URL.createObjectURL(blob)
-    const a    = document.createElement('a')
+    const html  = buildExcelHTML(filas)
+    const blob  = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' })
+    const url   = URL.createObjectURL(blob)
+    const a     = document.createElement('a')
     const fecha = new Date().toISOString().slice(0, 10)
-    a.href     = url
-    a.download = `pedidos-mayorista-${fecha}.csv`
+    a.href      = url
+    a.download  = `pedidos-mayorista-${fecha}.xls`
     a.click()
     URL.revokeObjectURL(url)
   }
