@@ -112,14 +112,23 @@ export default function CartSidebar({ open, onClose }: Props) {
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
   const puedeComprar = items.length > 0 && alertasCategorias.length === 0
 
-  // Notificar pedido iniciado → ntfy + email + WhatsApp (via servidor)
+  // Confirmar pedido → guarda en DB + notifica (ntfy, email, WhatsApp)
   async function notificarPedidoIniciado(metodo: string) {
     try {
       const total = items.reduce((s, i) => s + i.wholesalePrice * i.quantity, 0)
-      await fetch('/api/notificar-carrito', {
+      const nombre   = clienteData?.nombre   || sessionUser?.nombre   || ''
+      const email    = clienteData?.email    || sessionUser?.email    || ''
+      const telefono = clienteData?.telefono || sessionUser?.telefono || ''
+
+      // Guardar en BD y enviar todas las notificaciones
+      await fetch('/api/confirmar-pedido', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, total, metodo, cliente: clienteData }),
+        body: JSON.stringify({
+          nombre, email, telefono, items, total,
+          user_id: sessionUser ? undefined : null,
+          metodoPago: metodo,
+        }),
       })
     } catch { /* silencioso */ }
   }
