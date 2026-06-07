@@ -212,8 +212,8 @@ export default function CatalogoPage() {
                   <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#fff', fontWeight: 900, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', padding: '7px 14px', borderRadius: 8, boxShadow: '0 3px 10px rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                    COMPRÁ AQUÍ →
+                  <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', color: '#fff', fontWeight: 700, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, border: '1px solid rgba(212,175,55,0.7)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ color: '#D4AF37', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
                   </div>
                 </motion.div>
               )
