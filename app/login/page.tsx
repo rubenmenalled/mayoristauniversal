@@ -43,7 +43,14 @@ export default function LoginPage() {
         redirectTo: `${window.location.origin}/reset-password`,
       })
       if (error) {
-        setError('No se pudo enviar el correo. Verificá el email ingresado.')
+        const msg = error.message || ''
+        if (msg.toLowerCase().includes('rate limit') || msg.toLowerCase().includes('too many') || msg.toLowerCase().includes('exceeded')) {
+          setError('⏳ Límite de emails alcanzado. Esperá unos minutos y volvé a intentarlo.')
+        } else if (msg.toLowerCase().includes('not found') || msg.toLowerCase().includes('no user')) {
+          setError('No encontramos una cuenta con ese email. Verificá que esté bien escrito.')
+        } else {
+          setError(`No se pudo enviar el correo: ${msg || 'error desconocido'}`)
+        }
       } else {
         setSuccess('✅ Te enviamos un link para restablecer tu contraseña. Revisá tu bandeja de entrada.')
       }
