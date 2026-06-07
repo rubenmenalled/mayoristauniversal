@@ -256,7 +256,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                         {/* Imagen */}
                         <div style={{ width: '100%', height: items.length === 1 ? 220 : 148, background: '#F9FAFB', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderBottom: '1px solid #F3F4F6', position: 'relative' }}>
                           {item.image
-                            ? <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8 }} />
+                            ? <img src={item.image} alt={item.name} style={{ maxWidth: 'calc(100% - 16px)', maxHeight: 'calc(100% - 16px)', objectFit: 'contain', display: 'block' }} />
                             : <div style={{ fontSize: 44 }}>📦</div>}
                           {/* Badge modo */}
                           <div style={{ position: 'absolute', top: 7, right: 7 }}>
