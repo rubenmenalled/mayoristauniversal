@@ -343,10 +343,25 @@ export default function PedidosPage() {
 <tbody>${rows}</tbody></table></body></html>`
   }
 
-  // Exportar UN pedido individual a Excel con imágenes
-  function exportarPedidoExcel(pedido: Pedido) {
+  // Exportar UN pedido individual a Excel con imágenes embebidas (base64)
+  async function exportarPedidoExcel(pedido: Pedido) {
     const items = (pedido.items || []).map(normItem)
     const fecha = formatDateTime(pedido.created_at)
+
+    // Obtener imágenes como base64
+    const imageUrls = Array.from(new Set(items.map(i => i.image).filter(Boolean)))
+    let imgMap: Record<string, string> = {}
+    if (imageUrls.length > 0) {
+      try {
+        const res = await fetch('/api/admin/images-base64', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ urls: imageUrls }),
+        })
+        if (res.ok) imgMap = await res.json()
+      } catch {}
+    }
+
     const filas = items.map((item, idx) => ({
       fecha: idx === 0 ? fecha : '',
       id: idx === 0 ? pedido.id.slice(0, 8).toUpperCase() : '',
@@ -361,7 +376,7 @@ export default function PedidosPage() {
       precioUnit: item.wholesalePrice,
       subtotal: item.wholesalePrice * item.quantity,
       totalPedido: idx === 0 ? String(pedido.total) : '',
-      image: item.image || '',
+      image: imgMap[item.image] || item.image || '',
     }))
     const html = buildExcelHTML(filas)
     const blob = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' })
@@ -376,8 +391,8 @@ export default function PedidosPage() {
   const totalPedidos    = pedidos.length
   const totalPendientes = pedidos.filter(p => p.estado === 'pendiente').length
 
-  // Exportar TODOS los pedidos a Excel con imágenes
-  function exportarExcel() {
+  // Exportar TODOS los pedidos a Excel con imágenes embebidas (base64)
+  async function exportarExcel() {
     const pedidosExport = filtered.length > 0 ? filtered : pedidos
     const filas: Parameters<typeof buildExcelHTML>[0] = []
     pedidosExport.forEach(p => {
@@ -403,7 +418,23 @@ export default function PedidosPage() {
         }))
       }
     })
-    const html  = buildExcelHTML(filas)
+
+    // Obtener imágenes como base64
+    const imageUrls = Array.from(new Set(filas.map(f => f.image).filter(Boolean)))
+    let imgMap: Record<string, string> = {}
+    if (imageUrls.length > 0) {
+      try {
+        const res = await fetch('/api/admin/images-base64', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ urls: imageUrls }),
+        })
+        if (res.ok) imgMap = await res.json()
+      } catch {}
+    }
+    const filasConImg = filas.map(f => ({ ...f, image: imgMap[f.image] || f.image }))
+
+    const html  = buildExcelHTML(filasConImg)
     const blob  = new Blob([html], { type: 'application/vnd.ms-excel;charset=utf-8;' })
     const url   = URL.createObjectURL(blob)
     const a     = document.createElement('a')
