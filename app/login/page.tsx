@@ -26,6 +26,7 @@ export default function LoginPage() {
   const [transporte, setTransporte] = useState('')
   const [reemplazo, setReemplazo] = useState<'si' | 'no' | ''>('')
   const [whatsapp, setWhatsapp] = useState('')
+  const [direccion, setDireccion] = useState('')
   const [showPass, setShowPass] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -54,7 +55,7 @@ export default function LoginPage() {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, nombre, documento, transporte, reemplazo, whatsapp }),
+        body: JSON.stringify({ email, password, nombre, documento, transporte, reemplazo, whatsapp, direccion }),
       })
       const json = await res.json()
       if (!res.ok) {
@@ -171,6 +172,11 @@ export default function LoginPage() {
                   <label style={labelStyle}>WHATSAPP *</label>
                   <input type="tel" value={whatsapp} onChange={e => setWhatsapp(e.target.value)}
                     placeholder="Ej: 1164660482" required style={inputStyle} />
+                </div>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>DIRECCIÓN *</label>
+                  <input type="text" value={direccion} onChange={e => setDireccion(e.target.value)}
+                    placeholder="Calle, número, ciudad, provincia" required style={inputStyle} />
                 </div>
                 <div style={{ marginBottom: 14 }}>
                   <label style={labelStyle}>TRANSPORTE PREFERIDO *</label>

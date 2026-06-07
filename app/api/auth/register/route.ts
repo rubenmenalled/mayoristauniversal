@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
 
 export async function POST(req: NextRequest) {
-  const { email, password, nombre, documento, transporte, reemplazo, whatsapp } = await req.json()
+  const { email, password, nombre, documento, transporte, reemplazo, whatsapp, direccion } = await req.json()
 
   const supabase = getAdminClient()
 
@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     email,
     password,
     email_confirm: true,
-    user_metadata: { nombre, documento, transporte, reemplazo, whatsapp },
+    user_metadata: { nombre, documento, transporte, reemplazo, whatsapp, direccion },
   })
 
   if (error) {

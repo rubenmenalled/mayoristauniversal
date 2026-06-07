@@ -16,6 +16,7 @@ interface Cliente {
   whatsapp: string
   transporte: string
   reemplazo: string
+  direccion: string
 }
 
 function formatDate(iso: string) {
@@ -356,6 +357,7 @@ export default function ClientesPage() {
                 { icon: '📧', label: 'Email', value: selected.email },
                 { icon: '🪪', label: 'Documento', value: selected.documento },
                 { icon: '📱', label: 'WhatsApp', value: selected.whatsapp },
+                { icon: '📍', label: 'Dirección', value: selected.direccion },
                 { icon: '🚚', label: 'Transporte', value: selected.transporte },
                 { icon: '🔄', label: 'Acepta reemplazo', value: selected.reemplazo === 'true' || selected.reemplazo === 'si' || selected.reemplazo === 'sí' ? '✅ Sí' : '❌ No' },
               ].map(({ icon, label, value }) => (

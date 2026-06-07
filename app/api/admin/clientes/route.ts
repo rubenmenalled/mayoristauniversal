@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
       whatsapp: u.user_metadata?.whatsapp || '—',
       transporte: u.user_metadata?.transporte || '—',
       reemplazo: u.user_metadata?.reemplazo || '—',
+      direccion: u.user_metadata?.direccion || '—',
     }))
 
     return NextResponse.json(clientes)
