@@ -254,10 +254,10 @@ export default function CartSidebar({ open, onClose }: Props) {
                     return (
                       <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, overflow: 'hidden', boxShadow: '0 1px 6px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column' }}>
                         {/* Imagen */}
-                        <div style={{ width: '100%', height: items.length === 1 ? 220 : 148, background: '#F9FAFB', borderBottom: '1px solid #F3F4F6', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 8, boxSizing: 'border-box' }}>
+                        <div style={{ width: '100%', height: items.length === 1 ? 220 : 148, background: '#F9FAFB', borderBottom: '1px solid #F3F4F6', position: 'relative' }}>
                           {item.image
-                            ? <img src={item.image} alt={item.name} style={{ maxWidth: '100%', maxHeight: '100%', display: 'block' }} />
-                            : <div style={{ fontSize: 44 }}>📦</div>}
+                            ? <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8, boxSizing: 'border-box', display: 'block' }} />
+                            : <div style={{ fontSize: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>📦</div>}
                           {/* Badge modo */}
                           <div style={{ position: 'absolute', top: 7, right: 7 }}>
                             {ws
