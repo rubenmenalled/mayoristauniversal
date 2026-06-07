@@ -42,6 +42,7 @@ export default function ClientesPage() {
   const [error, setError] = useState('')
   const [search, setSearch] = useState('')
   const [isMobile, setIsMobile] = useState(false)
+  const [selected, setSelected] = useState<Cliente | null>(null)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -238,10 +239,12 @@ export default function ClientesPage() {
                   {filtered.map((c, i) => (
                     <tr
                       key={c.id}
+                      onClick={() => setSelected(c)}
                       style={{
                         background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)',
                         borderBottom: '1px solid rgba(255,255,255,0.05)',
                         transition: 'background 0.15s',
+                        cursor: 'pointer',
                       }}
                       onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,175,55,0.06)')}
                       onMouseLeave={e => (e.currentTarget.style.background = i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)')}
@@ -267,11 +270,13 @@ export default function ClientesPage() {
             {filtered.map(c => (
               <div
                 key={c.id}
+                onClick={() => setSelected(c)}
                 style={{
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(212,175,55,0.18)',
                   borderRadius: 14,
                   padding: '16px 18px',
+                  cursor: 'pointer',
                 }}
               >
                 {/* Card header */}
@@ -322,6 +327,72 @@ export default function ClientesPage() {
           </div>
         )}
       </div>
+
+      {/* Modal detalle cliente */}
+      {selected && (
+        <div
+          onClick={() => setSelected(null)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ background: '#1a2235', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 18, padding: '28px 28px 24px', width: '100%', maxWidth: 480, boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: GOLD_GRAD, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>👤</div>
+                <div>
+                  <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 17 }}>{selected.nombre || '(Sin nombre)'}</div>
+                  <div style={{ color: '#7a8a9a', fontSize: 12 }}>Cliente desde {formatDate(selected.created_at)}</div>
+                </div>
+              </div>
+              <button onClick={() => setSelected(null)} style={{ background: 'rgba(255,255,255,0.08)', border: 'none', color: '#aaa', fontSize: 18, width: 32, height: 32, borderRadius: 8, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+            </div>
+
+            {/* Datos */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { icon: '📧', label: 'Email', value: selected.email },
+                { icon: '🪪', label: 'Documento', value: selected.documento },
+                { icon: '📱', label: 'WhatsApp', value: selected.whatsapp },
+                { icon: '🚚', label: 'Transporte', value: selected.transporte },
+                { icon: '🔄', label: 'Acepta reemplazo', value: selected.reemplazo === 'true' || selected.reemplazo === 'si' || selected.reemplazo === 'sí' ? '✅ Sí' : '❌ No' },
+              ].map(({ icon, label, value }) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.04)', borderRadius: 10, padding: '11px 14px' }}>
+                  <span style={{ fontSize: 16, flexShrink: 0 }}>{icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ color: '#7a8a9a', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+                    <div style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 14, marginTop: 1 }}>{value || '—'}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Acciones */}
+            <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+              {selected.whatsapp && (
+                <a
+                  href={`https://wa.me/54${selected.whatsapp.replace(/\D/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'linear-gradient(135deg,#25D366,#128C7E)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+                >
+                  💬 Escribir por WhatsApp
+                </a>
+              )}
+              {selected.email && (
+                <a
+                  href={`mailto:${selected.email}`}
+                  style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', color: GOLD, fontWeight: 900, fontSize: 13, textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+                >
+                  ✉️ Enviar email
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
