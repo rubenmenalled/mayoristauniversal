@@ -14,13 +14,37 @@ export default function ResetPasswordPage() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [ready, setReady] = useState(false)
+  const [checking, setChecking] = useState(true)
 
   useEffect(() => {
-    // Supabase maneja el token de la URL automáticamente al detectar el hash
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') setReady(true)
-    })
-    return () => subscription.unsubscribe()
+    async function init() {
+      // Flujo PKCE (Supabase v2): URL tiene ?code=xxx
+      const params = new URLSearchParams(window.location.search)
+      const code = params.get('code')
+      if (code) {
+        const { error } = await supabase.auth.exchangeCodeForSession(code)
+        if (!error) { setReady(true); setChecking(false); return }
+      }
+
+      // Flujo implícito (legacy): URL tiene #access_token=xxx&type=recovery
+      const hash = window.location.hash
+      if (hash.includes('type=recovery') || hash.includes('access_token')) {
+        setReady(true); setChecking(false); return
+      }
+
+      // Fallback: esperar evento de Supabase
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+        if (event === 'PASSWORD_RECOVERY' || event === 'SIGNED_IN') {
+          setReady(true); setChecking(false)
+        }
+      })
+
+      // Timeout de seguridad — si en 3s no vino nada, mostrar igual
+      setTimeout(() => { setChecking(false) }, 3000)
+
+      return () => subscription.unsubscribe()
+    }
+    init()
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,6 +71,30 @@ export default function ResetPasswordPage() {
   const labelStyle: React.CSSProperties = {
     color: '#C01515', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6,
   }
+
+  // Pantalla de carga mientras verifica el token
+  if (checking) return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(180deg,#FFFFFF,#F0F0F0)' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 40, marginBottom: 12 }}>🔐</div>
+        <div style={{ color: '#D4AF37', fontWeight: 700, fontSize: 15 }}>Verificando link...</div>
+      </div>
+    </div>
+  )
+
+  // Link inválido o expirado
+  if (!ready) return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(180deg,#FFFFFF,#F0F0F0)', padding: 24 }}>
+      <div style={{ textAlign: 'center', maxWidth: 400 }}>
+        <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
+        <div style={{ color: '#C01515', fontWeight: 900, fontSize: 18, marginBottom: 8 }}>Link inválido o expirado</div>
+        <div style={{ color: '#4b5563', fontSize: 14, marginBottom: 24 }}>El link de recuperación expiró o ya fue usado. Pedí uno nuevo desde el login.</div>
+        <a href="/login" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#fff', fontWeight: 900, padding: '12px 28px', borderRadius: 10, textDecoration: 'none', fontSize: 14 }}>
+          Ir al login
+        </a>
+      </div>
+    </div>
+  )
 
   return (
     <div style={{
