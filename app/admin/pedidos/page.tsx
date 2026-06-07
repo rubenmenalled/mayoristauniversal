@@ -107,133 +107,152 @@ function printPedido(pedido: Pedido) {
   const totalUnidades = items.reduce((s, i) => s + i.quantity, 0)
   const fecha = formatDateTime(pedido.created_at)
 
-  const filas = items.map(item => `
-    <tr>
-      <td style="padding:10px 8px;border-bottom:1px solid #eee;vertical-align:middle;">
+  const filas = items.map((item, idx) => `
+    <tr style="background:${idx % 2 === 0 ? '#ffffff' : '#fafafa'};">
+      <td style="padding:12px 10px;border-bottom:1px solid #F0F0F0;vertical-align:middle;text-align:center;width:90px;">
         ${item.image
-          ? `<img src="${item.image}" width="56" height="56" style="border-radius:8px;object-fit:cover;display:block;border:1px solid #ddd;" />`
-          : `<div style="width:56px;height:56px;background:#f3f4f6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;">📦</div>`
+          ? `<img src="${item.image}" width="72" height="72" style="border-radius:10px;object-fit:contain;display:block;margin:auto;border:1px solid #E5E7EB;background:#fff;padding:3px;" />`
+          : `<div style="width:72px;height:72px;background:#F3F4F6;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:auto;">📦</div>`
         }
       </td>
-      <td style="padding:10px 8px;border-bottom:1px solid #eee;vertical-align:middle;">
-        ${item.brand ? `<div style="font-size:10px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">${item.brand}</div>` : ''}
-        <div style="font-weight:800;font-size:13px;color:#111;margin-bottom:3px;">${item.name}</div>
-        ${item.category ? `<div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.04em;">${item.category}</div>` : ''}
+      <td style="padding:12px 14px;border-bottom:1px solid #F0F0F0;vertical-align:middle;">
+        ${item.brand ? `<div style="font-size:9px;color:#D4AF37;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">${item.brand}</div>` : ''}
+        <div style="font-weight:800;font-size:14px;color:#111827;margin-bottom:4px;line-height:1.3;">${item.name}</div>
+        ${item.category ? `<span style="display:inline-block;background:#F3F4F6;color:#6B7280;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:4px;">${item.category}</span>` : ''}
       </td>
-      <td style="padding:10px 8px;border-bottom:1px solid #eee;vertical-align:middle;text-align:center;font-size:13px;color:#444;">
-        ${formatCurrency(item.wholesalePrice)}
+      <td style="padding:12px 10px;border-bottom:1px solid #F0F0F0;vertical-align:middle;text-align:center;white-space:nowrap;">
+        <div style="font-size:13px;color:#6B7280;">${formatCurrency(item.wholesalePrice)}</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-top:2px;">c/u</div>
       </td>
-      <td style="padding:10px 8px;border-bottom:1px solid #eee;vertical-align:middle;text-align:center;font-weight:800;font-size:14px;color:#111;">
-        ${item.quantity}
+      <td style="padding:12px 10px;border-bottom:1px solid #F0F0F0;vertical-align:middle;text-align:center;">
+        <div style="background:#0F3460;color:#fff;font-weight:900;font-size:16px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:auto;">${item.quantity}</div>
+        <div style="font-size:9px;color:#9CA3AF;margin-top:3px;">unid.</div>
       </td>
-      <td style="padding:10px 8px;border-bottom:1px solid #eee;vertical-align:middle;text-align:right;font-weight:900;font-size:15px;color:#D4AF37;">
-        ${formatCurrency(item.wholesalePrice * item.quantity)}
+      <td style="padding:12px 14px;border-bottom:1px solid #F0F0F0;vertical-align:middle;text-align:right;white-space:nowrap;">
+        <div style="font-weight:900;font-size:17px;color:#D4AF37;">${formatCurrency(item.wholesalePrice * item.quantity)}</div>
       </td>
     </tr>
   `).join('')
+
+  const estadoColor = pedido.estado === 'enviado' ? '#2563EB' : pedido.estado === 'confirmado' ? '#16a34a' : '#D97706'
+  const estadoBg   = pedido.estado === 'enviado' ? '#EFF6FF' : pedido.estado === 'confirmado' ? '#F0FDF4' : '#FFFBEB'
 
   const html = `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Pedido — ${pedido.nombre} — ${fecha}</title>
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: Arial, Helvetica, sans-serif; color: #111; margin: 0; padding: 0; background: #fff; }
-    .page { max-width: 780px; margin: 0 auto; padding: 32px 28px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; color: #111827; background: #F5F5F7; }
+    .page { max-width: 820px; margin: 0 auto; padding: 32px 24px 48px; }
+    .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.08); margin-bottom: 16px; }
     @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .no-print { display: none !important; }
-      .page { padding: 16px; }
+      .page { padding: 0; }
+      .card { box-shadow: none; border: 1px solid #E5E7EB; border-radius: 10px; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- Botón imprimir (no aparece al imprimir) -->
-  <div class="no-print" style="text-align:right;margin-bottom:20px;">
-    <button onclick="window.print()" style="background:#D4AF37;border:none;border-radius:8px;padding:10px 24px;font-weight:900;font-size:14px;cursor:pointer;color:#fff;">
+  <!-- Botones acción -->
+  <div class="no-print" style="display:flex;gap:10px;justify-content:flex-end;margin-bottom:20px;">
+    <button onclick="window.print()" style="background:linear-gradient(135deg,#D4AF37,#F0C030);border:none;border-radius:10px;padding:12px 28px;font-weight:900;font-size:14px;cursor:pointer;color:#fff;box-shadow:0 4px 12px rgba(212,175,55,0.4);">
       🖨️ Imprimir / Guardar PDF
     </button>
   </div>
 
-  <!-- Encabezado -->
-  <div style="border-bottom:3px solid #D4AF37;padding-bottom:16px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
-    <div>
-      <div style="font-size:22px;font-weight:900;color:#0F3460;letter-spacing:0.01em;">MAYORISTA UNIVERSAL</div>
-      <div style="font-size:12px;color:#888;margin-top:2px;">mayoristauniversal.com</div>
+  <!-- Header -->
+  <div class="card">
+    <div style="background:linear-gradient(135deg,#0F3460 0%,#1a4a8a 100%);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div style="font-size:24px;font-weight:900;color:#D4AF37;letter-spacing:0.04em;">MAYORISTA UNIVERSAL</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:3px;">mayoristauniversal.com</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;">Pedido</div>
+        <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:0.06em;">${pedido.id.slice(0,8).toUpperCase()}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:2px;">${fecha}</div>
+      </div>
     </div>
-    <div style="text-align:right;">
-      <div style="font-size:18px;font-weight:900;color:#D4AF37;letter-spacing:0.04em;">PEDIDO</div>
-      <div style="font-size:11px;color:#888;margin-top:2px;">${fecha}</div>
-      <div style="font-size:11px;color:#bbb;margin-top:1px;">ID: ${pedido.id.slice(0,8).toUpperCase()}</div>
+
+    <!-- Datos cliente -->
+    <div style="padding:20px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px 24px;border-bottom:1px solid #F3F4F6;">
+      <div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">👤 Cliente</div>
+        <div style="font-size:16px;font-weight:800;color:#111827;">${pedido.nombre}</div>
+      </div>
+      <div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">📧 Email</div>
+        <div style="font-size:13px;color:#2563EB;font-weight:600;">${pedido.email}</div>
+      </div>
+      <div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">📱 WhatsApp</div>
+        <div style="font-size:14px;font-weight:700;color:#111827;">${pedido.telefono || '—'}</div>
+      </div>
+      <div>
+        <div style="font-size:9px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">📦 Estado</div>
+        <span style="display:inline-block;background:${estadoBg};color:${estadoColor};font-size:12px;font-weight:800;padding:4px 12px;border-radius:99px;border:1.5px solid ${estadoColor};">${ESTADO_LABELS[pedido.estado] || pedido.estado}</span>
+      </div>
+    </div>
+
+    <!-- Resumen productos -->
+    <div style="padding:10px 28px;background:#F9FAFB;display:flex;align-items:center;gap:8px;">
+      <span style="font-size:11px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.06em;">📦 ${items.length} artículo${items.length !== 1 ? 's' : ''} · ${totalUnidades} unidades en total</span>
     </div>
   </div>
 
-  <!-- Datos del cliente -->
-  <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:16px 20px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
-    <div>
-      <div style="font-size:10px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;">Cliente</div>
-      <div style="font-size:15px;font-weight:800;color:#111;">${pedido.nombre}</div>
+  <!-- Tabla productos -->
+  <div class="card">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#F8F9FA;">
+          <th style="padding:10px 10px;text-align:center;font-size:10px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;width:90px;">Foto</th>
+          <th style="padding:10px 14px;text-align:left;font-size:10px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;">Producto</th>
+          <th style="padding:10px 10px;text-align:center;font-size:10px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;width:90px;">P. Unit.</th>
+          <th style="padding:10px 10px;text-align:center;font-size:10px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;width:70px;">Cant.</th>
+          <th style="padding:10px 14px;text-align:right;font-size:10px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;width:110px;">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>${filas}</tbody>
+    </table>
+  </div>
+
+  <!-- Total + Pago -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:linear-gradient(135deg,#0F3460,#1a4a8a);">
+      <div>
+        <div style="color:rgba(255,255,255,0.55);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Total del pedido</div>
+        <div style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:3px;">${totalUnidades} unidades · ${items.length} artículo${items.length !== 1 ? 's' : ''}</div>
+      </div>
+      <div style="color:#D4AF37;font-size:36px;font-weight:900;letter-spacing:0.02em;">${formatCurrency(pedido.total)}</div>
     </div>
-    <div>
-      <div style="font-size:10px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;">Email</div>
-      <div style="font-size:13px;color:#2563EB;">${pedido.email}</div>
-    </div>
-    <div>
-      <div style="font-size:10px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;">Teléfono / WhatsApp</div>
-      <div style="font-size:13px;font-weight:700;color:#111;">${pedido.telefono}</div>
-    </div>
-    <div>
-      <div style="font-size:10px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;">Estado</div>
-      <div style="font-size:13px;font-weight:800;color:${pedido.estado === 'enviado' ? '#2563EB' : pedido.estado === 'confirmado' ? '#16a34a' : '#D97706'};">${ESTADO_LABELS[pedido.estado] || pedido.estado}</div>
+    <div style="padding:16px 28px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:18px;">💳</span>
+      <div>
+        <div style="font-size:10px;color:#9CA3AF;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:2px;">Método de pago</div>
+        <div style="font-size:13px;color:#374151;">Mercado Pago — Alias: <strong style="color:#009ee3;">ruby.mena.1972</strong> — Titular: Andres Ruben Menalled</div>
+      </div>
     </div>
   </div>
 
-  <!-- Tabla de productos -->
-  <div style="font-size:12px;font-weight:800;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;padding-left:4px;">
-    Productos — ${items.length} artículo${items.length !== 1 ? 's' : ''} · ${totalUnidades} unidades
-  </div>
-  <table style="width:100%;border-collapse:collapse;margin-bottom:0;">
-    <thead>
-      <tr style="background:#F3F4F6;">
-        <th style="padding:8px;text-align:left;font-size:11px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Foto</th>
-        <th style="padding:8px;text-align:left;font-size:11px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Producto</th>
-        <th style="padding:8px;text-align:center;font-size:11px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">P. Unit.</th>
-        <th style="padding:8px;text-align:center;font-size:11px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Cant.</th>
-        <th style="padding:8px;text-align:right;font-size:11px;color:#6B7280;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>${filas}</tbody>
-  </table>
-
-  <!-- Total -->
-  <div style="background:#0F3460;border-radius:10px;padding:16px 20px;margin-top:20px;display:flex;justify-content:space-between;align-items:center;">
-    <div>
-      <div style="color:rgba(255,255,255,0.6);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Total del pedido</div>
-      <div style="color:rgba(255,255,255,0.45);font-size:11px;margin-top:2px;">${totalUnidades} unidades · ${items.length} artículo${items.length !== 1 ? 's' : ''}</div>
-    </div>
-    <div style="color:#D4AF37;font-size:32px;font-weight:900;">${formatCurrency(pedido.total)}</div>
-  </div>
-
-  <!-- Pago -->
-  <div style="border:1px solid #E5E7EB;border-radius:10px;padding:14px 20px;margin-top:14px;">
-    <div style="font-size:11px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Pago</div>
-    <div style="font-size:13px;color:#374151;">Mercado Pago — Alias: <strong style="color:#009ee3;">ruby.mena.1972</strong> — Titular: Andres Ruben Menalled</div>
-  </div>
-
-  <div style="text-align:center;color:#D1D5DB;font-size:10px;margin-top:24px;">Mayorista Universal · mayoristauniversal.com · Pedido generado el ${fecha}</div>
+  <div style="text-align:center;color:#9CA3AF;font-size:10px;margin-top:8px;">Mayorista Universal · mayoristauniversal.com · Generado el ${fecha}</div>
 </div>
 </body>
 </html>`
 
-  const win = window.open('', '_blank', 'width=860,height=900')
+  const win = window.open('', '_blank', 'width=900,height=920')
   if (win) {
     win.document.write(html)
     win.document.close()
   }
 }
+
+type Orden = 'fecha-desc' | 'fecha-asc' | 'total-desc' | 'total-asc'
 
 type FiltroEstado = 'todos' | Estado
 
@@ -252,6 +271,7 @@ export default function PedidosPage() {
   const [search,     setSearch]     = useState('')
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const [expanded,   setExpanded]   = useState<string | null>(null)
+  const [orden,      setOrden]      = useState<Orden>('fecha-desc')
   const [alertaActiva, setAlertaActiva] = useState(false)
   const [nuevosIds, setNuevosIds]   = useState<string[]>([])
   const alertaRef = useRef(false)
@@ -313,15 +333,23 @@ export default function PedidosPage() {
     }
   }
 
-  const filtered = pedidos.filter(p => {
-    const matchFiltro = filtro === 'todos' || p.estado === filtro
-    const q           = search.toLowerCase()
-    const matchSearch =
-      !q ||
-      (p.nombre || '').toLowerCase().includes(q) ||
-      (p.email  || '').toLowerCase().includes(q)
-    return matchFiltro && matchSearch
-  })
+  const filtered = pedidos
+    .filter(p => {
+      const matchFiltro = filtro === 'todos' || p.estado === filtro
+      const q           = search.toLowerCase()
+      const matchSearch =
+        !q ||
+        (p.nombre || '').toLowerCase().includes(q) ||
+        (p.email  || '').toLowerCase().includes(q)
+      return matchFiltro && matchSearch
+    })
+    .sort((a, b) => {
+      if (orden === 'fecha-desc') return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      if (orden === 'fecha-asc')  return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      if (orden === 'total-desc') return Number(b.total) - Number(a.total)
+      if (orden === 'total-asc')  return Number(a.total) - Number(b.total)
+      return 0
+    })
 
   // Genera HTML tabla para Excel con imágenes embebidas
   function buildExcelHTML(filas: { fecha: string; id: string; cliente: string; email: string; telefono: string; estado: string; marca: string; nombre: string; categoria: string; cantidad: number; precioUnit: number; subtotal: number; totalPedido: string; image: string }[]) {
@@ -390,6 +418,7 @@ export default function PedidosPage() {
 
   const totalPedidos    = pedidos.length
   const totalPendientes = pedidos.filter(p => p.estado === 'pendiente').length
+  const totalEnviados   = pedidos.filter(p => p.estado === 'enviado').length
 
   // Exportar TODOS los pedidos a Excel con imágenes embebidas (base64)
   async function exportarExcel() {
@@ -516,6 +545,10 @@ export default function PedidosPage() {
               <div style={{ color: '#FACC15', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Pendientes</div>
               <div style={{ color: '#FACC15', fontSize: 28, fontWeight: 900, marginTop: 4 }}>{totalPendientes}</div>
             </div>
+            <div style={{ background: 'rgba(59,130,246,0.07)', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 14, padding: '16px 20px' }}>
+              <div style={{ color: '#60A5FA', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Enviados</div>
+              <div style={{ color: '#60A5FA', fontSize: 28, fontWeight: 900, marginTop: 4 }}>{totalEnviados}</div>
+            </div>
             <div style={{ background: 'rgba(212,175,55,0.07)', border: '1px solid rgba(212,175,55,0.25)', borderRadius: 14, padding: '16px 20px' }}>
               <div style={{ color: '#7a8a9a', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Total facturado</div>
               <div style={{ color: GOLD, fontSize: 22, fontWeight: 900, marginTop: 4 }}>{formatCurrency(totalFacturado)}</div>
@@ -542,6 +575,16 @@ export default function PedidosPage() {
               </button>
             ))}
           </div>
+          <select
+            value={orden}
+            onChange={e => setOrden(e.target.value as Orden)}
+            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, padding: '8px 12px', color: '#ccc', fontSize: 13, fontWeight: 600, cursor: 'pointer', outline: 'none' }}
+          >
+            <option value="fecha-desc" style={{ background: '#1E293B' }}>Más nuevos primero</option>
+            <option value="fecha-asc"  style={{ background: '#1E293B' }}>Más antiguos primero</option>
+            <option value="total-desc" style={{ background: '#1E293B' }}>Mayor total primero</option>
+            <option value="total-asc"  style={{ background: '#1E293B' }}>Menor total primero</option>
+          </select>
           <input
             type="text"
             placeholder="Buscar por nombre o email..."
@@ -612,7 +655,7 @@ export default function PedidosPage() {
                         <span>· {totalUnid} ud. · {items.length} art.</span>
                       </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, flexWrap: 'wrap' }}>
                       <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, padding: '3px 8px', color: '#9aabb8', fontSize: 11, fontWeight: 600 }}>
                         {formatDateTime(pedido.created_at)}
                       </div>
@@ -620,6 +663,30 @@ export default function PedidosPage() {
                       <span style={{ background: colores.bg, border: `1px solid ${colores.border}`, color: colores.color, borderRadius: 20, padding: '3px 10px', fontSize: 11, fontWeight: 700 }}>
                         {ESTADO_LABELS[pedido.estado] || pedido.estado}
                       </span>
+                      {/* WhatsApp rápido */}
+                      {pedido.telefono && (
+                        <a
+                          href={`https://wa.me/${pedido.telefono.replace(/\D/g, '')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 32, height: 32, background: 'rgba(37,211,102,0.15)', border: '1px solid rgba(37,211,102,0.35)', borderRadius: 8, fontSize: 16, textDecoration: 'none', flexShrink: 0 }}
+                          title={`WhatsApp: ${pedido.telefono}`}
+                        >
+                          📱
+                        </a>
+                      )}
+                      {/* Confirmar rápido (solo si está pendiente) */}
+                      {pedido.estado === 'pendiente' && (
+                        <button
+                          onClick={e => { e.stopPropagation(); handleEstadoChange(pedido.id, 'confirmado') }}
+                          disabled={isUpdating}
+                          style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.4)', borderRadius: 8, padding: '5px 10px', color: '#4ADE80', fontSize: 12, fontWeight: 800, cursor: isUpdating ? 'not-allowed' : 'pointer', flexShrink: 0 }}
+                          title="Confirmar pedido"
+                        >
+                          ✓ Confirmar
+                        </button>
+                      )}
                       <span style={{ color: '#7a8a9a', fontSize: 18 }}>{isOpen ? '▲' : '▼'}</span>
                     </div>
                   </div>

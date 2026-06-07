@@ -2,36 +2,39 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
-export const revalidate = 0
+
+const COLS = 'id,nombre,marca,categoria,subcategoria,precio,precio_mayorista,pedido_minimo,imagen,badge,descuento,ubicacion,descripcion'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
-  const categoria = searchParams.get('categoria')
-  const q = searchParams.get('q')
+  const categoria   = searchParams.get('categoria')
+  const subcategoria = searchParams.get('subcategoria')
+  const q           = searchParams.get('q')
+  const page        = parseInt(searchParams.get('page') || '0', 10)
+  const PAGE_SIZE   = 60
 
   const supabase = getAdminClient()
 
-  const subcategoria = searchParams.get('subcategoria')
-
-  // Cuando hay búsqueda por texto (q), no aplicar rango para buscar en toda la DB
   let query = supabase
     .from('productos')
-    .select('*')
+    .select(COLS)
     .order('created_at', { ascending: false })
 
-  if (!q) query = (query as any).range(0, 19999)
-
-  if (categoria) query = query.ilike('categoria', categoria)
+  if (categoria)    query = query.ilike('categoria', categoria)
   if (subcategoria) query = query.ilike('subcategoria', subcategoria)
-  if (q) query = query.or(
-    `nombre.ilike.%${q}%,marca.ilike.%${q}%,subcategoria.ilike.%${q}%,descripcion.ilike.%${q}%`
-  )
+
+  if (q) {
+    query = query.or(
+      `nombre.ilike.%${q}%,marca.ilike.%${q}%,subcategoria.ilike.%${q}%,descripcion.ilike.%${q}%`
+    )
+  } else {
+    query = (query as any).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
+  }
 
   const { data, error } = await query
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // Mapear campos de español (Supabase) a inglés (frontend)
   const mapped = (data ?? []).map((p: any) => ({
     id:             p.id,
     name:           p.nombre,
@@ -49,9 +52,10 @@ export async function GET(request: NextRequest) {
     descripcion:    p.descripcion || '',
     rating:         4.5,
     reviews:        12,
+    hasMore:        (data ?? []).length === PAGE_SIZE,
   }))
 
   return NextResponse.json(mapped, {
-    headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' }
+    headers: { 'Cache-Control': 'public, s-maxage=180, stale-while-revalidate=600' }
   })
 }

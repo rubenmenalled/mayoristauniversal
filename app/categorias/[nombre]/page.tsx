@@ -82,6 +82,9 @@ export default function CategoriaPage() {
       },
     ],
   }
+  const [pagina, setPagina]           = useState(0)
+  const [hayMas, setHayMas]           = useState(false)
+  const [loadingMas, setLoadingMas]   = useState(false)
   const [busquedaInterna, setBusquedaInterna] = useState('')
   const [productosBusqueda, setProductosBusqueda] = useState<Producto[]>([])
   const [loadingBusqueda, setLoadingBusqueda] = useState(false)
@@ -107,18 +110,30 @@ export default function CategoriaPage() {
       .replace(/\s+/g, ' ')
   }
 
+  function buildUrl(cat: string, sub: string, pg: number) {
+    let url = '/api/productos-publicos?categoria=' + encodeURIComponent(cat)
+    if (sub && sub !== '__todos__') url += '&subcategoria=' + encodeURIComponent(sub)
+    url += '&page=' + pg
+    return url
+  }
+
   // Cargar subcategorías al entrar
   useEffect(() => {
     fetch('/api/subcategorias?categoria=' + encodeURIComponent(nombreDecoded))
       .then(r => r.json())
       .then(data => {
         if (Array.isArray(data)) setSubcategorias(data)
-        // Si no hay subcategorías, cargar todos los productos directamente
         if (!Array.isArray(data) || data.length === 0) {
           setLoading(true)
-          fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded))
+          fetch(buildUrl(nombreDecoded, '', 0))
             .then(r => r.json())
-            .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
+            .then((d: Producto[]) => {
+              const lista = Array.isArray(d) ? d : []
+              setProductos(lista)
+              setHayMas(lista.length === 60)
+              setPagina(0)
+              setLoading(false)
+            })
             .catch(() => setLoading(false))
         } else {
           setLoading(false)
@@ -130,23 +145,44 @@ export default function CategoriaPage() {
   // Cargar productos cuando cambia la subcategoría activa
   useEffect(() => {
     if (!subActiva || subActiva === '__todos__') {
-      // Solo cargar todos si no hay subcategorías
       if (subcategorias.length === 0) return
       setLoading(true)
-      fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded))
+      fetch(buildUrl(nombreDecoded, '', 0))
         .then(r => r.json())
-        .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
+        .then((d: Producto[]) => {
+          const lista = Array.isArray(d) ? d : []
+          setProductos(lista); setHayMas(lista.length === 60); setPagina(0); setLoading(false)
+        })
         .catch(() => setLoading(false))
       return
     }
     setLoading(true)
     setProductos([])
-    fetch('/api/productos-publicos?categoria=' + encodeURIComponent(nombreDecoded) + '&subcategoria=' + encodeURIComponent(subActiva))
+    setPagina(0)
+    fetch(buildUrl(nombreDecoded, subActiva, 0))
       .then(r => r.json())
-      .then((d: Producto[]) => { setProductos(Array.isArray(d) ? d : []); setLoading(false) })
+      .then((d: Producto[]) => {
+        const lista = Array.isArray(d) ? d : []
+        setProductos(lista); setHayMas(lista.length === 60); setPagina(0); setLoading(false)
+      })
       .catch(() => setLoading(false))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subActiva, nombreDecoded])
+
+  function cargarMas() {
+    const nextPage = pagina + 1
+    setLoadingMas(true)
+    fetch(buildUrl(nombreDecoded, subActiva, nextPage))
+      .then(r => r.json())
+      .then((d: Producto[]) => {
+        const lista = Array.isArray(d) ? d : []
+        setProductos(prev => [...prev, ...lista])
+        setHayMas(lista.length === 60)
+        setPagina(nextPage)
+        setLoadingMas(false)
+      })
+      .catch(() => setLoadingMas(false))
+  }
 
   // Búsqueda interna: si hay subcategoría activa busca solo en ella, si no en toda la categoría
   useEffect(() => {
@@ -454,20 +490,23 @@ export default function CategoriaPage() {
                 : <>{productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en <span style={{ color: '#D4AF37', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
               }
             </div>
-            <style dangerouslySetInnerHTML={{ __html: `.prod-card { transition: transform 0.2s ease, box-shadow 0.2s ease; } @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212,175,55,0.2); } }` }} />
+            <style dangerouslySetInnerHTML={{ __html: `
+              @keyframes fadeUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+              .prod-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+              @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212,175,55,0.2); } }
+            ` }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 14 }}>
               {productosFiltrados.map((p, i) => (
-                <motion.div key={p.id}
+                <div key={p.id}
                   className="prod-card rounded-xl overflow-hidden relative"
-                  style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(i * 0.04, 0.4) }}>
+                  style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+                    opacity: 1, animation: i < 12 ? `fadeUp 0.3s ease ${Math.min(i * 0.03, 0.25)}s both` : 'none' }}
+                >
 
                   <div style={{ position: 'relative', height: 190, background: nombreDecoded.toUpperCase() === 'ELECTRONICA' ? '#FFFFFF' : '#F8F8F8', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
                     onClick={() => { if (p.image) { setLightbox(p); setLightboxImgIdx(0) } }}>
                     {p.image ? (
-                      <Image src={p.image} alt={p.name} fill className={nombreDecoded.toUpperCase() === 'ELECTRONICA' ? 'object-contain' : 'object-cover'} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={95} />
+                      <Image src={p.image} alt={p.name} fill className={nombreDecoded.toUpperCase() === 'ELECTRONICA' ? 'object-contain' : 'object-cover'} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={75} />
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                     )}
@@ -590,9 +629,20 @@ export default function CategoriaPage() {
                       <ShoppingCart size={11} /> AGREGAR
                     </button>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
+            {/* Botón cargar más */}
+            {hayMas && !busquedaInterna.trim() && (
+              <div style={{ textAlign: 'center', marginTop: 32 }}>
+                <button
+                  onClick={cargarMas}
+                  disabled={loadingMas}
+                  style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 12, padding: '14px 40px', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: loadingMas ? 'not-allowed' : 'pointer', opacity: loadingMas ? 0.7 : 1 }}>
+                  {loadingMas ? 'Cargando...' : 'Ver más productos'}
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>

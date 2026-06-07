@@ -317,15 +317,17 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
               {/* VER MÁS */}
               <div className="cat-ver-mas" style={{
-                position: 'absolute', bottom: 16, left: 16,
-                color: '#D4AF37', fontWeight: 800,
-                fontSize: 13, letterSpacing: '0.1em',
+                position: 'absolute', bottom: 14, left: 14,
+                background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+                color: '#fff', fontWeight: 900,
+                fontSize: 13, letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                textShadow: '0 2px 6px rgba(0,0,0,0.8)',
-                transition: 'letter-spacing 0.3s ease, color 0.3s ease',
+                padding: '7px 14px', borderRadius: 8,
+                boxShadow: '0 3px 10px rgba(0,0,0,0.45)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 display: 'flex', alignItems: 'center', gap: 6,
               }}>
-                VER MÁS →
+                COMPRÁ AQUÍ →
               </div>
 
               {/* Borde dorado */}
