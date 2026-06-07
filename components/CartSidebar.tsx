@@ -417,7 +417,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                             placeholder="Nombre y apellido *"
                             value={guestForm.nombre}
                             onChange={e => setGuestForm(p => ({ ...p, nombre: e.target.value }))}
-                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.nombre ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.nombre ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', color: '#111827', background: '#FFFFFF' }}
                           />
                           {guestErrors.nombre && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.nombre}</div>}
                         </div>
@@ -428,7 +428,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                             placeholder="Email *"
                             value={guestForm.email}
                             onChange={e => setGuestForm(p => ({ ...p, email: e.target.value }))}
-                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.email ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.email ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', color: '#111827', background: '#FFFFFF' }}
                           />
                           {guestErrors.email && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.email}</div>}
                         </div>
@@ -439,7 +439,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                             placeholder="WhatsApp / Teléfono *"
                             value={guestForm.telefono}
                             onChange={e => setGuestForm(p => ({ ...p, telefono: e.target.value }))}
-                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.telefono ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.telefono ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', color: '#111827', background: '#FFFFFF' }}
                           />
                           {guestErrors.telefono && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.telefono}</div>}
                         </div>
