@@ -39,6 +39,14 @@ export default function CartSidebar({ open, onClose }: Props) {
   const { items, removeItem, updateQty, clearCart, isWholesale, displayTotal, wholesaleTotal, retailProgress, faltaMayorista } = useCart()
   const [mpLoading, setMpLoading] = useState(false)
   const [showTransfer, setShowTransfer] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   // Sesión y datos del cliente
   const [sessionUser, setSessionUser] = useState<{ nombre: string; email: string; telefono: string } | null>(null)
@@ -185,87 +193,125 @@ export default function CartSidebar({ open, onClose }: Props) {
                   <div style={{ color: '#6B7280', fontSize: 13 }}>Agregá productos para comenzar</div>
                 </div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div style={isMobile
+                  ? { display: 'flex', flexDirection: 'column', gap: 8 }
+                  : { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }
+                }>
                   {items.map(item => {
                     const ws = itemIsWholesale(item, isWholesale)
                     const baseSubtotal = item.wholesalePrice * item.quantity
                     const unitDisplay = ws ? item.wholesalePrice : Math.round(item.wholesalePrice * RETAIL_MARKUP)
                     const subtotal = unitDisplay * item.quantity
                     const recargo = subtotal - baseSubtotal
+
+                    /* ── MOBILE: fila horizontal compacta ── */
+                    if (isMobile) return (
+                      <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, padding: '10px 12px', display: 'flex', gap: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', alignItems: 'center' }}>
+                        {/* Imagen 70px */}
+                        <div style={{ width: 70, height: 70, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', border: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          {item.image
+                            ? <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 3 }} />
+                            : <div style={{ fontSize: 26 }}>📦</div>}
+                        </div>
+                        {/* Info compacta */}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          {item.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{item.brand}</div>}
+                          <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, lineHeight: 1.3, marginBottom: 4, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{item.name}</div>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <div>
+                              <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13 }}>${subtotal.toLocaleString('es-AR')}</span>
+                              {!ws && <span style={{ color: '#0369A1', fontSize: 9, fontWeight: 700, marginLeft: 4 }}>+30%</span>}
+                              {ws && <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 8, fontWeight: 800, padding: '1px 4px', borderRadius: 3, marginLeft: 4 }}>MAY</span>}
+                            </div>
+                            {/* Qty + delete */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                              <button onClick={() => updateQty(item.id, Math.max(item.minOrder, item.quantity - item.minOrder))}
+                                style={{ width: 24, height: 24, borderRadius: 6, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Minus size={10} />
+                              </button>
+                              <div style={{ textAlign: 'center', minWidth: 28 }}>
+                                {item.minOrder > 1 ? (
+                                  <><div style={{ color: '#111827', fontWeight: 800, fontSize: 12, lineHeight: 1 }}>{item.quantity / item.minOrder}</div><div style={{ color: '#9CA3AF', fontSize: 8 }}>doc.</div></>
+                                ) : (
+                                  <span style={{ color: '#111827', fontWeight: 800, fontSize: 13 }}>{item.quantity}</span>
+                                )}
+                              </div>
+                              <button onClick={() => updateQty(item.id, item.quantity + item.minOrder)}
+                                style={{ width: 24, height: 24, borderRadius: 6, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Plus size={10} />
+                              </button>
+                              <button onClick={() => removeItem(item.id)}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#EF4444', paddingLeft: 2 }}>
+                                <Trash2 size={13} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+
+                    /* ── DESKTOP: tarjeta vertical (imagen arriba) ── */
                     return (
-                      <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, padding: 12, display: 'flex', gap: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                        {/* Image */}
-                        <div style={{ width: 96, height: 96, borderRadius: 10, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', border: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          {item.image ? (
-                            <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 4 }} />
-                          ) : (
-                            <div style={{ fontSize: 32 }}>📦</div>
-                          )}
+                      <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, overflow: 'hidden', boxShadow: '0 1px 6px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column' }}>
+                        {/* Imagen */}
+                        <div style={{ width: '100%', height: 148, background: '#F9FAFB', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderBottom: '1px solid #F3F4F6', position: 'relative' }}>
+                          {item.image
+                            ? <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8 }} />
+                            : <div style={{ fontSize: 44 }}>📦</div>}
+                          {/* Badge modo */}
+                          <div style={{ position: 'absolute', top: 7, right: 7 }}>
+                            {ws
+                              ? <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4 }}>MAYORISTA</span>
+                              : <span style={{ background: '#DBEAFE', color: '#1E40AF', fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4 }}>MINORISTA</span>}
+                          </div>
+                          {/* Botón eliminar */}
+                          <button onClick={() => removeItem(item.id)}
+                            style={{ position: 'absolute', top: 6, left: 6, background: 'rgba(255,255,255,0.9)', border: '1px solid #FECACA', borderRadius: 6, cursor: 'pointer', color: '#EF4444', width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Trash2 size={12} />
+                          </button>
                         </div>
                         {/* Info */}
-                        <div style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
-                          {item.brand && <div style={{ color: '#9CA3AF', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Marca: {item.brand}</div>}
-                          <div style={{ color: '#111827', fontWeight: 700, fontSize: 13, marginBottom: 4, lineHeight: 1.35, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>{item.name}</div>
+                        <div style={{ padding: '8px 10px', flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                          {item.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{item.brand}</div>}
+                          <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, lineHeight: 1.3, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', flex: 1 }}>{item.name}</div>
+                          {/* Precio */}
                           {ws ? (
-                            /* MAYORISTA: precio directo */
-                            <div style={{ marginBottom: 4 }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
-                                <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>
-                                  ${subtotal.toLocaleString('es-AR')}
-                                </span>
-                                <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MAYORISTA</span>
-                              </div>
-                              <div style={{ color: '#9CA3AF', fontWeight: 400, fontSize: 10 }}>
-                                {item.minOrder > 1 ? `$${(item.wholesalePrice * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${item.wholesalePrice.toLocaleString('es-AR')} c/u`}
-                              </div>
+                            <div>
+                              <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>${subtotal.toLocaleString('es-AR')}</div>
+                              <div style={{ color: '#9CA3AF', fontSize: 10 }}>{item.minOrder > 1 ? `$${(item.wholesalePrice * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${item.wholesalePrice.toLocaleString('es-AR')} c/u`}</div>
                             </div>
                           ) : (
-                            /* MINORISTA: desglose base + recargo + total */
-                            <div style={{ marginBottom: 4 }}>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#6B7280', fontSize: 11 }}>
-                                  {item.minOrder > 1 ? 'Precio docena' : 'Precio'}
-                                </span>
-                                <span style={{ color: '#374151', fontWeight: 700, fontSize: 12 }}>
-                                  ${baseSubtotal.toLocaleString('es-AR')}
-                                </span>
+                            <div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <span style={{ color: '#6B7280', fontSize: 10 }}>Base</span>
+                                <span style={{ color: '#374151', fontWeight: 700, fontSize: 11 }}>${baseSubtotal.toLocaleString('es-AR')}</span>
                               </div>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ color: '#0369A1', fontSize: 11 }}>+{Math.round((RETAIL_MARKUP - 1) * 100)}% minorista</span>
-                                <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 12 }}>+${recargo.toLocaleString('es-AR')}</span>
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <span style={{ color: '#0369A1', fontSize: 10 }}>+30%</span>
+                                <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 11 }}>+${recargo.toLocaleString('es-AR')}</span>
                               </div>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #F3F4F6', marginTop: 2, paddingTop: 2 }}>
-                                <span style={{ color: '#111827', fontWeight: 800, fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
-                                  Total
-                                  <span style={{ background: '#DBEAFE', color: '#1E40AF', fontSize: 9, fontWeight: 800, padding: '1px 5px', borderRadius: 4 }}>MINORISTA</span>
-                                </span>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #F3F4F6', paddingTop: 2, marginTop: 2 }}>
+                                <span style={{ color: '#111827', fontWeight: 800, fontSize: 11 }}>Total</span>
                                 <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${subtotal.toLocaleString('es-AR')}</span>
                               </div>
                             </div>
                           )}
                           {/* Qty controls */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
                             <button onClick={() => updateQty(item.id, Math.max(item.minOrder, item.quantity - item.minOrder))}
-                              style={{ width: 28, height: 28, borderRadius: 7, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                              <Minus size={12} />
+                              style={{ width: 26, height: 26, borderRadius: 6, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <Minus size={11} />
                             </button>
-                            <div style={{ textAlign: 'center', minWidth: 36 }}>
+                            <div style={{ textAlign: 'center', flex: 1 }}>
                               {item.minOrder > 1 ? (
-                                <>
-                                  <div style={{ color: '#111827', fontWeight: 800, fontSize: 14, lineHeight: 1 }}>{item.quantity / item.minOrder}</div>
-                                  <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600 }}>doc.</div>
-                                </>
+                                <><div style={{ color: '#111827', fontWeight: 800, fontSize: 14, lineHeight: 1 }}>{item.quantity / item.minOrder}</div><div style={{ color: '#9CA3AF', fontSize: 9 }}>doc.</div></>
                               ) : (
                                 <span style={{ color: '#111827', fontWeight: 800, fontSize: 14 }}>{item.quantity}</span>
                               )}
                             </div>
                             <button onClick={() => updateQty(item.id, item.quantity + item.minOrder)}
-                              style={{ width: 28, height: 28, borderRadius: 7, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                              <Plus size={12} />
-                            </button>
-                            <button onClick={() => removeItem(item.id)}
-                              style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: '#EF4444' }}>
-                              <Trash2 size={14} />
+                              style={{ width: 26, height: 26, borderRadius: 6, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <Plus size={11} />
                             </button>
                           </div>
                         </div>
