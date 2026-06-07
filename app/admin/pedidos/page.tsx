@@ -322,6 +322,57 @@ export default function PedidosPage() {
 
   const totalPedidos    = pedidos.length
   const totalPendientes = pedidos.filter(p => p.estado === 'pendiente').length
+
+  // Exportar a CSV (abre directo en Excel)
+  function exportarExcel() {
+    const pedidosExport = filtered.length > 0 ? filtered : pedidos
+    const BOM = '﻿' // UTF-8 BOM para que Excel muestre tildes
+
+    // Una fila por PRODUCTO dentro de cada pedido
+    const filas: string[][] = []
+    filas.push(['Fecha', 'ID Pedido', 'Cliente', 'Email', 'Teléfono', 'Estado', 'Producto', 'Categoría', 'Cantidad', 'Precio Unit.', 'Subtotal', 'Total Pedido'])
+
+    pedidosExport.forEach(p => {
+      const items = (p.items || []).map(normItem)
+      if (items.length === 0) {
+        filas.push([
+          formatDateTime(p.created_at), p.id.slice(0, 8).toUpperCase(),
+          p.nombre, p.email, p.telefono || '', ESTADO_LABELS[p.estado] || p.estado,
+          '', '', '', '', '', String(p.total),
+        ])
+      } else {
+        items.forEach((item, idx) => {
+          filas.push([
+            idx === 0 ? formatDateTime(p.created_at) : '',
+            idx === 0 ? p.id.slice(0, 8).toUpperCase() : '',
+            idx === 0 ? p.nombre : '',
+            idx === 0 ? p.email : '',
+            idx === 0 ? (p.telefono || '') : '',
+            idx === 0 ? (ESTADO_LABELS[p.estado] || p.estado) : '',
+            item.name,
+            item.category || '',
+            String(item.quantity),
+            String(item.wholesalePrice),
+            String(item.wholesalePrice * item.quantity),
+            idx === 0 ? String(p.total) : '',
+          ])
+        })
+      }
+    })
+
+    const csv = BOM + filas.map(row =>
+      row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(';')
+    ).join('\r\n')
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url  = URL.createObjectURL(blob)
+    const a    = document.createElement('a')
+    const fecha = new Date().toISOString().slice(0, 10)
+    a.href     = url
+    a.download = `pedidos-mayorista-${fecha}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
   const totalFacturado  = pedidos.reduce((acc, p) => acc + Number(p.total || 0), 0)
 
   return (
@@ -342,7 +393,21 @@ export default function PedidosPage() {
             <div style={{ color: '#7a8a9a', fontSize: 11 }}>Mayorista Universal</div>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          {/* Botón exportar Excel */}
+          <button
+            onClick={exportarExcel}
+            disabled={pedidos.length === 0}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              background: pedidos.length === 0 ? 'rgba(255,255,255,0.05)' : 'linear-gradient(135deg,#16a34a,#15803d)',
+              border: 'none', borderRadius: 8, padding: '8px 16px',
+              color: pedidos.length === 0 ? '#4a5568' : '#FFFFFF',
+              fontSize: 13, fontWeight: 900, cursor: pedidos.length === 0 ? 'not-allowed' : 'pointer',
+            }}
+          >
+            📊 Descargar Excel
+          </button>
           {/* Botón alerta sonido */}
           <button
             onClick={toggleAlerta}
