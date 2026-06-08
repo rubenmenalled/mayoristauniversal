@@ -475,6 +475,38 @@ export default function PedidosPage() {
   }
   const totalFacturado  = pedidos.reduce((acc, p) => acc + Number(p.total || 0), 0)
 
+  function enviarWhatsApp(pedido: Pedido) {
+    const items = (pedido.items || []).map(normItem)
+    const totalUnidades = items.reduce((s, i) => s + i.quantity, 0)
+    const lineas = items.map(i =>
+      `• ${i.name} x${i.quantity} — ${formatCurrency(i.wholesalePrice * i.quantity)}`
+    ).join('\n')
+
+    const msg = [
+      `¡Hola ${pedido.nombre}! 👋`,
+      `Te confirmamos tu pedido en *Mayorista Universal* 🛒`,
+      ``,
+      `📦 *Pedido #${pedido.id.slice(0,8).toUpperCase()}*`,
+      `📅 ${formatDateTime(pedido.created_at)}`,
+      ``,
+      `*Productos:*`,
+      lineas,
+      ``,
+      `📦 ${items.length} artículo${items.length !== 1 ? 's' : ''} · ${totalUnidades} unidades`,
+      `💰 *Total: ${formatCurrency(pedido.total)}*`,
+      ``,
+      `💳 *Pago vía Mercado Pago*`,
+      `Alias: *ruby.mena.1972*`,
+      `Titular: Andres Ruben Menalled`,
+      ``,
+      `Ante cualquier duda estamos a tu disposición. ¡Gracias por tu compra! 🙌`,
+    ].join('\n')
+
+    const tel = pedido.telefono.replace(/\D/g, '')
+    const url = `https://wa.me/${tel.startsWith('54') ? tel : '54' + tel}?text=${encodeURIComponent(msg)}`
+    window.open(url, '_blank')
+  }
+
   return (
     <div style={{ minHeight: '100vh', background: '#0F172A' }}>
 
@@ -761,6 +793,15 @@ export default function PedidosPage() {
                           >
                             🖨️ Imprimir pedido
                           </button>
+                          {/* Botón WhatsApp */}
+                          {pedido.telefono && (
+                            <button
+                              onClick={() => enviarWhatsApp(pedido)}
+                              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'linear-gradient(135deg,#25D366,#128C7E)', border: 'none', borderRadius: 10, padding: '10px 20px', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}
+                            >
+                              💬 Enviar por WhatsApp
+                            </button>
+                          )}
                         </div>
                       </div>
 
