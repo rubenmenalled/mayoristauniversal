@@ -10,12 +10,14 @@ export async function GET(request: NextRequest) {
 
   try {
     const adminClient = getAdminClient()
-    const { data, error } = await adminClient.auth.admin.listUsers()
-    if (error) throw error
 
-    const clientes = data.users.map(u => ({
+    // 1. Clientes REGISTRADOS (Supabase Auth)
+    const { data: authData, error: authError } = await adminClient.auth.admin.listUsers()
+    if (authError) throw authError
+
+    const registrados = authData.users.map(u => ({
       id: u.id,
-      email: u.email,
+      email: u.email || '',
       created_at: u.created_at,
       nombre: u.user_metadata?.nombre || '—',
       documento: u.user_metadata?.documento || '—',
@@ -23,7 +25,58 @@ export async function GET(request: NextRequest) {
       transporte: u.user_metadata?.transporte || '—',
       reemplazo: u.user_metadata?.reemplazo || '—',
       direccion: u.user_metadata?.direccion || '—',
+      tipo: 'registrado' as const,
+      pedidos: 0,
     }))
+
+    // Set de emails ya registrados (normalizados) para no duplicar
+    const emailsRegistrados = new Set(
+      registrados.map(c => (c.email || '').trim().toLowerCase()).filter(Boolean)
+    )
+
+    // 2. Compradores INVITADOS (tabla pedidos, sin cuenta)
+    const { data: pedidos, error: pedError } = await adminClient
+      .from('pedidos')
+      .select('nombre,email,telefono,created_at')
+      .order('created_at', { ascending: true })
+
+    if (pedError) throw pedError
+
+    // Agrupar pedidos por email normalizado
+    const invitadosMap = new Map<string, any>()
+    for (const p of pedidos || []) {
+      const email = (p.email || '').trim().toLowerCase()
+      if (!email || emailsRegistrados.has(email)) continue // ya es cliente registrado
+
+      const existente = invitadosMap.get(email)
+      if (existente) {
+        existente.pedidos += 1
+        // mantener el nombre/telefono más reciente (pedidos vienen ascendente)
+        if (p.nombre) existente.nombre = (p.nombre || '').trim()
+        if (p.telefono) existente.whatsapp = p.telefono
+      } else {
+        invitadosMap.set(email, {
+          id: 'guest:' + email,
+          email,
+          created_at: p.created_at, // primer pedido (más antiguo)
+          nombre: (p.nombre || '').trim() || '—',
+          documento: '—',
+          whatsapp: p.telefono || '—',
+          transporte: '—',
+          reemplazo: '—',
+          direccion: '—',
+          tipo: 'invitado' as const,
+          pedidos: 1,
+        })
+      }
+    }
+
+    const invitados = Array.from(invitadosMap.values())
+
+    // 3. Unir: registrados + invitados, ordenado por fecha desc (más nuevos primero)
+    const clientes = [...registrados, ...invitados].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    )
 
     return NextResponse.json(clientes)
   } catch (e: any) {

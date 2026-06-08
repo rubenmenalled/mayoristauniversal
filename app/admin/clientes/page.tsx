@@ -17,6 +17,30 @@ interface Cliente {
   transporte: string
   reemplazo: string
   direccion: string
+  tipo?: 'registrado' | 'invitado'
+  pedidos?: number
+}
+
+function TipoBadge({ tipo }: { tipo?: string }) {
+  if (tipo !== 'invitado') return null
+  return (
+    <span style={{
+      display: 'inline-block',
+      marginLeft: 8,
+      background: 'rgba(96,165,250,0.15)',
+      border: '1px solid rgba(96,165,250,0.4)',
+      color: '#60A5FA',
+      borderRadius: 6,
+      padding: '1px 7px',
+      fontSize: 10,
+      fontWeight: 800,
+      textTransform: 'uppercase',
+      letterSpacing: '0.04em',
+      verticalAlign: 'middle',
+    }}>
+      Invitado
+    </span>
+  )
 }
 
 function formatDate(iso: string) {
@@ -96,7 +120,7 @@ export default function ClientesPage() {
             fontSize: 18,
           }}>👥</div>
           <div>
-            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15 }}>Clientes registrados</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15 }}>Clientes</div>
             <div style={{ color: '#7a8a9a', fontSize: 11 }}>Mayorista Universal</div>
           </div>
         </div>
@@ -250,7 +274,7 @@ export default function ClientesPage() {
                       onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,175,55,0.06)')}
                       onMouseLeave={e => (e.currentTarget.style.background = i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)')}
                     >
-                      <td style={{ padding: '12px 16px', fontWeight: 700, color: '#FFFFFF' }}>{c.nombre}</td>
+                      <td style={{ padding: '12px 16px', fontWeight: 700, color: '#FFFFFF' }}>{c.nombre}<TipoBadge tipo={c.tipo} /></td>
                       <td style={{ padding: '12px 16px', color: '#a0b0c0' }}>{c.email || '—'}</td>
                       <td style={{ padding: '12px 16px' }}>{c.documento}</td>
                       <td style={{ padding: '12px 16px' }}>{c.whatsapp}</td>
@@ -283,7 +307,7 @@ export default function ClientesPage() {
                 {/* Card header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                   <div>
-                    <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{c.nombre}</div>
+                    <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 15 }}>{c.nombre}<TipoBadge tipo={c.tipo} /></div>
                     <div style={{ color: '#7a8a9a', fontSize: 12, marginTop: 2 }}>{c.email || '—'}</div>
                   </div>
                   <div style={{
