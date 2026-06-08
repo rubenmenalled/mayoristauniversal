@@ -1,12 +1,6 @@
 'use client'
 
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
 
 function playOrderSound() {
   try {
@@ -275,6 +269,10 @@ export default function PedidosPage() {
   const [alertaActiva, setAlertaActiva] = useState(false)
   const [nuevosIds, setNuevosIds]   = useState<string[]>([])
   const alertaRef = useRef(false)
+  const pedidosRef = useRef<Pedido[]>([])
+
+  // Mantener una referencia siempre actualizada de los pedidos en pantalla
+  useEffect(() => { pedidosRef.current = pedidos }, [pedidos])
 
   useEffect(() => {
     fetch('/api/admin/pedidos')
@@ -287,21 +285,29 @@ export default function PedidosPage() {
       .finally(() => setLoading(false))
   }, [])
 
-  // Realtime: escuchar nuevos pedidos
+  // Alerta de nuevos pedidos: chequeo periódico con la API admin (service role).
+  // No usa la llave pública (anon), así que funciona con la tabla protegida por RLS.
   useEffect(() => {
     if (!alertaActiva) return
-    const channel = supabaseClient
-      .channel('pedidos-realtime')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pedidos' }, (payload) => {
-        const p = payload.new as Pedido
-        setPedidos(prev => [p, ...prev])
-        setNuevosIds(prev => [...prev, p.id])
-        playOrderSound()
-        if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300])
-        setTimeout(() => setNuevosIds(prev => prev.filter(id => id !== p.id)), 10000)
-      })
-      .subscribe()
-    return () => { supabaseClient.removeChannel(channel) }
+    const interval = setInterval(async () => {
+      try {
+        const res  = await fetch('/api/admin/pedidos')
+        const data = await res.json()
+        if (!Array.isArray(data)) return
+        const prevIds = new Set(pedidosRef.current.map(p => p.id))
+        const nuevos  = data.filter((p: Pedido) => !prevIds.has(p.id))
+        setPedidos(data)
+        if (nuevos.length > 0) {
+          setNuevosIds(ids => [...ids, ...nuevos.map((p: Pedido) => p.id)])
+          playOrderSound()
+          if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300])
+          nuevos.forEach((p: Pedido) =>
+            setTimeout(() => setNuevosIds(ids => ids.filter(id => id !== p.id)), 10000)
+          )
+        }
+      } catch {}
+    }, 15000)
+    return () => clearInterval(interval)
   }, [alertaActiva])
 
   function toggleAlerta() {
