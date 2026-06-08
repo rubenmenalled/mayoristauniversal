@@ -494,6 +494,8 @@ export default function CategoriaPage() {
               @keyframes fadeUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
               .prod-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
               @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212,175,55,0.2); } }
+              .prod-hover-img { opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
+              @media (hover: hover) { .prod-card:hover .prod-hover-img { opacity: 1; } }
             ` }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 14 }}>
               {productosFiltrados.map((p, i) => (
@@ -509,6 +511,12 @@ export default function CategoriaPage() {
                       <Image src={p.image} alt={p.name} fill className={nombreDecoded.toUpperCase() === 'ELECTRONICA' ? 'object-contain' : 'object-cover'} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={75} />
                     ) : (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
+                    )}
+                    {/* 2da imagen: aparece al pasar el mouse (hover) */}
+                    {p.images && p.images.length > 1 && (
+                      <div className="prod-hover-img" style={{ position: 'absolute', inset: 0 }}>
+                        <Image src={p.images[1]} alt={p.name} fill className={nombreDecoded.toUpperCase() === 'ELECTRONICA' ? 'object-contain' : 'object-cover'} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={75} />
+                      </div>
                     )}
                     {/* Tapar watermark CX en fotos de marca XC */}
                     {p.image && p.brand?.toUpperCase() === 'XC' && (
