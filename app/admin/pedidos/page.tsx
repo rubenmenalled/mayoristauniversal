@@ -5,21 +5,29 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 function playOrderSound() {
   try {
     const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
-    // Melodía alegre: Do-Mi-Sol-Do
-    const notes = [523, 659, 784, 1047]
-    notes.forEach((freq, i) => {
-      const osc  = ctx.createOscillator()
-      const gain = ctx.createGain()
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      osc.frequency.value = freq
-      osc.type = 'sine'
-      const t = ctx.currentTime + i * 0.2
-      gain.gain.setValueAtTime(0, t)
-      gain.gain.linearRampToValueAtTime(0.45, t + 0.05)
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4)
-      osc.start(t)
-      osc.stop(t + 0.4)
+    const now = ctx.currentTime
+    // Caja registradora "cha-ching": dos campanitas brillantes ascendentes.
+    // Cada "ding" se arma con varios armónicos para un timbre metálico de campana.
+    const dings = [
+      { start: 0.0,  freqs: [880, 1760],        dur: 0.13, gain: 0.30 }, // "cha" (corto)
+      { start: 0.11, freqs: [1320, 1980, 2640], dur: 0.70, gain: 0.40 }, // "ching" (con cola)
+    ]
+    dings.forEach(d => {
+      d.freqs.forEach((f, i) => {
+        const osc  = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.type = 'triangle' // más brillo/metal que la onda sine
+        osc.frequency.value = f
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        const t = now + d.start
+        const g = d.gain / (i + 1) // armónicos superiores más suaves
+        gain.gain.setValueAtTime(0, t)
+        gain.gain.linearRampToValueAtTime(g, t + 0.006)
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + d.dur)
+        osc.start(t)
+        osc.stop(t + d.dur + 0.05)
+      })
     })
   } catch {}
 }
