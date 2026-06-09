@@ -40,6 +40,13 @@ export default function Dashboard() {
       href: '/admin/pedidos',
       color: '#2a1a6a',
     },
+    {
+      icon: '🏠',
+      title: 'Filas de la Home',
+      desc: 'Editar las filas de productos de la página principal (títulos y categorías)',
+      href: '/admin/home-secciones',
+      color: '#6a1a4a',
+    },
   ]
 
   return (

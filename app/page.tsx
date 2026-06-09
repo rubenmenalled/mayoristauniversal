@@ -1,6 +1,6 @@
 import Header           from '@/components/Header'
 import HeroSection      from '@/components/HeroSection'
-import ProductRow       from '@/components/ProductRow'
+import HomeRows         from '@/components/HomeRows'
 import CatalogosSection from '@/components/CatalogosSection'
 import ComoComprar      from '@/components/ComoComprar'
 import MediosDePago    from '@/components/MediosDePago'
@@ -65,25 +65,7 @@ export default async function HomePage() {
       <Header />
       <main>
         <HeroSection />
-        <ProductRow title="Destacados" emoji="⭐" subtitle="Lo mejor de nuestro catálogo, al precio mayorista"
-          urls={['/api/productos-publicos?destacados=true']} max={18} />
-        <ProductRow title="Para los más chicos" emoji="🧸" subtitle="Peluches, bebé y juguetería"
-          urls={[
-            '/api/productos-publicos?categoria=PELUCHES&limit=8',
-            '/api/productos-publicos?categoria=BEBE&limit=8',
-            '/api/productos-publicos?categoria=JUGUETERIA&limit=8',
-          ]} max={21} />
-        <ProductRow title="Lencería" emoji="👙" subtitle="Lencería y temporada de invierno"
-          urls={[
-            '/api/productos-publicos?categoria=LENCERIA&limit=12',
-            '/api/productos-publicos?categoria=INVIERNO%202026&limit=6',
-          ]} max={18} />
-        <ProductRow title="Deportes, electrónica y herramientas" emoji="⚽" subtitle="Todo para equiparte"
-          urls={[
-            '/api/productos-publicos?categoria=TODO%20PARA%20EL%20DEPORTE&limit=8',
-            '/api/productos-publicos?categoria=ELECTRONICA&limit=8',
-            '/api/productos-publicos?categoria=HERRAMIENTAS&limit=8',
-          ]} max={21} />
+        <HomeRows />
         <CatalogosSection categorias={categorias} />
         <ComoComprar />
         <MediosDePago />
