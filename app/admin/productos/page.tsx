@@ -31,6 +31,7 @@ const GOLD = 'linear-gradient(135deg,#D4AF37,#F0C030)'
 export default function ProductosAdmin() {
   const router = useRouter()
   const [productos, setProductos] = useState<Producto[]>([])
+  const [busqueda, setBusqueda] = useState('')
   const [categorias, setCategorias] = useState<{id: number, nombre: string}[]>([])
   const [subcategorias, setSubcategorias] = useState<{id: number, nombre: string, categoria_id: number}[]>([])
   const [loading, setLoading] = useState(true)
@@ -908,6 +909,17 @@ export default function ProductosAdmin() {
           </div>
         )}
 
+        {/* Buscador */}
+        {!loading && productos.length > 0 && (
+          <input
+            type="text"
+            value={busqueda}
+            onChange={e => setBusqueda(e.target.value)}
+            placeholder="🔍 Buscar producto por nombre o código..."
+            style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 10, padding: '12px 16px', color: '#FFFFFF', fontSize: 15, outline: 'none', marginBottom: 14 }}
+          />
+        )}
+
         {/* Lista de productos */}
         {loading ? (
           <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 60 }}>Cargando productos...</div>
@@ -923,7 +935,18 @@ export default function ProductosAdmin() {
           </div>
         ) : (
           <div style={{ display: 'grid', gap: 12 }}>
-            {productos.map(p => (
+            {(() => {
+              const q = busqueda.trim().toLowerCase()
+              const filtrados = q
+                ? productos.filter(p =>
+                    (p.nombre || '').toLowerCase().includes(q) ||
+                    (p.categoria || '').toLowerCase().includes(q) ||
+                    (p.subcategoria || '').toLowerCase().includes(q))
+                : productos
+              if (filtrados.length === 0) {
+                return <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>Sin resultados para “{busqueda}”</div>
+              }
+              return filtrados.map(p => (
               <div key={p.id} style={{
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(212,175,55,0.15)',
@@ -959,7 +982,8 @@ export default function ProductosAdmin() {
                   </button>
                 </div>
               </div>
-            ))}
+              ))
+            })()}
           </div>
         )}
       </div>
