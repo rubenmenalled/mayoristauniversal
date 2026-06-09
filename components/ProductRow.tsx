@@ -29,8 +29,12 @@ function Card({ p }: { p: Prod }) {
       <div style={{ padding: 10, display: 'flex', flexDirection: 'column', flex: 1 }}>
         <div style={{ color: '#FFFFFF', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 6, minHeight: 28, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.name}</div>
         <div style={{ marginTop: 'auto' }}>
-          {isPack && <div style={{ color: '#9aabb8', fontSize: 10 }}>{fmt(cu)} c/u</div>}
-          <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 16 }}>
+          {isPack && (
+            <div style={{ color: '#FFFFFF', fontSize: 17, fontWeight: 900, lineHeight: 1.1 }}>
+              {fmt(cu)} <span style={{ color: '#9aabb8', fontSize: 11, fontWeight: 700 }}>c/u</span>
+            </div>
+          )}
+          <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: isPack ? 13 : 18, marginTop: isPack ? 1 : 0 }}>
             {fmt(big)}
             {isPack && <span style={{ color: '#92400E', fontSize: 10, fontWeight: 700, marginLeft: 4 }}>{p.minOrder === 12 ? 'la docena' : `pack x${p.minOrder}`}</span>}
           </div>

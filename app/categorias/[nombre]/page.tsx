@@ -579,7 +579,7 @@ export default function CategoriaPage() {
                         <>
                           <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: extraInfo ? 2 : 4 }}>
                             {precioUnit && (
-                              <div style={{ color: '#333', fontSize: 11, fontWeight: 800 }}>{precioUnit}</div>
+                              <div style={{ color: '#111', fontSize: 17, fontWeight: 900 }}>{precioUnit}</div>
                             )}
                             <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
                             <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`}: ${(((p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT') ? p.wholesalePrice * p.minOrder : p.wholesalePrice).toLocaleString('es-AR')}</div>
