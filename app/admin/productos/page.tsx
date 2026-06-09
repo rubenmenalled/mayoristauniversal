@@ -32,6 +32,7 @@ export default function ProductosAdmin() {
   const router = useRouter()
   const [productos, setProductos] = useState<Producto[]>([])
   const [busqueda, setBusqueda] = useState('')
+  const [soloDestacados, setSoloDestacados] = useState(false)
   const [categorias, setCategorias] = useState<{id: number, nombre: string}[]>([])
   const [subcategorias, setSubcategorias] = useState<{id: number, nombre: string, categoria_id: number}[]>([])
   const [loading, setLoading] = useState(true)
@@ -909,6 +910,21 @@ export default function ProductosAdmin() {
           </div>
         )}
 
+        {/* Botón ver solo destacados */}
+        {!loading && productos.length > 0 && (
+          <button
+            onClick={() => setSoloDestacados(v => !v)}
+            style={{
+              width: '100%', boxSizing: 'border-box', marginBottom: 12, cursor: 'pointer',
+              borderRadius: 10, padding: '12px 16px', fontSize: 15, fontWeight: 900,
+              border: soloDestacados ? '1px solid #D4AF37' : '1px solid rgba(212,175,55,0.3)',
+              background: soloDestacados ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(212,175,55,0.1)',
+              color: soloDestacados ? '#0F3460' : '#D4AF37',
+            }}>
+            {soloDestacados ? '⭐ Viendo destacados — tocá para ver todos' : '⭐ Ver / cambiar fotos de Destacados'}
+          </button>
+        )}
+
         {/* Buscador */}
         {!loading && productos.length > 0 && (
           <input
@@ -937,14 +953,14 @@ export default function ProductosAdmin() {
           <div style={{ display: 'grid', gap: 12 }}>
             {(() => {
               const q = busqueda.trim().toLowerCase()
-              const filtrados = q
-                ? productos.filter(p =>
-                    (p.nombre || '').toLowerCase().includes(q) ||
-                    (p.categoria || '').toLowerCase().includes(q) ||
-                    (p.subcategoria || '').toLowerCase().includes(q))
-                : productos
+              let filtrados = productos
+              if (soloDestacados) filtrados = filtrados.filter(p => p.badge === 'DESTACADO')
+              if (q) filtrados = filtrados.filter(p =>
+                (p.nombre || '').toLowerCase().includes(q) ||
+                (p.categoria || '').toLowerCase().includes(q) ||
+                (p.subcategoria || '').toLowerCase().includes(q))
               if (filtrados.length === 0) {
-                return <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>Sin resultados para “{busqueda}”</div>
+                return <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>{soloDestacados ? 'No hay productos destacados todavía. Marcá productos con la etiqueta ⭐ DESTACADO al editarlos.' : `Sin resultados para “${busqueda}”`}</div>
               }
               return filtrados.map(p => (
               <div key={p.id} style={{
