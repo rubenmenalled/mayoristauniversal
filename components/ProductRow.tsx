@@ -20,11 +20,7 @@ function Card({ p }: { p: Prod }) {
   const big = isPack ? packTotal : p.wholesalePrice
 
   return (
-    <div style={{
-      flex: '0 0 auto', width: 180, background: 'rgba(255,255,255,0.04)',
-      border: '1px solid rgba(212,175,55,0.2)', borderRadius: 14, overflow: 'hidden',
-      display: 'flex', flexDirection: 'column',
-    }}>
+    <div style={{ flex: '0 0 auto', width: 180, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <div style={{ position: 'relative', height: 160, background: '#F5F5F5' }}>
         {p.image
           ? <Image src={p.image} alt={p.name} fill style={{ objectFit: 'cover' }} sizes="180px" />
@@ -49,26 +45,48 @@ function Card({ p }: { p: Prod }) {
   )
 }
 
-export default function Destacados() {
+// Intercala round-robin entre grupos (para que el mix tenga variedad)
+function interleave(groups: Prod[][], max: number): Prod[] {
+  const out: Prod[] = []; const seen = new Set<number>()
+  let i = 0
+  while (out.length < max) {
+    let added = false
+    for (const g of groups) {
+      if (g[i] && !seen.has(g[i].id)) { out.push(g[i]); seen.add(g[i].id); added = true; if (out.length >= max) break }
+    }
+    if (!added) break
+    i++
+  }
+  return out
+}
+
+export default function ProductRow({ title, emoji, subtitle, urls, max = 18, href }: {
+  title: string; emoji: string; subtitle?: string; urls: string[]; max?: number; href?: string
+}) {
   const [prods, setProds] = useState<Prod[]>([])
   useEffect(() => {
-    fetch('/api/productos-publicos?destacados=true')
-      .then(r => r.json())
-      .then(d => { if (Array.isArray(d)) setProds(d) })
+    Promise.all(urls.map(u => fetch(u).then(r => r.json()).catch(() => [])))
+      .then(res => {
+        const groups = res.map(g => (Array.isArray(g) ? g.filter((p: Prod) => p.image) : []))
+        setProds(interleave(groups, max))
+      })
       .catch(() => {})
   }, [])
 
   if (prods.length === 0) return null
 
   return (
-    <section style={{ padding: '32px 0', borderTop: '1px solid rgba(212,175,55,0.15)' }}>
+    <section style={{ padding: '28px 0', borderTop: '1px solid rgba(212,175,55,0.15)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-          <span style={{ fontSize: 22 }}>⭐</span>
-          <h2 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, margin: 0 }}>Destacados</h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2, flexWrap: 'wrap', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 22 }}>{emoji}</span>
+            <h2 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, margin: 0 }}>{title}</h2>
+          </div>
+          {href && <a href={href} style={{ color: '#D4AF37', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>Ver todo →</a>}
         </div>
-        <p style={{ color: '#7a8a9a', fontSize: 13, margin: '0 0 18px' }}>Lo mejor de nuestro catálogo, al precio mayorista</p>
-        <div style={{ display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8, scrollbarWidth: 'thin' }}>
+        {subtitle && <p style={{ color: '#7a8a9a', fontSize: 13, margin: '0 0 16px' }}>{subtitle}</p>}
+        <div style={{ display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>
           {prods.map(p => <Card key={p.id} p={p} />)}
         </div>
       </div>

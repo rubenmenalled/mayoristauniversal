@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
   const subcategoria = searchParams.get('subcategoria')
   const q           = searchParams.get('q')
   const destacados  = searchParams.get('destacados')
+  const limit       = parseInt(searchParams.get('limit') || '0', 10)
   const page        = parseInt(searchParams.get('page') || '0', 10)
   const PAGE_SIZE   = 60
 
@@ -31,6 +32,8 @@ export async function GET(request: NextRequest) {
     )
   } else if (destacados) {
     query = (query as any).limit(20)
+  } else if (limit > 0) {
+    query = (query as any).limit(limit)
   } else {
     query = (query as any).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
   }
