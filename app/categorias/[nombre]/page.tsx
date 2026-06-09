@@ -20,7 +20,7 @@ interface Subcategoria {
 }
 
 const BADGE: Record<string, string> = {
-  OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-yellow-500',
+  OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-yellow-500', DESTACADO: 'bg-yellow-500',
 }
 
 const EXCL_MARR = ['MOCHILAS-CARTERAS','MOCHILAS Y CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']

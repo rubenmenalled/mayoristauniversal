@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
   const categoria   = searchParams.get('categoria')
   const subcategoria = searchParams.get('subcategoria')
   const q           = searchParams.get('q')
+  const destacados  = searchParams.get('destacados')
   const page        = parseInt(searchParams.get('page') || '0', 10)
   const PAGE_SIZE   = 60
 
@@ -22,11 +23,14 @@ export async function GET(request: NextRequest) {
 
   if (categoria)    query = query.ilike('categoria', categoria)
   if (subcategoria) query = query.ilike('subcategoria', subcategoria)
+  if (destacados)   query = query.eq('badge', 'DESTACADO')
 
   if (q) {
     query = query.or(
       `nombre.ilike.%${q}%,marca.ilike.%${q}%,subcategoria.ilike.%${q}%,descripcion.ilike.%${q}%`
     )
+  } else if (destacados) {
+    query = (query as any).limit(20)
   } else {
     query = (query as any).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
   }

@@ -61,7 +61,7 @@ function Stars({ n }: { n: number }) {
 
 /* ─── Badge ─── */
 const BADGE: Record<string, string> = {
-  OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-gold text-navy',
+  OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-gold text-navy', DESTACADO: 'bg-gold text-navy',
 }
 
 /* ─── Product card ─── */

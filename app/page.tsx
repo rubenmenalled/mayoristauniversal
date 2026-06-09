@@ -1,5 +1,6 @@
 import Header           from '@/components/Header'
 import HeroSection      from '@/components/HeroSection'
+import Destacados       from '@/components/Destacados'
 import CatalogosSection from '@/components/CatalogosSection'
 import ComoComprar      from '@/components/ComoComprar'
 import MediosDePago    from '@/components/MediosDePago'
@@ -64,6 +65,7 @@ export default async function HomePage() {
       <Header />
       <main>
         <HeroSection />
+        <Destacados />
         <CatalogosSection categorias={categorias} />
         <ComoComprar />
         <MediosDePago />
