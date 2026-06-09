@@ -62,7 +62,12 @@ export async function GET(request: NextRequest) {
     hasMore:        (data ?? []).length === PAGE_SIZE,
   }))
 
+  // Los destacados cambian desde el admin y deben verse al instante → sin caché.
+  // El resto del catálogo sí se cachea para cargar rápido.
+  const cacheControl = destacados
+    ? 'no-store, max-age=0'
+    : 'public, s-maxage=180, stale-while-revalidate=600'
   return NextResponse.json(mapped, {
-    headers: { 'Cache-Control': 'public, s-maxage=180, stale-while-revalidate=600' }
+    headers: { 'Cache-Control': cacheControl }
   })
 }
