@@ -807,6 +807,7 @@ export default function ProductosAdmin() {
                       color: '#FFFFFF', fontSize: 14, outline: 'none',
                     }}>
                     <option value="">Sin etiqueta</option>
+                    <option value="DESTACADO">⭐ DESTACADO (sale en la home)</option>
                     <option value="OFERTA">OFERTA</option>
                     <option value="NUEVO">NUEVO</option>
                     <option value="HOT">HOT</option>
