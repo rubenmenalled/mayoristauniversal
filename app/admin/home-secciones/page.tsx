@@ -30,7 +30,7 @@ function ManualPicker({ value, onChange }: { value: string; onChange: (ids: stri
   // buscar
   useEffect(() => {
     const q = term.trim()
-    if (q.length < 2) { setResultados([]); return }
+    if (q.length < 2) { setResultados([]); setBuscando(false); return }
     setBuscando(true)
     const t = setTimeout(async () => {
       try {
