@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
   const subcategoria = searchParams.get('subcategoria')
   const q           = searchParams.get('q')
   const destacados  = searchParams.get('destacados')
+  const ids         = searchParams.get('ids')
   const limit       = parseInt(searchParams.get('limit') || '0', 10)
   const page        = parseInt(searchParams.get('page') || '0', 10)
   const PAGE_SIZE   = 60
@@ -24,9 +25,12 @@ export async function GET(request: NextRequest) {
     .select(COLS)
     .order('created_at', { ascending: false })
 
+  const idList = ids ? ids.split(',').map(s => parseInt(s.trim(), 10)).filter(Boolean) : []
+
   if (categoria)    query = query.ilike('categoria', categoria)
   if (subcategoria) query = query.ilike('subcategoria', subcategoria)
   if (destacados)   query = query.eq('badge', 'DESTACADO')
+  if (idList.length) query = query.in('id', idList)
 
   if (q) {
     query = query.or(
@@ -34,6 +38,8 @@ export async function GET(request: NextRequest) {
     )
   } else if (destacados) {
     query = (query as any).limit(20)
+  } else if (idList.length) {
+    query = (query as any).limit(idList.length)
   } else if (limit > 0) {
     query = (query as any).limit(limit)
   } else {
@@ -64,9 +70,14 @@ export async function GET(request: NextRequest) {
     hasMore:        (data ?? []).length === PAGE_SIZE,
   }))
 
-  // Los destacados cambian desde el admin y deben verse al instante → sin caché.
+  // Si se pidieron ids específicos, respetar el orden elegido
+  if (idList.length) {
+    mapped.sort((a: any, b: any) => idList.indexOf(a.id) - idList.indexOf(b.id))
+  }
+
+  // Destacados e ids (elegidos a mano) deben verse al instante → sin caché.
   // El resto del catálogo sí se cachea para cargar rápido.
-  const cacheControl = destacados
+  const cacheControl = (destacados || idList.length)
     ? 'no-store, max-age=0'
     : 'public, s-maxage=180, stale-while-revalidate=600'
   return NextResponse.json(mapped, {

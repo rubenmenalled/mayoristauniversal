@@ -20,6 +20,11 @@ function urlsDeFila(f: Fila): { urls: string[]; max: number } {
   if (cats.toUpperCase() === 'DESTACADOS') {
     return { urls: ['/api/productos-publicos?destacados=true'], max: 18 }
   }
+  // Productos elegidos a mano: "IDS:642,643,801"
+  if (cats.toUpperCase().startsWith('IDS:')) {
+    const ids = cats.slice(4).split(',').map(s => s.trim()).filter(Boolean)
+    return { urls: [`/api/productos-publicos?ids=${ids.join(',')}`], max: Math.max(ids.length, 1) }
+  }
   const lista = cats.split(',').map(c => c.trim()).filter(Boolean)
   return {
     urls: lista.map(c => `/api/productos-publicos?categoria=${encodeURIComponent(c)}&limit=8`),
