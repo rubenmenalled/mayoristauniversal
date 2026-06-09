@@ -230,6 +230,19 @@ export default function ProductosAdmin() {
     setTimeout(() => setMsg(''), 8000)
   }
 
+  async function toggleDestacado(p: Producto) {
+    const nuevo = p.badge === 'DESTACADO' ? '' : 'DESTACADO'
+    setProductos(prev => prev.map(x => x.id === p.id ? { ...x, badge: nuevo } : x)) // optimista
+    try {
+      await fetch(`/api/admin/productos/${p.id}`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ badge: nuevo }),
+      })
+    } catch {
+      setProductos(prev => prev.map(x => x.id === p.id ? { ...x, badge: p.badge } : x)) // revertir si falla
+    }
+  }
+
   async function handleDelete(id: number) {
     if (!confirm('¿Borrar este producto?')) return
     await fetch(`/api/admin/productos/${id}`, { method: 'DELETE' })
@@ -984,6 +997,16 @@ export default function ProductosAdmin() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+                  <button onClick={() => toggleDestacado(p)}
+                    title={p.badge === 'DESTACADO' ? 'Quitar de Destacados' : 'Poner en Destacados (home)'}
+                    style={{
+                      background: p.badge === 'DESTACADO' ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(255,255,255,0.06)',
+                      border: p.badge === 'DESTACADO' ? '1px solid #D4AF37' : '1px solid rgba(255,255,255,0.18)',
+                      borderRadius: 8, padding: '8px 12px',
+                      color: p.badge === 'DESTACADO' ? '#0F3460' : '#9aabb8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 800,
+                    }}>
+                    {p.badge === 'DESTACADO' ? '⭐ Destacado' : '☆ Destacar'}
+                  </button>
                   <button onClick={() => handleEdit(p)}
                     style={{
                       background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.3)',
