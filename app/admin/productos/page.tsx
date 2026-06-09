@@ -33,6 +33,8 @@ export default function ProductosAdmin() {
   const [productos, setProductos] = useState<Producto[]>([])
   const [busqueda, setBusqueda] = useState('')
   const [soloDestacados, setSoloDestacados] = useState(false)
+  const [resultados, setResultados] = useState<Producto[]>([])
+  const [buscando, setBuscando] = useState(false)
   const [categorias, setCategorias] = useState<{id: number, nombre: string}[]>([])
   const [subcategorias, setSubcategorias] = useState<{id: number, nombre: string, categoria_id: number}[]>([])
   const [loading, setLoading] = useState(true)
@@ -61,6 +63,22 @@ export default function ProductosAdmin() {
   const csvRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => { loadProductos(); loadCategorias() }, [])
+
+  // Búsqueda en el servidor (toda la base, no solo lo cargado)
+  useEffect(() => {
+    const q = busqueda.trim()
+    if (q.length < 2) { setResultados([]); setBuscando(false); return }
+    setBuscando(true)
+    const t = setTimeout(async () => {
+      try {
+        const res = await fetch('/api/admin/productos?q=' + encodeURIComponent(q))
+        const data = await res.json()
+        setResultados(Array.isArray(data) ? data : [])
+      } catch { setResultados([]) }
+      setBuscando(false)
+    }, 350)
+    return () => clearTimeout(t)
+  }, [busqueda])
 
   async function loadCategorias() {
     const res = await fetch('/api/admin/categorias')
@@ -233,6 +251,7 @@ export default function ProductosAdmin() {
   async function toggleDestacado(p: Producto) {
     const nuevo = p.badge === 'DESTACADO' ? '' : 'DESTACADO'
     setProductos(prev => prev.map(x => x.id === p.id ? { ...x, badge: nuevo } : x)) // optimista
+    setResultados(prev => prev.map(x => x.id === p.id ? { ...x, badge: nuevo } : x))
     try {
       await fetch(`/api/admin/productos/${p.id}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' },
@@ -240,6 +259,7 @@ export default function ProductosAdmin() {
       })
     } catch {
       setProductos(prev => prev.map(x => x.id === p.id ? { ...x, badge: p.badge } : x)) // revertir si falla
+      setResultados(prev => prev.map(x => x.id === p.id ? { ...x, badge: p.badge } : x))
     }
   }
 
@@ -969,15 +989,16 @@ export default function ProductosAdmin() {
         ) : (
           <div style={{ display: 'grid', gap: 12 }}>
             {(() => {
-              const q = busqueda.trim().toLowerCase()
-              let filtrados = productos
-              if (soloDestacados) filtrados = filtrados.filter(p => p.badge === 'DESTACADO')
-              if (q) filtrados = filtrados.filter(p =>
-                (p.nombre || '').toLowerCase().includes(q) ||
-                (p.categoria || '').toLowerCase().includes(q) ||
-                (p.subcategoria || '').toLowerCase().includes(q))
+              const q = busqueda.trim()
+              const buscandoServer = q.length >= 2
+              let filtrados = buscandoServer
+                ? resultados
+                : (soloDestacados ? productos.filter(p => p.badge === 'DESTACADO') : productos)
+              if (buscando) {
+                return <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>Buscando “{busqueda}”...</div>
+              }
               if (filtrados.length === 0) {
-                return <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>{soloDestacados ? 'No hay productos destacados todavía. Marcá productos con la etiqueta ⭐ DESTACADO al editarlos.' : `Sin resultados para “${busqueda}”`}</div>
+                return <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>{buscandoServer ? `Sin resultados para “${busqueda}”` : 'No hay productos destacados todavía. Marcá productos con ☆ Destacar.'}</div>
               }
               return filtrados.map(p => (
               <div key={p.id} style={{

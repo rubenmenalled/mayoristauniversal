@@ -2,15 +2,27 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
 import { isAuthenticated } from '@/lib/auth'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   if (!await isAuthenticated()) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
+  const { searchParams } = new URL(request.url)
+  const q = (searchParams.get('q') || '').trim().replace(/[%,()]/g, ' ')
+
   const supabase = getAdminClient()
-  const { data, error } = await supabase
+  let query = supabase
     .from('productos')
     .select('*')
     .order('created_at', { ascending: false })
 
+  if (q) {
+    query = query
+      .or(`nombre.ilike.%${q}%,marca.ilike.%${q}%,categoria.ilike.%${q}%,subcategoria.ilike.%${q}%`)
+      .limit(300)
+  } else {
+    query = query.limit(1000)
+  }
+
+  const { data, error } = await query
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(data)
 }
