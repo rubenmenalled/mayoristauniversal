@@ -90,7 +90,11 @@ export default function ProductosAdmin() {
     const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
     if (res.ok) {
       const { url } = await res.json()
-      setForm(f => ({ ...f, imagen: url }))
+      // Reemplaza la foto PRINCIPAL conservando las demás de la galería (formato foto1|foto2|...)
+      setForm(f => {
+        const resto = (f.imagen || '').split('|').filter(Boolean).slice(1)
+        return { ...f, imagen: [url, ...resto].join('|') }
+      })
     }
     setUploadingImg(false)
   }
@@ -823,7 +827,7 @@ export default function ProductosAdmin() {
                     FOTO DEL PRODUCTO
                   </label>
                   {form.imagen && (
-                    <img src={form.imagen} alt="" style={{ width: '100%', height: 140, objectFit: 'cover', borderRadius: 8, marginBottom: 8 }} />
+                    <img src={(form.imagen || '').split('|')[0]} alt="" style={{ width: '100%', height: 140, objectFit: 'cover', borderRadius: 8, marginBottom: 8 }} />
                   )}
                   <input type="file" ref={fileRef} onChange={handleUploadImage} accept="image/*" style={{ display: 'none' }} />
                   <button
