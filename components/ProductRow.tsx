@@ -72,7 +72,7 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
 }) {
   const [prods, setProds] = useState<Prod[]>([])
   useEffect(() => {
-    Promise.all(urls.map(u => fetch(u).then(r => r.json()).catch(() => [])))
+    Promise.all(urls.map(u => fetch(u, { cache: 'no-store' }).then(r => r.json()).catch(() => [])))
       .then(res => {
         const groups = res.map(g => (Array.isArray(g) ? g.filter((p: Prod) => p.image) : []))
         setProds(interleave(groups, max))
