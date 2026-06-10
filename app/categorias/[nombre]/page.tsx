@@ -135,6 +135,20 @@ export default function CategoriaPage() {
               setLoading(false)
             })
             .catch(() => setLoading(false))
+        } else if (!subActiva && nombreDecoded.toUpperCase() === 'PELUCHES') {
+          // Opción 1: en PELUCHES mostramos los productos directamente al entrar
+          // (incluye los de BUBBLE). Las subcategorías quedan para filtrar.
+          setLoading(true)
+          fetch(buildUrl(nombreDecoded, '', 0))
+            .then(r => r.json())
+            .then((d: Producto[]) => {
+              const lista = Array.isArray(d) ? d : []
+              setProductos(lista)
+              setHayMas(lista.length === 60)
+              setPagina(0)
+              setLoading(false)
+            })
+            .catch(() => setLoading(false))
         } else {
           setLoading(false)
         }
