@@ -8,7 +8,7 @@ const ORDEN_CATEGORIAS = [
   'PELUCHES',
   'BEBE',
   'PANTUFLAS',
-  'INVIERNO 2026',
+  'ACCESORIOS DE INVIERNO',
   'JUGUETERIA',
   'BELLEZA',
   'ACCESORIOS DE PELO',
@@ -40,7 +40,7 @@ const ORDEN_CATEGORIAS = [
 const CATEGORIAS_FIJAS = ORDEN_CATEGORIAS
 
 const FOTOS: Record<string, string> = {
-  'INVIERNO 2026':    'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
+  'ACCESORIOS DE INVIERNO':    'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
   'DECO CASA':        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
   'DECO BAZAR':       'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
   'ELECTROHOGAR':     'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=800&q=90',
@@ -133,7 +133,7 @@ export async function GET() {
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
-    'INVIERNO 2026':      ['Camperas', 'Sweaters', 'Ropa Térmica', 'Gorros y Guantes', 'Medias'],
+    'ACCESORIOS DE INVIERNO':      ['Camperas', 'Sweaters', 'Ropa Térmica', 'Gorros y Guantes', 'Medias'],
     'HOGAR Y BAZAR':      ['Cocina', 'Baño', 'Decoración', 'Organización', 'Limpieza'],
     'PELUCHES':           ['Peluches Chicos', 'Peluches Grandes', 'Muñecos', 'Animales de Peluche', 'BUBBLE'],
     'ACCESORIOS DE PELO': ['Vinchas', 'Colitas', 'Hebillas', 'Pinches', 'Turbantes'],

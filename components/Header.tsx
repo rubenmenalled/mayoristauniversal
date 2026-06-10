@@ -323,7 +323,7 @@ export default function Header() {
             {/* Accesos directos a categorías top */}
             <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 2, marginLeft: 6, overflow: 'hidden' }}>
               <span style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.2)', marginRight: 4, flexShrink: 0 }} />
-              {['PELUCHES','JUGUETERIA','LENCERIA','BEBE','COTILLON','BELLEZA','PANTUFLAS','INVIERNO 2026','PERFUMERIA','DECO BAZAR','BLANQUERIA','ELECTRONICA','RELOJES','BIJOUTERIE','LLAVEROS','HERRAMIENTAS']
+              {['PELUCHES','JUGUETERIA','LENCERIA','BEBE','COTILLON','BELLEZA','PANTUFLAS','ACCESORIOS DE INVIERNO','PERFUMERIA','DECO BAZAR','BLANQUERIA','ELECTRONICA','RELOJES','BIJOUTERIE','LLAVEROS','HERRAMIENTAS']
                 .map(name => categorias.find(c => c.nombre.toUpperCase() === name))
                 .filter((c): c is (typeof categorias)[number] => Boolean(c))
                 .map(cat => (
