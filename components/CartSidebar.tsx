@@ -453,7 +453,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                           {guestErrors.telefono && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.telefono}</div>}
                         </div>
                         <button onClick={guardarGuest}
-                          style={{ width: '100%', padding: '9px', borderRadius: 8, border: 'none', background: 'linear-gradient(135deg,#F97316,#FB923C)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}>
+                          style={{ width: '100%', padding: '9px', borderRadius: 8, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}>
                           Confirmar datos →
                         </button>
                         <div style={{ textAlign: 'center', marginTop: 8, fontSize: 11, color: '#9CA3AF' }}>
@@ -541,7 +541,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                 ) : !puedeComprar ? (
                   <button
                     onClick={onClose}
-                    style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#F97316,#FB923C)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 16px rgba(249,115,22,0.35)' }}>
+                    style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 16px rgba(212,175,55,0.35)' }}>
                     + SEGUIR AGREGANDO PRODUCTOS
                   </button>
                 ) : null}

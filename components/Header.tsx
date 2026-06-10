@@ -188,8 +188,8 @@ export default function Header() {
                 placeholder="Buscar productos, categorías o marcas..."
                 className="flex-1 bg-white text-gray-800 placeholder-gray-400 px-4 py-2.5 outline-none text-sm min-w-0" />
               <button type="submit" className="px-5 py-2.5 flex items-center justify-center flex-shrink-0 transition-all"
-                style={{ background: 'linear-gradient(135deg,#F97316,#FB923C)' }}>
-                <Search size={18} className="text-white" strokeWidth={2.5} />
+                style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+                <Search size={18} className="text-navy" strokeWidth={2.5} />
               </button>
             </form>
           </div>
@@ -300,8 +300,8 @@ export default function Header() {
             className="flex-1 bg-white border border-gold/30 text-gray-800 placeholder-gray-400 rounded-lg px-3 py-2 outline-none text-sm"
           />
           <button type="submit" className="px-4 py-2 rounded-lg flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg,#F97316,#FB923C)' }}>
-            <Search size={18} className="text-white" strokeWidth={2.5} />
+            style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+            <Search size={18} className="text-navy" strokeWidth={2.5} />
           </button>
         </form>
       </div>
@@ -501,8 +501,8 @@ export default function Header() {
                 onSubmit={e => { e.preventDefault(); const v = (e.currentTarget.querySelector('input') as HTMLInputElement).value.trim(); if (v) window.location.href = `/buscar?q=${encodeURIComponent(v)}` }}>
                 <input type="text" placeholder="Buscar productos..."
                   className="flex-1 bg-navy-light text-white placeholder-gray-500 px-4 py-2.5 outline-none text-sm" />
-                <button type="submit" className="px-4 py-2.5" style={{ background: 'linear-gradient(135deg,#F97316,#FB923C)' }}>
-                  <Search size={16} className="text-white" />
+                <button type="submit" className="px-4 py-2.5" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+                  <Search size={16} className="text-navy" />
                 </button>
               </form>
               <div style={{ marginTop: 4 }}>

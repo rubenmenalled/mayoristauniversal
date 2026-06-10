@@ -103,7 +103,7 @@ function BuscarContent() {
               placeholder="Buscar productos, categorías o marcas..."
               style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: 'none', outline: 'none', color: '#FFFFFF', padding: '10px 16px', fontSize: 14 }}
             />
-            <button type="submit" style={{ background: 'linear-gradient(135deg,#F97316,#FB923C)', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
+            <button type="submit" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
               <Search size={18} color="#FFFFFF" strokeWidth={2.5} />
             </button>
           </form>
@@ -160,7 +160,7 @@ function BuscarContent() {
                         </div>
                       </div>
                       <motion.button
-                        style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#F97316,#FB923C)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
+                        style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontSize: 11, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => {
                           const isMinOrder = p.minOrder > 1
