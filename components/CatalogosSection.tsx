@@ -261,14 +261,14 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                   animation: `${kbAnims[i % 3]} ${14 + (i % 3) * 3}s ease-in-out infinite`,
                   transformOrigin: 'center center',
                   willChange: 'transform',
-                  filter: 'brightness(1.15) saturate(1.1)',
+                  filter: 'brightness(1.22) saturate(1.12)',
                 }}
               />
 
               {/* Overlay */}
               <div className="cat-overlay" style={{
                 position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 38%, rgba(0,0,0,0.04) 60%, rgba(0,0,0,0.48) 100%)',
+                background: 'linear-gradient(180deg, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.14) 36%, rgba(0,0,0,0.02) 58%, rgba(0,0,0,0.30) 100%)',
                 transition: 'background 0.35s ease',
               }} />
 
