@@ -135,9 +135,9 @@ export default function CategoriaPage() {
               setLoading(false)
             })
             .catch(() => setLoading(false))
-        } else if (!subActiva && nombreDecoded.toUpperCase() === 'PELUCHES') {
-          // Opción 1: en PELUCHES mostramos los productos directamente al entrar
-          // (incluye los de BUBBLE). Las subcategorías quedan para filtrar.
+        } else if (!subActiva) {
+          // Mostrar los productos directamente al entrar (debajo de las
+          // subcategorías). Las subcategorías quedan arriba para filtrar.
           setLoading(true)
           fetch(buildUrl(nombreDecoded, '', 0))
             .then(r => r.json())
