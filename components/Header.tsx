@@ -320,6 +320,22 @@ export default function Header() {
               <span style={{ fontSize: 9, transition: 'transform 0.2s', transform: openCat === '__desktop__' ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
             </button>
 
+            {/* Accesos directos a categorías top */}
+            <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 2, marginLeft: 6, overflow: 'hidden' }}>
+              <span style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.2)', marginRight: 4, flexShrink: 0 }} />
+              {['PELUCHES','JUGUETERIA','LENCERIA','BEBE','COTILLON','BELLEZA','PANTUFLAS']
+                .map(name => categorias.find(c => c.nombre.toUpperCase() === name))
+                .filter((c): c is (typeof categorias)[number] => Boolean(c))
+                .map(cat => (
+                  <a key={cat.id} href={`/categorias/${encodeURIComponent(cat.nombre)}`}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '7px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: 6, transition: 'background 0.15s, color 0.15s' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#D4AF37' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#FFFFFF' }}>
+                    <span style={{ fontSize: 14 }}>{cat.emoji}</span>{cat.nombre}
+                  </a>
+                ))}
+            </nav>
+
             {openCat === '__desktop__' && (
               <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 12, boxShadow: '0 12px 40px rgba(0,0,0,0.25)', width: 720, padding: '16px', animation: 'fadeInDown 0.15s ease' }}>
                 {!openCat || openCat === '__desktop__' ? (
