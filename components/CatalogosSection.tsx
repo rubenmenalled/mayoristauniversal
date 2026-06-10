@@ -18,7 +18,7 @@ const TRANSPORTES = [
 const FOTOS: Record<string, string> = {
   'ACCESORIOS DE INVIERNO': 'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
   BAZAR:        '/cat_bazar.jpg',
-  BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
+  BEBÉ:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   BELLEZA:      'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=90',
   'BLANQUERIA LICENCIAS Y MAS...':   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/cat_blanqueria_licencias.jpg',
@@ -150,7 +150,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   const vistas = new Set<string>()
   const unicas = categorias.filter(cat => {
     const nombre = cat.name.toUpperCase()
-    const key = nombre === 'BEBES' ? 'BEBE' : nombre
+    const key = nombre === 'BEBES' ? 'BEBÉ' : nombre
     if (vistas.has(key)) return false
     vistas.add(key)
     return true

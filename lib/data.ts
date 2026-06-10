@@ -8,7 +8,7 @@ export async function getProductos() {
 const ORDEN_CATEGORIAS = [
   'LENCERIA',
   'PELUCHES',
-  'BEBE',
+  'BEBÉ',
   'ACCESORIOS DE INVIERNO',
   'PANTUFLAS',
   'JUGUETERIA',

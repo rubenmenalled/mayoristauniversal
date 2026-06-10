@@ -53,7 +53,7 @@ export async function fetchWooProductos() {
 }
 
 const EMOJIS: Record<string, string> = {
-  BAZAR: '🏪', BEBES: '👶', BEBE: '👶', BELLEZA: '💄', BLANQUERIA: '🛏️',
+  BAZAR: '🏪', BEBES: '👶', BEBÉ: '👶', BELLEZA: '💄', BLANQUERIA: '🛏️',
   COTILLON: '🎉', ELECTRONICA: '💻', FITNESS: '🏋️', HERRAMIENTAS: '🔧',
   JUGUETERIA: '🚗', LIBRERIA: '📚', MARROQUINERIA: '👜', MASCOTAS: '🐾',
   LENTES: '👓', PELUCHES: '🧸', PERFUMERIA: '🏺', RODADOS: '🛴',

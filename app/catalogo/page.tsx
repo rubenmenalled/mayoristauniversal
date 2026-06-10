@@ -13,7 +13,7 @@ const FOTOS: Record<string, string> = {
   'ACCESORIOS PARA MASCOTAS': 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   BAZAR:        '/cat_bazar.jpg',
   'HOGAR Y BAZAR': 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
-  BEBE:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
+  BEBÉ:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   BELLEZA:      'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=90',
   'BLANQUERIA LICENCIAS Y MAS...':   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/cat_blanqueria_licencias.jpg',
@@ -72,7 +72,7 @@ export default function CatalogoPage() {
   const sinDuplicados = categorias.filter(c => {
     const nombre = (c.nombre || '').toUpperCase()
     // Solo colapsar BEBE/BEBES, no tocar RODADOS ni otros
-    const key = nombre === 'BEBES' ? 'BEBE' : nombre
+    const key = nombre === 'BEBES' ? 'BEBÉ' : nombre
     if (vistas.has(key)) return false
     vistas.add(key)
     return true
