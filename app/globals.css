@@ -98,7 +98,7 @@ body {
 
 /* Hero radial glow */
 .hero-glow {
-  background: radial-gradient(ellipse at 50% 0%, #DD1111 0%, #E5E5E5 55%, #990000 100%);
+  background: radial-gradient(ellipse at 50% 0%, #1565C0 0%, #E5E5E5 55%, #08306B 100%);
 }
 
 /* Section divider */

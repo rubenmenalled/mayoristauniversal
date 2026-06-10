@@ -119,7 +119,7 @@ export default function Header() {
     <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
       scrolled ? 'shadow-2xl shadow-black/70' : ''
     }`}
-      style={{ top: 38, background: scrolled ? 'rgba(160,18,18,0.98)' : 'rgba(183,28,28,0.95)', backdropFilter: 'blur(16px)' }}>
+      style={{ top: 38, background: scrolled ? 'rgba(10,54,128,0.98)' : 'rgba(13,71,161,0.95)', backdropFilter: 'blur(16px)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
@@ -215,7 +215,7 @@ export default function Header() {
             </div>
 
             {/* Mercado Pago badge */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#fee2e2', border: '1px solid #009ee3', borderRadius: 8, padding: '5px 10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid #009ee3', borderRadius: 8, padding: '5px 10px' }}>
               <Image src="/mp-logo.png" alt="Mercado Pago" width={90} height={24} style={{ objectFit: 'contain', display: 'block' }} />
             </div>
 
@@ -291,7 +291,7 @@ export default function Header() {
       </div>
 
       {/* Mobile search bar — siempre visible */}
-      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(160,18,18,0.98)' }}>
+      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(10,54,128,0.98)' }}>
         <form className="px-3 py-2 flex gap-2"
           onSubmit={e => { e.preventDefault(); if (mobileSearch.trim()) { window.location.href = `/buscar?q=${encodeURIComponent(mobileSearch.trim())}` } }}>
           <input
@@ -308,7 +308,7 @@ export default function Header() {
 
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
-        <div ref={catBarRef} style={{ background: 'rgba(140,14,14,0.98)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
+        <div ref={catBarRef} style={{ background: 'rgba(8,45,105,0.98)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
           <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
           {/* ── DESKTOP: botón + mega-menú ── */}
@@ -493,7 +493,7 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div className="lg:hidden border-t border-white/10 overflow-hidden"
-            style={{ background: 'rgba(160,18,18,0.98)' }}
+            style={{ background: 'rgba(10,54,128,0.98)' }}
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
             <div className="px-4 py-4 space-y-3">
