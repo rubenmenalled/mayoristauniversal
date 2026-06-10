@@ -116,16 +116,6 @@ export default function HeroSection() {
             </div>
           ))}
 
-          {/* Panda */}
-          <div style={{
-            position: 'absolute', bottom: '4%', left: 0, zIndex: 10,
-            pointerEvents: 'none',
-            animation: 'panda-mover 28s linear infinite',
-          }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/panda-v2.gif" alt="Panda"
-              style={{ height: 'clamp(80px, 11vw, 150px)', width: 'auto', display: 'block', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))' }} />
-          </div>
 
           {/* Puntos */}
           <div style={{ position: 'absolute', bottom: 14, left: '50%', transform: 'translateX(-50%)', zIndex: 20, display: 'flex', gap: 8 }}>
