@@ -45,7 +45,7 @@ function Card({ p }: { p: Prod }) {
         </div>
         <button
           onClick={() => { addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder, brand: p.brand, category: p.category }); setCartOpen(true) }}
-          style={{ marginTop: 8, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 8, padding: '9px', color: '#0D2C54', fontWeight: 900, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+          style={{ marginTop: 8, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 8, padding: '9px', color: '#0D2C54', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
           <ShoppingCart size={14} strokeWidth={2.5} /> AGREGAR
         </button>
       </div>
