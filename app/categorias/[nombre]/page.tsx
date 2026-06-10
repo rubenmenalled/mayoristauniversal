@@ -342,8 +342,13 @@ export default function CategoriaPage() {
       {/* Subcategorías como tarjetas — solo si no hay ninguna activa */}
       {subcategorias.length > 0 && !subActiva && !loading && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
+          {/* Botón ver todos los productos de la categoría */}
+          <button onClick={() => setSubActiva('__todos__')}
+            style={{ width: '100%', marginBottom: 20, padding: '16px', borderRadius: 12, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontWeight: 900, fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 16px rgba(212,175,55,0.3)' }}>
+            🛍️ VER TODOS LOS PRODUCTOS DE {nombreDecoded} →
+          </button>
           <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
-            Seleccioná una subcategoría
+            O elegí una subcategoría
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
             {/* Tarjetas de subcategorías */}
