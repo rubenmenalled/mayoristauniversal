@@ -171,7 +171,7 @@ function BuscarContent() {
                             minOrder: p.minOrder,
                           })
                         }}>
-                        <ShoppingCart size={12} />AGREGAR
+                        AGREGAR
                       </motion.button>
                     </div>
                   </motion.div>
