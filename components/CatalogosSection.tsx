@@ -268,7 +268,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* Overlay */}
               <div className="cat-overlay" style={{
                 position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)',
+                background: 'linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 38%, rgba(0,0,0,0.04) 60%, rgba(0,0,0,0.48) 100%)',
                 transition: 'background 0.35s ease',
               }} />
 
@@ -310,7 +310,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 fontSize: 'clamp(18px, 2vw, 22px)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.06em',
-                textShadow: '0 2px 8px rgba(0,0,0,0.8)',
+                textShadow: '0 1px 3px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)',
+                maxWidth: '70%',
               }}>
                 {cat.name}
               </div>
