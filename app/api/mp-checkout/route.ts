@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   const mpItems = items.map((item: any) => {
     const basePrice = isWholesale
       ? item.wholesalePrice
-      : Math.round(item.wholesalePrice * 1.40)
+      : Math.round(item.wholesalePrice * 1.30)
     const priceWithSurcharge = Math.round(basePrice * 1.10)
     return {
       id: String(item.id),

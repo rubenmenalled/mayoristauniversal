@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       📦 Productos (${cantidadTotal} unidades — ${items.length} artículo${items.length !== 1 ? 's' : ''})
     </h2>
     ${items.map((item: any, idx: number) => {
-      const precio = isWholesale ? item.wholesalePrice : Math.round(item.wholesalePrice * 1.40)
+      const precio = isWholesale ? item.wholesalePrice : Math.round(item.wholesalePrice * 1.30)
       const subtotal = precio * item.quantity
       return `
       <div style="margin-bottom:${idx < items.length - 1 ? '16px' : '0'};padding-bottom:${idx < items.length - 1 ? '16px' : '0'};border-bottom:${idx < items.length - 1 ? '1px solid #F3F4F6' : 'none'};display:table;width:100%;">

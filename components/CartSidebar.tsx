@@ -111,6 +111,10 @@ export default function CartSidebar({ open, onClose }: Props) {
 
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
   const puedeComprar = items.length > 0 && alertasCategorias.length === 0
+  // Mínimo de compra (suave): se muestra como progreso, no como alerta
+  const alcanzaMin = wholesaleTotal >= RETAIL_MIN
+  const faltaMin = Math.max(0, RETAIL_MIN - wholesaleTotal)
+  const minProgress = Math.min((wholesaleTotal / RETAIL_MIN) * 100, 100)
 
   // Confirmar pedido → guarda en DB + notifica (ntfy, email, WhatsApp)
   async function notificarPedidoIniciado(metodo: string) {
@@ -208,10 +212,8 @@ export default function CartSidebar({ open, onClose }: Props) {
                 }>
                   {items.map(item => {
                     const ws = itemIsWholesale(item, isWholesale)
-                    const baseSubtotal = item.wholesalePrice * item.quantity
-                    const unitDisplay = ws ? item.wholesalePrice : Math.round(item.wholesalePrice * RETAIL_MARKUP)
-                    const subtotal = unitDisplay * item.quantity
-                    const recargo = subtotal - baseSubtotal
+                    // El carrito SIEMPRE muestra precio mayorista; el +30% minorista se revela al momento de pagar
+                    const subtotal = item.wholesalePrice * item.quantity
 
                     /* ── MOBILE: fila horizontal compacta ── */
                     if (isMobile) return (
@@ -229,8 +231,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             <div>
                               <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13 }}>${subtotal.toLocaleString('es-AR')}</span>
-                              {!ws && <span style={{ color: '#0369A1', fontSize: 9, fontWeight: 700, marginLeft: 4 }}>+30%</span>}
-                              {ws && <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 8, fontWeight: 800, padding: '1px 4px', borderRadius: 3, marginLeft: 4 }}>MAY</span>}
+                              <span style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginLeft: 4 }}>{item.minOrder > 1 ? '/doc.' : 'c/u'}</span>
                             </div>
                             {/* Qty + delete */}
                             <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -283,28 +284,11 @@ export default function CartSidebar({ open, onClose }: Props) {
                         <div style={{ padding: '8px 10px', flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
                           {item.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{item.brand}</div>}
                           <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, lineHeight: 1.3, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', flex: 1 }}>{item.name}</div>
-                          {/* Precio */}
-                          {ws ? (
-                            <div>
-                              <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>${subtotal.toLocaleString('es-AR')}</div>
-                              <div style={{ color: '#9CA3AF', fontSize: 10 }}>{item.minOrder > 1 ? `$${(item.wholesalePrice * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${item.wholesalePrice.toLocaleString('es-AR')} c/u`}</div>
-                            </div>
-                          ) : (
-                            <div>
-                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <span style={{ color: '#6B7280', fontSize: 10 }}>Base</span>
-                                <span style={{ color: '#374151', fontWeight: 700, fontSize: 11 }}>${baseSubtotal.toLocaleString('es-AR')}</span>
-                              </div>
-                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <span style={{ color: '#0369A1', fontSize: 10 }}>+30%</span>
-                                <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 11 }}>+${recargo.toLocaleString('es-AR')}</span>
-                              </div>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #F3F4F6', paddingTop: 2, marginTop: 2 }}>
-                                <span style={{ color: '#111827', fontWeight: 800, fontSize: 11 }}>Total</span>
-                                <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${subtotal.toLocaleString('es-AR')}</span>
-                              </div>
-                            </div>
-                          )}
+                          {/* Precio (siempre mayorista en el carrito) */}
+                          <div>
+                            <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>${subtotal.toLocaleString('es-AR')}</div>
+                            <div style={{ color: '#9CA3AF', fontSize: 10 }}>{item.minOrder > 1 ? `$${(item.wholesalePrice * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${item.wholesalePrice.toLocaleString('es-AR')} c/u`}</div>
+                          </div>
                           {/* Qty controls */}
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
                             <button onClick={() => updateQty(item.id, Math.max(item.minOrder, item.quantity - item.minOrder))}
@@ -349,6 +333,21 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <span style={{ fontSize: 13 }}>🏆</span>
                     <span style={{ color: '#92650A', fontWeight: 900, fontSize: 12 }}>¡Precio mayorista activo!</span>
                   </div>
+                ) : !alcanzaMin ? (
+                  <div style={{ marginBottom: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                      <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 11 }}>🛒 Agregá <strong>${faltaMin.toLocaleString('es-AR')}</strong> más para finalizar tu compra</span>
+                    </div>
+                    <div style={{ background: '#E0F2FE', borderRadius: 99, height: 6, overflow: 'hidden' }}>
+                      <motion.div
+                        style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#38BDF8,#0EA5E9)' }}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${minProgress}%` }}
+                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                      />
+                    </div>
+                    <div style={{ color: '#9CA3AF', fontSize: 10, marginTop: 3 }}>Mínimo de compra: ${RETAIL_MIN.toLocaleString('es-AR')}</div>
+                  </div>
                 ) : (
                   <div style={{ marginBottom: 8 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
@@ -372,19 +371,13 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <span style={{ color: '#111827', fontWeight: 700, fontSize: 12 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
                   </div>
                   {!isWholesale && (
-                    <>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                        <span style={{ color: '#0369A1', fontSize: 12 }}>Recargo minorista (+{Math.round((RETAIL_MARKUP - 1) * 100)}%)</span>
-                        <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 12 }}>${(displayTotal - wholesaleTotal).toLocaleString('es-AR')}</span>
-                      </div>
-                      <div style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', borderRadius: 8, padding: '10px 12px', marginBottom: 8, fontSize: 13, fontWeight: 900, color: '#FFFFFF', textAlign: 'center', boxShadow: '0 2px 8px rgba(212,175,55,0.4)', lineHeight: 1.4 }}>
-                        🏆 Sumando más de $150.000 el total cambia a precios mayoristas
-                      </div>
-                    </>
+                    <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: 8, padding: '7px 10px', marginBottom: 8, fontSize: 11, color: '#0369A1', lineHeight: 1.45 }}>
+                      ℹ️ Precio <strong>minorista</strong>. Comprando <strong>$150.000+</strong> accedés al <strong>precio mayorista</strong>; si no, se suma <strong>+30%</strong> al momento de pagar.
+                    </div>
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 6, borderTop: '1px solid #E5E7EB' }}>
                     <span style={{ color: '#111827', fontWeight: 800, fontSize: 14 }}>Total</span>
-                    <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 20 }}>${displayTotal.toLocaleString('es-AR')}</span>
+                    <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 20 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
                   </div>
                 </div>
 
@@ -466,8 +459,29 @@ export default function CartSidebar({ open, onClose }: Props) {
                 )}
 
                 {/* Checkout buttons */}
-                {puedeComprar && (sessionUser || guestSaved) ? (
+                {puedeComprar && alcanzaMin && (sessionUser || guestSaved) ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+
+                    {/* Desglose del recargo minorista — se revela recién al momento de pagar */}
+                    {!isWholesale && (
+                      <div style={{ background: '#FFFBEB', border: '1px solid #FCD34D', borderRadius: 10, padding: '10px 12px', fontSize: 12 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
+                          <span style={{ color: '#6B7280' }}>Subtotal (precio mayorista)</span>
+                          <span style={{ color: '#374151', fontWeight: 700 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
+                          <span style={{ color: '#0369A1' }}>Recargo minorista (+{Math.round((RETAIL_MARKUP - 1) * 100)}%)</span>
+                          <span style={{ color: '#0369A1', fontWeight: 700 }}>+${(displayTotal - wholesaleTotal).toLocaleString('es-AR')}</span>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #FDE68A', paddingTop: 4, marginTop: 2 }}>
+                          <span style={{ color: '#111827', fontWeight: 900 }}>Total a pagar</span>
+                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>${displayTotal.toLocaleString('es-AR')}</span>
+                        </div>
+                        <div style={{ color: '#92400E', fontSize: 10, marginTop: 5, lineHeight: 1.4 }}>
+                          💡 Llegando a $150.000 te ahorrás el recargo (precio mayorista).
+                        </div>
+                      </div>
+                    )}
 
                     {/* MP con +10% recargo */}
                     <button
@@ -538,6 +552,12 @@ export default function CartSidebar({ open, onClose }: Props) {
                       <div style={{ fontSize: 10, color: '#6B7280', fontWeight: 500 }}>Los precios no incluyen IVA</div>
                     </a>
                   </div>
+                ) : !alcanzaMin ? (
+                  <button
+                    onClick={onClose}
+                    style={{ width: '100%', padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 14, cursor: 'pointer', boxShadow: '0 4px 16px rgba(212,175,55,0.35)', lineHeight: 1.3 }}>
+                    Agregá ${faltaMin.toLocaleString('es-AR')} más para finalizar 🛒
+                  </button>
                 ) : !puedeComprar ? (
                   <button
                     onClick={onClose}

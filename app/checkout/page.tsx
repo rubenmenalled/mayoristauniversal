@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useCart } from '@/lib/CartContext'
+import { useCart, RETAIL_MIN } from '@/lib/CartContext'
 import { supabase } from '@/lib/supabase'
 import { ArrowLeft, ShoppingBag, User, Check, Copy, MessageCircle } from 'lucide-react'
 import Image from 'next/image'
@@ -31,7 +31,6 @@ function MPLogo({ height = 28, white = false }: { height?: number; white?: boole
 
 const GOLD = '#D4AF37'
 const BLUE = '#C01515'
-const MIN_COMPRA = 150000
 
 const STEPS = [
   { n: 1, label: 'Tus datos' },
@@ -111,7 +110,9 @@ function getMPDeepLink(total: number) {
 const MP_WEB = 'https://www.mercadopago.com.ar/activities'
 
 export default function CheckoutPage() {
-  const { items, total, clearCart } = useCart()
+  const { items, clearCart, displayTotal, wholesaleTotal } = useCart()
+  // total a cobrar = displayTotal (incluye +30% si es minorista; mayorista si llegó a $150.000)
+  const total = displayTotal
   const router = useRouter()
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '' })
   const [loading, setLoading] = useState(false)
@@ -157,8 +158,8 @@ export default function CheckoutPage() {
       setError('Completá todos los campos')
       return
     }
-    if (total < MIN_COMPRA) {
-      setError(`El mínimo de compra es $${MIN_COMPRA.toLocaleString('es-AR')}`)
+    if (wholesaleTotal < RETAIL_MIN) {
+      setError(`El mínimo de compra es $${RETAIL_MIN.toLocaleString('es-AR')}`)
       return
     }
     setLoading(true)
@@ -544,28 +545,28 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {total < MIN_COMPRA && (
+          {wholesaleTotal < RETAIL_MIN && (
             <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 8, padding: '10px 14px', color: '#DC2626', fontSize: 12, marginBottom: 16, textAlign: 'center' }}>
-              Mínimo de compra: ${MIN_COMPRA.toLocaleString('es-AR')}
+              Mínimo de compra: ${RETAIL_MIN.toLocaleString('es-AR')}
             </div>
           )}
 
           <button
             type="button"
             onClick={handleConfirmar}
-            disabled={loading || total < MIN_COMPRA}
+            disabled={loading || wholesaleTotal < RETAIL_MIN}
             style={{
               width: '100%', padding: '15px', borderRadius: 12, border: 'none',
-              background: loading || total < MIN_COMPRA
+              background: loading || wholesaleTotal < RETAIL_MIN
                 ? '#E5E7EB'
                 : metodoPago === 'mp_tarjeta'
                   ? 'linear-gradient(135deg, #E55252, #C94040)'
                   : metodoPago === 'mp_saldo'
                     ? 'linear-gradient(135deg, #009ee3, #0076c0)'
                     : 'linear-gradient(135deg, #22c55e, #16a34a)',
-              color: loading || total < MIN_COMPRA ? '#9CA3AF' : '#FFFFFF',
+              color: loading || wholesaleTotal < RETAIL_MIN ? '#9CA3AF' : '#FFFFFF',
               fontWeight: 900, fontSize: 15,
-              cursor: loading || total < MIN_COMPRA ? 'not-allowed' : 'pointer',
+              cursor: loading || wholesaleTotal < RETAIL_MIN ? 'not-allowed' : 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
               transition: 'all 0.2s ease',
             }}>
