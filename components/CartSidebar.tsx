@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
 import { useCart, RETAIL_MARKUP, RETAIL_MIN, itemIsWholesale } from '@/lib/CartContext'
 import { supabase } from '@/lib/supabase'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const WA_NUMBER = '5491164660482'
 
@@ -40,6 +40,9 @@ export default function CartSidebar({ open, onClose }: Props) {
   const [mpLoading, setMpLoading] = useState(false)
   const [showTransfer, setShowTransfer] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  // "Datos al final": el formulario aparece recién cuando el cliente elige una forma de pago
+  const [pedirDatos, setPedirDatos] = useState(false)
+  const datosRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 640)
@@ -95,7 +98,20 @@ export default function CartSidebar({ open, onClose }: Props) {
     if (!validarGuest()) return
     localStorage.setItem('guest_checkout', JSON.stringify(guestForm))
     setGuestSaved(true)
+    setPedirDatos(false)
   }
+
+  // ¿Ya tenemos los datos del cliente? Si no, pedirlos (revela el formulario al final)
+  function tieneDatos() {
+    if (sessionUser || guestSaved) return true
+    setPedirDatos(true)
+    return false
+  }
+
+  // Cuando se pide completar datos, llevar el formulario a la vista
+  useEffect(() => {
+    if (pedirDatos) setTimeout(() => datosRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60)
+  }, [pedirDatos])
 
   // Verificar mínimos por categoría
   const alertasCategorias: string[] = []
@@ -138,6 +154,7 @@ export default function CartSidebar({ open, onClose }: Props) {
   }
 
   async function handleMercadoPago() {
+    if (!tieneDatos()) return
     notificarPedidoIniciado('Mercado Pago')
     setMpLoading(true)
     try {
@@ -387,9 +404,9 @@ export default function CartSidebar({ open, onClose }: Props) {
                   ← Seguir comprando
                 </button>
 
-                {/* ─── FORMULARIO DATOS DEL CLIENTE ─── */}
-                {!sessionUser && (
-                  <div style={{ marginBottom: 8 }}>
+                {/* ─── FORMULARIO DATOS DEL CLIENTE (al final: aparece al elegir forma de pago) ─── */}
+                {!sessionUser && (guestSaved || pedirDatos) && (
+                  <div ref={datosRef} style={{ marginBottom: 8, marginTop: 4 }}>
                     {guestSaved ? (
                       /* Datos ya cargados — mostrar resumen editable */
                       <div style={{ background: '#F0FDF4', border: '1.5px solid #86EFAC', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -410,7 +427,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                       <div style={{ background: '#FFFBEB', border: '1.5px solid #FCD34D', borderRadius: 10, padding: '12px 14px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
                           <User size={14} color="#92400E" />
-                          <span style={{ color: '#92400E', fontWeight: 900, fontSize: 13 }}>Tus datos para el pedido</span>
+                          <span style={{ color: '#92400E', fontWeight: 900, fontSize: 13 }}>Último paso: tus datos para finalizar</span>
                         </div>
                         {/* Nombre */}
                         <div style={{ marginBottom: 8 }}>
@@ -458,8 +475,8 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 )}
 
-                {/* Checkout buttons */}
-                {puedeComprar && alcanzaMin && (sessionUser || guestSaved) ? (
+                {/* Checkout buttons (se ven primero; al elegir uno se piden los datos) */}
+                {puedeComprar && alcanzaMin ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
 
                     {/* Desglose del recargo minorista — se revela recién al momento de pagar */}
@@ -500,7 +517,7 @@ export default function CartSidebar({ open, onClose }: Props) {
 
                     {/* Transferencia bancaria */}
                     <button
-                      onClick={() => { notificarPedidoIniciado('Transferencia'); setShowTransfer(v => !v) }}
+                      onClick={() => { if (!tieneDatos()) return; notificarPedidoIniciado('Transferencia'); setShowTransfer(v => !v) }}
                       style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: '2px solid #15803D', background: showTransfer ? '#F0FDF4' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 2px 8px rgba(21,128,61,0.15)' }}>
                       <span style={{ fontSize: 18 }}>🏦</span>
                       <div style={{ textAlign: 'left' }}>
@@ -543,7 +560,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                       href={waLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => notificarPedidoIniciado('WhatsApp')}
+                      onClick={e => { if (!tieneDatos()) { e.preventDefault(); return } notificarPedidoIniciado('WhatsApp') }}
                       style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', flexDirection: 'column' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <MessageCircle size={16} />
