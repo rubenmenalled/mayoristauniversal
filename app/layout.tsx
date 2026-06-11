@@ -39,6 +39,20 @@ export const metadata: Metadata = {
     url: 'https://www.mayoristauniversal.com',
     siteName: 'Mayorista Universal',
     locale: 'es_AR',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Mayorista Universal · Compra Mayorista en Argentina',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mayorista Universal | Compra Mayorista en Argentina',
+    description: 'Todos los rubros mayoristas en un solo lugar, con los mejores precios del mercado en toda Argentina.',
+    images: ['/og-image.jpg'],
   },
   alternates: {
     canonical: 'https://www.mayoristauniversal.com',
