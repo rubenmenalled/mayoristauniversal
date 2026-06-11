@@ -7,7 +7,6 @@ import MediosDePago    from '@/components/MediosDePago'
 import Testimonios      from '@/components/Testimonios'
 import FAQ              from '@/components/FAQ'
 import Footer           from '@/components/Footer'
-import WhatsAppButton   from '@/components/WhatsAppButton'
 import Script           from 'next/script'
 import { getCategorias } from '@/lib/data'
 
@@ -73,7 +72,6 @@ export default async function HomePage() {
         <FAQ />
       </main>
       <Footer />
-      <WhatsAppButton />
     </>
   )
 }

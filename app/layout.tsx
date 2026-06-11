@@ -6,6 +6,7 @@ import { CartProvider } from '@/lib/CartContext'
 import AnnouncementBar from '@/components/AnnouncementBar'
 import ExitIntentPopup from '@/components/ExitIntentPopup'
 import ScrollToTop from '@/components/ScrollToTop'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 const GTM_ID = 'GTM-549CX2X6'
@@ -126,7 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</Script>
           </>
         )}
-        <CartProvider><AnnouncementBar />{children}<ExitIntentPopup /><ScrollToTop /></CartProvider>
+        <CartProvider><AnnouncementBar />{children}<ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
       </body>
     </html>
   )
