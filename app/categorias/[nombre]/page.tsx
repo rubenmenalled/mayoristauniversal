@@ -590,7 +590,7 @@ export default function CategoriaPage() {
                         titulo = `PRECIO POR ${p.minOrder} UNIDADES`
                         // COTILLON guarda precio UNITARIO (la docena = unitario x minOrder).
                         // El resto de las categorías guarda el precio del pack.
-                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO'
+                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
                         precioUnit = `$${(esCot ? p.wholesalePrice : Math.round(p.wholesalePrice / p.minOrder)).toLocaleString('es-AR')} c/u`
                       }
 
@@ -601,7 +601,7 @@ export default function CategoriaPage() {
                               <div style={{ color: '#111', fontSize: 17, fontWeight: 900 }}>{precioUnit}</div>
                             )}
                             <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
-                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`}: ${(((p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO') ? p.wholesalePrice * p.minOrder : p.wholesalePrice).toLocaleString('es-AR')}</div>
+                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`}: ${(((p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO') ? p.wholesalePrice * p.minOrder : p.wholesalePrice).toLocaleString('es-AR')}</div>
                           </div>
                           {extraInfo && (
                             <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>
@@ -860,7 +860,7 @@ export default function CategoriaPage() {
                 <div style={{ marginTop: 'auto', paddingTop: 8 }}>
                   {(() => {
                     // COTILLON / POP IT guardan precio UNITARIO; el resto guarda precio del pack
-                    const esBulto = (lightbox.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO'
+                    const esBulto = (lightbox.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
                     const esU = (lightbox.category ?? '').toUpperCase() === 'COTILLON' || (lightbox.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto
                     const cu = esU ? lightbox.wholesalePrice : Math.round(lightbox.wholesalePrice / lightbox.minOrder)
                     const packTotal = esU ? lightbox.wholesalePrice * lightbox.minOrder : lightbox.wholesalePrice

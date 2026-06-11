@@ -14,7 +14,7 @@ function fmt(n: number) { return `$${Number(n).toLocaleString('es-AR')}` }
 
 function Card({ p }: { p: Prod }) {
   const { addItem, setCartOpen } = useCart()
-  const esBulto = (p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO'
+  const esBulto = (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
   const esU = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto
   const isPack = p.minOrder > 1
   const packTotal = esU ? p.wholesalePrice * p.minOrder : p.wholesalePrice
