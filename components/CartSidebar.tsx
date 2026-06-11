@@ -521,7 +521,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                       style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: '2px solid #15803D', background: showTransfer ? '#F0FDF4' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 2px 8px rgba(21,128,61,0.15)' }}>
                       <span style={{ fontSize: 18 }}>🏦</span>
                       <div style={{ textAlign: 'left' }}>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: '#15803D' }}>TRANSFERENCIA BANCARIA · ${displayTotal.toLocaleString('es-AR')}</div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#15803D' }}>TRANSFERENCIA / DINERO EN CUENTA · ${displayTotal.toLocaleString('es-AR')}</div>
                         <div style={{ fontSize: 18, fontWeight: 900, color: '#DC2626', letterSpacing: '0.05em', lineHeight: 1.2, marginTop: 1 }}>
                           ✅ SIN RECARGO
                         </div>

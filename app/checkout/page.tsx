@@ -439,7 +439,7 @@ export default function CheckoutPage() {
                 const config = {
                   transferencia: {
                     color: '#22c55e', bg: '#F0FFF4',
-                    label: '🏦 Transferencia bancaria',
+                    label: '🏦 Transferencia / dinero en cuenta',
                     sub: `Transferís desde tu banco o billetera al alias ${MP_ALIAS}`,
                     badge: null,
                   },
