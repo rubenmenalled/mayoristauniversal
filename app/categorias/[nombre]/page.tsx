@@ -590,7 +590,7 @@ export default function CategoriaPage() {
                         titulo = `PRECIO POR ${p.minOrder} UNIDADES`
                         // COTILLON guarda precio UNITARIO (la docena = unitario x minOrder).
                         // El resto de las categorías guarda el precio del pack.
-                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT'
+                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO'
                         precioUnit = `$${(esCot ? p.wholesalePrice : Math.round(p.wholesalePrice / p.minOrder)).toLocaleString('es-AR')} c/u`
                       }
 
@@ -601,7 +601,7 @@ export default function CategoriaPage() {
                               <div style={{ color: '#111', fontSize: 17, fontWeight: 900 }}>{precioUnit}</div>
                             )}
                             <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
-                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`}: ${(((p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT') ? p.wholesalePrice * p.minOrder : p.wholesalePrice).toLocaleString('es-AR')}</div>
+                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`}: ${(((p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO') ? p.wholesalePrice * p.minOrder : p.wholesalePrice).toLocaleString('es-AR')}</div>
                           </div>
                           {extraInfo && (
                             <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>
@@ -860,7 +860,8 @@ export default function CategoriaPage() {
                 <div style={{ marginTop: 'auto', paddingTop: 8 }}>
                   {(() => {
                     // COTILLON / POP IT guardan precio UNITARIO; el resto guarda precio del pack
-                    const esU = (lightbox.category ?? '').toUpperCase() === 'COTILLON' || (lightbox.subcategory ?? '').toUpperCase() === 'POP IT'
+                    const esBulto = (lightbox.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO'
+                    const esU = (lightbox.category ?? '').toUpperCase() === 'COTILLON' || (lightbox.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto
                     const cu = esU ? lightbox.wholesalePrice : Math.round(lightbox.wholesalePrice / lightbox.minOrder)
                     const packTotal = esU ? lightbox.wholesalePrice * lightbox.minOrder : lightbox.wholesalePrice
                     return (
@@ -869,12 +870,12 @@ export default function CategoriaPage() {
                           <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: 8 }}>
                             <div style={{ color: '#92400E', fontSize: 12, fontWeight: 900 }}>PRECIO POR {lightbox.minOrder} UNIDADES</div>
                             <div style={{ color: '#111', fontSize: 15, fontWeight: 900, marginTop: 2 }}>${cu.toLocaleString('es-AR')} c/u</div>
-                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 700, marginTop: 2 }}>{lightbox.minOrder === 12 ? 'LA DOCENA' : `PACK X ${lightbox.minOrder}`}: ${packTotal.toLocaleString('es-AR')}</div>
+                            <div style={{ color: '#B45309', fontSize: 13, fontWeight: 700, marginTop: 2 }}>{esBulto ? `EL BULTO X${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'LA DOCENA' : `PACK X ${lightbox.minOrder}`}: ${packTotal.toLocaleString('es-AR')}</div>
                           </div>
                         )}
                         <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: isMobile ? 26 : 22 }}>
                           ${(lightbox.minOrder > 1 ? packTotal : lightbox.wholesalePrice).toLocaleString('es-AR')}
-                          {lightbox.minOrder > 1 && <span style={{ fontSize: 13, fontWeight: 600, color: '#92400E', marginLeft: 6 }}>{lightbox.minOrder === 12 ? 'la docena' : `el pack x ${lightbox.minOrder}`}</span>}
+                          {lightbox.minOrder > 1 && <span style={{ fontSize: 13, fontWeight: 600, color: '#92400E', marginLeft: 6 }}>{esBulto ? `el bulto x${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'la docena' : `el pack x ${lightbox.minOrder}`}</span>}
                         </div>
                       </>
                     )

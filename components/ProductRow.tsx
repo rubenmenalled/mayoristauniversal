@@ -14,7 +14,8 @@ function fmt(n: number) { return `$${Number(n).toLocaleString('es-AR')}` }
 
 function Card({ p }: { p: Prod }) {
   const { addItem, setCartOpen } = useCart()
-  const esU = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT'
+  const esBulto = (p.category ?? '').toUpperCase() === 'TODO X BULTO CERRADO'
+  const esU = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto
   const isPack = p.minOrder > 1
   const packTotal = esU ? p.wholesalePrice * p.minOrder : p.wholesalePrice
   const cu = esU ? p.wholesalePrice : (isPack ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice)
@@ -36,7 +37,7 @@ function Card({ p }: { p: Prod }) {
                 {fmt(cu)} <span style={{ color: '#6B7280', fontSize: 11, fontWeight: 700 }}>c/u</span>
               </div>
               <div style={{ color: '#B45309', fontSize: 12, fontWeight: 700, marginTop: 1 }}>
-                {p.minOrder === 12 ? 'la docena' : `pack x${p.minOrder}`}: {fmt(big)}
+                {esBulto ? `el bulto x${p.minOrder}` : p.minOrder === 12 ? 'la docena' : `pack x${p.minOrder}`}: {fmt(big)}
               </div>
             </>
           ) : (
