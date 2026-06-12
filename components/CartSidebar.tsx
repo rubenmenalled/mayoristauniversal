@@ -572,8 +572,8 @@ export default function CartSidebar({ open, onClose }: Props) {
                 ) : !alcanzaMin ? (
                   <button
                     onClick={onClose}
-                    style={{ width: '100%', padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 14, cursor: 'pointer', boxShadow: '0 4px 16px rgba(212,175,55,0.35)', lineHeight: 1.3 }}>
-                    Agregá ${faltaMin.toLocaleString('es-AR')} más para finalizar 🛒
+                    style={{ width: '100%', padding: '13px', borderRadius: 12, border: '2px solid #D4AF37', background: '#FFFFFF', color: '#B8860B', fontWeight: 800, fontSize: 14, cursor: 'pointer', lineHeight: 1.3 }}>
+                    ← Seguir comprando
                   </button>
                 ) : !puedeComprar ? (
                   <button
