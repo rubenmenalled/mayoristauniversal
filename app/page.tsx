@@ -20,7 +20,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: '¿Hay un mínimo de compra?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Sí, el monto mínimo de compra es de $150.000. Esto nos permite ofrecerte los mejores precios mayoristas.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Sí, el monto mínimo de compra es de $100.000. Esto nos permite ofrecerte los mejores precios mayoristas.' },
     },
     {
       '@type': 'Question',

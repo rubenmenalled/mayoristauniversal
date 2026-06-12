@@ -6,7 +6,7 @@ const preguntas = [
   {
     pregunta: '¿Hay un mínimo de compra?',
     respuesta:
-      'Sí, el monto mínimo de compra es de $150.000. Esto nos permite ofrecerte los mejores precios mayoristas.',
+      'Sí, el monto mínimo de compra es de $100.000. Esto nos permite ofrecerte los mejores precios mayoristas.',
   },
   {
     pregunta: '¿Cómo hago un pedido?',

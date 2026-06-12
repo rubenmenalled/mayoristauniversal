@@ -14,7 +14,7 @@ const pasos: Paso[] = [
     numero: 1,
     emoji: '🔍',
     titulo: 'Explorá y elegí tus productos',
-    descripcion: 'Explorá nuestro amplio catálogo de productos, donde podrás buscar por categorías. Elegí el artículo de tu preferencia y hacé click en «Agregar». Recordá que el mínimo de compra es de $150.000.',
+    descripcion: 'Explorá nuestro amplio catálogo de productos, donde podrás buscar por categorías. Elegí el artículo de tu preferencia y hacé click en «Agregar». Recordá que el mínimo de compra es de $100.000.',
   },
   {
     numero: 2,
