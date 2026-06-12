@@ -75,12 +75,8 @@ export async function GET(request: NextRequest) {
     mapped.sort((a: any, b: any) => idList.indexOf(a.id) - idList.indexOf(b.id))
   }
 
-  // Destacados e ids (elegidos a mano) deben verse al instante → sin caché.
-  // El resto del catálogo sí se cachea para cargar rápido.
-  const cacheControl = (destacados || idList.length)
-    ? 'no-store, max-age=0'
-    : 'public, s-maxage=180, stale-while-revalidate=600'
+  // Catálogo siempre fresco: los cambios de precio/stock deben verse al instante.
   return NextResponse.json(mapped, {
-    headers: { 'Cache-Control': cacheControl }
+    headers: { 'Cache-Control': 'no-store, max-age=0' }
   })
 }
