@@ -25,6 +25,10 @@ export async function GET(request: NextRequest) {
     .select(COLS)
     .order('created_at', { ascending: false })
 
+  // Ocultar productos inactivos/archivados (badge = 'OCULTO').
+  // Incluye los que no tienen badge (null) y excluye solo los marcados OCULTO.
+  query = query.or('badge.is.null,badge.neq.OCULTO')
+
   const idList = ids ? ids.split(',').map(s => parseInt(s.trim(), 10)).filter(Boolean) : []
 
   if (categoria)    query = query.ilike('categoria', categoria)
