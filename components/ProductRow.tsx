@@ -15,6 +15,7 @@ function fmt(n: number) { return `$${Number(n).toLocaleString('es-AR')}` }
 function Card({ p }: { p: Prod }) {
   const { addItem, setCartOpen } = useCart()
   const esBulto = (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
+  const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
   const esU = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto
   const isPack = p.minOrder > 1
   const packTotal = esU ? p.wholesalePrice * p.minOrder : p.wholesalePrice
@@ -34,10 +35,10 @@ function Card({ p }: { p: Prod }) {
           {isPack ? (
             <>
               <div style={{ color: '#111827', fontSize: 18, fontWeight: 900, lineHeight: 1.1 }}>
-                {fmt(cu)} <span style={{ color: '#6B7280', fontSize: 11, fontWeight: 700 }}>c/u</span>
+                {fmt(cu)} <span style={{ color: '#6B7280', fontSize: 11, fontWeight: 700 }}>{esDocena ? 'la docena' : 'c/u'}</span>
               </div>
               <div style={{ color: '#B45309', fontSize: 12, fontWeight: 700, marginTop: 1 }}>
-                {esBulto ? `el bulto x${p.minOrder}` : p.minOrder === 12 ? 'la docena' : `pack x${p.minOrder}`}: {fmt(big)}
+                {esDocena ? `el bulto (${p.minOrder} docenas)` : esBulto ? `el bulto x${p.minOrder}` : p.minOrder === 12 ? 'la docena' : `pack x${p.minOrder}`}: {fmt(big)}
               </div>
             </>
           ) : (
