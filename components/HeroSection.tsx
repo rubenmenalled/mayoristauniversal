@@ -56,48 +56,47 @@ export default function HeroSection() {
           flex-direction: column;
           width: 100%;
         }
-        @keyframes panda-mover {
-          0%    { transform: translateX(88vw)  scaleX(-1); }
-          44%   { transform: translateX(0vw)   scaleX(-1); }
-          50%   { transform: translateX(0vw)   scaleX(1);  }
-          94%   { transform: translateX(88vw)  scaleX(1);  }
-          100%  { transform: translateX(88vw)  scaleX(-1); }
+        #hero-banner {
+          background: #0B1E3F;
         }
         @media (max-width: 767px) {
           #hero-section { padding-top: 250px; }
           #hero-banner { aspect-ratio: 3/2; }
-          .hero-slide { position: absolute !important; inset: 0; }
-          .hero-slide img { width: 100%; height: 100%; object-fit: contain; }
         }
         @media (min-width: 768px) {
           #hero-section { padding-top: 200px; }
           #hero-banner { aspect-ratio: 5/2; }
-          .hero-slide { position: absolute !important; inset: 0; }
-          .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
         }
+        /* Todos los slides ocupan exactamente el mismo recuadro fijo */
         .hero-slide {
-          transition: opacity 0.8s ease;
-        }
-        .hero-slide img {
-          width: 100%;
-          height: auto;
-          display: block;
-        }
-        .hero-slide.active {
-          position: relative;
-          opacity: 1;
-          z-index: 2;
-        }
-        .hero-slide.inactive {
           position: absolute;
           inset: 0;
           opacity: 0;
           z-index: 1;
-          overflow: hidden;
+          transition: opacity 0.8s ease;
         }
-        .hero-slide.inactive img {
+        .hero-slide.active {
+          opacity: 1;
+          z-index: 2;
+        }
+        /* Fondo borroso (rellena bordes sin distorsionar) */
+        .hero-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
           height: 100%;
           object-fit: cover;
+          filter: blur(24px) brightness(0.55);
+          transform: scale(1.12);
+        }
+        /* Banner completo, sin recorte ni distorsión */
+        .hero-fg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
         }
       `}</style>
 
@@ -105,9 +104,12 @@ export default function HeroSection() {
         <div id="hero-banner" style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
 
           {slides.map((slide, i) => (
-            <div key={slide.src} className={`hero-slide ${i === current ? 'active' : 'inactive'}`}>
+            <div key={slide.src} className={`hero-slide ${i === current ? 'active' : ''}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="hero-bg" src={slide.src} alt="" aria-hidden="true" loading="lazy" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                className="hero-fg"
                 src={slide.src}
                 alt={`Banner ${i + 1}`}
                 fetchPriority={i === 0 ? 'high' : 'low'}
