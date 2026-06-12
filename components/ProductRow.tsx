@@ -16,7 +16,7 @@ function Card({ p }: { p: Prod }) {
   const { addItem, setCartOpen } = useCart()
   const esBulto = (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
   const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-  const esU = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto
+  const esU = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto || esDocena
   const isPack = p.minOrder > 1
   const packTotal = esU ? p.wholesalePrice * p.minOrder : p.wholesalePrice
   const cu = esU ? p.wholesalePrice : (isPack ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice)

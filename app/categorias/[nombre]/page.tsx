@@ -611,7 +611,7 @@ export default function CategoriaPage() {
                             <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(() => {
                               const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
                               const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
-                              const total = esBulk ? p.wholesalePrice * p.minOrder : p.wholesalePrice
+                              const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
                               const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
                               return `${label}: $${total.toLocaleString('es-AR')}`
                             })()}</div>
@@ -875,7 +875,7 @@ export default function CategoriaPage() {
                     // COTILLON / POP IT guardan precio UNITARIO; el resto guarda precio del pack
                     const esBulto = (lightbox.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
                     const esDocena = (lightbox.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                    const esU = (lightbox.category ?? '').toUpperCase() === 'COTILLON' || (lightbox.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto
+                    const esU = (lightbox.category ?? '').toUpperCase() === 'COTILLON' || (lightbox.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto || esDocena
                     const cu = esU ? lightbox.wholesalePrice : Math.round(lightbox.wholesalePrice / lightbox.minOrder)
                     const packTotal = esU ? lightbox.wholesalePrice * lightbox.minOrder : lightbox.wholesalePrice
                     return (
