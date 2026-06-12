@@ -582,7 +582,8 @@ export default function CategoriaPage() {
                         extraInfo = sepIdx >= 0 ? p.descripcion.slice(sepIdx + 4) : null
                         const match = pricePart.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
                         titulo = match ? match[1] : pricePart
-                        precioUnit = match ? match[2] : null
+                        // c/u SIEMPRE calculado desde el precio actual (no del texto, que puede quedar viejo)
+                        precioUnit = match ? `$${Math.round(p.wholesalePrice / Math.max(1, p.minOrder)).toLocaleString('es-AR')} c/u` : null
                       } else if (p.badge === 'x6 UNIDADES') {
                         titulo = 'PRECIO POR 6 UNIDADES'
                         precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
@@ -821,7 +822,7 @@ export default function CategoriaPage() {
                     const extra = sepIdx >= 0 ? lightbox.descripcion!.slice(sepIdx + 4) : null
                     const match = pricePart.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
                     const titulo = match ? match[1] : pricePart
-                    const precioUnit = match ? match[2] : null
+                    const precioUnit = match ? `$${Math.round(lightbox.wholesalePrice / Math.max(1, lightbox.minOrder)).toLocaleString('es-AR')} c/u` : null
                     return (
                       <>
                         <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: extra ? 6 : 10 }}>
