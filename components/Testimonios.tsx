@@ -129,8 +129,9 @@ export default function Testimonios() {
   }
 
   const cardStyle: React.CSSProperties = {
-    background: 'rgba(255,255,255,0.07)',
-    border: '1px solid rgba(212, 175, 55, 0.25)',
+    background: '#FFFFFF',
+    border: '1px solid #EFE3BD',
+    boxShadow: '0 4px 18px rgba(0,0,0,0.07)',
     borderRadius: '16px',
     padding: '28px',
     flex: isDesktop ? '1 1 0' : '0 0 100%',
@@ -162,14 +163,14 @@ export default function Testimonios() {
   }
 
   const nameStyle: React.CSSProperties = {
-    color: '#FFFFFF',
+    color: '#111827',
     fontWeight: 700,
     fontSize: '16px',
     margin: '0 0 2px 0',
   }
 
   const metaStyle: React.CSSProperties = {
-    color: 'rgba(255,255,255,0.6)',
+    color: '#6B7280',
     fontSize: '13px',
     margin: 0,
   }
@@ -180,7 +181,7 @@ export default function Testimonios() {
   }
 
   const quoteStyle: React.CSSProperties = {
-    color: 'rgba(255,255,255,0.82)',
+    color: '#374151',
     fontSize: '15px',
     lineHeight: '1.6',
     margin: 0,
