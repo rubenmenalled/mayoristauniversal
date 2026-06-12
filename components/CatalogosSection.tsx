@@ -101,6 +101,12 @@ const KEYFRAMES = `
   letter-spacing: 0.18em !important;
   color: #F0C030 !important;
 }
+.cat-card .cat-img {
+  transition: transform 0.6s cubic-bezier(.22,.68,0,1.2);
+}
+.cat-card:hover .cat-img {
+  transform: scale(1.09);
+}
 `
 
 function SkeletonGrid() {
@@ -156,7 +162,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
     return true
   })
 
-  const kbAnims = ['kenburns-1', 'kenburns-2', 'kenburns-3']
   const PROXIMAMENTE = new Set(['RODADOS', 'BLANQUERIA'])
 
   return (
@@ -252,16 +257,16 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* Imagen con Ken Burns */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                className="cat-img"
                 src={cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR']}
                 alt={cat.name}
                 style={{
                   position: 'absolute', inset: 0,
                   width: '100%', height: '100%',
                   objectFit: 'cover',
-                  animation: `${kbAnims[i % 3]} ${14 + (i % 3) * 3}s ease-in-out infinite`,
                   transformOrigin: 'center center',
                   willChange: 'transform',
-                  filter: 'brightness(1.22) saturate(1.12)',
+                  filter: 'brightness(1.06) saturate(1.03)',
                 }}
               />
 
@@ -296,8 +301,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               <div style={{
                 position: 'absolute', top: 12, right: 14,
                 fontSize: 28,
-                animation: 'float-badge 3s ease-in-out infinite',
-                animationDelay: `${i * 0.4}s`,
                 filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))',
               }}>
                 {cat.emoji}
