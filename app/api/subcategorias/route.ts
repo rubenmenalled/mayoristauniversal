@@ -68,6 +68,11 @@ export async function GET(request: NextRequest) {
         'bubble': 'https://usimg.k2049.com/files/x/bb5e793a31f0477c88994b2decee6035.jpg',
       }
 
+      // Portadas fijas elegidas a mano (tienen prioridad sobre la primera foto)
+      const OVERRIDE_SUB: Record<string, string> = {
+        'mochilas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/uc-4e4f3a66c3356e871a17714505755368_white.webp',
+      }
+
       // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
       const ORDEN_SUBS: Record<string, number> = {
         'CHICOS LISOS': 1, 'MEDIANOS LISOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
@@ -89,7 +94,7 @@ export async function GET(request: NextRequest) {
 
       const mergedWithImg = ordenadas.map(s => ({
         ...s,
-        preview_image: imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
+        preview_image: OVERRIDE_SUB[s.nombre.toLowerCase()] || imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
       }))
 
       return NextResponse.json(mergedWithImg, {
