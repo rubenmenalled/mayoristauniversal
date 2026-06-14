@@ -660,11 +660,14 @@ export default function CategoriaPage() {
                     <button
                       style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
                       onClick={() => {
+                        const cat = (p.category ?? '').toUpperCase()
+                        const sub = (p.subcategory ?? '').toUpperCase()
+                        const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO'
                         const isDescPor = p.descripcion?.startsWith('PRECIO POR')
-                        const isMinOrder = !isDescPor && p.minOrder > 1
+                        const dividir = !isDescPor && !esU && p.minOrder > 1
                         addItem({
                           id: p.id, name: p.name, brand: p.brand, price: p.price,
-                          wholesalePrice: isMinOrder ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice,
+                          wholesalePrice: dividir ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice,
                           image: p.image,
                           minOrder: isDescPor ? 1 : p.minOrder,
                           category: p.category,
@@ -903,11 +906,14 @@ export default function CategoriaPage() {
                   </button>
                   <motion.button whileTap={{ scale: 0.97 }}
                     onClick={() => {
+                      const cat = (lightbox.category ?? '').toUpperCase()
+                      const sub = (lightbox.subcategory ?? '').toUpperCase()
+                      const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO'
                       const isDescPor = lightbox.descripcion?.startsWith('PRECIO POR')
-                      const isMinOrder = !isDescPor && lightbox.minOrder > 1
+                      const dividir = !isDescPor && !esU && lightbox.minOrder > 1
                       addItem({
                         id: lightbox.id, name: lightbox.name, brand: lightbox.brand, price: lightbox.price,
-                        wholesalePrice: isMinOrder ? Math.round(lightbox.wholesalePrice / lightbox.minOrder) : lightbox.wholesalePrice,
+                        wholesalePrice: dividir ? Math.round(lightbox.wholesalePrice / lightbox.minOrder) : lightbox.wholesalePrice,
                         image: lightbox.image,
                         minOrder: isDescPor ? 1 : lightbox.minOrder,
                         category: lightbox.category,
