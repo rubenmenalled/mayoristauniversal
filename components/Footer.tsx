@@ -62,7 +62,7 @@ export default function Footer() {
             <div className="space-y-2 text-sm text-gray-400 mb-6">
               <div className="flex items-center gap-2"><Phone size={14} className="text-gold" /> +54 116 4660482</div>
               <div className="flex items-center gap-2"><Mail  size={14} className="text-gold" /> info@mayoristauniversal.com</div>
-              <div className="flex items-center gap-2"><MapPin size={14} className="text-gold" /> Buenos Aires, Argentina</div>
+              <div className="flex items-start gap-2"><MapPin size={14} className="text-gold mt-0.5 shrink-0" /> <span>Lavalle 2378, Piso 8, Of. 82<br />Once, CABA, Buenos Aires</span></div>
             </div>
 
             {/* Social */}
