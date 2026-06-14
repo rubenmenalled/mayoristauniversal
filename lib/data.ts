@@ -60,14 +60,20 @@ export async function getCategorias() {
 
     if (error || !data) return []
 
-    const mapped = data.map((c: any) => ({
-      id:          c.id,
-      name:        c.nombre,
-      nombre:      c.nombre,
-      emoji:       c.emoji || '📦',
-      image:       c.imagen || '',
-      description: c.descripcion || '',
-      count:       c.cantidad ?? 0,
+    const mapped = await Promise.all(data.map(async (c: any) => {
+      const { count } = await supabase
+        .from('productos')
+        .select('id', { count: 'exact', head: true })
+        .ilike('categoria', c.nombre)
+      return {
+        id:          c.id,
+        name:        c.nombre,
+        nombre:      c.nombre,
+        emoji:       c.emoji || '📦',
+        image:       c.imagen || '',
+        description: c.descripcion || '',
+        count:       count ?? 0,
+      }
     }))
 
     return sortCategorias(mapped)

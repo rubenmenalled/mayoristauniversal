@@ -385,6 +385,11 @@ export default function CategoriaPage() {
                     <img src={primeraFoto} alt={sub.nombre} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', imageRendering: 'auto' }} />
                   )}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
+                  {((sub as any).count ?? 0) >= 10 && (
+                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 5, background: 'rgba(212,175,55,0.95)', color: '#0B1E3F', fontWeight: 900, fontSize: 10, padding: '3px 8px', borderRadius: 99, boxShadow: '0 2px 6px rgba(0,0,0,0.35)' }}>
+                      {(sub as any).count} modelos
+                    </div>
+                  )}
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: 4, padding: 12 }}>
                     <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>{sub.nombre}</span>
                     <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>

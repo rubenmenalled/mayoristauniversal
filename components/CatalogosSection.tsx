@@ -319,6 +319,18 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 {cat.name}
               </div>
 
+              {/* Cantidad de productos (solo si 10+) */}
+              {cat.count >= 10 && !PROXIMAMENTE.has(cat.name.toUpperCase()) && (
+                <div style={{
+                  position: 'absolute', bottom: 14, right: 14, zIndex: 10,
+                  background: 'rgba(212,175,55,0.95)', color: '#0B1E3F',
+                  fontWeight: 900, fontSize: 11, padding: '4px 10px', borderRadius: 99,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                }}>
+                  {cat.count} modelos
+                </div>
+              )}
+
               {/* VER MÁS */}
               <div className="cat-ver-mas" style={{
                 position: 'absolute', bottom: 14, left: 14,

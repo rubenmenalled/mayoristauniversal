@@ -47,8 +47,9 @@ export async function GET(request: NextRequest) {
         }
       })
 
-      // 4) Obtener primera imagen de cada subcategoría — una query por subcategoría para evitar el límite de 1000 filas
+      // 4) Obtener primera imagen y cantidad de cada subcategoría
       const imgBySub: Record<string, string> = {}
+      const countBySub: Record<string, number> = {}
       await Promise.all(
         merged.map(async (s) => {
           const urlImg = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=ilike.${encodeURIComponent(s.nombre)}&imagen=neq.&select=imagen&limit=1`
@@ -60,6 +61,15 @@ export async function GET(request: NextRequest) {
           if (imgData.length > 0 && imgData[0].imagen) {
             imgBySub[s.nombre.toLowerCase()] = imgData[0].imagen.split('|')[0]
           }
+          // cantidad
+          const urlCount = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=ilike.${encodeURIComponent(s.nombre)}&select=id`
+          const resCount = await fetch(urlCount, {
+            headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}`, Prefer: 'count=exact', Range: '0-0' },
+            cache: 'no-store',
+          })
+          const cr = resCount.headers.get('content-range') || ''
+          const total = cr.includes('/') ? parseInt(cr.split('/')[1], 10) : 0
+          countBySub[s.nombre.toLowerCase()] = isNaN(total) ? 0 : total
         })
       )
 
@@ -95,6 +105,7 @@ export async function GET(request: NextRequest) {
       const mergedWithImg = ordenadas.map(s => ({
         ...s,
         preview_image: OVERRIDE_SUB[s.nombre.toLowerCase()] || imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
+        count: countBySub[s.nombre.toLowerCase()] ?? 0,
       }))
 
       return NextResponse.json(mergedWithImg, {
