@@ -9,10 +9,10 @@ import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
 import CartSidebar from '@/components/CartSidebar'
 
 interface Producto {
-  id: number; name: string; brand: string; category: string
+  id: number; name: string; brand: string; category: string; subcategory?: string
   price: number; wholesalePrice: number; minOrder: number
-  rating: number; reviews: number; image: string
-  badge?: string; discount?: number; location: string
+  rating: number; reviews: number; image: string; images?: string[]
+  badge?: string; discount?: number; location: string; descripcion?: string
 }
 
 function Stars({ n }: { n: number }) {
@@ -137,12 +137,13 @@ function BuscarContent() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
                 {productos.map((p, i) => (
                   <motion.div key={p.id}
-                    className="glass-card rounded-xl overflow-hidden"
+                    className="rounded-xl overflow-hidden relative"
+                    style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.04 }} whileHover={{ y: -4 }}>
-                    <div style={{ position: 'relative', height: 340, background: '#F0F0F0', overflow: 'hidden' }}>
+                    transition={{ delay: Math.min(i * 0.03, 0.3) }} whileHover={{ y: -4 }}>
+                    <div style={{ position: 'relative', height: 220, background: '#F8F8F8', overflow: 'hidden' }}>
                       {p.image ? (
-                        <Image src={p.image} alt={p.name} fill className="object-contain" sizes="220px" quality={95} />
+                        <Image src={p.image} alt={p.name} fill className="object-contain" sizes="250px" quality={85} />
                       ) : (
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 48 }}>📦</div>
                       )}
@@ -151,24 +152,87 @@ function BuscarContent() {
                       )}
                     </div>
                     <div style={{ padding: 8 }}>
-                      {p.brand && <div style={{ color: '#7a8a9a', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
-                      <h3 style={{ color: '#FFFFFF', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
-                      <Stars n={p.rating} />
-                      <div style={{ marginTop: 8 }}>
-                        <div style={{ color: '#7a8a9a', fontSize: 10, marginTop: 2 }}>
-                          Mayorista: <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                      {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
+                      {p.location && p.location !== 'Buenos Aires' && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
+                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>COD</span>
+                          <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>{p.location.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : p.location}</span>
                         </div>
-                      </div>
+                      )}
+                      <h3 style={{ color: '#111827', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
+                      {(() => {
+                        let titulo: string | null = null
+                        let precioUnit: string | null = null
+                        let extraInfo: string | null = null
+                        if (p.descripcion?.startsWith('PRECIO POR')) {
+                          const sepIdx = p.descripcion.indexOf(') | ')
+                          const pricePart = sepIdx >= 0 ? p.descripcion.slice(0, sepIdx + 1) : p.descripcion
+                          extraInfo = sepIdx >= 0 ? p.descripcion.slice(sepIdx + 4) : null
+                          const match = pricePart.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
+                          titulo = match ? match[1] : pricePart
+                          precioUnit = match ? `$${Math.round(p.wholesalePrice / Math.max(1, p.minOrder)).toLocaleString('es-AR')} c/u` : null
+                        } else if (p.badge === 'x6 UNIDADES') {
+                          titulo = 'PRECIO POR 6 UNIDADES'
+                          precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
+                        } else if (p.minOrder > 1) {
+                          const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
+                          const esCot = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
+                          if (esDocena) {
+                            titulo = `VENTA POR ${p.minOrder} DOCENAS`
+                            precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
+                          } else {
+                            titulo = `PRECIO POR ${p.minOrder} UNIDADES`
+                            precioUnit = `$${(esCot ? p.wholesalePrice : Math.round(p.wholesalePrice / p.minOrder)).toLocaleString('es-AR')} c/u`
+                          }
+                        }
+                        return titulo ? (
+                          <>
+                            <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: extraInfo ? 2 : 4 }}>
+                              {precioUnit && <div style={{ color: '#111', fontSize: 17, fontWeight: 900 }}>{precioUnit}</div>}
+                              <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
+                              <div style={{ color: '#B45309', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(() => {
+                                const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
+                                const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
+                                const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
+                                const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
+                                return `${label}: $${total.toLocaleString('es-AR')}`
+                              })()}</div>
+                            </div>
+                            {extraInfo && <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>}
+                            {!extraInfo && p.descripcion && !p.descripcion.startsWith('PRECIO POR') && (
+                              <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 6, padding: '4px 8px', marginTop: 4, marginBottom: 2 }}>
+                                <p style={{ color: '#1D4ED8', fontSize: 11, fontWeight: 700, lineHeight: 1.4, margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          p.descripcion ? <p style={{ color: '#6B7280', fontSize: 10, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p> : null
+                        )
+                      })()}
+                      <Stars n={p.rating} />
+                      {(() => {
+                        const isBulk = p.descripcion?.startsWith('PRECIO POR') || p.badge === 'x6 UNIDADES' || p.minOrder > 1
+                        if (isBulk) return null
+                        return (
+                          <div style={{ marginTop: 6 }}>
+                            <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
+                              Mayorista: <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                            </div>
+                          </div>
+                        )
+                      })()}
                       <motion.button
                         style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => {
-                          const isMinOrder = p.minOrder > 1
+                          const isDescPor = p.descripcion?.startsWith('PRECIO POR')
+                          const isMinOrder = !isDescPor && p.minOrder > 1
                           addItem({
-                            id: p.id, name: p.name, price: p.price,
+                            id: p.id, name: p.name, brand: p.brand, price: p.price,
                             wholesalePrice: isMinOrder ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice,
                             image: p.image,
-                            minOrder: p.minOrder,
+                            minOrder: isDescPor ? 1 : p.minOrder,
+                            category: p.category,
                           })
                         }}>
                         <ShoppingCart size={12} />AGREGAR
