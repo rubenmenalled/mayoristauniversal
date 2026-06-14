@@ -54,6 +54,26 @@ export default function ConfianzaSection() {
           <h2 style={title}>Comprá con confianza</h2>
           <p style={sub}>Somos un negocio real, con dirección física y atención personalizada</p>
         </div>
+
+        {/* Garantía de entrega — destacada */}
+        <div style={{
+          background: 'linear-gradient(135deg,#F0FDF4,#DCFCE7)',
+          border: '2px solid #16A34A', borderRadius: 16,
+          padding: '20px 24px', marginBottom: 32,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
+          flexWrap: 'wrap', textAlign: 'center',
+        }}>
+          <span style={{ fontSize: 40, lineHeight: 1 }}>🛡️</span>
+          <div style={{ textAlign: 'left', maxWidth: 760 }}>
+            <div style={{ color: '#15803D', fontWeight: 900, fontSize: 'clamp(17px,2.6vw,22px)', marginBottom: 4 }}>
+              Garantía de entrega
+            </div>
+            <div style={{ color: '#166534', fontSize: 'clamp(13px,2vw,15px)', lineHeight: 1.5 }}>
+              Tu pedido <strong>llega sí o sí</strong>. Si no llega, o llega roto o fallado, <strong>te lo reponemos o te devolvemos tu dinero</strong>. Comprá tranquilo.
+            </div>
+          </div>
+        </div>
+
         <div style={grid}>
           {items.map(it => (
             <div key={it.titulo} style={card}>

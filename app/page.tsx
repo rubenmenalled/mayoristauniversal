@@ -6,7 +6,6 @@ import CatalogosSection from '@/components/CatalogosSection'
 import ConfianzaSection from '@/components/ConfianzaSection'
 import ComoComprar      from '@/components/ComoComprar'
 import MediosDePago    from '@/components/MediosDePago'
-import Testimonios      from '@/components/Testimonios'
 import FAQ              from '@/components/FAQ'
 import Footer           from '@/components/Footer'
 import Script           from 'next/script'
@@ -67,12 +66,11 @@ export default async function HomePage() {
       <main>
         <HeroSection />
         <BannerMayorista />
+        <ConfianzaSection />
         <HomeRows />
         <CatalogosSection categorias={categorias} />
-        <ConfianzaSection />
         <ComoComprar />
         <MediosDePago />
-        <Testimonios />
         <FAQ />
       </main>
       <Footer />
