@@ -74,6 +74,9 @@ export async function GET(request: NextRequest) {
         'BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
         'CUNEROS': 10, 'MOVIL PARA CUNA': 11, 'MOCHILAS Y CARTERAS DE PELUCHE': 12,
         'OTROS ACCESORIOS': 13, 'ACCESORIOS DE MASCOTAS': 14, 'GRANDES LISOS': 15, 'GIGANTES': 16,
+        // MARROQUINERIA — orden lógico
+        'CARTERAS': 1, 'MOCHILAS': 2, 'BANDOLERAS': 3, 'RIÑONERAS': 4,
+        'BILLETERAS': 5, 'PORTACOSMETICOS': 6, 'BOLSOS MATERNALES': 7,
       }
       const ordenadas = merged
         .map((s, i) => ({ s, i }))
