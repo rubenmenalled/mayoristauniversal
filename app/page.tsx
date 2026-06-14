@@ -3,6 +3,7 @@ import HeroSection      from '@/components/HeroSection'
 import BannerMayorista  from '@/components/BannerMayorista'
 import HomeRows         from '@/components/HomeRows'
 import CatalogosSection from '@/components/CatalogosSection'
+import ConfianzaSection from '@/components/ConfianzaSection'
 import ComoComprar      from '@/components/ComoComprar'
 import MediosDePago    from '@/components/MediosDePago'
 import Testimonios      from '@/components/Testimonios'
@@ -68,6 +69,7 @@ export default async function HomePage() {
         <BannerMayorista />
         <HomeRows />
         <CatalogosSection categorias={categorias} />
+        <ConfianzaSection />
         <ComoComprar />
         <MediosDePago />
         <Testimonios />
