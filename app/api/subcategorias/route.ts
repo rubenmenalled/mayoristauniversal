@@ -68,7 +68,23 @@ export async function GET(request: NextRequest) {
         'bubble': 'https://usimg.k2049.com/files/x/bb5e793a31f0477c88994b2decee6035.jpg',
       }
 
-      const mergedWithImg = merged.map(s => ({
+      // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
+      const ORDEN_SUBS: Record<string, number> = {
+        'CHICOS LISOS': 1, 'MEDIANOS LISOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
+        'BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
+        'CUNEROS': 10, 'MOVIL PARA CUNA': 11, 'MOCHILAS Y CARTERAS DE PELUCHE': 12,
+        'OTROS ACCESORIOS': 13, 'ACCESORIOS DE MASCOTAS': 14, 'GRANDES LISOS': 15, 'GIGANTES': 16,
+      }
+      const ordenadas = merged
+        .map((s, i) => ({ s, i }))
+        .sort((a, b) => {
+          const oa = ORDEN_SUBS[a.s.nombre.toUpperCase()] ?? 50
+          const ob = ORDEN_SUBS[b.s.nombre.toUpperCase()] ?? 50
+          return oa !== ob ? oa - ob : a.i - b.i
+        })
+        .map(x => x.s)
+
+      const mergedWithImg = ordenadas.map(s => ({
         ...s,
         preview_image: imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
       }))
