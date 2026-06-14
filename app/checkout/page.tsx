@@ -334,7 +334,7 @@ export default function CheckoutPage() {
                   <span style={{ fontSize: 14, flexShrink: 0 }}>⚠️</span>
                   <p style={{ color: '#78350F', fontSize: 11, margin: 0, lineHeight: 1.5 }}>
                     <strong>Precios sin IVA.</strong> Si necesitás factura, consultanos antes:{' '}
-                    <a href="mailto:info@mayoristauniversal.com" style={{ color: '#B45309', fontWeight: 700, textDecoration: 'none' }}>info@mayoristauniversal.com</a>{' '}
+                    <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#B45309', fontWeight: 700, textDecoration: 'none' }}>rubenmenalled@gmail.com</a>{' '}
                     o{' '}
                     <a href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación." target="_blank" rel="noopener noreferrer" style={{ color: '#B45309', fontWeight: 700, textDecoration: 'none' }}>WhatsApp</a>
                   </p>
@@ -609,10 +609,10 @@ export default function CheckoutPage() {
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <a
-                    href="mailto:info@mayoristauniversal.com"
+                    href="mailto:rubenmenalled@gmail.com"
                     style={{ color: '#B45309', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
                   >
-                    ✉️ info@mayoristauniversal.com
+                    ✉️ rubenmenalled@gmail.com
                   </a>
                   <a
                     href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación%20de%20mi%20pedido."
