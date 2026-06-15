@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
 
   if (q) {
     query = query.or(
-      `nombre.ilike.%${q}%,marca.ilike.%${q}%,subcategoria.ilike.%${q}%,descripcion.ilike.%${q}%`
+      `nombre.ilike.%${q}%,marca.ilike.%${q}%,subcategoria.ilike.%${q}%,descripcion.ilike.%${q}%,ubicacion.ilike.%${q}%`
     )
   } else if (destacados) {
     query = (query as any).limit(20)
