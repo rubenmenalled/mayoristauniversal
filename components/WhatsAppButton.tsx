@@ -7,7 +7,7 @@ import { X } from 'lucide-react'
 // Número y mensaje pre-armado (enfocado a compra mayorista)
 const WA_NUMERO = '5491164660482'
 const WA_MENSAJE =
-  '¡Hola Mayorista Universal! 👋 Quiero comprar al por mayor. ¿Me pasás los precios y cómo hago el pedido?'
+  '¡Hola Mayorista Universal! 👋 Tengo una consulta, ¿me pueden ayudar?'
 const WA_LINK = `https://wa.me/${WA_NUMERO}?text=${encodeURIComponent(WA_MENSAJE)}`
 
 // Logo oficial de WhatsApp
@@ -60,7 +60,7 @@ export default function WhatsAppButton() {
 
             <div className="bg-navy-light rounded-2xl rounded-tl-none p-3 mb-4">
               <p className="text-gray-300 text-sm leading-relaxed">
-                👋 ¡Hola! ¿Querés comprar al por mayor? Escribinos y te pasamos precios, mínimos y cómo hacer tu pedido.
+                👋 ¡Hola! ¿Tenés alguna duda con un producto o tu pedido? Escribinos y te ayudamos al instante.
               </p>
             </div>
 
@@ -72,7 +72,7 @@ export default function WhatsAppButton() {
               whileTap={{ scale: 0.97 }}
             >
               <WhatsAppLogo size={18} />
-              Hacé tu pedido por WhatsApp
+              Consultanos por WhatsApp
             </motion.a>
           </motion.div>
         )}
@@ -93,7 +93,7 @@ export default function WhatsAppButton() {
               className="hidden sm:flex items-center bg-white text-green-700 font-bold text-sm px-4 py-2.5 rounded-full shadow-xl whitespace-nowrap"
               style={{ boxShadow: '0 6px 20px rgba(0,0,0,0.25)' }}
             >
-              Comprá por WhatsApp
+              ¿Dudas? Consultanos
             </motion.a>
           )}
         </AnimatePresence>
