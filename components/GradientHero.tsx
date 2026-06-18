@@ -113,6 +113,7 @@ export default function GradientHero() {
         @media (max-width: 1023px) {
           #grad-hero { padding-top: 220px; }
           #hero-collage { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 25%; }
+          #hero-title { display: none; }
         }
       `}</style>
       <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
@@ -142,7 +143,7 @@ export default function GradientHero() {
               así al scrollear el título se oculta detrás del header y no lo pisa */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-4"
             style={{ padding: 'clamp(56px, 9vw, 104px) 16px' }}>
-            <h1 style={{
+            <h1 id="hero-title" style={{
               color: '#FFFFFF', fontWeight: 900, lineHeight: 1.05, margin: 0,
               fontSize: 'clamp(34px, 6vw, 68px)', letterSpacing: '-0.02em',
               textShadow: '0 4px 30px rgba(0,0,0,0.55)',
