@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Montserrat, Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
@@ -58,6 +58,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.mayoristauniversal.com',
   },
+}
+
+// Fija el viewport para que el pinch-zoom no descoloque la página en el celular
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 const jsonLd = {
