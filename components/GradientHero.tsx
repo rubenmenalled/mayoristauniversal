@@ -7,10 +7,10 @@ export default function GradientHero() {
     <section style={{ width: '100%' }}>
       <style>{`
         #grad-hero { padding-top: 200px; }
-        #grad-hero-band { height: 460px; }
+        #grad-hero-band { height: 380px; }
         @media (max-width: 767px) {
           #grad-hero { padding-top: 250px; }
-          #grad-hero-band { height: 380px; }
+          #grad-hero-band { height: 320px; }
         }
       `}</style>
       <div id="grad-hero">
