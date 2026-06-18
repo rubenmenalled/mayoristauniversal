@@ -250,8 +250,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 cursor: 'pointer',
                 background: '#F0F0F0',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
-                animation: `fadeSlideUp 0.55s ease both`,
-                animationDelay: `${i * 0.07}s`,
               }}
             >
               {/* Imagen con Ken Burns */}
