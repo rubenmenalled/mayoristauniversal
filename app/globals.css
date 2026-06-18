@@ -120,3 +120,17 @@ body {
 }
 .ticker-track { animation: tickerLeft 30s linear infinite; }
 .ticker-track:hover { animation-play-state: paused; }
+
+/* Botón AGREGAR — gradiente dorado animado + glow al pasar el mouse */
+.btn-agregar{
+  background: linear-gradient(120deg,#C99A2E,#F0C030,#FFE7A0,#F0C030,#C99A2E) !important;
+  background-size: 220% 100% !important;
+  background-position: 0% 0 !important;
+  transition: background-position .6s ease, box-shadow .3s ease, transform .15s ease !important;
+}
+.btn-agregar:hover{
+  background-position: 100% 0 !important;
+  box-shadow: 0 6px 22px rgba(212,175,55,.6) !important;
+  transform: translateY(-1px) !important;
+}
+.btn-agregar:active{ transform: translateY(0) scale(.98) !important; }

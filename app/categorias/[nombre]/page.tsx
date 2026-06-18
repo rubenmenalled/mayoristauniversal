@@ -663,6 +663,7 @@ export default function CategoriaPage() {
                       )
                     })()}
                     <button
+                      className="btn-agregar"
                       style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
                       onClick={() => {
                         const cat = (p.category ?? '').toUpperCase()
@@ -925,6 +926,7 @@ export default function CategoriaPage() {
                       })
                       setLightbox(null)
                     }}
+                    className="btn-agregar"
                     style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: isMobile ? '14px 6px' : '10px 6px', color: '#0D2C54', fontWeight: 900, cursor: 'pointer', fontSize: isMobile ? 15 : 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
                     <ShoppingCart size={14} />AGREGAR
                   </motion.button>

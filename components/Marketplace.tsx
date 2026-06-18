@@ -108,7 +108,7 @@ function ProductCard({ p }: { p: Product }) {
         </div>
 
         <motion.button
-          className="w-full mt-2 py-1.5 rounded-lg text-navy text-xs font-bold flex items-center justify-center gap-1"
+          className="btn-agregar w-full mt-2 py-1.5 rounded-lg text-navy text-xs font-bold flex items-center justify-center gap-1"
           style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}
           whileTap={{ scale: 0.97 }}
           onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>

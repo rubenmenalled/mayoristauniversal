@@ -222,6 +222,7 @@ function BuscarContent() {
                         )
                       })()}
                       <motion.button
+                        className="btn-agregar"
                         style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => {
