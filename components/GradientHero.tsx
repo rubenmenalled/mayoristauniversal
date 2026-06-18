@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { TextReveal } from '@/components/ui/cascade-text'
 
 // Mosaico de rubros (mismas fotos que usan los catálogos)
@@ -19,6 +20,23 @@ const COLLAGE = [
 ]
 
 export default function GradientHero() {
+  // En celular medimos el alto real del header fijo para que el banner
+  // nunca quede tapado (el header mobile es más alto que el padding fijo).
+  const [mobilePad, setMobilePad] = useState<number | null>(null)
+  useEffect(() => {
+    const calc = () => {
+      if (window.innerWidth >= 768) { setMobilePad(null); return }
+      const header = document.querySelector('header')
+      const bottom = header ? Math.ceil(header.getBoundingClientRect().bottom) : 0
+      setMobilePad(bottom > 0 ? bottom + 16 : null)
+    }
+    calc()
+    const t1 = setTimeout(calc, 250)
+    const t2 = setTimeout(calc, 1000)
+    window.addEventListener('resize', calc)
+    return () => { window.removeEventListener('resize', calc); clearTimeout(t1); clearTimeout(t2) }
+  }, [])
+
   return (
     <section style={{ width: '100%' }}>
       <style>{`
@@ -82,7 +100,7 @@ export default function GradientHero() {
           #hero-collage { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 25%; }
         }
       `}</style>
-      <div id="grad-hero">
+      <div id="grad-hero" style={mobilePad ? { paddingTop: mobilePad } : undefined}>
         <div id="grad-hero-band" style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#0B1E3F' }}>
           {/* Collage de rubros */}
           <div id="hero-collage" aria-hidden="true">
