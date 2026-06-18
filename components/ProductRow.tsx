@@ -72,8 +72,8 @@ function interleave(groups: Prod[][], max: number): Prod[] {
   return out
 }
 
-export default function ProductRow({ title, emoji, subtitle, urls, max = 18, href }: {
-  title: string; emoji: string; subtitle?: string; urls: string[]; max?: number; href?: string
+export default function ProductRow({ title, emoji, subtitle, urls, max = 18, href, auto = false }: {
+  title: string; emoji: string; subtitle?: string; urls: string[]; max?: number; href?: string; auto?: boolean
 }) {
   const [prods, setProds] = useState<Prod[]>([])
   useEffect(() => {
@@ -106,6 +106,14 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
           0% { background-position: 220% 0; }
           100% { background-position: -220% 0; }
         }
+        .row-marquee-wrap { overflow: hidden; padding-bottom: 8px; }
+        .row-marquee-track { display: flex; gap: 14px; width: max-content; animation: rowMarquee linear infinite; }
+        .row-marquee-wrap:hover .row-marquee-track,
+        .row-marquee-wrap:active .row-marquee-track { animation-play-state: paused; }
+        @keyframes rowMarquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
       `}</style>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2, flexWrap: 'wrap', gap: 8 }}>
@@ -119,9 +127,18 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
           {href && <a href={href} style={{ color: '#C2410C', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>Ver todo →</a>}
         </div>
         {subtitle && <p style={{ color: '#6B7280', fontSize: 13, margin: '0 0 16px' }}>{subtitle}</p>}
-        <div style={{ display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>
-          {prods.map(p => <Card key={p.id} p={p} />)}
-        </div>
+        {auto && prods.length > 2 ? (
+          <div className="row-marquee-wrap">
+            <div className="row-marquee-track" style={{ animationDuration: `${Math.max(30, prods.length * 5)}s` }}>
+              {prods.map(p => <Card key={p.id} p={p} />)}
+              {prods.map(p => <Card key={`dup-${p.id}`} p={p} />)}
+            </div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>
+            {prods.map(p => <Card key={p.id} p={p} />)}
+          </div>
+        )}
       </div>
     </section>
   )

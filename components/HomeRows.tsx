@@ -45,7 +45,8 @@ export default function HomeRows() {
     <>
       {filas.filter(f => f.activo).map(f => {
         const { urls, max } = urlsDeFila(f)
-        return <ProductRow key={f.id} title={f.titulo} emoji={f.emoji} subtitle={f.subtitulo} urls={urls} max={max} />
+        const esDestacados = (f.categorias || '').toUpperCase() === 'DESTACADOS'
+        return <ProductRow key={f.id} title={f.titulo} emoji={f.emoji} subtitle={f.subtitulo} urls={urls} max={max} auto={esDestacados} />
       })}
     </>
   )
