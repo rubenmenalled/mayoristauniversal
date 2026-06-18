@@ -30,8 +30,12 @@ export default function GradientHero() {
     if (!header) return
     const calc = () => {
       const bottom = header.getBoundingClientRect().bottom
+      if (bottom <= 0) return
+      // En pantallas <1024px el header es más alto (doble buscador) y la
+      // medición a veces se queda corta → nunca bajar de un mínimo seguro.
+      const safeMin = window.innerWidth < 1024 ? 300 : 150
       // -1px para que el banner quede tapado por el borde del header (sin hueco)
-      if (bottom > 0) setHeroPad(Math.round(bottom) - 1)
+      setHeroPad(Math.max(Math.round(bottom) - 1, safeMin))
     }
     calc()
     const ro = new ResizeObserver(calc)
@@ -107,7 +111,7 @@ export default function GradientHero() {
           100% { transform: translate(0,0) scale(1);           opacity: 1; }
         }
         @media (max-width: 1023px) {
-          #grad-hero { padding-top: 280px; }
+          #grad-hero { padding-top: 300px; }
           #hero-collage { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 25%; }
         }
       `}</style>
