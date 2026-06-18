@@ -214,8 +214,11 @@ export default function CartSidebar({ open, onClose }: Props) {
               </button>
             </div>
 
+            {/* Cuerpo scrolleable: productos + totales + botones (para que nada quede tapado) */}
+            <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+
             {/* Items */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px', background: '#F9FAFB' }}>
+            <div style={{ padding: '12px 16px', background: '#F9FAFB' }}>
               {items.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '60px 0' }}>
                   <div style={{ fontSize: 48, marginBottom: 12 }}>🛒</div>
@@ -605,6 +608,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                 </button>
               </div>
             )}
+            </div>
           </motion.div>
         </>
       )}
