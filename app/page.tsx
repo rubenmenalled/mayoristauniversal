@@ -1,7 +1,7 @@
 import Header           from '@/components/Header'
 import GradientHero     from '@/components/GradientHero'
 import BannerMayorista  from '@/components/BannerMayorista'
-import DestacadosFan    from '@/components/DestacadosFan'
+import HomeRows         from '@/components/HomeRows'
 import CatalogosSection from '@/components/CatalogosSection'
 import ConfianzaSection from '@/components/ConfianzaSection'
 import ComoComprar      from '@/components/ComoComprar'
@@ -67,7 +67,7 @@ export default async function HomePage() {
         <GradientHero />
         <BannerMayorista />
         <ConfianzaSection />
-        <DestacadosFan />
+        <HomeRows />
         <CatalogosSection categorias={categorias} />
         <ComoComprar />
         <MediosDePago />
