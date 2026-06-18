@@ -40,7 +40,7 @@ export default function WhatsAppButton() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            style={{ boxShadow: '0 0 40px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.1)' }}
+            style={{ boxShadow: '0 0 40px rgba(0,0,0,0.5), 0 0 20px rgba(245,197,24,0.1)' }}
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">

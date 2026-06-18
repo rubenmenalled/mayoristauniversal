@@ -88,7 +88,7 @@ export default function CatalogoPage() {
       {/* Header */}
       <div style={{
         background: 'rgba(13,71,161,0.95)',
-        borderBottom: '1px solid rgba(212,175,55,0.2)',
+        borderBottom: '1px solid rgba(245,197,24,0.2)',
         padding: '16px 24px',
         position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
@@ -114,11 +114,11 @@ export default function CatalogoPage() {
         <div style={{
           display: 'flex', alignItems: 'center', gap: 12,
           background: '#FFFFFF',
-          border: '1px solid rgba(212,175,55,0.4)',
+          border: '1px solid rgba(245,197,24,0.4)',
           borderRadius: 12, padding: '10px 16px', marginBottom: 32,
           boxShadow: '0 1px 6px rgba(0,0,0,0.06)',
         }}>
-          <Search size={18} color="#D4AF37" />
+          <Search size={18} color="#F5C518" />
           <input
             type="text"
             value={busqueda}
@@ -212,8 +212,8 @@ export default function CatalogoPage() {
                   <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', color: '#fff', fontWeight: 700, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, border: '1px solid rgba(212,175,55,0.7)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ color: '#D4AF37', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
+                  <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', color: '#fff', fontWeight: 700, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, border: '1px solid rgba(245,197,24,0.7)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ color: '#F5C518', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
                   </div>
                 </motion.div>
               )

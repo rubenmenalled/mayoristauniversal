@@ -40,7 +40,7 @@ export default function StatsCounter() {
 
       {/* Gold glow center */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.06) 0%, transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(245,197,24,0.06) 0%, transparent 70%)' }} />
 
       <div className="max-w-7xl mx-auto px-4 relative">
         <motion.div

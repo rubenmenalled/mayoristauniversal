@@ -83,27 +83,27 @@ function BuscarContent() {
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>
       {/* Header */}
       <div style={{
-        background: 'rgba(13,71,161,0.95)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(13,71,161,0.95)', borderBottom: '1px solid rgba(245,197,24,0.2)',
         padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
           <button onClick={() => router.push('/')}
-            style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13 }}>
+            style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#F5C518', fontWeight: 700, fontSize: 13 }}>
             <ArrowLeft size={16} /> Inicio
           </button>
           <div style={{ flex: 1 }} />
           <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#FFFFFF', padding: 6 }}>
             <ShoppingCart size={24} />
-            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
+            {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#F5C518', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
           </button>
-          <form onSubmit={handleSearch} style={{ flex: 1, display: 'flex', gap: 0, borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)' }}>
+          <form onSubmit={handleSearch} style={{ flex: 1, display: 'flex', gap: 0, borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(245,197,24,0.3)' }}>
             <input
               type="text" value={query} onChange={e => setQuery(e.target.value)}
               placeholder="Buscar productos, categorías o marcas..."
               style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: 'none', outline: 'none', color: '#FFFFFF', padding: '10px 16px', fontSize: 14 }}
             />
-            <button type="submit" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
+            <button type="submit" style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
               <Search size={18} color="#FFFFFF" strokeWidth={2.5} />
             </button>
           </form>
@@ -119,17 +119,17 @@ function BuscarContent() {
             <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 24 }}>
               {productos.length === 0
                 ? `No se encontraron resultados para "${q}"`
-                : <>{productos.length} resultado{productos.length !== 1 ? 's' : ''} para <span style={{ color: '#D4AF37', fontWeight: 700 }}>"{q}"</span></>
+                : <>{productos.length} resultado{productos.length !== 1 ? 's' : ''} para <span style={{ color: '#F5C518', fontWeight: 700 }}>"{q}"</span></>
               }
             </div>
 
             {productos.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: 60, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
+              <div style={{ textAlign: 'center', padding: 60, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20 }}>
                 <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
                 <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20, marginBottom: 8 }}>Sin resultados</div>
                 <div style={{ color: '#7a8a9a', fontSize: 14 }}>Probá con otro término o explorá los catálogos</div>
                 <button onClick={() => router.push('/catalogo')}
-                  style={{ marginTop: 20, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '12px 28px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer' }}>
+                  style={{ marginTop: 20, background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 10, padding: '12px 28px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer' }}>
                   Ver catálogos
                 </button>
               </div>
@@ -154,8 +154,8 @@ function BuscarContent() {
                     <div style={{ padding: 8 }}>
                       {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
                       {p.location && p.location !== 'Buenos Aires' && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
-                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>COD</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
+                          <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 9 }}>COD</span>
                           <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>{p.location.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : p.location}</span>
                         </div>
                       )}
@@ -216,14 +216,14 @@ function BuscarContent() {
                         return (
                           <div style={{ marginTop: 6 }}>
                             <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
-                              Mayorista: <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                              Mayorista: <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                             </div>
                           </div>
                         )
                       })()}
                       <motion.button
                         className="btn-agregar"
-                        style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
+                        style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={() => {
                           const cat = (p.category ?? '').toUpperCase()

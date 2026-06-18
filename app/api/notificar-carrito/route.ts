@@ -49,13 +49,13 @@ export async function POST(request: NextRequest) {
 <div style="max-width:560px;margin:0 auto;padding:24px 16px;">
   <div style="background:linear-gradient(135deg,#0F3460,#1a4a8a);border-radius:14px 14px 0 0;padding:24px 28px;text-align:center;">
     <div style="font-size:32px;margin-bottom:6px;">🛒</div>
-    <h1 style="color:#D4AF37;margin:0;font-size:20px;font-weight:900;">PEDIDO INICIADO</h1>
+    <h1 style="color:#F5C518;margin:0;font-size:20px;font-weight:900;">PEDIDO INICIADO</h1>
     <p style="color:rgba(255,255,255,0.7);margin:6px 0 0;font-size:13px;">Método: ${metodo}</p>
   </div>
   <div style="background:#fff;padding:20px 28px;border-left:1px solid #e5e7eb;border-right:1px solid #e5e7eb;">
-    <div style="background:#FFF8E1;border:1px solid #D4AF37;border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="background:#FFF8E1;border:1px solid #F5C518;border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
       <span style="color:#7a5c1e;font-size:13px;font-weight:700;">TOTAL DEL CARRITO</span>
-      <span style="color:#D4AF37;font-size:24px;font-weight:900;">${totalFmt}</span>
+      <span style="color:#F5C518;font-size:24px;font-weight:900;">${totalFmt}</span>
     </div>
     <p style="color:#6b7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;">📦 Productos (${cantUnidades} unidades)</p>
     ${items.map((i: any) => `
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       <div style="flex:1;">
         <div style="color:#111;font-weight:700;font-size:13px;margin-bottom:3px;">${i.name}</div>
         ${i.brand ? `<div style="color:#9ca3af;font-size:11px;text-transform:uppercase;">${i.brand}</div>` : ''}
-        <div style="color:#D4AF37;font-weight:900;font-size:14px;margin-top:4px;">$${(i.wholesalePrice * i.quantity).toLocaleString('es-AR')} <span style="color:#9ca3af;font-weight:400;font-size:11px;">(x${i.quantity})</span></div>
+        <div style="color:#F5C518;font-weight:900;font-size:14px;margin-top:4px;">$${(i.wholesalePrice * i.quantity).toLocaleString('es-AR')} <span style="color:#9ca3af;font-weight:400;font-size:11px;">(x${i.quantity})</span></div>
       </div>
     </div>`).join('')}
   </div>

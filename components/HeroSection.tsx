@@ -126,7 +126,7 @@ export default function HeroSection() {
                 style={{
                   width: i === current ? 24 : 8, height: 8,
                   borderRadius: 99, border: 'none', cursor: 'pointer', padding: 0,
-                  background: i === current ? '#D4AF37' : 'rgba(255,255,255,0.6)',
+                  background: i === current ? '#F5C518' : 'rgba(255,255,255,0.6)',
                   transition: 'all 0.35s ease',
                 }} />
             ))}

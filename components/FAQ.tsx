@@ -67,7 +67,7 @@ export default function FAQ() {
   const titleStyle: React.CSSProperties = {
     fontSize: 'clamp(24px, 4vw, 36px)',
     fontWeight: 700,
-    color: '#D4AF37',
+    color: '#F5C518',
     textAlign: 'center',
     margin: '0 0 48px 0',
     letterSpacing: '-0.5px',
@@ -86,7 +86,7 @@ export default function FAQ() {
 
   const ctaButtonStyle: React.CSSProperties = {
     display: 'inline-block',
-    background: 'linear-gradient(135deg, #D4AF37, #F0C030)',
+    background: 'linear-gradient(135deg, #F5C518, #FFE45C)',
     color: '#C01515',
     fontWeight: 700,
     fontSize: '16px',
@@ -95,7 +95,7 @@ export default function FAQ() {
     textDecoration: 'none',
     letterSpacing: '0.2px',
     transition: 'opacity 0.2s ease, transform 0.2s ease',
-    boxShadow: '0 4px 20px rgba(212, 175, 55, 0.35)',
+    boxShadow: '0 4px 20px rgba(245,197,24, 0.35)',
   }
 
   return (
@@ -110,7 +110,7 @@ export default function FAQ() {
             const itemStyle: React.CSSProperties = {
               background: isOpen ? '#FFFBF0' : '#F9FAFB',
               border: isOpen
-                ? '1.5px solid rgba(212, 175, 55, 0.7)'
+                ? '1.5px solid rgba(245,197,24, 0.7)'
                 : '1px solid #E5E7EB',
               borderRadius: '12px',
               overflow: 'hidden',
@@ -140,7 +140,7 @@ export default function FAQ() {
             }
 
             const arrowStyle: React.CSSProperties = {
-              color: '#D4AF37',
+              color: '#F5C518',
               fontSize: '18px',
               flexShrink: 0,
               transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',

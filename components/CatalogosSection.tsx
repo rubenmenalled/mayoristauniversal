@@ -92,14 +92,14 @@ const KEYFRAMES = `
 }
 .cat-card:hover {
   transform: translateY(-6px) scale(1.02) !important;
-  box-shadow: 0 16px 40px rgba(212,175,55,0.35) !important;
+  box-shadow: 0 16px 40px rgba(245,197,24,0.35) !important;
 }
 .cat-card:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
 }
 .cat-card:hover .cat-ver-mas {
   letter-spacing: 0.18em !important;
-  color: #F0C030 !important;
+  color: #FFE45C !important;
 }
 .cat-card .cat-img {
   transition: transform 0.6s cubic-bezier(.22,.68,0,1.2);
@@ -188,7 +188,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             padding: '6px 10px', marginBottom: 10, cursor: 'pointer',
             background: 'rgba(255,255,255,0.97)',
             borderRadius: 8,
-            border: '1px solid rgba(212,175,55,0.2)',
+            border: '1px solid rgba(245,197,24,0.2)',
             overflow: 'hidden',
           }}
         >
@@ -197,7 +197,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </span>
           <div style={{ width: 1, height: 14, background: 'rgba(0,0,0,0.15)', flexShrink: 0 }} />
           <span style={{ fontSize: 'clamp(14px,3.5vw,18px)', flexShrink: 0 }}>🚚</span>
-          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(10px,2.5vw,13px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+          <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 'clamp(10px,2.5vw,13px)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
             ENVÍOS A TODO EL PAÍS
           </span>
           <span className="envios-hide-mobile" style={{ color: '#7a8a9a', fontSize: 10, whiteSpace: 'nowrap' }}>· Tocá aquí</span>
@@ -209,9 +209,9 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, borderBottom: '2px solid rgba(212,175,55,0.3)', paddingBottom: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, borderBottom: '2px solid rgba(245,197,24,0.3)', paddingBottom: 12 }}>
           <h2 style={{
-            color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(20px, 2.5vw, 28px)',
+            color: '#F5C518', fontWeight: 900, fontSize: 'clamp(20px, 2.5vw, 28px)',
             textTransform: 'uppercase', letterSpacing: '0.08em',
             margin: 0,
           }}>
@@ -219,7 +219,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </h2>
           <a href="/como-comprar" style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
-            background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+            background: 'linear-gradient(135deg,#F5C518,#FFE45C)',
             color: '#FFFFFF', fontWeight: 900,
             fontSize: 'clamp(10px,1.4vw,12px)',
             padding: '7px 14px', borderRadius: 8,
@@ -323,7 +323,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {cat.count >= 10 && !PROXIMAMENTE.has(cat.name.toUpperCase()) && (
                 <div style={{
                   position: 'absolute', bottom: 14, right: 14, zIndex: 10,
-                  background: 'rgba(212,175,55,0.95)', color: '#0B1E3F',
+                  background: 'rgba(245,197,24,0.95)', color: '#0B1E3F',
                   fontWeight: 900, fontSize: 11, padding: '4px 10px', borderRadius: 99,
                   boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
                 }}>
@@ -341,17 +341,17 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 fontSize: 12, letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 padding: '7px 16px', borderRadius: 99,
-                border: '1px solid rgba(212,175,55,0.7)',
+                border: '1px solid rgba(245,197,24,0.7)',
                 display: 'flex', alignItems: 'center', gap: 6,
               }}>
-                <span style={{ color: '#D4AF37', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
+                <span style={{ color: '#F5C518', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
               </div>
 
               {/* Borde dorado */}
               <div style={{
                 position: 'absolute', inset: 0,
                 borderRadius: 12,
-                border: '2px solid rgba(212,175,55,0)',
+                border: '2px solid rgba(245,197,24,0)',
                 transition: 'border-color 0.3s',
                 pointerEvents: 'none',
               }} />
@@ -364,16 +364,16 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
     {/* Modal de envíos */}
     {modalOpen && (
       <div onClick={() => setModalOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.80)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-        <div onClick={e => e.stopPropagation()} style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 20, width: '100%', maxWidth: 480, maxHeight: '90vh', overflowY: 'auto', padding: 28 }}>
+        <div onClick={e => e.stopPropagation()} style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 20, width: '100%', maxWidth: 480, maxHeight: '90vh', overflowY: 'auto', padding: 28 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
             <div>
-              <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 20 }}>🚚 ENVÍOS A TODO EL PAÍS</div>
+              <div style={{ color: '#F5C518', fontWeight: 900, fontSize: 20 }}>🚚 ENVÍOS A TODO EL PAÍS</div>
               <div style={{ color: '#7a8a9a', fontSize: 13, marginTop: 4 }}>Trabajamos con los principales transportes</div>
             </div>
             <button onClick={() => setModalOpen(false)} style={{ background: 'rgba(0,0,0,0.08)', border: 'none', color: '#333', borderRadius: 8, width: 32, height: 32, cursor: 'pointer', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
           </div>
-          <div style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: 12, padding: '14px 16px', marginBottom: 12 }}>
-            <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 13, marginBottom: 8 }}>¿Cómo funciona?</div>
+          <div style={{ background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.2)', borderRadius: 12, padding: '14px 16px', marginBottom: 12 }}>
+            <div style={{ color: '#F5C518', fontWeight: 800, fontSize: 13, marginBottom: 8 }}>¿Cómo funciona?</div>
             <div style={{ color: '#555', fontSize: 13, lineHeight: 1.7 }}>
               1️⃣ Hacé tu pedido desde el catálogo<br />
               2️⃣ Te contactamos por WhatsApp para coordinar pago y envío<br />
@@ -390,7 +390,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           <div style={{ color: '#333', fontWeight: 800, fontSize: 13, letterSpacing: '0.06em', marginBottom: 12 }}>TRANSPORTES DISPONIBLES</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 24 }}>
             {TRANSPORTES.map(t => (
-              <div key={t.nombre} style={{ background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 12, padding: '12px 14px' }}>
+              <div key={t.nombre} style={{ background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 12, padding: '12px 14px' }}>
                 <div style={{ fontSize: 24, marginBottom: 6 }}>{t.emoji}</div>
                 <div style={{ color: '#333', fontWeight: 800, fontSize: 13 }}>{t.nombre}</div>
                 <div style={{ color: '#7a8a9a', fontSize: 11, marginTop: 3 }}>{t.desc}</div>

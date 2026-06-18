@@ -42,13 +42,13 @@ function Card({ p }: { p: Prod }) {
               </div>
             </>
           ) : (
-            <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 18 }}>{fmt(big)}</div>
+            <div style={{ color: '#F5C518', fontWeight: 900, fontSize: 18 }}>{fmt(big)}</div>
           )}
         </div>
         <button
           className="btn-agregar"
           onClick={() => { const dividir = !esU && p.minOrder > 1; addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: dividir ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice, image: p.image, minOrder: p.minOrder, brand: p.brand, category: p.category }); setCartOpen(true) }}
-          style={{ width: '100%', marginTop: 8, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 8, padding: '9px', color: '#0D2C54', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+          style={{ width: '100%', marginTop: 8, background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 8, padding: '9px', color: '#0D2C54', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
           <ShoppingCart size={14} strokeWidth={2.5} />AGREGAR
         </button>
       </div>

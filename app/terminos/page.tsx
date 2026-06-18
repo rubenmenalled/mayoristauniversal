@@ -10,7 +10,7 @@ export default function TerminosPage() {
       {/* Header */}
       <div style={{
         background: 'rgba(240,240,240,0.97)',
-        borderBottom: '1px solid rgba(212,175,55,0.25)',
+        borderBottom: '1px solid rgba(245,197,24,0.25)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
@@ -18,7 +18,7 @@ export default function TerminosPage() {
         <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 20 }}>
           <a href="/" style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            color: '#D4AF37', fontWeight: 700, fontSize: 14,
+            color: '#F5C518', fontWeight: 700, fontSize: 14,
             textDecoration: 'none',
           }}>
             ← Volver
@@ -33,7 +33,7 @@ export default function TerminosPage() {
       <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px 80px' }}>
 
         <h1 style={{
-          color: '#D4AF37', fontWeight: 900, fontSize: 'clamp(22px, 3vw, 32px)',
+          color: '#F5C518', fontWeight: 900, fontSize: 'clamp(22px, 3vw, 32px)',
           textTransform: 'uppercase', letterSpacing: '0.06em',
           marginBottom: 8,
         }}>
@@ -234,7 +234,7 @@ export default function TerminosPage() {
             de los siguientes medios:
           </p>
           <ul style={{ paddingLeft: 24, lineHeight: 2 }}>
-            <li>Correo electrónico: <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#D4AF37' }}>rubenmenalled@gmail.com</a></li>
+            <li>Correo electrónico: <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#F5C518' }}>rubenmenalled@gmail.com</a></li>
             <li>WhatsApp: disponible en el Sitio en horario comercial</li>
             <li>Horario de atención: lunes a viernes de 9:00 a 17:00 hs (hora Argentina)</li>
           </ul>
@@ -254,9 +254,9 @@ function Section({ titulo, children }: { titulo: string; children: React.ReactNo
   return (
     <div style={{ marginBottom: 40 }}>
       <h2 style={{
-        color: '#F0C030', fontWeight: 800, fontSize: 'clamp(16px, 2vw, 19px)',
+        color: '#FFE45C', fontWeight: 800, fontSize: 'clamp(16px, 2vw, 19px)',
         marginBottom: 16, paddingBottom: 10,
-        borderBottom: '1px solid rgba(212,175,55,0.2)',
+        borderBottom: '1px solid rgba(245,197,24,0.2)',
         letterSpacing: '0.03em',
       }}>
         {titulo}

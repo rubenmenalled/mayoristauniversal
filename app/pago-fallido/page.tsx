@@ -11,7 +11,7 @@ export default function PagoFallido() {
         Hubo un problema con tu pago. Podés intentarlo de nuevo o contactarnos por WhatsApp.
       </p>
       <div style={{ display: 'flex', gap: 12, marginTop: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
-        <button onClick={() => router.push('/checkout')} style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 12, padding: '14px 28px', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer' }}>
+        <button onClick={() => router.push('/checkout')} style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 12, padding: '14px 28px', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer' }}>
           Intentar de nuevo
         </button>
         <a href="https://wa.me/5491164660482" target="_blank" style={{ background: '#16a34a', border: 'none', borderRadius: 12, padding: '14px 28px', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', textDecoration: 'none' }}>

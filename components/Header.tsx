@@ -127,7 +127,7 @@ export default function Header() {
 
           {/* Cart icon — solo desktop */}
           <a href="/" className="hidden lg:flex w-10 h-10 rounded-xl items-center justify-center flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C030)' }}>
+            style={{ background: 'linear-gradient(135deg, #F5C518, #FFE45C)' }}>
             <ShoppingCart size={20} strokeWidth={2.5} color="#fff" />
           </a>
 
@@ -137,11 +137,11 @@ export default function Header() {
             whileHover={{ scale: 1.02 }}>
             <div className="leading-none">
               <div className="font-display font-black text-xl tracking-wide"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
+                style={{ background: 'linear-gradient(135deg,#F5C518,#F5E060,#F5C518)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
                 MAYORISTA
               </div>
               <div className="font-display font-black text-xl tracking-widest"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
+                style={{ background: 'linear-gradient(135deg,#F5C518,#F5E060,#F5C518)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
                 UNIVERSAL
               </div>
             </div>
@@ -149,18 +149,18 @@ export default function Header() {
 
           {/* Mobile: ícono carrito a la izquierda + texto centrado absoluto */}
           <a href="/" className="lg:hidden flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C030)' }}>
+            style={{ background: 'linear-gradient(135deg, #F5C518, #FFE45C)' }}>
             <ShoppingCart size={20} strokeWidth={2.5} color="#fff" />
           </a>
           <div className="lg:hidden absolute left-0 right-0 flex justify-center items-center pointer-events-none" style={{ zIndex: 1 }}>
             <div className="flex items-center gap-2" style={{ transform: 'translateX(37px)' }}>
             <a href="/" className="pointer-events-auto leading-none text-center">
               <div className="font-display font-black text-xl tracking-wide"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
+                style={{ background: 'linear-gradient(135deg,#F5C518,#F5E060,#F5C518)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
                 MAYORISTA
               </div>
               <div className="font-display font-black text-xl tracking-widest"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F5E060,#D4AF37)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
+                style={{ background: 'linear-gradient(135deg,#F5C518,#F5E060,#F5C518)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8))' }}>
                 UNIVERSAL
               </div>
             </a>
@@ -186,7 +186,7 @@ export default function Header() {
                 placeholder="Buscar productos, categorías o marcas..."
                 className="flex-1 bg-white text-gray-800 placeholder-gray-400 px-4 py-2.5 outline-none text-sm min-w-0" />
               <button type="submit" className="px-5 py-2.5 flex items-center justify-center flex-shrink-0 transition-all"
-                style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+                style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)' }}>
                 <Search size={18} className="text-navy" strokeWidth={2.5} />
               </button>
             </form>
@@ -224,7 +224,7 @@ export default function Header() {
 
             {/* Cart */}
             <motion.button className="relative p-1.5 transition-colors" style={{ color: '#FFFFFF' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+              onMouseEnter={e => (e.currentTarget.style.color = '#F5C518')}
               onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
               whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={24} />
@@ -237,10 +237,10 @@ export default function Header() {
                 <motion.a href="/mi-cuenta"
                   className="flex items-center gap-2 transition-colors"
                   style={{ color: '#FFFFFF' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F5C518')}
                   onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
                   whileHover={{ scale: 1.03 }}>
-                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <User size={16} color="#FFFFFF" />
                   </div>
                   <div className="flex flex-col items-start">
@@ -255,7 +255,7 @@ export default function Header() {
               <motion.a href="/login"
                 className="flex flex-col items-end transition-colors"
                 style={{ color: '#FFFFFF' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                onMouseEnter={e => (e.currentTarget.style.color = '#F5C518')}
                 onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
                 whileHover={{ scale: 1.03 }}>
                 <span className="text-[11px] leading-none opacity-90">Ingresar / Registrarse</span>
@@ -271,13 +271,13 @@ export default function Header() {
             <a href={userName ? '/mi-cuenta' : '/login'} style={{ textDecoration: 'none', flexShrink: 0 }}>
               <div style={{
                 width: 30, height: 30, borderRadius: '50%',
-                background: userName ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(212,175,55,0.15)',
-                border: '1.5px solid rgba(212,175,55,0.5)',
+                background: userName ? 'linear-gradient(135deg,#F5C518,#FFE45C)' : 'rgba(245,197,24,0.15)',
+                border: '1.5px solid rgba(245,197,24,0.5)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 {userName
                   ? <span style={{ fontSize: 13, fontWeight: 900, color: '#FFFFFF' }}>{userName.charAt(0).toUpperCase()}</span>
-                  : <User size={15} color="#D4AF37" />
+                  : <User size={15} color="#F5C518" />
                 }
               </div>
             </a>
@@ -296,7 +296,7 @@ export default function Header() {
             className="flex-1 bg-white border border-gold/30 text-gray-800 placeholder-gray-400 rounded-lg px-3 py-2 outline-none text-sm"
           />
           <button type="submit" className="px-4 py-2 rounded-lg flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+            style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)' }}>
             <Search size={18} className="text-navy" strokeWidth={2.5} />
           </button>
         </form>
@@ -325,7 +325,7 @@ export default function Header() {
                 .map(cat => (
                   <a key={cat.id} href={`/categorias/${encodeURIComponent(cat.nombre)}`}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '7px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: 6, transition: 'background 0.15s, color 0.15s' }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#D4AF37' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#F5C518' }}
                     onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#FFFFFF' }}>
                     <span style={{ fontSize: 14 }}>{cat.emoji}</span>{cat.nombre}
                   </a>
@@ -482,7 +482,7 @@ export default function Header() {
       {/* ── Franja azul de frases rotativas ── */}
       <div style={{
         background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
-        borderTop: '1px solid rgba(212,175,55,0.25)',
+        borderTop: '1px solid rgba(245,197,24,0.25)',
         padding: '7px 16px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         minHeight: 36, overflow: 'hidden',
@@ -494,7 +494,7 @@ export default function Header() {
           transition: 'opacity 0.4s ease, transform 0.4s ease',
         }}>
           <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
-          <span style={{ color: '#D4AF37', fontWeight: 800, fontSize: 'clamp(11px, 1.6vw, 13px)', letterSpacing: '0.03em', textTransform: 'uppercase' }}>
+          <span style={{ color: '#F5C518', fontWeight: 800, fontSize: 'clamp(11px, 1.6vw, 13px)', letterSpacing: '0.03em', textTransform: 'uppercase' }}>
             {FRASES[fraseIdx].texto}
           </span>
           <span style={{ fontSize: 18 }}>{FRASES[fraseIdx].emoji}</span>
@@ -513,7 +513,7 @@ export default function Header() {
                 onSubmit={e => { e.preventDefault(); const v = (e.currentTarget.querySelector('input') as HTMLInputElement).value.trim(); if (v) window.location.href = `/buscar?q=${encodeURIComponent(v)}` }}>
                 <input type="text" placeholder="Buscar productos..."
                   className="flex-1 bg-navy-light text-white placeholder-gray-500 px-4 py-2.5 outline-none text-sm" />
-                <button type="submit" className="px-4 py-2.5" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)' }}>
+                <button type="submit" className="px-4 py-2.5" style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)' }}>
                   <Search size={16} className="text-navy" />
                 </button>
               </form>
@@ -559,13 +559,13 @@ export default function Header() {
                 {userName ? (
                   <a href="/mi-cuenta"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF' }}>
+                    style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#FFFFFF' }}>
                     👤 Mi cuenta
                   </a>
                 ) : (
                   <a href="/login"
                     className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF' }}>
+                    style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#FFFFFF' }}>
                     Ingresar
                   </a>
                 )}

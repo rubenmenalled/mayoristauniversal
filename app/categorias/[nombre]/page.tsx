@@ -243,7 +243,7 @@ export default function CategoriaPage() {
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
       <div style={{
-        background: 'rgba(13,71,161,0.95)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(13,71,161,0.95)', borderBottom: '1px solid rgba(245,197,24,0.2)',
         padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -251,13 +251,13 @@ export default function CategoriaPage() {
           {/* Fila 1: navegación */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <button onClick={() => router.push('/')}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
+              style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#F5C518', fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
               <ArrowLeft size={16} /> Inicio
             </button>
             <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, flex: 1 }}>{nombreDecoded}</div>
             <a href="/catalogo" style={{
               display: 'flex', alignItems: 'center', gap: 6,
-              background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+              background: 'linear-gradient(135deg,#F5C518,#FFE45C)',
               color: '#FFFFFF', fontWeight: 900, fontSize: 11,
               padding: '5px 12px', borderRadius: 8, textDecoration: 'none',
               whiteSpace: 'nowrap', letterSpacing: '0.04em', flexShrink: 0,
@@ -266,11 +266,11 @@ export default function CategoriaPage() {
             </a>
             <button onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: '#FFFFFF', padding: 4, flexShrink: 0 }}>
               <ShoppingCart size={22} />
-              {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#D4AF37', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
+              {count > 0 && <span style={{ position: 'absolute', top: 0, right: 0, background: '#F5C518', color: '#FFFFFF', fontSize: 10, width: 16, height: 16, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900 }}>{count}</span>}
             </button>
           </div>
           {/* Fila 2: buscador interno */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#FFFFFF', border: '1.5px solid rgba(212,175,55,0.3)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#FFFFFF', border: '1.5px solid rgba(245,197,24,0.3)', borderRadius: 10, padding: '7px 14px', transition: 'border-color 0.2s' }}
             onFocus={() => {}} >
             <input
               type="text"
@@ -294,7 +294,7 @@ export default function CategoriaPage() {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 16px 0' }}>
           <div style={{
             background: 'linear-gradient(135deg, #FFF8E1 0%, #FFF3CD 100%)',
-            border: '2px solid #D4AF37',
+            border: '2px solid #F5C518',
             borderRadius: 14,
             padding: '16px 20px',
             display: 'flex', alignItems: 'center', gap: 14,
@@ -315,7 +315,7 @@ export default function CategoriaPage() {
       {/* Sub-subcategorías como tarjetas — cuando hay subActiva con sub-subs y no hay subSubActiva */}
       {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
-          <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
+          <div style={{ color: '#F5C518', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
             Seleccioná una categoría
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
@@ -330,7 +330,7 @@ export default function CategoriaPage() {
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                 <span style={{ fontSize: 40 }}>🧸</span>
                 <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>VER TODOS</span>
-                <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
+                <span style={{ color: '#F5C518', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
               </div>
             </motion.div>
             {/* Tarjetas de sub-subcategorías */}
@@ -345,7 +345,7 @@ export default function CategoriaPage() {
                 <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                   <span style={{ fontSize: 40 }}>{ss.emoji}</span>
                   <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>{ss.nombre}</span>
-                  <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
+                  <span style={{ color: '#F5C518', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
                 </div>
               </motion.div>
             ))}
@@ -358,10 +358,10 @@ export default function CategoriaPage() {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
           {/* Botón ver todos los productos de la categoría */}
           <button onClick={() => setSubActiva('__todos__')}
-            style={{ width: '100%', marginBottom: 20, padding: '16px', borderRadius: 12, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontWeight: 900, fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 16px rgba(212,175,55,0.3)' }}>
+            style={{ width: '100%', marginBottom: 20, padding: '16px', borderRadius: 12, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#0D2C54', fontWeight: 900, fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 4px 16px rgba(245,197,24,0.3)' }}>
             🛍️ VER TODOS LOS PRODUCTOS DE {nombreDecoded} →
           </button>
-          <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
+          <div style={{ color: '#F5C518', fontWeight: 800, fontSize: 14, letterSpacing: '0.1em', marginBottom: 20, textTransform: 'uppercase' }}>
             O elegí una subcategoría
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
@@ -386,13 +386,13 @@ export default function CategoriaPage() {
                   )}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
                   {((sub as any).count ?? 0) >= 10 && (
-                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 5, background: 'rgba(212,175,55,0.95)', color: '#0B1E3F', fontWeight: 900, fontSize: 10, padding: '3px 8px', borderRadius: 99, boxShadow: '0 2px 6px rgba(0,0,0,0.35)' }}>
+                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 5, background: 'rgba(245,197,24,0.95)', color: '#0B1E3F', fontWeight: 900, fontSize: 10, padding: '3px 8px', borderRadius: 99, boxShadow: '0 2px 6px rgba(0,0,0,0.35)' }}>
                       {(sub as any).count} modelos
                     </div>
                   )}
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: 4, padding: 12 }}>
                     <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>{sub.nombre}</span>
-                    <span style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
+                    <span style={{ color: '#F5C518', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
                   </div>
                 </motion.div>
               )
@@ -469,7 +469,7 @@ export default function CategoriaPage() {
         {/* Botón volver — nivel 3: volver a BUBBLE */}
         {subActiva && subSubActiva && SUB_SUBS[subActiva] && (
           <button onClick={() => setSubSubActiva('')}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(245,197,24,0.4)', borderRadius: 20, padding: '8px 16px', color: '#F5C518', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a {subActiva}
           </button>
         )}
@@ -477,7 +477,7 @@ export default function CategoriaPage() {
         {/* Botón volver — nivel 2: volver a subcategorías (solo si no hay sub-subs pendientes de elegir) */}
         {subActiva && subcategorias.length > 0 && (!SUB_SUBS[subActiva] || subSubActiva) && (
           <button onClick={() => { setSubActiva(''); setSubSubActiva('') }}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(245,197,24,0.4)', borderRadius: 20, padding: '8px 16px', color: '#F5C518', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
         )}
@@ -485,7 +485,7 @@ export default function CategoriaPage() {
         {/* Botón volver — cuando estoy en sub-subs picker (BUBBLE sin subSubActiva), volver a subcategorías */}
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && subcategorias.length > 0 && (
           <button onClick={() => setSubActiva('')}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 20, padding: '8px 16px', color: '#D4AF37', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(245,197,24,0.4)', borderRadius: 20, padding: '8px 16px', color: '#F5C518', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
         )}
@@ -494,14 +494,14 @@ export default function CategoriaPage() {
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : (loading || loadingBusqueda) ? (
           <div style={{ textAlign: 'center', color: '#FFFFFF', padding: 80, fontSize: 16 }}>{loadingBusqueda ? `Buscando "${busquedaInterna}"...` : 'Cargando productos...'}</div>
         ) : productosFiltrados.length === 0 && (!subcategorias.length || subActiva || busquedaInterna.trim()) ? (
-          <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: 20 }}>
+          <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20 }}>
             <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
             <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
               {busquedaInterna.trim() ? `Sin resultados para "${busquedaInterna}"` : subActiva ? `No hay productos en ${subActiva}` : `No hay productos en ${nombreDecoded} todavía`}
             </div>
             {(subActiva || busquedaInterna.trim()) && (
               <button onClick={() => { setSubActiva(''); setBusquedaInterna('') }}
-                style={{ marginTop: 16, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '10px 24px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer' }}>
+                style={{ marginTop: 16, background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 10, padding: '10px 24px', color: '#FFFFFF', fontWeight: 900, cursor: 'pointer' }}>
                 Ver todos
               </button>
             )}
@@ -510,14 +510,14 @@ export default function CategoriaPage() {
           <>
             <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 24 }}>
               {busquedaInterna.trim()
-                ? <><span style={{ color: '#D4AF37', fontWeight: 700 }}>{productosFiltrados.length}</span> resultado{productosFiltrados.length !== 1 ? 's' : ''} para <span style={{ color: '#D4AF37', fontWeight: 700 }}>"{busquedaInterna}"</span></>
-                : <>{productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en <span style={{ color: '#D4AF37', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
+                ? <><span style={{ color: '#F5C518', fontWeight: 700 }}>{productosFiltrados.length}</span> resultado{productosFiltrados.length !== 1 ? 's' : ''} para <span style={{ color: '#F5C518', fontWeight: 700 }}>"{busquedaInterna}"</span></>
+                : <>{productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en <span style={{ color: '#F5C518', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
               }
             </div>
             <style dangerouslySetInnerHTML={{ __html: `
               @keyframes fadeUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
               .prod-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-              @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(212,175,55,0.2); } }
+              @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(245,197,24,0.2); } }
               .prod-hover-img { opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
               @media (hover: hover) { .prod-card:hover .prod-hover-img { opacity: 1; } }
             ` }} />
@@ -548,7 +548,7 @@ export default function CategoriaPage() {
                     )}
                     {p.image && (
                       <div style={{ position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.5)', borderRadius: 6, padding: '2px 5px', fontSize: 10, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: 3 }}>
-                        🔍{p.images && p.images.length > 1 && <span style={{ fontSize: 9, color: '#D4AF37', fontWeight: 700 }}>{p.images.length}📷</span>}
+                        🔍{p.images && p.images.length > 1 && <span style={{ fontSize: 9, color: '#F5C518', fontWeight: 700 }}>{p.images.length}📷</span>}
                       </div>
                     )}
                     {(p.discount ?? 0) > 0 && (
@@ -567,8 +567,8 @@ export default function CategoriaPage() {
                   <div style={{ padding: 8 }}>
                     {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
                     {p.location && p.location !== 'Buenos Aires' && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
-                        <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>COD</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
+                        <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 9 }}>COD</span>
                         <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>
                           {p.location.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : p.location}
                         </span>
@@ -641,8 +641,8 @@ export default function CategoriaPage() {
                       const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
                       if (!bi?.sku) return null
                       return (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 4 }}>
-                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 9 }}>SKU</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 4 }}>
+                          <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 9 }}>SKU</span>
                           <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>
                             {p.location?.startsWith('SKU:') ? p.location.replace('SKU:', '').trim() : 'Sin código'}
                           </span>
@@ -657,14 +657,14 @@ export default function CategoriaPage() {
                       return (
                         <div style={{ marginTop: 6 }}>
                           <div style={{ color: '#6B7280', fontSize: 10, marginTop: 2 }}>
-                            {bi?.label ?? 'Mayorista:'} <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+                            {bi?.label ?? 'Mayorista:'} <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 14 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
                           </div>
                         </div>
                       )
                     })()}
                     <button
                       className="btn-agregar"
-                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
+                      style={{ width: '100%', marginTop: 10, padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#0D2C54', fontSize: 12, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, WebkitTapHighlightColor: 'transparent' }}
                       onClick={() => {
                         const cat = (p.category ?? '').toUpperCase()
                         const sub = (p.subcategory ?? '').toUpperCase()
@@ -691,7 +691,7 @@ export default function CategoriaPage() {
                 <button
                   onClick={cargarMas}
                   disabled={loadingMas}
-                  style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 12, padding: '14px 40px', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: loadingMas ? 'not-allowed' : 'pointer', opacity: loadingMas ? 0.7 : 1 }}>
+                  style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 12, padding: '14px 40px', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: loadingMas ? 'not-allowed' : 'pointer', opacity: loadingMas ? 0.7 : 1 }}>
                   {loadingMas ? 'Cargando...' : 'Ver más productos'}
                 </button>
               </div>
@@ -714,7 +714,7 @@ export default function CategoriaPage() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => { if (zoom) { setZoom(false); setOffset({x:0,y:0}) } else setLightbox(null) }}
             style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 16, cursor: 'default' }}>
-            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: isMobile ? '100%' : 860, height: isMobile ? 'calc(100vh - 32px)' : 'calc(100vh - 48px)', maxHeight: isMobile ? '100%' : 640, background: '#FFFFFF', borderRadius: isMobile ? 16 : 20, overflow: 'hidden', border: '1px solid rgba(212,175,55,0.3)', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+            <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: isMobile ? '100%' : 860, height: isMobile ? 'calc(100vh - 32px)' : 'calc(100vh - 48px)', maxHeight: isMobile ? '100%' : 640, background: '#FFFFFF', borderRadius: isMobile ? 16 : 20, overflow: 'hidden', border: '1px solid rgba(245,197,24,0.3)', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
               {/* IMAGEN — izquierda en desktop, arriba en mobile */}
               <div style={{ flex: isMobile ? '0 0 45%' : '0 0 58%', display: 'flex', flexDirection: 'column', background: '#F5F5F5', borderRight: isMobile ? 'none' : '1px solid #E5E7EB', borderBottom: isMobile ? '1px solid #E5E7EB' : 'none', overflow: 'hidden' }}>
               {/* Foto grande */}
@@ -809,7 +809,7 @@ export default function CategoriaPage() {
                 <div style={{ display: 'flex', gap: 6, padding: '8px 10px', justifyContent: 'center', flexWrap: 'wrap', background: '#FFF', borderTop: '1px solid #E5E7EB', flexShrink: 0 }}>
                   {lbImages.map((src, i) => (
                     <button key={i} onClick={() => { setLightboxImgIdx(i); setZoom(false); setOffset({x:0,y:0}) }}
-                      style={{ width: 44, height: 44, borderRadius: 7, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #D4AF37' : '2px solid #E5E7EB', padding: 0, cursor: 'pointer', background: '#F3F4F6', flexShrink: 0, transition: 'border-color 0.2s' }}>
+                      style={{ width: 44, height: 44, borderRadius: 7, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #F5C518' : '2px solid #E5E7EB', padding: 0, cursor: 'pointer', background: '#F3F4F6', flexShrink: 0, transition: 'border-color 0.2s' }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={src} alt={`foto ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </button>
@@ -839,7 +839,7 @@ export default function CategoriaPage() {
                           {precioUnit && <div style={{ color: '#111', fontSize: 13, fontWeight: 900, marginTop: 3 }}>{precioUnit}</div>}
                         </div>
                         {extra && (
-                          <div style={{ color: '#6B7280', fontSize: 12, lineHeight: 1.6, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #D4AF37', whiteSpace: 'pre-line' }}>
+                          <div style={{ color: '#6B7280', fontSize: 12, lineHeight: 1.6, marginBottom: 10, padding: '8px 12px', background: '#F9FAFB', borderRadius: 8, borderLeft: '3px solid #F5C518', whiteSpace: 'pre-line' }}>
                             {extra}
                           </div>
                         )}
@@ -852,8 +852,8 @@ export default function CategoriaPage() {
                   )
                 )}
                 {lightbox.location && lightbox.location !== 'Buenos Aires' && !getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder) && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
-                    <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>COD</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(245,197,24,0.12)', border: '1px solid rgba(245,197,24,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
+                    <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>COD</span>
                     <span style={{ color: '#111827', fontWeight: 800, fontSize: 15 }}>
                       {lightbox.location.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : lightbox.location}
                     </span>
@@ -870,8 +870,8 @@ export default function CategoriaPage() {
                         </div>
                       )}
                       {lbi.sku && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.4)', borderRadius: 8, padding: '6px 12px' }}>
-                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.4)', borderRadius: 8, padding: '6px 12px' }}>
+                          <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>SKU</span>
                           <span style={{ color: '#111827', fontWeight: 800, fontSize: 15 }}>
                             {lightbox.location?.startsWith('SKU:') ? lightbox.location.replace('SKU:', '').trim() : 'Sin código'}
                           </span>
@@ -897,7 +897,7 @@ export default function CategoriaPage() {
                             <div style={{ color: '#B45309', fontSize: 13, fontWeight: 700, marginTop: 2 }}>{esDocena ? `EL BULTO (${lightbox.minOrder} DOCENAS)` : esBulto ? `EL BULTO X${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'LA DOCENA' : `PACK X ${lightbox.minOrder}`}: ${packTotal.toLocaleString('es-AR')}</div>
                           </div>
                         )}
-                        <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: isMobile ? 26 : 22 }}>
+                        <div style={{ color: '#F5C518', fontWeight: 900, fontSize: isMobile ? 26 : 22 }}>
                           ${(lightbox.minOrder > 1 ? packTotal : lightbox.wholesalePrice).toLocaleString('es-AR')}
                           {lightbox.minOrder > 1 && <span style={{ fontSize: 13, fontWeight: 600, color: '#92400E', marginLeft: 6 }}>{esDocena ? `el bulto (${lightbox.minOrder} docenas)` : esBulto ? `el bulto x${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'la docena' : `el pack x ${lightbox.minOrder}`}</span>}
                         </div>
@@ -927,7 +927,7 @@ export default function CategoriaPage() {
                       setLightbox(null)
                     }}
                     className="btn-agregar"
-                    style={{ flex: 2, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: isMobile ? '14px 6px' : '10px 6px', color: '#0D2C54', fontWeight: 900, cursor: 'pointer', fontSize: isMobile ? 15 : 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                    style={{ flex: 2, background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 10, padding: isMobile ? '14px 6px' : '10px 6px', color: '#0D2C54', fontWeight: 900, cursor: 'pointer', fontSize: isMobile ? 15 : 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
                     <ShoppingCart size={14} />AGREGAR
                   </motion.button>
                 </div>

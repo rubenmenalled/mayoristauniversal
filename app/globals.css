@@ -23,19 +23,19 @@ body {
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #FFFFFF; }
-::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #F0D060; }
+::-webkit-scrollbar-thumb { background: #F5C518; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #FFE45C; }
 
 /* ─── Utility classes ─── */
 .gold-text {
-  background: linear-gradient(135deg, #D4AF37 0%, #F0D060 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, #F5C518 0%, #FFE45C 50%, #F5C518 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .shimmer-gold {
-  background: linear-gradient(90deg, #B8941C 0%, #D4AF37 25%, #F0D060 50%, #D4AF37 75%, #B8941C 100%);
+  background: linear-gradient(90deg, #D4A60A 0%, #F5C518 25%, #FFE45C 50%, #F5C518 75%, #D4A60A 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -52,11 +52,11 @@ body {
   background: #8B7355;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(245,197,24, 0.25);
 }
 
 .glow-gold {
-  box-shadow: 0 0 20px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.2);
+  box-shadow: 0 0 20px rgba(245,197,24,0.5), 0 0 40px rgba(245,197,24,0.2);
 }
 
 .glow-blue {
@@ -64,7 +64,7 @@ body {
 }
 
 .btn-gold {
-  background: linear-gradient(135deg, #D4AF37 0%, #F0D060 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, #F5C518 0%, #FFE45C 50%, #F5C518 100%);
   background-size: 200% auto;
   transition: all 0.3s ease;
   color: #E5E5E5;
@@ -73,26 +73,26 @@ body {
 
 .btn-gold:hover {
   background-position: right center;
-  box-shadow: 0 0 25px rgba(212,175,55,0.7), 0 0 50px rgba(212,175,55,0.3);
+  box-shadow: 0 0 25px rgba(245,197,24,0.7), 0 0 50px rgba(245,197,24,0.3);
   transform: translateY(-2px);
 }
 
 .btn-outline-gold {
-  border: 1.5px solid #D4AF37;
-  color: #D4AF37;
+  border: 1.5px solid #F5C518;
+  color: #F5C518;
   transition: all 0.3s ease;
 }
 
 .btn-outline-gold:hover {
-  background: rgba(212,175,55,0.1);
-  box-shadow: 0 0 20px rgba(212,175,55,0.3);
+  background: rgba(245,197,24,0.1);
+  box-shadow: 0 0 20px rgba(245,197,24,0.3);
 }
 
 /* Grid pattern overlay */
 .grid-pattern {
   background-image:
-    linear-gradient(rgba(212,175,55,0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212,175,55,0.07) 1px, transparent 1px);
+    linear-gradient(rgba(245,197,24,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,197,24,0.07) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -104,14 +104,14 @@ body {
 /* Section divider */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(245,197,24,0.3), transparent);
 }
 
 /* Badge styles */
 .badge-offer  { background: linear-gradient(135deg,#ef4444,#dc2626); }
 .badge-new    { background: linear-gradient(135deg,#22c55e,#16a34a); }
 .badge-hot    { background: linear-gradient(135deg,#f97316,#ea580c); }
-.badge-top    { background: linear-gradient(135deg,#D4AF37,#F0D060); color:#E5E5E5; }
+.badge-top    { background: linear-gradient(135deg,#F5C518,#FFE45C); color:#E5E5E5; }
 
 /* Ticker */
 @keyframes tickerLeft {
@@ -123,14 +123,14 @@ body {
 
 /* Botón AGREGAR — gradiente dorado animado + glow al pasar el mouse */
 .btn-agregar{
-  background: linear-gradient(120deg,#CC9A06,#FFCE1F,#FFF1A8,#FFCE1F,#CC9A06) !important;
+  background: linear-gradient(120deg,#D4A60A,#F5C518,#FFE45C,#F5C518,#D4A60A) !important;
   background-size: 220% 100% !important;
   background-position: 0% 0 !important;
   transition: background-position .6s ease, box-shadow .3s ease, transform .15s ease !important;
 }
 .btn-agregar:hover{
   background-position: 100% 0 !important;
-  box-shadow: 0 6px 22px rgba(212,175,55,.6) !important;
+  box-shadow: 0 6px 22px rgba(245,197,24,.6) !important;
   transform: translateY(-1px) !important;
 }
 .btn-agregar:active{ transform: translateY(0) scale(.98) !important; }

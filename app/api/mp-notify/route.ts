@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
 
   <!-- PRODUCTOS -->
   <div style="background:#FFFFFF;padding:24px 32px;border-left:1px solid #E5E7EB;border-right:1px solid #E5E7EB;border-top:1px solid #F3F4F6;">
-    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 20px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #D4AF37;padding-bottom:8px;">
+    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 20px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #F5C518;padding-bottom:8px;">
       📦 Productos (${cantidadTotal} unidades — ${items.length} artículo${items.length !== 1 ? 's' : ''})
     </h2>
     ${items.map((item: any, idx: number) => {
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
           <div style="color:#111827;font-size:13px;font-weight:800;line-height:1.3;margin-bottom:6px;">${item.name}</div>
           <div style="color:#6B7280;font-size:12px;">
             $${precio.toLocaleString('es-AR')} c/u × ${item.quantity} =
-            <strong style="color:#D4AF37;font-size:14px;"> $${subtotal.toLocaleString('es-AR')}</strong>
+            <strong style="color:#F5C518;font-size:14px;"> $${subtotal.toLocaleString('es-AR')}</strong>
           </div>
         </div>
       </div>`
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
       <span style="color:rgba(255,255,255,0.7);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Total cobrado con MP (+10%)</span>
     </div>
     <div style="display:table-cell;vertical-align:middle;text-align:right;">
-      <span style="color:#D4AF37;font-size:30px;font-weight:900;">${totalFormato}</span>
+      <span style="color:#F5C518;font-size:30px;font-weight:900;">${totalFormato}</span>
     </div>
   </div>
 

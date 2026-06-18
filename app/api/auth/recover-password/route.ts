@@ -48,14 +48,14 @@ export async function POST(req: NextRequest) {
 <div style="max-width:520px;margin:0 auto;padding:32px 16px;">
   <div style="background:linear-gradient(135deg,#0F3460 0%,#1a4a8a 100%);border-radius:16px 16px 0 0;padding:28px 32px;text-align:center;">
     <div style="font-size:40px;margin-bottom:8px;">🔐</div>
-    <h1 style="color:#D4AF37;margin:0 0 4px 0;font-size:22px;font-weight:900;">Recuperar contraseña</h1>
+    <h1 style="color:#F5C518;margin:0 0 4px 0;font-size:22px;font-weight:900;">Recuperar contraseña</h1>
     <p style="color:rgba(255,255,255,0.75);margin:0;font-size:13px;">Mayorista Universal</p>
   </div>
   <div style="background:#FFFFFF;padding:32px;border-left:1px solid #E5E7EB;border-right:1px solid #E5E7EB;">
     <p style="color:#374151;font-size:15px;margin:0 0 12px;">Recibimos una solicitud para restablecer la contraseña de tu cuenta.</p>
     <p style="color:#374151;font-size:15px;margin:0 0 28px;">Hacé clic en el botón para crear una nueva contraseña:</p>
     <div style="text-align:center;margin-bottom:28px;">
-      <a href="${link}" style="display:inline-block;background:linear-gradient(135deg,#D4AF37,#F0C030);color:#FFFFFF;font-weight:900;font-size:16px;padding:14px 36px;border-radius:12px;text-decoration:none;letter-spacing:0.02em;">
+      <a href="${link}" style="display:inline-block;background:linear-gradient(135deg,#F5C518,#FFE45C);color:#FFFFFF;font-weight:900;font-size:16px;padding:14px 36px;border-radius:12px;text-decoration:none;letter-spacing:0.02em;">
         CREAR NUEVA CONTRASEÑA
       </a>
     </div>

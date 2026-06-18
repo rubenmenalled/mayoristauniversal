@@ -46,7 +46,7 @@ export default function ComoComprarPage() {
 
       {/* Header */}
       <div style={{
-        background: 'rgba(240,240,240,0.97)', borderBottom: '1px solid rgba(212,175,55,0.2)',
+        background: 'rgba(240,240,240,0.97)', borderBottom: '1px solid rgba(245,197,24,0.2)',
         padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
@@ -55,7 +55,7 @@ export default function ComoComprarPage() {
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
               background: 'none', border: 'none', cursor: 'pointer',
-              color: '#D4AF37', fontWeight: 700, fontSize: 13,
+              color: '#F5C518', fontWeight: 700, fontSize: 13,
             }}>
             <ArrowLeft size={16} /> Inicio
           </button>
@@ -66,7 +66,7 @@ export default function ComoComprarPage() {
       {/* Content */}
       <div style={{ maxWidth: 700, margin: '0 auto', padding: '48px 24px' }}>
 
-        <h1 style={{ color: '#D4AF37', fontWeight: 900, fontSize: 28, marginBottom: 8, textAlign: 'center' }}>
+        <h1 style={{ color: '#F5C518', fontWeight: 900, fontSize: 28, marginBottom: 8, textAlign: 'center' }}>
           ¿Cómo comprar en Mayorista Universal?
         </h1>
         <p style={{ color: '#4A5568', fontSize: 16, textAlign: 'center', marginBottom: 48 }}>
@@ -78,7 +78,7 @@ export default function ComoComprarPage() {
           {PASOS.map((paso, i) => (
             <div key={i} style={{
               background: '#FFFFFF',
-              border: '1px solid rgba(212,175,55,0.25)',
+              border: '1px solid rgba(245,197,24,0.25)',
               borderRadius: 16,
               padding: '24px 28px',
               display: 'flex', gap: 20, alignItems: 'flex-start',
@@ -87,7 +87,7 @@ export default function ComoComprarPage() {
               {/* Número */}
               <div style={{
                 width: 48, height: 48, borderRadius: '50%', flexShrink: 0,
-                background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+                background: 'linear-gradient(135deg,#F5C518,#FFE45C)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontWeight: 900, fontSize: 22, color: '#FFFFFF',
               }}>
@@ -109,7 +109,7 @@ export default function ComoComprarPage() {
                     rel={paso.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     style={{
                       display: 'inline-block',
-                      background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+                      background: 'linear-gradient(135deg,#F5C518,#FFE45C)',
                       color: '#FFFFFF', fontWeight: 800, fontSize: 13,
                       padding: '8px 20px', borderRadius: 10, textDecoration: 'none',
                     }}>

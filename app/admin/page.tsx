@@ -68,7 +68,7 @@ export default function AdminLogin() {
 
         {/* Ícono + título */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ width: 64, height: 64, background: 'linear-gradient(135deg,#D4AF37,#F0C030)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+          <div style={{ width: 64, height: 64, background: 'linear-gradient(135deg,#F5C518,#FFE45C)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
             <Lock size={28} color="#FFFFFF" />
           </div>
           <h1 style={{ color: '#111827', fontSize: 22, fontWeight: 900, margin: 0 }}>
@@ -81,7 +81,7 @@ export default function AdminLogin() {
         {modo === 'login' && (
           <form onSubmit={handleLogin}>
             <div style={{ marginBottom: 16 }}>
-              <label style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6 }}>CONTRASEÑA</label>
+              <label style={{ color: '#F5C518', fontSize: 12, fontWeight: 700, display: 'block', marginBottom: 6 }}>CONTRASEÑA</label>
               <div style={{ position: 'relative' }}>
                 <input
                   type={showPass ? 'text' : 'password'}
@@ -108,7 +108,7 @@ export default function AdminLogin() {
             )}
 
             <button type="submit" disabled={loading}
-              style={{ width: '100%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '13px', color: '#FFFFFF', fontSize: 15, fontWeight: 900, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1 }}>
+              style={{ width: '100%', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 10, padding: '13px', color: '#FFFFFF', fontSize: 15, fontWeight: 900, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1 }}>
               {loading ? 'Ingresando...' : 'INGRESAR'}
             </button>
 
@@ -136,7 +136,7 @@ export default function AdminLogin() {
             )}
 
             <button onClick={handleRecuperar} disabled={recuperando}
-              style={{ width: '100%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 10, padding: '13px', color: '#fff', fontSize: 15, fontWeight: 900, cursor: recuperando ? 'not-allowed' : 'pointer', opacity: recuperando ? 0.7 : 1, marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              style={{ width: '100%', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 10, padding: '13px', color: '#fff', fontSize: 15, fontWeight: 900, cursor: recuperando ? 'not-allowed' : 'pointer', opacity: recuperando ? 0.7 : 1, marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
               <Mail size={18} />
               {recuperando ? 'Enviando...' : 'Enviar por email'}
             </button>

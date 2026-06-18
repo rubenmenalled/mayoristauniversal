@@ -203,9 +203,9 @@ export default function CartSidebar({ open, onClose }: Props) {
             {/* Header */}
             <div style={{ padding: '20px 24px', borderBottom: '1px solid #F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#FFFFFF' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <ShoppingBag size={20} color="#D4AF37" />
+                <ShoppingBag size={20} color="#F5C518" />
                 <span style={{ color: '#111827', fontWeight: 900, fontSize: 18 }}>Mi Carrito</span>
-                <span style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 12, padding: '2px 8px', borderRadius: 99 }}>
+                <span style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#FFFFFF', fontWeight: 900, fontSize: 12, padding: '2px 8px', borderRadius: 99 }}>
                   {items.length}
                 </span>
               </div>
@@ -247,7 +247,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                           <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, lineHeight: 1.3, marginBottom: 4, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{item.name}</div>
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             <div>
-                              <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 13 }}>${subtotal.toLocaleString('es-AR')}</span>
+                              <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 13 }}>${subtotal.toLocaleString('es-AR')}</span>
                               <span style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginLeft: 4 }}>{item.minOrder > 1 ? '/doc.' : 'c/u'}</span>
                             </div>
                             {/* Qty + delete */}
@@ -303,7 +303,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                           <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, lineHeight: 1.3, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', flex: 1 }}>{item.name}</div>
                           {/* Precio (siempre mayorista en el carrito) */}
                           <div>
-                            <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>${subtotal.toLocaleString('es-AR')}</div>
+                            <div style={{ color: '#F5C518', fontWeight: 900, fontSize: 15 }}>${subtotal.toLocaleString('es-AR')}</div>
                             <div style={{ color: '#9CA3AF', fontSize: 10 }}>{item.minOrder > 1 ? `$${(item.wholesalePrice * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${item.wholesalePrice.toLocaleString('es-AR')} c/u`}</div>
                           </div>
                           {/* Qty controls */}
@@ -346,7 +346,7 @@ export default function CartSidebar({ open, onClose }: Props) {
 
                 {/* Barra de progreso compacta */}
                 {isWholesale ? (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 8, padding: '6px 10px', marginBottom: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(245,197,24,0.1)', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 8, padding: '6px 10px', marginBottom: 8 }}>
                     <span style={{ fontSize: 13 }}>🏆</span>
                     <span style={{ color: '#92650A', fontWeight: 900, fontSize: 12 }}>¡Precio mayorista activo!</span>
                   </div>
@@ -394,13 +394,13 @@ export default function CartSidebar({ open, onClose }: Props) {
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 6, borderTop: '1px solid #E5E7EB' }}>
                     <span style={{ color: '#111827', fontWeight: 800, fontSize: 14 }}>Total</span>
-                    <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 20 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
+                    <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 20 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
                   </div>
                 </div>
 
                 {/* Seguir comprando */}
                 <button onClick={onClose}
-                  style={{ width: '100%', padding: '10px', borderRadius: 10, border: '1.5px solid #D4AF37', background: 'transparent', color: '#B8941C', fontWeight: 800, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginBottom: 4 }}>
+                  style={{ width: '100%', padding: '10px', borderRadius: 10, border: '1.5px solid #F5C518', background: 'transparent', color: '#D4A60A', fontWeight: 800, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginBottom: 4 }}>
                   ← Seguir comprando
                 </button>
 
@@ -463,12 +463,12 @@ export default function CartSidebar({ open, onClose }: Props) {
                           {guestErrors.telefono && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.telefono}</div>}
                         </div>
                         <button onClick={guardarGuest}
-                          style={{ width: '100%', padding: '9px', borderRadius: 8, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}>
+                          style={{ width: '100%', padding: '9px', borderRadius: 8, border: 'none', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}>
                           Confirmar datos →
                         </button>
                         <div style={{ textAlign: 'center', marginTop: 8, fontSize: 11, color: '#9CA3AF' }}>
                           ¿Ya tenés cuenta?{' '}
-                          <a href="/login" style={{ color: '#D4AF37', fontWeight: 700, textDecoration: 'none' }}>Ingresá aquí</a>
+                          <a href="/login" style={{ color: '#F5C518', fontWeight: 700, textDecoration: 'none' }}>Ingresá aquí</a>
                         </div>
                       </div>
                     )}
@@ -492,7 +492,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #FDE68A', paddingTop: 4, marginTop: 2 }}>
                           <span style={{ color: '#111827', fontWeight: 900 }}>Total a pagar</span>
-                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 15 }}>${displayTotal.toLocaleString('es-AR')}</span>
+                          <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 15 }}>${displayTotal.toLocaleString('es-AR')}</span>
                         </div>
                         <div style={{ color: '#92400E', fontSize: 10, marginTop: 5, lineHeight: 1.4 }}>
                           💡 Llegando a $100.000 te ahorrás el recargo (precio mayorista).
@@ -524,7 +524,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#FFFFFF', borderRadius: 8, padding: '8px 12px', border: '1px solid #BBF7D0' }}>
                           <span style={{ color: '#6B7280', fontSize: 12 }}>Total a transferir</span>
-                          <span style={{ color: '#D4AF37', fontWeight: 900, fontSize: 16 }}>${displayTotal.toLocaleString('es-AR')}</span>
+                          <span style={{ color: '#F5C518', fontWeight: 900, fontSize: 16 }}>${displayTotal.toLocaleString('es-AR')}</span>
                         </div>
                         <div style={{ fontSize: 11, color: '#6B7280', textAlign: 'center', lineHeight: 1.4 }}>
                           Enviá el comprobante por WhatsApp para confirmar el pedido
@@ -572,7 +572,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                 ) : !alcanzaMin ? null : !puedeComprar ? (
                   <button
                     onClick={onClose}
-                    style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 16px rgba(212,175,55,0.35)' }}>
+                    style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 16px rgba(245,197,24,0.35)' }}>
                     + SEGUIR AGREGANDO PRODUCTOS
                   </button>
                 ) : null}

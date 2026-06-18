@@ -6,7 +6,7 @@ interface Fila {
   id: number; titulo: string; emoji: string; subtitulo: string; categorias: string; orden: number; activo: boolean
 }
 
-const GOLD = '#D4AF37'
+const GOLD = '#F5C518'
 
 /* ── Selector de productos a mano (buscar + elegir) ── */
 function ManualPicker({ value, onChange }: { value: string; onChange: (ids: string) => void }) {
@@ -58,7 +58,7 @@ function ManualPicker({ value, onChange }: { value: string; onChange: (ids: stri
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
         {ids.length === 0 && <span style={{ color: '#7a8a9a', fontSize: 12 }}>Todavía no elegiste productos. Buscalos abajo 👇</span>}
         {ids.map(id => (
-          <span key={id} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.35)', borderRadius: 6, padding: '4px 8px', color: '#fff', fontSize: 12 }}>
+          <span key={id} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 6, padding: '4px 8px', color: '#fff', fontSize: 12 }}>
             {nombres[id] || `#${id}`}
             <button onClick={() => quitar(id)} style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', fontWeight: 900 }}>✕</button>
           </span>
@@ -66,7 +66,7 @@ function ManualPicker({ value, onChange }: { value: string; onChange: (ids: stri
       </div>
       {/* Buscador */}
       <input value={term} onChange={e => setTerm(e.target.value)} placeholder="🔍 Buscar producto por nombre o código para agregar..."
-        style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 8, padding: '9px 12px', color: '#fff', fontSize: 13 }} />
+        style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(245,197,24,0.3)', borderRadius: 8, padding: '9px 12px', color: '#fff', fontSize: 13 }} />
       {buscando && <div style={{ color: '#7a8a9a', fontSize: 12, marginTop: 6 }}>Buscando...</div>}
       {resultados.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 6, maxHeight: 220, overflowY: 'auto' }}>
@@ -75,7 +75,7 @@ function ManualPicker({ value, onChange }: { value: string; onChange: (ids: stri
               {p.imagen && <img src={(p.imagen || '').split('|')[0]} alt="" style={{ width: 30, height: 30, objectFit: 'cover', borderRadius: 4 }} />}
               <span style={{ flex: 1, color: '#cbd5e1', fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.nombre}</span>
               <button onClick={() => agregar(p)} disabled={ids.includes(String(p.id))}
-                style={{ background: ids.includes(String(p.id)) ? 'rgba(255,255,255,0.1)' : 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 6, padding: '5px 10px', color: ids.includes(String(p.id)) ? '#7a8a9a' : '#0F3460', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}>
+                style={{ background: ids.includes(String(p.id)) ? 'rgba(255,255,255,0.1)' : 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 6, padding: '5px 10px', color: ids.includes(String(p.id)) ? '#7a8a9a' : '#0F3460', fontWeight: 800, fontSize: 12, cursor: 'pointer' }}>
                 {ids.includes(String(p.id)) ? '✓' : '+ Agregar'}
               </button>
             </div>
@@ -133,8 +133,8 @@ export default function HomeSeccionesPage() {
 
   const ModeBtn = ({ active, onClick, children }: any) => (
     <button onClick={onClick} style={{ borderRadius: 8, padding: '7px 12px', fontSize: 13, fontWeight: 800, cursor: 'pointer',
-      border: active ? '1px solid #D4AF37' : '1px solid rgba(255,255,255,0.15)',
-      background: active ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : 'rgba(255,255,255,0.05)',
+      border: active ? '1px solid #F5C518' : '1px solid rgba(255,255,255,0.15)',
+      background: active ? 'linear-gradient(135deg,#F5C518,#FFE45C)' : 'rgba(255,255,255,0.05)',
       color: active ? '#0F3460' : '#cbd5e1' }}>{children}</button>
   )
 
@@ -145,7 +145,7 @@ export default function HomeSeccionesPage() {
           <h1 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, margin: 0 }}>🏠 Filas de la Home</h1>
           <div style={{ display: 'flex', gap: 10 }}>
             <button onClick={() => (window.location.href = '/admin/dashboard')} style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '8px 14px', color: '#ccc', fontWeight: 700, cursor: 'pointer' }}>← Panel</button>
-            <button onClick={agregar} style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', border: 'none', borderRadius: 8, padding: '8px 16px', color: '#0F3460', fontWeight: 900, cursor: 'pointer' }}>+ Agregar fila</button>
+            <button onClick={agregar} style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 8, padding: '8px 16px', color: '#0F3460', fontWeight: 900, cursor: 'pointer' }}>+ Agregar fila</button>
           </div>
         </div>
         <p style={{ color: '#7a8a9a', fontSize: 13, marginTop: 0 }}>Editá las filas de la página principal. Cada fila puede mostrar categorías enteras, los destacados, o productos que elegís a mano.</p>
@@ -154,7 +154,7 @@ export default function HomeSeccionesPage() {
         {loading ? (
           <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>Cargando...</div>
         ) : filas.length === 0 ? (
-          <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: 14, padding: 30, color: '#cbd5e1', fontSize: 14 }}>
+          <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(245,197,24,0.2)', borderRadius: 14, padding: 30, color: '#cbd5e1', fontSize: 14 }}>
             Todavía no hay filas. Si recién creaste la tabla, recargá la página.
           </div>
         ) : (
@@ -164,10 +164,10 @@ export default function HomeSeccionesPage() {
               const modo = c === 'DESTACADOS' ? 'dest' : c.startsWith('IDS:') ? 'ids' : 'cat'
               const seleccionadas = modo === 'cat' ? f.categorias.split(',').map(s => s.trim()).filter(Boolean) : []
               return (
-                <div key={f.id} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.18)', borderRadius: 14, padding: 16 }}>
+                <div key={f.id} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(245,197,24,0.18)', borderRadius: 14, padding: 16 }}>
                   <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', marginBottom: 10 }}>
                     <input value={f.emoji} onChange={e => setLocal(f.id, { emoji: e.target.value })} placeholder="🛍️" style={{ width: 56, textAlign: 'center', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8, padding: '10px', color: '#fff', fontSize: 18 }} />
-                    <input value={f.titulo} onChange={e => setLocal(f.id, { titulo: e.target.value })} placeholder="Título" style={{ flex: 1, minWidth: 180, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 8, padding: '10px 12px', color: '#fff', fontSize: 15, fontWeight: 700 }} />
+                    <input value={f.titulo} onChange={e => setLocal(f.id, { titulo: e.target.value })} placeholder="Título" style={{ flex: 1, minWidth: 180, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(245,197,24,0.3)', borderRadius: 8, padding: '10px 12px', color: '#fff', fontSize: 15, fontWeight: 700 }} />
                     <label style={{ color: '#cbd5e1', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}>Orden <input type="number" value={f.orden} onChange={e => setLocal(f.id, { orden: Number(e.target.value) })} style={{ width: 56, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8, padding: '8px', color: '#fff' }} /></label>
                     <label style={{ color: '#cbd5e1', fontSize: 13, display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}><input type="checkbox" checked={f.activo} onChange={e => setLocal(f.id, { activo: e.target.checked })} /> Visible</label>
                   </div>
@@ -183,7 +183,7 @@ export default function HomeSeccionesPage() {
                   {modo === 'cat' && (
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 6, marginBottom: 12 }}>
                       {cats.map(cat => (
-                        <label key={cat} style={{ color: '#cbd5e1', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', background: seleccionadas.includes(cat) ? 'rgba(212,175,55,0.12)' : 'transparent', border: `1px solid ${seleccionadas.includes(cat) ? 'rgba(212,175,55,0.35)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 6, padding: '5px 8px' }}>
+                        <label key={cat} style={{ color: '#cbd5e1', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', background: seleccionadas.includes(cat) ? 'rgba(245,197,24,0.12)' : 'transparent', border: `1px solid ${seleccionadas.includes(cat) ? 'rgba(245,197,24,0.35)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 6, padding: '5px 8px' }}>
                           <input type="checkbox" checked={seleccionadas.includes(cat)} onChange={() => toggleCat(f, cat)} /> {cat}
                         </label>
                       ))}

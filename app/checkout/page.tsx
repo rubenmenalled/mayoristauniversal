@@ -29,7 +29,7 @@ function MPLogo({ height = 28, white = false }: { height?: number; white?: boole
   )
 }
 
-const GOLD = '#D4AF37'
+const GOLD = '#F5C518'
 const BLUE = '#C01515'
 
 const STEPS = [
@@ -58,11 +58,11 @@ function StepBar({ current }: { current: 'form' | 'pago' | 'listo' }) {
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%',
-                  background: done ? '#22c55e' : isCurrent ? 'linear-gradient(135deg,#D4AF37,#F0C030)' : '#E5E7EB',
+                  background: done ? '#22c55e' : isCurrent ? 'linear-gradient(135deg,#F5C518,#FFE45C)' : '#E5E7EB',
                   color: done || isCurrent ? '#FFFFFF' : '#9CA3AF',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontWeight: 900, fontSize: 14, flexShrink: 0,
-                  boxShadow: isCurrent ? '0 2px 10px rgba(212,175,55,0.4)' : 'none',
+                  boxShadow: isCurrent ? '0 2px 10px rgba(245,197,24,0.4)' : 'none',
                   transition: 'all 0.3s',
                 }}>
                   {done ? '✓' : s.n}
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
                   { n: '4', text: 'Volvé aquí y envianos el comprobante', icon: '✅' },
                 ].map(s => (
                   <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#fff', fontWeight: 900, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#fff', fontWeight: 900, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       {s.n}
                     </div>
                     <span style={{ fontSize: 13, color: '#444', lineHeight: 1.4 }}>{s.icon} {s.text}</span>

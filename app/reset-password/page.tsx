@@ -77,7 +77,7 @@ export default function ResetPasswordPage() {
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(180deg,#FFFFFF,#F0F0F0)' }}>
       <div style={{ textAlign: 'center' }}>
         <div style={{ fontSize: 40, marginBottom: 12 }}>🔐</div>
-        <div style={{ color: '#D4AF37', fontWeight: 700, fontSize: 15 }}>Verificando link...</div>
+        <div style={{ color: '#F5C518', fontWeight: 700, fontSize: 15 }}>Verificando link...</div>
       </div>
     </div>
   )
@@ -89,7 +89,7 @@ export default function ResetPasswordPage() {
         <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
         <div style={{ color: '#C01515', fontWeight: 900, fontSize: 18, marginBottom: 8 }}>Link inválido o expirado</div>
         <div style={{ color: '#4b5563', fontSize: 14, marginBottom: 24 }}>El link de recuperación expiró o ya fue usado. Pedí uno nuevo desde el login.</div>
-        <a href="/login" style={{ background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#fff', fontWeight: 900, padding: '12px 28px', borderRadius: 10, textDecoration: 'none', fontSize: 14 }}>
+        <a href="/login" style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#fff', fontWeight: 900, padding: '12px 28px', borderRadius: 10, textDecoration: 'none', fontSize: 14 }}>
           Ir al login
         </a>
       </div>
@@ -107,12 +107,12 @@ export default function ResetPasswordPage() {
           <a href="/" style={{ textDecoration: 'none' }}>
             <div style={{
               width: 56, height: 56, borderRadius: 16, margin: '0 auto 12px',
-              background: 'linear-gradient(135deg,#D4AF37,#F0C030)',
+              background: 'linear-gradient(135deg,#F5C518,#FFE45C)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <ShoppingCart size={28} color="#FFFFFF" />
             </div>
-            <div style={{ color: '#D4AF37', fontWeight: 900, fontSize: 22, letterSpacing: '0.08em' }}>MAYORISTA UNIVERSAL</div>
+            <div style={{ color: '#F5C518', fontWeight: 900, fontSize: 22, letterSpacing: '0.08em' }}>MAYORISTA UNIVERSAL</div>
           </a>
         </div>
 
@@ -159,7 +159,7 @@ export default function ResetPasswordPage() {
               style={{
                 width: '100%', padding: '14px', borderRadius: 12, border: 'none',
                 cursor: loading ? 'not-allowed' : 'pointer',
-                background: 'linear-gradient(135deg,#D4AF37,#F0C030)', color: '#C01515',
+                background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#C01515',
                 fontWeight: 900, fontSize: 15, opacity: loading ? 0.7 : 1,
               }}>
               {loading ? 'Guardando...' : 'GUARDAR CONTRASEÑA'}
@@ -168,7 +168,7 @@ export default function ResetPasswordPage() {
         </div>
 
         <p style={{ textAlign: 'center', marginTop: 20, color: '#4b5563', fontSize: 13 }}>
-          <a href="/login" style={{ color: '#D4AF37', textDecoration: 'none' }}>← Volver al login</a>
+          <a href="/login" style={{ color: '#F5C518', textDecoration: 'none' }}>← Volver al login</a>
         </p>
       </div>
     </div>
