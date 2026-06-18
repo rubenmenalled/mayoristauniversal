@@ -34,8 +34,8 @@ export default function GradientHero() {
       if (!header) return
       const bottom = header.getBoundingClientRect().bottom
       if (bottom <= 0) return
-      // En pantallas <1024px el header es más alto (doble buscador) → mínimo seguro.
-      const safeMin = window.innerWidth < 1024 ? 300 : 150
+      // safeMin pequeño: el ResizeObserver/intervalo mide el valor real y siempre gana
+      const safeMin = window.innerWidth < 1024 ? 80 : 80
       // -1px para que el banner quede tapado por el borde del header (sin hueco)
       setHeroPad(Math.max(Math.round(bottom) - 1, safeMin))
       if (!ro) { ro = new ResizeObserver(calc); ro.observe(header) }
@@ -55,9 +55,9 @@ export default function GradientHero() {
   }, [])
 
   return (
-    <section style={{ width: '100%' }}>
+    <section style={{ width: '100%', background: '#0B1E3F' }}>
       <style>{`
-        #grad-hero { padding-top: 200px; }
+        #grad-hero { padding-top: 160px; }
         #hero-collage {
           position: absolute; inset: 0; display: grid;
           grid-template-columns: repeat(6, 1fr);
@@ -111,7 +111,7 @@ export default function GradientHero() {
           100% { transform: translate(0,0) scale(1);           opacity: 1; }
         }
         @media (max-width: 1023px) {
-          #grad-hero { padding-top: 300px; }
+          #grad-hero { padding-top: 220px; }
           #hero-collage { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 25%; }
         }
       `}</style>
