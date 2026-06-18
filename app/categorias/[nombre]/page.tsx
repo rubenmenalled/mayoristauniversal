@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
+import { TextReveal } from '@/components/ui/cascade-text'
 import CartSidebar from '@/components/CartSidebar'
 
 interface Producto {
@@ -679,7 +680,7 @@ export default function CategoriaPage() {
                           category: p.category,
                         })
                       }}>
-                      <ShoppingCart size={12} />AGREGAR
+                      <ShoppingCart size={12} /><TextReveal text="AGREGAR" />
                     </button>
                   </div>
                 </div>
@@ -928,7 +929,7 @@ export default function CategoriaPage() {
                     }}
                     className="btn-agregar"
                     style={{ flex: 2, background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 10, padding: isMobile ? '14px 6px' : '10px 6px', color: '#0D2C54', fontWeight: 900, cursor: 'pointer', fontSize: isMobile ? 15 : 13, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
-                    <ShoppingCart size={14} />AGREGAR
+                    <ShoppingCart size={14} /><TextReveal text="AGREGAR" />
                   </motion.button>
                 </div>
               </div>}

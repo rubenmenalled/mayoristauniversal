@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Search, Star, ShoppingCart } from 'lucide-react'
 import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
+import { TextReveal } from '@/components/ui/cascade-text'
 import CartSidebar from '@/components/CartSidebar'
 
 interface Producto {
@@ -239,7 +240,7 @@ function BuscarContent() {
                             category: p.category,
                           })
                         }}>
-                        <ShoppingCart size={12} />AGREGAR
+                        <ShoppingCart size={12} /><TextReveal text="AGREGAR" />
                       </motion.button>
                     </div>
                   </motion.div>

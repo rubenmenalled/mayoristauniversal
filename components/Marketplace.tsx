@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { featuredOffer, suppliers, type Product } from '@/data/mockData'
 import { Star, MessageCircle, CheckCircle, MapPin, ChevronRight, ShoppingCart } from 'lucide-react'
 import { useCart } from '@/lib/CartContext'
+import { TextReveal } from '@/components/ui/cascade-text'
 
 /* ─── Countdown timer ─── */
 function CountdownTimer() {
@@ -112,7 +113,7 @@ function ProductCard({ p }: { p: Product }) {
           style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)' }}
           whileTap={{ scale: 0.97 }}
           onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>
-          <ShoppingCart size={12} /> AGREGAR AL CARRITO
+          <ShoppingCart size={12} /> <TextReveal text="AGREGAR AL CARRITO" />
         </motion.button>
       </div>
     </motion.div>
