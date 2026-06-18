@@ -154,7 +154,7 @@ export default function GradientHero() {
               color: 'rgba(255,255,255,0.94)', margin: '14px 0 0', fontWeight: 700,
               fontSize: 'clamp(20px, 3vw, 26px)', textShadow: '0 2px 16px rgba(0,0,0,0.5)',
             }}>
-              DISTRIBUIDORA MULTIRUBROS<br />Los mejores productos y precios los encontrás acá
+              IMPORTADORA Y DISTRIBUIDORA MULTIRUBROS<br />Los mejores productos y precios los encontrás acá
             </p>
             <a href="/catalogo" className="btn-agregar" style={{
               marginTop: 26, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
