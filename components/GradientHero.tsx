@@ -35,36 +35,46 @@ export default function GradientHero() {
         }
         .hero-blob {
           position: absolute; border-radius: 50%;
-          filter: blur(70px); mix-blend-mode: screen; pointer-events: none;
-          will-change: transform;
+          filter: blur(45px); mix-blend-mode: screen; pointer-events: none;
+          will-change: transform, opacity; opacity: 0;
         }
-        .hero-blob.a { width: 440px; height: 440px; top: -40px; left: 4%;
-          background: rgba(255,106,61,0.95); animation: heroCircle 18s ease-in-out infinite; }
-        .hero-blob.b { width: 400px; height: 400px; bottom: -60px; right: 5%;
-          background: rgba(70,140,255,0.9); animation: heroCircleRev 24s ease-in-out infinite; }
-        .hero-blob.c { width: 320px; height: 320px; top: 8%; left: 34%;
-          background: rgba(255,150,90,0.85); animation: heroVert 14s ease-in-out infinite; }
-        .hero-blob.d { width: 300px; height: 300px; bottom: 0%; left: 16%;
-          background: rgba(110,170,255,0.8); animation: heroHoriz 20s ease-in-out infinite; }
-        @keyframes heroCircle {
-          0%,100% { transform: translate(0,0) scale(1); }
-          25% { transform: translate(160px, 50px) scale(1.12); }
-          50% { transform: translate(110px, 150px) scale(1.2); }
-          75% { transform: translate(-60px, 90px) scale(1.06); }
+        .hero-blob.a { width: 210px; height: 210px; top: 6%; left: 8%;
+          background: rgba(255,106,61,1); animation: heroStepA 6s ease-in-out infinite; }
+        .hero-blob.b { width: 190px; height: 190px; bottom: 8%; right: 10%;
+          background: rgba(80,150,255,1); animation: heroStepB 7s ease-in-out infinite; }
+        .hero-blob.c { width: 170px; height: 170px; top: 14%; left: 40%;
+          background: rgba(255,150,90,1); animation: heroStepC 5s ease-in-out infinite; }
+        /* en cada punto se PRENDE; entre punto y punto viaja rápido y se APAGA */
+        @keyframes heroStepA {
+          0%   { transform: translate(0,0) scale(1);          opacity: 1; }
+          12%  { transform: translate(40px,10px) scale(0.5);  opacity: 0; }
+          25%  { transform: translate(170px,45px) scale(1);   opacity: 1; }
+          37%  { transform: translate(210px,75px) scale(0.5); opacity: 0; }
+          50%  { transform: translate(330px,125px) scale(1);  opacity: 1; }
+          62%  { transform: translate(250px,150px) scale(0.5);opacity: 0; }
+          75%  { transform: translate(120px,165px) scale(1);  opacity: 1; }
+          87%  { transform: translate(50px,90px) scale(0.5);  opacity: 0; }
+          100% { transform: translate(0,0) scale(1);          opacity: 1; }
         }
-        @keyframes heroCircleRev {
-          0%,100% { transform: translate(0,0) scale(1); }
-          25% { transform: translate(-150px, -60px) scale(1.14); }
-          50% { transform: translate(-90px, -150px) scale(1.22); }
-          75% { transform: translate(80px, -80px) scale(1.08); }
+        @keyframes heroStepB {
+          0%   { transform: translate(0,0) scale(1);            opacity: 1; }
+          12%  { transform: translate(-40px,-12px) scale(0.5);  opacity: 0; }
+          25%  { transform: translate(-160px,-55px) scale(1);   opacity: 1; }
+          37%  { transform: translate(-230px,-45px) scale(0.5); opacity: 0; }
+          50%  { transform: translate(-310px,-30px) scale(1);   opacity: 1; }
+          62%  { transform: translate(-220px,-95px) scale(0.5); opacity: 0; }
+          75%  { transform: translate(-120px,-145px) scale(1);  opacity: 1; }
+          87%  { transform: translate(-50px,-80px) scale(0.5);  opacity: 0; }
+          100% { transform: translate(0,0) scale(1);            opacity: 1; }
         }
-        @keyframes heroVert {
-          0%,100% { transform: translateY(0) scale(1); }
-          50% { transform: translateY(-120px) scale(1.15); }
-        }
-        @keyframes heroHoriz {
-          0%,100% { transform: translateX(0) scale(1); }
-          50% { transform: translateX(170px) scale(1.12); }
+        @keyframes heroStepC {
+          0%   { transform: translate(0,0) scale(1);           opacity: 1; }
+          16%  { transform: translate(-60px,30px) scale(0.5);  opacity: 0; }
+          33%  { transform: translate(-190px,95px) scale(1);   opacity: 1; }
+          50%  { transform: translate(0px,130px) scale(0.5);   opacity: 0; }
+          66%  { transform: translate(190px,75px) scale(1);    opacity: 1; }
+          83%  { transform: translate(90px,40px) scale(0.5);   opacity: 0; }
+          100% { transform: translate(0,0) scale(1);           opacity: 1; }
         }
         @media (max-width: 767px) {
           #grad-hero { padding-top: 250px; }
@@ -94,7 +104,6 @@ export default function GradientHero() {
           <div className="hero-blob a" aria-hidden="true" />
           <div className="hero-blob b" aria-hidden="true" />
           <div className="hero-blob c" aria-hidden="true" />
-          <div className="hero-blob d" aria-hidden="true" />
 
           {/* Contenido */}
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center text-center px-4">
