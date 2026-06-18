@@ -76,14 +76,19 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
   title: string; emoji: string; subtitle?: string; urls: string[]; max?: number; href?: string; auto?: boolean
 }) {
   const [prods, setProds] = useState<Prod[]>([])
+  const urlsKey = urls.join('|')
   useEffect(() => {
+    let activo = true
     Promise.all(urls.map(u => fetch(u, { cache: 'no-store' }).then(r => r.json()).catch(() => [])))
       .then(res => {
+        if (!activo) return
         const groups = res.map(g => (Array.isArray(g) ? g.filter((p: Prod) => p.image) : []))
         setProds(interleave(groups, max))
       })
       .catch(() => {})
-  }, [])
+    return () => { activo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlsKey, max])
 
   if (prods.length === 0) return null
 
