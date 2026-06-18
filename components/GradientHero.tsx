@@ -35,35 +35,36 @@ export default function GradientHero() {
         }
         .hero-blob {
           position: absolute; border-radius: 50%;
-          filter: blur(52px); mix-blend-mode: screen; pointer-events: none;
+          filter: blur(70px); mix-blend-mode: screen; pointer-events: none;
+          will-change: transform;
         }
-        .hero-blob.a { width: 380px; height: 380px; top: -90px; left: 6%;
-          background: rgba(255,106,61,0.6); animation: heroCircle 20s ease-in-out infinite; }
-        .hero-blob.b { width: 320px; height: 320px; bottom: -100px; right: 8%;
-          background: rgba(13,71,161,0.65); animation: heroCircleRev 26s ease-in-out infinite; }
-        .hero-blob.c { width: 260px; height: 260px; top: 20%; left: 38%;
-          background: rgba(255,138,99,0.5); animation: heroVert 16s ease-in-out infinite; }
-        .hero-blob.d { width: 240px; height: 240px; bottom: 10%; left: 18%;
-          background: rgba(86,150,255,0.5); animation: heroHoriz 22s ease-in-out infinite; }
+        .hero-blob.a { width: 440px; height: 440px; top: -40px; left: 4%;
+          background: rgba(255,106,61,0.95); animation: heroCircle 18s ease-in-out infinite; }
+        .hero-blob.b { width: 400px; height: 400px; bottom: -60px; right: 5%;
+          background: rgba(70,140,255,0.9); animation: heroCircleRev 24s ease-in-out infinite; }
+        .hero-blob.c { width: 320px; height: 320px; top: 8%; left: 34%;
+          background: rgba(255,150,90,0.85); animation: heroVert 14s ease-in-out infinite; }
+        .hero-blob.d { width: 300px; height: 300px; bottom: 0%; left: 16%;
+          background: rgba(110,170,255,0.8); animation: heroHoriz 20s ease-in-out infinite; }
         @keyframes heroCircle {
           0%,100% { transform: translate(0,0) scale(1); }
-          25% { transform: translate(80px, 30px) scale(1.1); }
-          50% { transform: translate(50px, 90px) scale(1.15); }
-          75% { transform: translate(-30px, 50px) scale(1.05); }
+          25% { transform: translate(160px, 50px) scale(1.12); }
+          50% { transform: translate(110px, 150px) scale(1.2); }
+          75% { transform: translate(-60px, 90px) scale(1.06); }
         }
         @keyframes heroCircleRev {
           0%,100% { transform: translate(0,0) scale(1); }
-          25% { transform: translate(-70px, -40px) scale(1.12); }
-          50% { transform: translate(-40px, -90px) scale(1.18); }
-          75% { transform: translate(40px, -50px) scale(1.06); }
+          25% { transform: translate(-150px, -60px) scale(1.14); }
+          50% { transform: translate(-90px, -150px) scale(1.22); }
+          75% { transform: translate(80px, -80px) scale(1.08); }
         }
         @keyframes heroVert {
           0%,100% { transform: translateY(0) scale(1); }
-          50% { transform: translateY(-70px) scale(1.12); }
+          50% { transform: translateY(-120px) scale(1.15); }
         }
         @keyframes heroHoriz {
           0%,100% { transform: translateX(0) scale(1); }
-          50% { transform: translateX(90px) scale(1.1); }
+          50% { transform: translateX(170px) scale(1.12); }
         }
         @media (max-width: 767px) {
           #grad-hero { padding-top: 250px; }
