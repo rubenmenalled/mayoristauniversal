@@ -41,13 +41,20 @@ export default function HomeRows() {
       .catch(() => {})
   }, [])
 
+  // Una sola fila: junta los productos de TODAS las filas activas
+  const activas = filas.filter(f => f.activo)
+  const urls = activas.flatMap(f => urlsDeFila(f).urls)
+  const max = Math.max(24, activas.reduce((s, f) => s + urlsDeFila(f).max, 0))
+  if (urls.length === 0) return null
+
   return (
-    <>
-      {filas.filter(f => f.activo).map(f => {
-        const { urls, max } = urlsDeFila(f)
-        const esDestacados = (f.titulo || '').trim().toLowerCase() === 'destacados' || (f.categorias || '').toUpperCase() === 'DESTACADOS'
-        return <ProductRow key={f.id} title={f.titulo} emoji={f.emoji} subtitle={f.subtitulo} urls={urls} max={max} auto={esDestacados} />
-      })}
-    </>
+    <ProductRow
+      title="Destacados"
+      emoji="⭐"
+      subtitle="Lo mejor de nuestro catálogo, al precio mayorista"
+      urls={urls}
+      max={max}
+      auto
+    />
   )
 }
