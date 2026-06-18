@@ -65,6 +65,8 @@ function HandDrawnCircle({
             duration: 5,
             ease: "easeInOut",
             times: [0, 0.55, 0.85, 1],
+            repeat: Infinity,
+            repeatDelay: 1.6,
           }}
         />
       </motion.svg>
