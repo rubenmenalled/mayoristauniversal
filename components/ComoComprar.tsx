@@ -95,12 +95,12 @@ export default function ComoComprar() {
           }
 
           .paso-card {
+            flex: 0 0 auto !important;
             flex-direction: column !important;
             text-align: left !important;
             align-items: flex-start !important;
             padding: 16px !important;
             border-radius: 12px;
-            min-height: 0 !important;
           }
 
           .paso-content {
