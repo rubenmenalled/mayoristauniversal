@@ -20,15 +20,15 @@ const COLLAGE = [
 ]
 
 export default function GradientHero() {
-  // En celular medimos el alto real del header fijo para que el banner
-  // nunca quede tapado (el header mobile es más alto que el padding fijo).
-  const [mobilePad, setMobilePad] = useState<number | null>(null)
+  // Medimos el alto real del header fijo (escritorio y celular) para que el
+  // banner arranque justo debajo, sin franja blanca y sin quedar tapado.
+  const [heroPad, setHeroPad] = useState<number | null>(null)
   useEffect(() => {
     const calc = () => {
-      if (window.innerWidth >= 768) { setMobilePad(null); return }
       const header = document.querySelector('header')
-      const bottom = header ? Math.ceil(header.getBoundingClientRect().bottom) : 0
-      setMobilePad(bottom > 0 ? bottom + 16 : null)
+      const bottom = header ? header.getBoundingClientRect().bottom : 0
+      // -1px para que el banner quede tapado por el header en su borde y no se vea hueco
+      setHeroPad(bottom > 0 ? Math.round(bottom) - 1 : null)
     }
     calc()
     const t1 = setTimeout(calc, 250)
@@ -100,7 +100,7 @@ export default function GradientHero() {
           #hero-collage { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 25%; }
         }
       `}</style>
-      <div id="grad-hero" style={mobilePad ? { paddingTop: mobilePad } : undefined}>
+      <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
         <div id="grad-hero-band" style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#0B1E3F' }}>
           {/* Collage de rubros */}
           <div id="hero-collage" aria-hidden="true">
