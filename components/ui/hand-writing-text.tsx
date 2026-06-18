@@ -38,8 +38,8 @@ function HandDrawnCircle({
         style={{
           position: "absolute",
           top: "-16%",
-          left: "-9%",
-          width: "118%",
+          left: "-13%",
+          width: "126%",
           height: "132%",
           overflow: "visible",
           pointerEvents: "none",
