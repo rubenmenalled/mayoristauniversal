@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail } from 'lucide-react'
+import { Boxes } from '@/components/ui/background-boxes'
 
 // ⬇️ Cuando crees las redes, reemplazá el href de cada una:
 const social = [
@@ -39,13 +40,18 @@ const payment = ['🏦 Transferencia', '📱 Mercado Pago']
 export default function Footer() {
   return (
     <footer id="contacto" className="relative overflow-hidden"
-      style={{ background: '#FFFFFF' }}>
+      style={{ background: '#0B1E3F' }}>
+      {/* Fondo de cajas animadas */}
+      <Boxes />
+      {/* Máscara radial: difumina las cajas hacia los bordes */}
+      <div className="absolute inset-0 w-full h-full bg-[#0B1E3F] z-10 [mask-image:radial-gradient(transparent,#0B1E3F)] pointer-events-none" />
+
       {/* Gold top border */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+      <div className="relative z-20 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
 
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-2">
@@ -92,7 +98,7 @@ export default function Footer() {
       </div>
 
       {/* Payment methods */}
-      <div className="border-t border-gold/10 py-6 px-4">
+      <div className="relative z-20 border-t border-gold/10 py-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-gray-500 text-xs uppercase tracking-widest">Métodos de pago:</span>
@@ -108,7 +114,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-gold/10 py-5 px-4">
+      <div className="relative z-20 border-t border-gold/10 py-5 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
           <span>© {new Date().getFullYear()} Mayorista Universal. Todos los derechos reservados.</span>
           <div className="flex gap-4">
