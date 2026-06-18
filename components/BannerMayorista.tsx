@@ -60,9 +60,9 @@ export default function BannerMayorista() {
         <div style={glow} />
 
         {/* Mayorista */}
-        <HandDrawnCircle color="#FFFFFF">
+        <HandDrawnCircle color="#FFFFFF" strokeWidth={3.2}>
           <div style={{ padding: '6px 14px' }}>
-            <div style={eyebrow}>💰 Precio mayorista</div>
+            <div style={eyebrow}>💰 Mínimo mayorista surtido</div>
             <p style={big}>desde <span style={gold}>$100.000</span></p>
             <span style={badge}>✅ SIN RECARGO</span>
           </div>

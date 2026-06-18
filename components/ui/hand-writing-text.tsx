@@ -37,10 +37,10 @@ function HandDrawnCircle({
         preserveAspectRatio="none"
         style={{
           position: "absolute",
-          top: "-16%",
-          left: "-13%",
-          width: "126%",
-          height: "132%",
+          top: "-22%",
+          left: "-15%",
+          width: "130%",
+          height: "144%",
           overflow: "visible",
           pointerEvents: "none",
         }}
