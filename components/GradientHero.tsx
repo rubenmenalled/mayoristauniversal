@@ -1,6 +1,7 @@
 'use client'
 
 import { BackgroundGradientAnimation } from '@/components/ui/background-gradient-animation'
+import { TextReveal } from '@/components/ui/cascade-text'
 
 export default function GradientHero() {
   return (
@@ -30,12 +31,13 @@ export default function GradientHero() {
               }}>
                 Precios mayoristas · Envíos a todo el país
               </p>
-              <a href="/catalogo" style={{
+              <a href="/catalogo" className="btn-agregar" style={{
                 marginTop: 26, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
                 color: '#FFFFFF', fontWeight: 900, fontSize: 16, textDecoration: 'none',
                 padding: '13px 30px', borderRadius: 12, boxShadow: '0 8px 24px rgba(255,106,61,0.45)',
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                Ver catálogo
+                <TextReveal text="Ver catálogo" />
               </a>
             </div>
           </BackgroundGradientAnimation>
