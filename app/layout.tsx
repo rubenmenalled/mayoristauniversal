@@ -8,6 +8,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup'
 import WelcomePopup from '@/components/WelcomePopup'
 import ScrollToTop from '@/components/ScrollToTop'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import NoPinchZoom from '@/components/NoPinchZoom'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 const GTM_ID = 'GTM-549CX2X6'
@@ -150,7 +151,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</Script>
           </>
         )}
-        <CartProvider><AnnouncementBar />{children}<WelcomePopup /><ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
+        <CartProvider><NoPinchZoom /><AnnouncementBar />{children}<WelcomePopup /><ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
       </body>
     </html>
   )
