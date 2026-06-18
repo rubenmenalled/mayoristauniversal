@@ -90,38 +90,23 @@ export default function ComoComprar() {
         @media (max-width: 768px) {
           .como-comprar-grid {
             flex-direction: column !important;
-            gap: 0 !important;
-            position: relative;
-            padding-left: 32px;
-          }
-
-          .como-comprar-grid::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 24px;
-            bottom: 24px;
-            width: 2px;
-            background: linear-gradient(to bottom, #FF6A3D, rgba(255,106,61,0.2));
-            border-radius: 2px;
+            gap: 12px !important;
+            padding-left: 0 !important;
           }
 
           .paso-card {
-            flex-direction: row !important;
+            flex-direction: column !important;
             text-align: left !important;
             align-items: flex-start !important;
-            padding: 20px 16px !important;
-            margin-bottom: 12px;
-            border-radius: 10px;
-          }
-
-          .paso-card:last-child {
-            margin-bottom: 0;
+            padding: 16px !important;
+            border-radius: 12px;
+            min-height: 0 !important;
           }
 
           .paso-content {
             flex-direction: column !important;
             align-items: flex-start !important;
+            width: 100%;
           }
 
           .paso-arrow {
@@ -129,8 +114,7 @@ export default function ComoComprar() {
           }
 
           .paso-numero {
-            margin-right: 16px !important;
-            margin-bottom: 0 !important;
+            margin: 0 0 10px 0 !important;
             flex-shrink: 0;
           }
 
