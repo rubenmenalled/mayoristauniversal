@@ -108,13 +108,18 @@ export default function FAQ() {
             const isOpen = openIndex === i
 
             const itemStyle: React.CSSProperties = {
-              background: isOpen ? '#FFFBF0' : '#F9FAFB',
+              background: isOpen
+                ? 'linear-gradient(135deg, #0B1E3F 0%, #1d4a8a 100%)'
+                : 'linear-gradient(135deg, #0D2C54 0%, #16335f 100%)',
               border: isOpen
-                ? '1.5px solid rgba(255,106,61, 0.7)'
-                : '1px solid #E5E7EB',
+                ? '1.5px solid #FF6A3D'
+                : '1px solid rgba(255,106,61, 0.28)',
               borderRadius: '12px',
               overflow: 'hidden',
-              transition: 'border-color 0.3s ease, background 0.3s ease',
+              boxShadow: isOpen
+                ? '0 10px 28px rgba(11,30,63, 0.28)'
+                : '0 4px 16px rgba(11,30,63, 0.14)',
+              transition: 'border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease',
             }
 
             const buttonStyle: React.CSSProperties = {
@@ -131,7 +136,7 @@ export default function FAQ() {
             }
 
             const questionStyle: React.CSSProperties = {
-              color: isOpen ? '#B8860B' : '#1F2937',
+              color: isOpen ? '#FF8A63' : '#FFFFFF',
               fontWeight: 700,
               fontSize: '16px',
               margin: 0,
@@ -157,7 +162,7 @@ export default function FAQ() {
 
             const answerInnerStyle: React.CSSProperties = {
               padding: '0 24px 20px 24px',
-              color: '#4B5563',
+              color: 'rgba(255,255,255,0.88)',
               fontSize: '15px',
               lineHeight: '1.65',
             }
