@@ -26,28 +26,28 @@ export default function GradientHero() {
   // categorías (fetch async) y al cambiar de orientación.
   const [heroPad, setHeroPad] = useState<number | null>(null)
   useEffect(() => {
-    const header = document.querySelector('header') as HTMLElement | null
-    if (!header) return
+    let ro: ResizeObserver | null = null
+    // calc re-busca el header en cada llamada: si todavía no montó al inicio,
+    // el intervalo lo encuentra apenas aparece (evita que el offset no se aplique).
     const calc = () => {
+      const header = document.querySelector('header') as HTMLElement | null
+      if (!header) return
       const bottom = header.getBoundingClientRect().bottom
       if (bottom <= 0) return
-      // En pantallas <1024px el header es más alto (doble buscador) y la
-      // medición a veces se queda corta → nunca bajar de un mínimo seguro.
+      // En pantallas <1024px el header es más alto (doble buscador) → mínimo seguro.
       const safeMin = window.innerWidth < 1024 ? 300 : 150
       // -1px para que el banner quede tapado por el borde del header (sin hueco)
       setHeroPad(Math.max(Math.round(bottom) - 1, safeMin))
+      if (!ro) { ro = new ResizeObserver(calc); ro.observe(header) }
     }
     calc()
-    const ro = new ResizeObserver(calc)
-    ro.observe(header)
     window.addEventListener('resize', calc)
     window.addEventListener('load', calc)
-    // Recalcula varias veces durante los primeros segundos por si el header
-    // crece tarde (categorías por fetch, fuentes, etc.)
+    // Reintenta durante ~5s por si el header monta o crece tarde (fetch, fuentes).
     let n = 0
-    const iv = setInterval(() => { calc(); if (++n >= 10) clearInterval(iv) }, 350)
+    const iv = setInterval(() => { calc(); if (++n >= 20) clearInterval(iv) }, 250)
     return () => {
-      ro.disconnect()
+      if (ro) ro.disconnect()
       window.removeEventListener('resize', calc)
       window.removeEventListener('load', calc)
       clearInterval(iv)
