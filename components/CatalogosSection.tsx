@@ -258,7 +258,11 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className="cat-img"
-                src={cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR']}
+                src={
+                  ['PELUCHES DE PERSONAJES', 'BEBÉ', 'BEBES', 'ARTICULOS X BULTO'].includes(cat.name.toUpperCase())
+                    ? (cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR'])
+                    : (FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR'])
+                }
                 alt={cat.name}
                 style={{
                   position: 'absolute', inset: 0,
