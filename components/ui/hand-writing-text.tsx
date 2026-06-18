@@ -35,15 +35,12 @@ function HandDrawnCircle({
       <motion.svg
         viewBox="0 0 300 110"
         preserveAspectRatio="none"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.6 }}
         style={{
           position: "absolute",
-          top: "-26%",
-          left: "-13%",
-          width: "126%",
-          height: "152%",
+          top: "-24%",
+          left: "-9%",
+          width: "118%",
+          height: "150%",
           overflow: "visible",
           pointerEvents: "none",
         }}
@@ -58,7 +55,17 @@ function HandDrawnCircle({
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeLinejoin="round"
-          variants={draw}
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{
+            pathLength: [0, 1, 1, 1],
+            opacity: [0, 1, 1, 0],
+          }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{
+            duration: 5,
+            ease: "easeInOut",
+            times: [0, 0.55, 0.85, 1],
+          }}
         />
       </motion.svg>
     </span>
