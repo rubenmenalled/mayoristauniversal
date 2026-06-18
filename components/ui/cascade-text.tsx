@@ -21,12 +21,12 @@ const TextReveal = React.memo(function TextReveal({
   as: Component = "span",
   className = "",
   style,
-  fontSize = "inherit",
+  fontSize = "1.15em",
   staggerDelay = 22,
   duration = 220,
   easing = "ease-in-out",
   color = "inherit",
-  hoverColor = "inherit",
+  hoverColor = "#FFFFFF",
   direction = "up",
 }: TextRevealProps) {
   const [hovered, setHovered] = useState(false);
