@@ -267,8 +267,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                   width: '100%', height: '100%',
                   objectFit: 'cover',
                   transformOrigin: 'center center',
-                  willChange: 'transform',
-                  filter: 'brightness(1.06) saturate(1.03)',
                 }}
               />
 
