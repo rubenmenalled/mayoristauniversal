@@ -60,11 +60,13 @@ export default function BannerMayorista() {
         <div style={glow} />
 
         {/* Mayorista */}
-        <div style={{ position: 'relative' }}>
-          <div style={eyebrow}>💰 Precio mayorista</div>
-          <p style={big}><HandDrawnCircle>desde <span style={gold}>$100.000</span></HandDrawnCircle></p>
-          <span style={badge}>✅ SIN RECARGO</span>
-        </div>
+        <HandDrawnCircle color="#FFFFFF">
+          <div style={{ padding: '6px 14px' }}>
+            <div style={eyebrow}>💰 Precio mayorista</div>
+            <p style={big}>desde <span style={gold}>$100.000</span></p>
+            <span style={badge}>✅ SIN RECARGO</span>
+          </div>
+        </HandDrawnCircle>
 
         <div style={divider} className="banner-divider" />
 
