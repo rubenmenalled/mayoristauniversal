@@ -31,9 +31,6 @@ export default function ConfianzaSection() {
   }
   const inner: React.CSSProperties = { maxWidth: 1100, margin: '0 auto' }
   const head: React.CSSProperties = { textAlign: 'center', marginBottom: 44 }
-  const title: React.CSSProperties = {
-    fontSize: 'clamp(24px, 4vw, 34px)', fontWeight: 900, color: '#0B1E3F', margin: '0 0 10px',
-  }
   const sub: React.CSSProperties = { fontSize: 16, color: '#6B7280', margin: 0 }
   const grid: React.CSSProperties = {
     display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 20,
@@ -65,8 +62,29 @@ export default function ConfianzaSection() {
   return (
     <section style={wrap}>
       <div style={inner}>
+        <style>{`
+          .conf-title {
+            font-size: clamp(24px, 4vw, 34px); font-weight: 900; margin: 0; letter-spacing: -0.01em;
+            background: linear-gradient(90deg, #0D2C54 0%, #FF6A3D 65%, #FF8A63 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent; -webkit-text-fill-color: transparent;
+          }
+          .conf-beam {
+            height: 3px; border-radius: 3px; margin-top: 8px;
+            background: linear-gradient(90deg, rgba(255,106,61,0) 0%, #FF6A3D 18%, #FFD089 50%, #FF6A3D 82%, rgba(255,106,61,0) 100%);
+            background-size: 220% 100%;
+            animation: confBeam 2.6s linear infinite;
+          }
+          @keyframes confBeam {
+            0% { background-position: 220% 0; }
+            100% { background-position: -220% 0; }
+          }
+        `}</style>
         <div style={head}>
-          <h2 style={title}>Comprá con confianza</h2>
+          <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 2, marginBottom: 10 }}>
+            <h2 className="conf-title">Comprá con confianza</h2>
+            <span className="conf-beam" />
+          </div>
           <p style={sub}>Somos un negocio real, con dirección física y atención personalizada</p>
         </div>
 
