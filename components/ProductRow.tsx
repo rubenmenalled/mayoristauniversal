@@ -89,11 +89,32 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
 
   return (
     <section style={{ padding: '28px 0', borderTop: '1px solid #EEEEEE' }}>
+      <style>{`
+        .row-title {
+          font-weight: 900; font-size: 22px; margin: 0; letter-spacing: -0.01em;
+          background: linear-gradient(90deg, #0D2C54 0%, #FF6A3D 65%, #FF8A63 100%);
+          -webkit-background-clip: text; background-clip: text;
+          color: transparent; -webkit-text-fill-color: transparent;
+        }
+        .row-beam {
+          height: 3px; border-radius: 3px; margin-top: 6px;
+          background: linear-gradient(90deg, rgba(255,106,61,0) 0%, #FF6A3D 18%, #FFD089 50%, #FF6A3D 82%, rgba(255,106,61,0) 100%);
+          background-size: 220% 100%;
+          animation: rowBeam 2.6s linear infinite;
+        }
+        @keyframes rowBeam {
+          0% { background-position: 220% 0; }
+          100% { background-position: -220% 0; }
+        }
+      `}</style>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2, flexWrap: 'wrap', gap: 8 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 22 }}>{emoji}</span>
-            <h2 style={{ color: '#111827', fontWeight: 900, fontSize: 22, margin: 0 }}>{title}</h2>
+          <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 2 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 22 }}>{emoji}</span>
+              <h2 className="row-title">{title}</h2>
+            </div>
+            <span className="row-beam" />
           </div>
           {href && <a href={href} style={{ color: '#C2410C', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>Ver todo →</a>}
         </div>
