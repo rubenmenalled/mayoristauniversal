@@ -334,9 +334,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* VER MÁS */}
               <div className="cat-ver-mas" style={{
                 position: 'absolute', bottom: 14, left: 14,
-                background: 'rgba(0,0,0,0.45)',
-                backdropFilter: 'blur(6px)',
-                WebkitBackdropFilter: 'blur(6px)',
+                background: 'rgba(11,30,63,0.78)',
                 color: '#fff', fontWeight: 700,
                 fontSize: 12, letterSpacing: '0.12em',
                 textTransform: 'uppercase',
