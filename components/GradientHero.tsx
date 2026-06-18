@@ -38,13 +38,15 @@ export default function GradientHero() {
     ro.observe(header)
     window.addEventListener('resize', calc)
     window.addEventListener('load', calc)
-    const t1 = setTimeout(calc, 600)
-    const t2 = setTimeout(calc, 1500)
+    // Recalcula varias veces durante los primeros segundos por si el header
+    // crece tarde (categorías por fetch, fuentes, etc.)
+    let n = 0
+    const iv = setInterval(() => { calc(); if (++n >= 10) clearInterval(iv) }, 350)
     return () => {
       ro.disconnect()
       window.removeEventListener('resize', calc)
       window.removeEventListener('load', calc)
-      clearTimeout(t1); clearTimeout(t2)
+      clearInterval(iv)
     }
   }, [])
 
@@ -104,8 +106,8 @@ export default function GradientHero() {
           83%  { transform: translate(90px,40px) scale(0.5);   opacity: 0; }
           100% { transform: translate(0,0) scale(1);           opacity: 1; }
         }
-        @media (max-width: 767px) {
-          #grad-hero { padding-top: 250px; }
+        @media (max-width: 1023px) {
+          #grad-hero { padding-top: 280px; }
           #hero-collage { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 25%; }
         }
       `}</style>
