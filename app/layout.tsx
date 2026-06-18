@@ -5,6 +5,7 @@ import './globals.css'
 import { CartProvider } from '@/lib/CartContext'
 import AnnouncementBar from '@/components/AnnouncementBar'
 import ExitIntentPopup from '@/components/ExitIntentPopup'
+import WelcomePopup from '@/components/WelcomePopup'
 import ScrollToTop from '@/components/ScrollToTop'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
@@ -141,7 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</Script>
           </>
         )}
-        <CartProvider><AnnouncementBar />{children}<ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
+        <CartProvider><AnnouncementBar />{children}<WelcomePopup /><ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
       </body>
     </html>
   )
