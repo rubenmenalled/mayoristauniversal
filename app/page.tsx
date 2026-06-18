@@ -1,5 +1,5 @@
 import Header           from '@/components/Header'
-import HeroSection      from '@/components/HeroSection'
+import GradientHero     from '@/components/GradientHero'
 import BannerMayorista  from '@/components/BannerMayorista'
 import HomeRows         from '@/components/HomeRows'
 import CatalogosSection from '@/components/CatalogosSection'
@@ -64,7 +64,7 @@ export default async function HomePage() {
       />
       <Header />
       <main>
-        <HeroSection />
+        <GradientHero />
         <BannerMayorista />
         <ConfianzaSection />
         <HomeRows />
