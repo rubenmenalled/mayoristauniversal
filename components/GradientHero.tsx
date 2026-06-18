@@ -138,8 +138,9 @@ export default function GradientHero() {
           <div className="hero-blob b" aria-hidden="true" />
           <div className="hero-blob c" aria-hidden="true" />
 
-          {/* Contenido — en flujo: el banner se adapta a su alto (no se desborda) */}
-          <div className="relative z-50 flex flex-col items-center justify-center text-center px-4"
+          {/* Contenido — z-10: por encima del collage pero DEBAJO del header (z-50),
+              así al scrollear el título se oculta detrás del header y no lo pisa */}
+          <div className="relative z-10 flex flex-col items-center justify-center text-center px-4"
             style={{ padding: 'clamp(56px, 9vw, 104px) 16px' }}>
             <h1 style={{
               color: '#FFFFFF', fontWeight: 900, lineHeight: 1.05, margin: 0,
