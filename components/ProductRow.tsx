@@ -24,7 +24,7 @@ function Card({ p }: { p: Prod }) {
   const big = isPack ? packTotal : p.wholesalePrice
 
   return (
-    <div style={{ flex: '0 0 auto', width: 180, background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+    <div className="prod-card" style={{ flex: '0 0 auto', width: 180, background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
       <div style={{ position: 'relative', height: 160, background: '#F5F5F5' }}>
         {p.image
           ? <Image src={p.image} alt={p.name} fill style={{ objectFit: 'cover' }} sizes="180px" />
@@ -118,6 +118,11 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
         @keyframes rowMarquee {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
+        }
+        .prod-card { transition: transform .22s ease, box-shadow .22s ease; }
+        .prod-card:hover, .prod-card:active {
+          transform: translateY(-8px);
+          box-shadow: 0 14px 28px rgba(11,30,63,0.22);
         }
       `}</style>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
