@@ -31,23 +31,39 @@ export default function GradientHero() {
         }
         #hero-collage > span {
           background-size: cover; background-position: center;
-          filter: brightness(0.85) saturate(1.05);
+          filter: brightness(1) saturate(1.08);
         }
         .hero-blob {
           position: absolute; border-radius: 50%;
-          filter: blur(48px); mix-blend-mode: screen; pointer-events: none;
+          filter: blur(52px); mix-blend-mode: screen; pointer-events: none;
         }
-        .hero-blob.a { width: 360px; height: 360px; top: -80px; left: 8%;
-          background: rgba(255,106,61,0.55); animation: heroFloatA 14s ease-in-out infinite; }
-        .hero-blob.b { width: 300px; height: 300px; bottom: -90px; right: 10%;
-          background: rgba(13,71,161,0.6); animation: heroFloatB 18s ease-in-out infinite; }
-        @keyframes heroFloatA {
+        .hero-blob.a { width: 380px; height: 380px; top: -90px; left: 6%;
+          background: rgba(255,106,61,0.6); animation: heroCircle 20s ease-in-out infinite; }
+        .hero-blob.b { width: 320px; height: 320px; bottom: -100px; right: 8%;
+          background: rgba(13,71,161,0.65); animation: heroCircleRev 26s ease-in-out infinite; }
+        .hero-blob.c { width: 260px; height: 260px; top: 20%; left: 38%;
+          background: rgba(255,138,99,0.5); animation: heroVert 16s ease-in-out infinite; }
+        .hero-blob.d { width: 240px; height: 240px; bottom: 10%; left: 18%;
+          background: rgba(86,150,255,0.5); animation: heroHoriz 22s ease-in-out infinite; }
+        @keyframes heroCircle {
           0%,100% { transform: translate(0,0) scale(1); }
-          50% { transform: translate(60px, 40px) scale(1.15); }
+          25% { transform: translate(80px, 30px) scale(1.1); }
+          50% { transform: translate(50px, 90px) scale(1.15); }
+          75% { transform: translate(-30px, 50px) scale(1.05); }
         }
-        @keyframes heroFloatB {
+        @keyframes heroCircleRev {
           0%,100% { transform: translate(0,0) scale(1); }
-          50% { transform: translate(-50px, -30px) scale(1.12); }
+          25% { transform: translate(-70px, -40px) scale(1.12); }
+          50% { transform: translate(-40px, -90px) scale(1.18); }
+          75% { transform: translate(40px, -50px) scale(1.06); }
+        }
+        @keyframes heroVert {
+          0%,100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-70px) scale(1.12); }
+        }
+        @keyframes heroHoriz {
+          0%,100% { transform: translateX(0) scale(1); }
+          50% { transform: translateX(90px) scale(1.1); }
         }
         @media (max-width: 767px) {
           #grad-hero { padding-top: 250px; }
@@ -68,14 +84,16 @@ export default function GradientHero() {
           <div aria-hidden="true" style={{
             position: 'absolute', inset: 0, pointerEvents: 'none',
             background:
-              'radial-gradient(circle at 28% 30%, rgba(255,106,61,0.22), transparent 45%),' +
-              'radial-gradient(circle at 78% 72%, rgba(13,71,161,0.30), transparent 50%),' +
-              'linear-gradient(180deg, rgba(11,30,63,0.88) 0%, rgba(11,30,63,0.82) 55%, rgba(11,30,63,0.90) 100%)',
+              'radial-gradient(circle at 28% 30%, rgba(255,106,61,0.16), transparent 45%),' +
+              'radial-gradient(circle at 78% 72%, rgba(13,71,161,0.22), transparent 50%),' +
+              'linear-gradient(180deg, rgba(11,30,63,0.62) 0%, rgba(11,30,63,0.52) 55%, rgba(11,30,63,0.68) 100%)',
           }} />
 
           {/* Brillos animados */}
           <div className="hero-blob a" aria-hidden="true" />
           <div className="hero-blob b" aria-hidden="true" />
+          <div className="hero-blob c" aria-hidden="true" />
+          <div className="hero-blob d" aria-hidden="true" />
 
           {/* Contenido */}
           <div className="absolute inset-0 z-50 flex flex-col items-center justify-center text-center px-4">
