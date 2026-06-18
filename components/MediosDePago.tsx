@@ -9,6 +9,7 @@ const medios = [
     desc: 'CBU / Alias disponible al confirmar el pedido',
     badge: '',
     href: null,
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=70',
   },
   {
     icono: '💙',
@@ -16,6 +17,7 @@ const medios = [
     desc: 'Link de pago o QR. Aceptamos todas las tarjetas',
     badge: '',
     href: null,
+    image: 'https://images.unsplash.com/photo-1556742111-a301076d9d18?w=600&q=70',
   },
   {
     icono: '💵',
@@ -23,6 +25,7 @@ const medios = [
     desc: 'Solo para retiro en depósito con coordinación previa',
     badge: 'Retiro',
     href: null,
+    image: 'https://images.unsplash.com/photo-1580048915913-4f8f5cb481c4?w=600&q=70',
   },
   {
     icono: '📱',
@@ -30,6 +33,7 @@ const medios = [
     desc: 'Escribinos por WhatsApp para más opciones de pago',
     badge: 'WhatsApp',
     href: 'https://wa.me/5491164660482',
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=70',
   },
 ];
 
@@ -96,22 +100,38 @@ export default function MediosDePago() {
   };
 
   const getCardStyle = (index: number): React.CSSProperties => ({
-    background: hovered === index
-      ? 'rgba(255,106,61, 0.08)'
-      : 'rgba(255, 255, 255, 0.03)',
-    border: `1px solid ${hovered === index ? 'rgba(255,106,61, 0.55)' : 'rgba(255,106,61, 0.18)'}`,
+    position: 'relative',
+    overflow: 'hidden',
+    border: `1px solid ${hovered === index ? 'rgba(255,106,61, 0.65)' : 'rgba(255,106,61, 0.25)'}`,
     borderRadius: '14px',
     padding: '24px 18px',
+    minHeight: '180px',
     display: 'flex',
     flexDirection: 'column' as const,
     alignItems: 'flex-start',
+    justifyContent: 'flex-end',
     transition: 'all 0.22s ease',
     cursor: medios[index].href ? 'pointer' : 'default',
     textDecoration: 'none',
     boxShadow: hovered === index
-      ? '0 4px 24px rgba(255,106,61, 0.12)'
-      : 'none',
+      ? '0 12px 32px rgba(11,30,63, 0.28)'
+      : '0 8px 24px rgba(11,30,63, 0.15)',
   });
+
+  const cardImgStyle: React.CSSProperties = {
+    position: 'absolute', inset: 0, width: '100%', height: '100%',
+    objectFit: 'cover', zIndex: 0,
+  };
+
+  const cardOverlayStyle: React.CSSProperties = {
+    position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+    background: 'linear-gradient(180deg, rgba(11,30,63,0.40) 0%, rgba(11,30,63,0.70) 55%, rgba(11,30,63,0.93) 100%)',
+  };
+
+  const cardBodyStyle: React.CSSProperties = {
+    position: 'relative', zIndex: 2,
+    display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
+  };
 
   const iconStyle: React.CSSProperties = {
     fontSize: '30px',
@@ -121,17 +141,18 @@ export default function MediosDePago() {
 
   const cardTitleStyle: React.CSSProperties = {
     fontSize: '15px',
-    fontWeight: 700,
-    color: '#C01515',
+    fontWeight: 800,
+    color: '#FFFFFF',
     marginBottom: '6px',
     lineHeight: 1.3,
+    textShadow: '0 2px 10px rgba(0,0,0,0.45)',
   };
 
   const cardDescStyle: React.CSSProperties = {
     fontSize: '13px',
-    color: '#3A4A6A',
+    color: 'rgba(255,255,255,0.92)',
     lineHeight: 1.5,
-    flexGrow: 1,
+    textShadow: '0 1px 8px rgba(0,0,0,0.5)',
   };
 
   const footerTextStyle: React.CSSProperties = {
@@ -152,10 +173,15 @@ export default function MediosDePago() {
           {medios.map((medio, i) => {
             const cardContent = (
               <>
-                <span style={iconStyle}>{medio.icono}</span>
-                <span style={cardTitleStyle}>{medio.titulo}</span>
-                <span style={cardDescStyle}>{medio.desc}</span>
-                {medio.badge && <span style={getBadgeStyle(medio.badge)}>{medio.badge}</span>}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={medio.image} alt="" style={cardImgStyle} />
+                <div style={cardOverlayStyle} />
+                <div style={cardBodyStyle}>
+                  <span style={iconStyle}>{medio.icono}</span>
+                  <span style={cardTitleStyle}>{medio.titulo}</span>
+                  <span style={cardDescStyle}>{medio.desc}</span>
+                  {medio.badge && <span style={getBadgeStyle(medio.badge)}>{medio.badge}</span>}
+                </div>
               </>
             );
 

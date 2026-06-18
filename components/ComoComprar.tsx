@@ -7,6 +7,7 @@ interface Paso {
   emoji: string;
   titulo: string;
   descripcion: string;
+  image: string;
 }
 
 const pasos: Paso[] = [
@@ -15,24 +16,28 @@ const pasos: Paso[] = [
     emoji: '🔍',
     titulo: 'Explorá y elegí tus productos',
     descripcion: 'Explorá nuestro amplio catálogo de productos, donde podrás buscar por categorías. Elegí el artículo de tu preferencia y hacé click en «Agregar». Recordá que el mínimo de compra es de $100.000.',
+    image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=700&q=70',
   },
   {
     numero: 2,
     emoji: '🛒',
     titulo: 'Revisá tu carrito',
     descripcion: 'Una vez agregado el/los productos, aparecerá el recuadro del carrito a tu derecha. Luego seleccioná «Ir a Pagar».',
+    image: 'https://images.unsplash.com/photo-1601598851547-4302969d0614?w=700&q=70',
   },
   {
     numero: 3,
     emoji: '💳',
     titulo: 'Ingresá tus datos y pagá',
     descripcion: 'Completá tus datos personales, de facturación y de envío. Luego elegí tu método de pago: 🏦 Transferencia bancaria (sin recargo) · 💙 Mercado Pago con saldo en cuenta (sin recargo) · 💳 Mercado Pago con tarjeta de crédito (+10% de recargo automático).',
+    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=700&q=70',
   },
   {
     numero: 4,
     emoji: '🚚',
     titulo: 'Confirmación y envío',
     descripcion: 'Al realizar el pedido verás el detalle y, si elegís transferencia, los datos bancarios para acreditar el pago. Una vez recibido el pago nos ponemos en contacto y procedemos con el envío.',
+    image: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=700&q=70',
   },
 ];
 
@@ -56,9 +61,19 @@ export default function ComoComprar() {
           text-align: center;
           padding: 32px 20px;
           position: relative;
-          background: rgba(240,240,240, 0.6);
-          border: 1px solid rgba(255,106,61, 0.18);
+          overflow: hidden;
+          border: 1px solid rgba(255,106,61, 0.35);
           border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(11,30,63,0.18);
+        }
+
+        .paso-bg {
+          position: absolute; inset: 0; width: 100%; height: 100%;
+          object-fit: cover; z-index: 0;
+        }
+        .paso-overlay {
+          position: absolute; inset: 0; z-index: 1; pointer-events: none;
+          background: linear-gradient(180deg, rgba(11,30,63,0.45) 0%, rgba(11,30,63,0.72) 55%, rgba(11,30,63,0.93) 100%);
         }
 
         .paso-arrow {
@@ -173,6 +188,10 @@ export default function ComoComprar() {
             {pasos.map((paso, i) => (
               <>
                 <div key={paso.numero} className="paso-card">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={paso.image} alt="" className="paso-bg" />
+                  <div className="paso-overlay" />
+
                   {/* Emoji */}
                   <span
                     className="paso-emoji"
@@ -180,6 +199,8 @@ export default function ComoComprar() {
                       fontSize: '32px',
                       marginBottom: '16px',
                       lineHeight: 1,
+                      position: 'relative',
+                      zIndex: 2,
                     }}
                   >
                     {paso.emoji}
@@ -198,23 +219,27 @@ export default function ComoComprar() {
                       justifyContent: 'center',
                       fontWeight: 800,
                       fontSize: '16px',
-                      color: '#C01515',
+                      color: '#FFFFFF',
                       marginBottom: '16px',
                       flexShrink: 0,
+                      position: 'relative',
+                      zIndex: 2,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
                     }}
                   >
                     {paso.numero}
                   </div>
 
                   {/* Texto */}
-                  <div className="paso-content" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div className="paso-content" style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 2 }}>
                     <h3
                       style={{
                         fontSize: '16px',
-                        fontWeight: 700,
-                        color: '#C01515',
+                        fontWeight: 800,
+                        color: '#FFFFFF',
                         marginBottom: '8px',
                         lineHeight: 1.3,
+                        textShadow: '0 2px 10px rgba(0,0,0,0.45)',
                       }}
                     >
                       {paso.titulo}
@@ -222,9 +247,10 @@ export default function ComoComprar() {
                     <p
                       style={{
                         fontSize: '14px',
-                        color: '#000000',
+                        color: 'rgba(255,255,255,0.92)',
                         lineHeight: 1.6,
                         margin: 0,
+                        textShadow: '0 1px 8px rgba(0,0,0,0.5)',
                       }}
                     >
                       {paso.descripcion}
