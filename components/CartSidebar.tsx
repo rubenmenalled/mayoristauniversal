@@ -475,12 +475,22 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 )}
 
-                {/* Checkout buttons (se ven primero; al elegir uno se piden los datos) */}
-                {puedeComprar && alcanzaMin ? (
+                {/* Checkout buttons (siempre visibles; desactivados hasta el mínimo) */}
+                {puedeComprar ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
 
+                    {/* Aviso: faltan $X para habilitar los medios de pago */}
+                    {!alcanzaMin && (
+                      <div style={{ background: '#EFF6FF', border: '1.5px solid #BFDBFE', borderRadius: 10, padding: '10px 12px', display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                        <span style={{ fontSize: 16, lineHeight: 1.2 }}>🔒</span>
+                        <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 12, lineHeight: 1.4 }}>
+                          Faltan <strong>${faltaMin.toLocaleString('es-AR')}</strong> para llegar al mínimo de <strong>${RETAIL_MIN.toLocaleString('es-AR')}</strong>. Los medios de pago se activan al alcanzarlo.
+                        </span>
+                      </div>
+                    )}
+
                     {/* Desglose del recargo minorista — se revela recién al momento de pagar */}
-                    {!isWholesale && (
+                    {alcanzaMin && !isWholesale && (
                       <div style={{ background: '#FFFBEB', border: '1px solid #FCD34D', borderRadius: 10, padding: '10px 12px', fontSize: 12 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
                           <span style={{ color: '#6B7280' }}>Subtotal (precio mayorista)</span>
@@ -502,8 +512,9 @@ export default function CartSidebar({ open, onClose }: Props) {
 
                     {/* Transferencia / dinero en cuenta — SIN RECARGO (opción recomendada, va arriba) */}
                     <button
-                      onClick={() => { if (!tieneDatos()) return; notificarPedidoIniciado('Transferencia'); setShowTransfer(v => !v) }}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: '2px solid #15803D', background: showTransfer ? '#ECFDF3' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 3px 12px rgba(21,128,61,0.25)' }}>
+                      disabled={!alcanzaMin}
+                      onClick={() => { if (!alcanzaMin) return; if (!tieneDatos()) return; notificarPedidoIniciado('Transferencia'); setShowTransfer(v => !v) }}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: '2px solid #15803D', background: showTransfer ? '#ECFDF3' : 'linear-gradient(135deg,#F0FDF4,#DCFCE7)', color: '#15803D', fontWeight: 900, cursor: alcanzaMin ? 'pointer' : 'not-allowed', opacity: alcanzaMin ? 1 : 0.45, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 3px 12px rgba(21,128,61,0.25)' }}>
                       <span style={{ fontSize: 18 }}>🏦</span>
                       <div style={{ textAlign: 'left' }}>
                         <div style={{ fontSize: 13, fontWeight: 700, color: '#15803D' }}>TRANSFERENCIA / DINERO EN CUENTA · ${displayTotal.toLocaleString('es-AR')}</div>
@@ -543,8 +554,8 @@ export default function CartSidebar({ open, onClose }: Props) {
                     {/* MP con +10% recargo */}
                     <button
                       onClick={handleMercadoPago}
-                      disabled={mpLoading}
-                      style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: 'none', background: mpLoading ? '#9CA3AF' : 'linear-gradient(135deg,#009EE3,#0070BA)', color: '#FFFFFF', fontWeight: 900, cursor: mpLoading ? 'not-allowed' : 'pointer', boxShadow: '0 4px 14px rgba(0,158,227,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                      disabled={mpLoading || !alcanzaMin}
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: 'none', background: (mpLoading || !alcanzaMin) ? '#9CA3AF' : 'linear-gradient(135deg,#009EE3,#0070BA)', color: '#FFFFFF', fontWeight: 900, cursor: (mpLoading || !alcanzaMin) ? 'not-allowed' : 'pointer', opacity: alcanzaMin ? 1 : 0.6, boxShadow: '0 4px 14px rgba(0,158,227,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                       <CreditCard size={16} />
                       <div style={{ textAlign: 'left' }}>
                         <div style={{ fontSize: 14, fontWeight: 900 }}>{mpLoading ? 'REDIRIGIENDO...' : 'PAGAR CON MERCADO PAGO'}</div>
@@ -557,11 +568,11 @@ export default function CartSidebar({ open, onClose }: Props) {
 
                     {/* WA */}
                     <a
-                      href={waLink}
+                      href={alcanzaMin ? waLink : undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={e => { if (!tieneDatos()) { e.preventDefault(); return } notificarPedidoIniciado('WhatsApp') }}
-                      style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', flexDirection: 'column' }}>
+                      onClick={e => { if (!alcanzaMin) { e.preventDefault(); return } if (!tieneDatos()) { e.preventDefault(); return } notificarPedidoIniciado('WhatsApp') }}
+                      style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: alcanzaMin ? 'pointer' : 'not-allowed', opacity: alcanzaMin ? 1 : 0.45, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', flexDirection: 'column' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <MessageCircle size={16} />
                         PEDIR POR WHATSAPP
@@ -569,13 +580,13 @@ export default function CartSidebar({ open, onClose }: Props) {
                       <div style={{ fontSize: 10, color: '#6B7280', fontWeight: 500 }}>Los precios no incluyen IVA</div>
                     </a>
                   </div>
-                ) : !alcanzaMin ? null : !puedeComprar ? (
+                ) : (
                   <button
                     onClick={onClose}
                     style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 16px rgba(255,106,61,0.35)' }}>
                     + SEGUIR AGREGANDO PRODUCTOS
                   </button>
-                ) : null}
+                )}
                 <button onClick={clearCart}
                   style={{ width: '100%', marginTop: 8, padding: '10px', borderRadius: 12, border: '1px solid #FECACA', background: '#FEF2F2', color: '#EF4444', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                   Vaciar carrito
