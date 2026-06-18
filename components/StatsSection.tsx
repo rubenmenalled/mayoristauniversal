@@ -76,7 +76,7 @@ function StatCard({ stat, animate }: { stat: Stat; animate: boolean }) {
         style={{
           fontSize: '52px',
           fontWeight: 800,
-          color: '#F5C518',
+          color: '#FF6A3D',
           lineHeight: 1,
           letterSpacing: '-0.02em',
           fontVariantNumeric: 'tabular-nums',
@@ -141,8 +141,8 @@ export default function StatsSection() {
         ref={sectionRef}
         style={{
           backgroundColor: 'rgba(26,43,128, 0.98)',
-          borderTop: '2px solid #F5C518',
-          borderBottom: '2px solid #F5C518',
+          borderTop: '2px solid #FF6A3D',
+          borderBottom: '2px solid #FF6A3D',
           width: '100%',
           padding: '16px 0',
         }}

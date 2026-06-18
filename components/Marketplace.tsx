@@ -37,7 +37,7 @@ function CountdownTimer() {
         <div key={l} className="flex items-end gap-1">
           <div className="flex flex-col items-center">
             <div className="w-12 h-11 flex items-center justify-center rounded-md font-display font-black text-2xl text-white"
-              style={{ background: 'rgba(240,240,240,0.9)', border: '1px solid rgba(245,197,24,0.3)' }}>
+              style={{ background: 'rgba(240,240,240,0.9)', border: '1px solid rgba(255,106,61,0.3)' }}>
               {String(v).padStart(2, '0')}
             </div>
             <span className="text-gray-500 text-[9px] mt-1 font-bold tracking-wider">{l}</span>
@@ -110,7 +110,7 @@ function ProductCard({ p }: { p: Product }) {
 
         <motion.button
           className="btn-agregar w-full mt-2 py-1.5 rounded-lg text-navy text-xs font-bold flex items-center justify-center gap-1"
-          style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)' }}
+          style={{ background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)' }}
           whileTap={{ scale: 0.97 }}
           onClick={() => addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: p.wholesalePrice, image: p.image, minOrder: p.minOrder })}>
           <ShoppingCart size={12} /> <TextReveal text="AGREGAR AL CARRITO" />
@@ -140,7 +140,7 @@ function SupplierRow({ s }: { s: typeof suppliers[0] }) {
       </div>
       <motion.button
         className="flex-shrink-0 px-3 py-1.5 rounded-lg text-navy text-[11px] font-black"
-        style={{ background: 'linear-gradient(135deg,#F5C518,#FFE45C)' }}
+        style={{ background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)' }}
         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         CONTACTAR
       </motion.button>
@@ -184,9 +184,9 @@ export default function Marketplace({ products: initialProducts }: { products?: 
 
             {/* Placeholder cuando no hay oferta destacada */}
             <div className="glass-card rounded-xl overflow-hidden flex flex-col items-center justify-center p-8 text-center"
-              style={{ minHeight: 220, border: '1px dashed rgba(245,197,24,0.3)' }}>
+              style={{ minHeight: 220, border: '1px dashed rgba(255,106,61,0.3)' }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>🔥</div>
-              <div style={{ color: '#F5C518', fontWeight: 900, fontSize: 14, marginBottom: 6 }}>
+              <div style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 14, marginBottom: 6 }}>
                 PRÓXIMAS OFERTAS
               </div>
               <div style={{ color: '#7a8a9a', fontSize: 12 }}>
@@ -208,7 +208,7 @@ export default function Marketplace({ products: initialProducts }: { products?: 
                         ? 'text-navy shadow-lg'
                         : 'glass-card text-gray-300 hover:text-gold'
                     }`}
-                    style={tab === t ? { background: 'linear-gradient(135deg,#F5C518,#FFE45C)' } : {}}>
+                    style={tab === t ? { background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)' } : {}}>
                     {t}
                   </button>
                 ))}

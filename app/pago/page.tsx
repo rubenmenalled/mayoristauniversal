@@ -66,7 +66,7 @@ function PagoContent() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           <button
             onClick={() => router.push('/')}
-            style={{ padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer' }}>
+            style={{ padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer' }}>
             Volver al inicio
           </button>
           {status === 'failure' && (

@@ -10,7 +10,7 @@ export default function PrivacidadPage() {
       {/* Header */}
       <div style={{
         background: 'rgba(240,240,240,0.97)',
-        borderBottom: '1px solid rgba(245,197,24,0.25)',
+        borderBottom: '1px solid rgba(255,106,61,0.25)',
         padding: '16px 24px',
         position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
@@ -18,7 +18,7 @@ export default function PrivacidadPage() {
         <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 20 }}>
           <a href="/" style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            color: '#F5C518', fontWeight: 700, fontSize: 14,
+            color: '#FF6A3D', fontWeight: 700, fontSize: 14,
             textDecoration: 'none',
           }}>
             ← Volver
@@ -33,7 +33,7 @@ export default function PrivacidadPage() {
       <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px 80px' }}>
 
         <h1 style={{
-          color: '#F5C518', fontWeight: 900, fontSize: 'clamp(22px, 3vw, 32px)',
+          color: '#FF6A3D', fontWeight: 900, fontSize: 'clamp(22px, 3vw, 32px)',
           textTransform: 'uppercase', letterSpacing: '0.06em',
           marginBottom: 8,
         }}>
@@ -57,11 +57,11 @@ export default function PrivacidadPage() {
             comerciales:
           </p>
           <ul style={{ paddingLeft: 24, lineHeight: 2.2 }}>
-            <li><strong style={{ color: '#FFE45C' }}>Datos de identidad:</strong> nombre y apellido o razón social, número de DNI o CUIT/CUIL.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Datos de contacto:</strong> dirección de correo electrónico, número de WhatsApp o teléfono, domicilio comercial o fiscal.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Datos de actividad:</strong> historial de pedidos, productos consultados, categorías visitadas, búsquedas realizadas dentro del Sitio.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Datos técnicos:</strong> dirección IP, tipo de navegador, sistema operativo, dispositivo utilizado, páginas visitadas y tiempo de sesión.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Datos de pago:</strong> información necesaria para acreditar transferencias o procesar pagos (no almacenamos datos de tarjetas de crédito directamente; los pagos son procesados por proveedores habilitados).</li>
+            <li><strong style={{ color: '#FF8A63' }}>Datos de identidad:</strong> nombre y apellido o razón social, número de DNI o CUIT/CUIL.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Datos de contacto:</strong> dirección de correo electrónico, número de WhatsApp o teléfono, domicilio comercial o fiscal.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Datos de actividad:</strong> historial de pedidos, productos consultados, categorías visitadas, búsquedas realizadas dentro del Sitio.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Datos técnicos:</strong> dirección IP, tipo de navegador, sistema operativo, dispositivo utilizado, páginas visitadas y tiempo de sesión.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Datos de pago:</strong> información necesaria para acreditar transferencias o procesar pagos (no almacenamos datos de tarjetas de crédito directamente; los pagos son procesados por proveedores habilitados).</li>
           </ul>
           <p>
             No recopilamos datos sensibles en los términos del artículo 2° de la Ley 25.326, tales como
@@ -91,7 +91,7 @@ export default function PrivacidadPage() {
         {/* Sección 3 */}
         <Section titulo="3. Almacenamiento y Seguridad">
           <p>
-            Sus datos personales son almacenados en infraestructura provista por <strong style={{ color: '#FFE45C' }}>Supabase</strong>,
+            Sus datos personales son almacenados en infraestructura provista por <strong style={{ color: '#FF8A63' }}>Supabase</strong>,
             plataforma de base de datos en la nube que cumple con estándares internacionales de seguridad (SOC 2 Type II).
             Toda la información sensible se almacena cifrada en tránsito mediante TLS/SSL y en reposo mediante
             encriptación AES-256.
@@ -120,10 +120,10 @@ export default function PrivacidadPage() {
             Sin embargo, podemos compartir información en los siguientes casos limitados y necesarios:
           </p>
           <ul style={{ paddingLeft: 24, lineHeight: 2.2 }}>
-            <li><strong style={{ color: '#FFE45C' }}>Proveedores de logística y transporte:</strong> nombre, dirección de entrega y teléfono de contacto, exclusivamente para coordinar la entrega de su pedido.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Procesadores de pago:</strong> datos de pago necesarios para acreditar transacciones (Mercado Pago u otros procesadores habilitados), quienes cuentan con sus propias políticas de privacidad.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Organismos públicos:</strong> cuando sea requerido por ley, orden judicial o autoridad competente (AFIP, organismos de control, fuerzas de seguridad en el marco legal aplicable).</li>
-            <li><strong style={{ color: '#FFE45C' }}>Proveedores tecnológicos:</strong> plataformas de hosting, bases de datos y herramientas de análisis que operan como encargados del tratamiento bajo contratos de confidencialidad.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Proveedores de logística y transporte:</strong> nombre, dirección de entrega y teléfono de contacto, exclusivamente para coordinar la entrega de su pedido.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Procesadores de pago:</strong> datos de pago necesarios para acreditar transacciones (Mercado Pago u otros procesadores habilitados), quienes cuentan con sus propias políticas de privacidad.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Organismos públicos:</strong> cuando sea requerido por ley, orden judicial o autoridad competente (AFIP, organismos de control, fuerzas de seguridad en el marco legal aplicable).</li>
+            <li><strong style={{ color: '#FF8A63' }}>Proveedores tecnológicos:</strong> plataformas de hosting, bases de datos y herramientas de análisis que operan como encargados del tratamiento bajo contratos de confidencialidad.</li>
           </ul>
           <p>
             Todos los terceros con quienes compartimos datos están obligados contractualmente a tratarlos
@@ -141,9 +141,9 @@ export default function PrivacidadPage() {
             Utilizamos los siguientes tipos de cookies:
           </p>
           <ul style={{ paddingLeft: 24, lineHeight: 2.2 }}>
-            <li><strong style={{ color: '#FFE45C' }}>Cookies esenciales:</strong> necesarias para el funcionamiento básico del Sitio (autenticación, carrito de pedidos). No pueden desactivarse.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Cookies de preferencias:</strong> recuerdan sus configuraciones y preferencias de navegación.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Cookies analíticas:</strong> nos permiten entender cómo los usuarios interactúan con el Sitio para mejorarlo continuamente. Los datos son procesados de forma agregada y anónima.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Cookies esenciales:</strong> necesarias para el funcionamiento básico del Sitio (autenticación, carrito de pedidos). No pueden desactivarse.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Cookies de preferencias:</strong> recuerdan sus configuraciones y preferencias de navegación.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Cookies analíticas:</strong> nos permiten entender cómo los usuarios interactúan con el Sitio para mejorarlo continuamente. Los datos son procesados de forma agregada y anónima.</li>
           </ul>
           <p>
             Puede configurar su navegador para bloquear o eliminar cookies. Tenga en cuenta que deshabilitar
@@ -158,11 +158,11 @@ export default function PrivacidadPage() {
             Conforme a la Ley N° 25.326, usted tiene los siguientes derechos sobre sus datos personales:
           </p>
           <ul style={{ paddingLeft: 24, lineHeight: 2.2 }}>
-            <li><strong style={{ color: '#FFE45C' }}>Acceso:</strong> solicitar información sobre qué datos tenemos almacenados sobre usted.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Rectificación:</strong> solicitar la corrección de datos inexactos, incompletos o desactualizados.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Eliminación (derecho al olvido):</strong> solicitar la supresión de sus datos personales, salvo que existan obligaciones legales que requieran su conservación.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Oposición:</strong> oponerse al tratamiento de sus datos para fines de comunicaciones comerciales.</li>
-            <li><strong style={{ color: '#FFE45C' }}>Portabilidad:</strong> recibir sus datos en un formato estructurado y de uso común para transferirlos a otro responsable del tratamiento.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Acceso:</strong> solicitar información sobre qué datos tenemos almacenados sobre usted.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Rectificación:</strong> solicitar la corrección de datos inexactos, incompletos o desactualizados.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Eliminación (derecho al olvido):</strong> solicitar la supresión de sus datos personales, salvo que existan obligaciones legales que requieran su conservación.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Oposición:</strong> oponerse al tratamiento de sus datos para fines de comunicaciones comerciales.</li>
+            <li><strong style={{ color: '#FF8A63' }}>Portabilidad:</strong> recibir sus datos en un formato estructurado y de uso común para transferirlos a otro responsable del tratamiento.</li>
           </ul>
           <p>
             Para ejercer cualquiera de estos derechos, puede comunicarse a través del correo indicado en
@@ -180,7 +180,7 @@ export default function PrivacidadPage() {
             de sus datos personales, puede contactarse con nuestro responsable de privacidad:
           </p>
           <ul style={{ paddingLeft: 24, lineHeight: 2.5 }}>
-            <li>Correo electrónico: <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#F5C518', textDecoration: 'none', fontWeight: 600 }}>rubenmenalled@gmail.com</a></li>
+            <li>Correo electrónico: <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#FF6A3D', textDecoration: 'none', fontWeight: 600 }}>rubenmenalled@gmail.com</a></li>
             <li>Asunto sugerido: <em style={{ color: '#7a8fa8' }}>"Consulta Privacidad - [su nombre]"</em></li>
             <li>Horario de respuesta: lunes a viernes de 9:00 a 17:00 hs (hora Argentina)</li>
           </ul>
@@ -200,9 +200,9 @@ function Section({ titulo, children }: { titulo: string; children: React.ReactNo
   return (
     <div style={{ marginBottom: 40 }}>
       <h2 style={{
-        color: '#FFE45C', fontWeight: 800, fontSize: 'clamp(16px, 2vw, 19px)',
+        color: '#FF8A63', fontWeight: 800, fontSize: 'clamp(16px, 2vw, 19px)',
         marginBottom: 16, paddingBottom: 10,
-        borderBottom: '1px solid rgba(245,197,24,0.2)',
+        borderBottom: '1px solid rgba(255,106,61,0.2)',
         letterSpacing: '0.03em',
       }}>
         {titulo}

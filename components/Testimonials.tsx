@@ -28,7 +28,7 @@ export default function Testimonials() {
       style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)' }}>
       {/* Glow */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(245,197,24,0.05) 0%, transparent 65%)' }} />
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(255,106,61,0.05) 0%, transparent 65%)' }} />
 
       <div className="max-w-5xl mx-auto px-4 relative">
         {/* Header */}
@@ -59,14 +59,14 @@ export default function Testimonials() {
             >
               {/* Border glow */}
               <div className="absolute inset-0 rounded-3xl"
-                style={{ boxShadow: 'inset 0 0 0 1px rgba(245,197,24,0.2)' }} />
+                style={{ boxShadow: 'inset 0 0 0 1px rgba(255,106,61,0.2)' }} />
 
               {/* Gold quote icon */}
               <div
                 className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8"
                 style={{
-                  background: 'linear-gradient(135deg, #F5C518 0%, #FFE45C 100%)',
-                  boxShadow: '0 0 30px rgba(245,197,24,0.4)',
+                  background: 'linear-gradient(135deg, #FF6A3D 0%, #FF8A63 100%)',
+                  boxShadow: '0 0 30px rgba(255,106,61,0.4)',
                 }}
               >
                 <Quote size={28} className="text-navy" />
@@ -87,8 +87,8 @@ export default function Testimonials() {
                 <div
                   className="w-14 h-14 rounded-full flex items-center justify-center text-2xl"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(245,197,24,0.2), rgba(245,197,24,0.05))',
-                    border: '2px solid rgba(245,197,24,0.3)',
+                    background: 'linear-gradient(135deg, rgba(255,106,61,0.2), rgba(255,106,61,0.05))',
+                    border: '2px solid rgba(255,106,61,0.3)',
                   }}
                 >
                   {t.avatar}

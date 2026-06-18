@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
-const GOLD = '#F5C518'
-const GOLD_GRAD = 'linear-gradient(135deg,#F5C518,#FFE45C)'
+const GOLD = '#FF6A3D'
+const GOLD_GRAD = 'linear-gradient(135deg,#FF6A3D,#FF8A63)'
 const NAVY = '#0F172A'
 const NAVY2 = '#1E293B'
 
@@ -103,7 +103,7 @@ export default function ClientesPage() {
       {/* Header */}
       <div style={{
         background: 'rgba(255,255,255,0.03)',
-        borderBottom: '1px solid rgba(245,197,24,0.2)',
+        borderBottom: '1px solid rgba(255,106,61,0.2)',
         padding: '16px 24px',
         display: 'flex',
         alignItems: 'center',
@@ -176,7 +176,7 @@ export default function ClientesPage() {
             onChange={e => setSearch(e.target.value)}
             style={{
               background: 'rgba(255,255,255,0.06)',
-              border: `1px solid rgba(245,197,24,0.25)`,
+              border: `1px solid rgba(255,106,61,0.25)`,
               borderRadius: 10,
               padding: '10px 16px',
               color: '#FFFFFF',
@@ -228,7 +228,7 @@ export default function ClientesPage() {
         {!loading && !error && filtered.length > 0 && !isMobile && (
           <div style={{
             background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(245,197,24,0.15)',
+            border: '1px solid rgba(255,106,61,0.15)',
             borderRadius: 14,
             overflow: 'hidden',
           }}>
@@ -241,8 +241,8 @@ export default function ClientesPage() {
               }}>
                 <thead>
                   <tr style={{
-                    background: 'rgba(245,197,24,0.1)',
-                    borderBottom: '1px solid rgba(245,197,24,0.2)',
+                    background: 'rgba(255,106,61,0.1)',
+                    borderBottom: '1px solid rgba(255,106,61,0.2)',
                   }}>
                     {['Nombre', 'Email', 'Documento', 'WhatsApp', 'Transporte', 'Reemplazo', 'Fecha registro'].map(h => (
                       <th key={h} style={{
@@ -271,7 +271,7 @@ export default function ClientesPage() {
                         transition: 'background 0.15s',
                         cursor: 'pointer',
                       }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(245,197,24,0.06)')}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,106,61,0.06)')}
                       onMouseLeave={e => (e.currentTarget.style.background = i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)')}
                     >
                       <td style={{ padding: '12px 16px', fontWeight: 700, color: '#FFFFFF' }}>{c.nombre}<TipoBadge tipo={c.tipo} /></td>
@@ -298,7 +298,7 @@ export default function ClientesPage() {
                 onClick={() => setSelected(c)}
                 style={{
                   background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(245,197,24,0.18)',
+                  border: '1px solid rgba(255,106,61,0.18)',
                   borderRadius: 14,
                   padding: '16px 18px',
                   cursor: 'pointer',
@@ -311,8 +311,8 @@ export default function ClientesPage() {
                     <div style={{ color: '#7a8a9a', fontSize: 12, marginTop: 2 }}>{c.email || '—'}</div>
                   </div>
                   <div style={{
-                    background: 'rgba(245,197,24,0.12)',
-                    border: `1px solid rgba(245,197,24,0.25)`,
+                    background: 'rgba(255,106,61,0.12)',
+                    border: `1px solid rgba(255,106,61,0.25)`,
                     borderRadius: 8,
                     padding: '3px 10px',
                     color: GOLD,
@@ -361,7 +361,7 @@ export default function ClientesPage() {
         >
           <div
             onClick={e => e.stopPropagation()}
-            style={{ background: '#1a2235', border: '1px solid rgba(245,197,24,0.3)', borderRadius: 18, padding: '28px 28px 24px', width: '100%', maxWidth: 480, boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}
+            style={{ background: '#1a2235', border: '1px solid rgba(255,106,61,0.3)', borderRadius: 18, padding: '28px 28px 24px', width: '100%', maxWidth: 480, boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}
           >
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
@@ -410,7 +410,7 @@ export default function ClientesPage() {
               {selected.email && (
                 <a
                   href={`mailto:${selected.email}`}
-                  style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.35)', color: GOLD, fontWeight: 900, fontSize: 13, textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+                  style={{ flex: 1, padding: '11px', borderRadius: 10, background: 'rgba(255,106,61,0.15)', border: '1px solid rgba(255,106,61,0.35)', color: GOLD, fontWeight: 900, fontSize: 13, textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
                 >
                   ✉️ Enviar email
                 </a>

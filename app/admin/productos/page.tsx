@@ -26,7 +26,7 @@ const EMPTY: Producto = {
   imagen: '', badge: '', descuento: 0, ubicacion: 'Buenos Aires',
 }
 
-const GOLD = 'linear-gradient(135deg,#F5C518,#FFE45C)'
+const GOLD = 'linear-gradient(135deg,#FF6A3D,#FF8A63)'
 
 export default function ProductosAdmin() {
   const router = useRouter()
@@ -282,12 +282,12 @@ export default function ProductosAdmin() {
       {/* Header */}
       <div style={{
         background: '#1E293B',
-        borderBottom: '1px solid rgba(245,197,24,0.3)',
+        borderBottom: '1px solid rgba(255,106,61,0.3)',
         padding: '16px 24px',
         display: 'flex', alignItems: 'center', gap: 16,
       }}>
         <button onClick={() => router.push('/admin/dashboard')}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#F5C518', display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700 }}>
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#FF6A3D', display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700 }}>
           <ArrowLeft size={16} /> Volver
         </button>
         <h1 style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, margin: 0 }}>📦 Productos</h1>
@@ -488,7 +488,7 @@ export default function ProductosAdmin() {
                         })
                       }} style={{ width: 15, height: 15, flexShrink: 0, cursor: 'pointer' }} />
                       <span style={{ color: '#FFFFFF', fontSize: 13, fontWeight: 600, flex: 1, lineHeight: 1.3 }}>{p.nombre}</span>
-                      {p.subcategoria && <span style={{ color: '#F5C518', fontSize: 11, flexShrink: 0 }}>{p.subcategoria}</span>}
+                      {p.subcategoria && <span style={{ color: '#FF6A3D', fontSize: 11, flexShrink: 0 }}>{p.subcategoria}</span>}
                     </label>
                   ))}
                 </div>
@@ -570,7 +570,7 @@ export default function ProductosAdmin() {
                         })
                       }} style={{ width: 15, height: 15, flexShrink: 0, cursor: 'pointer' }} />
                       <span style={{ color: '#FFFFFF', fontSize: 13, fontWeight: 600, flex: 1, lineHeight: 1.3 }}>{p.nombre}</span>
-                      {p.precio_mayorista > 0 && <span style={{ color: '#F5C518', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>${p.precio_mayorista.toLocaleString('es-AR')}</span>}
+                      {p.precio_mayorista > 0 && <span style={{ color: '#FF6A3D', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>${p.precio_mayorista.toLocaleString('es-AR')}</span>}
                     </label>
                   ))}
                 </div>
@@ -613,7 +613,7 @@ export default function ProductosAdmin() {
             zIndex: 1000, padding: 16,
           }}>
             <div style={{
-              background: '#0a1628', border: '1px solid rgba(245,197,24,0.3)',
+              background: '#0a1628', border: '1px solid rgba(255,106,61,0.3)',
               borderRadius: 20, padding: 28, width: '100%', maxWidth: 700,
               maxHeight: '85vh', overflowY: 'auto',
             }}>
@@ -634,8 +634,8 @@ export default function ProductosAdmin() {
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {Object.keys(importPreview[0]).map(col => (
                       <span key={col} style={{
-                        background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.3)',
-                        borderRadius: 6, padding: '3px 8px', fontSize: 11, color: '#F5C518', fontWeight: 700,
+                        background: 'rgba(255,106,61,0.15)', border: '1px solid rgba(255,106,61,0.3)',
+                        borderRadius: 6, padding: '3px 8px', fontSize: 11, color: '#FF6A3D', fontWeight: 700,
                       }}>{col}</span>
                     ))}
                   </div>
@@ -643,8 +643,8 @@ export default function ProductosAdmin() {
               )}
 
               {/* Categoría + Subcategoría por defecto */}
-              <div style={{ marginBottom: 20, background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.3)', borderRadius: 12, padding: '14px 16px' }}>
-                <div style={{ color: '#F5C518', fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
+              <div style={{ marginBottom: 20, background: 'rgba(255,106,61,0.08)', border: '1px solid rgba(255,106,61,0.3)', borderRadius: 12, padding: '14px 16px' }}>
+                <div style={{ color: '#FF6A3D', fontSize: 12, fontWeight: 700, marginBottom: 8 }}>
                   📂 CATEGORÍA Y SUBCATEGORÍA PARA ESTOS PRODUCTOS
                 </div>
                 <div style={{ color: '#7a8a9a', fontSize: 11, marginBottom: 12 }}>
@@ -667,7 +667,7 @@ export default function ProductosAdmin() {
                     }}
                     style={{
                       width: '100%', background: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(245,197,24,0.4)', borderRadius: 8,
+                      border: '1px solid rgba(255,106,61,0.4)', borderRadius: 8,
                       padding: '10px 12px', color: importCategoria ? '#fff' : '#7a8a9a', fontSize: 14, outline: 'none',
                     }}>
                     <option value="">-- Elegí una categoría --</option>
@@ -682,7 +682,7 @@ export default function ProductosAdmin() {
                       onChange={e => setImportSubcategoria(e.target.value)}
                       style={{
                         width: '100%', background: 'rgba(255,255,255,0.08)',
-                        border: '1px solid rgba(245,197,24,0.25)', borderRadius: 8,
+                        border: '1px solid rgba(255,106,61,0.25)', borderRadius: 8,
                         padding: '10px 12px', color: importSubcategoria ? '#fff' : '#7a8a9a', fontSize: 14, outline: 'none',
                       }}>
                       <option value="">-- Subcategoría (opcional) --</option>
@@ -696,7 +696,7 @@ export default function ProductosAdmin() {
 
               {/* Vista previa */}
               <div style={{ marginBottom: 20 }}>
-                <div style={{ color: '#F5C518', fontSize: 12, fontWeight: 700, marginBottom: 10 }}>
+                <div style={{ color: '#FF6A3D', fontSize: 12, fontWeight: 700, marginBottom: 10 }}>
                   VISTA PREVIA (primeros 3)
                 </div>
                 <div style={{ display: 'grid', gap: 8 }}>
@@ -752,7 +752,7 @@ export default function ProductosAdmin() {
             zIndex: 2000, padding: 16,
           }}>
             <div style={{
-              background: '#0a1628', border: '1px solid rgba(245,197,24,0.3)',
+              background: '#0a1628', border: '1px solid rgba(255,106,61,0.3)',
               borderRadius: 20, padding: 28, width: '100%', maxWidth: 560,
               maxHeight: '90vh', overflowY: 'auto',
             }}>
@@ -777,7 +777,7 @@ export default function ProductosAdmin() {
                   { label: 'Ubicación', key: 'ubicacion', type: 'text' },
                 ].map(({ label, key, type }) => (
                   <div key={key}>
-                    <label style={{ color: '#F5C518', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
+                    <label style={{ color: '#FF6A3D', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
                       {label.toUpperCase()}
                     </label>
                     <input
@@ -786,7 +786,7 @@ export default function ProductosAdmin() {
                       onChange={e => setForm(f => ({ ...f, [key]: type === 'number' ? Number(e.target.value) : e.target.value }))}
                       style={{
                         width: '100%', background: 'rgba(255,255,255,0.07)',
-                        border: '1px solid rgba(245,197,24,0.25)',
+                        border: '1px solid rgba(255,106,61,0.25)',
                         borderRadius: 8, padding: '10px 12px',
                         color: '#FFFFFF', fontSize: 14, outline: 'none', boxSizing: 'border-box',
                       }}
@@ -796,7 +796,7 @@ export default function ProductosAdmin() {
 
                 {/* Categoría dropdown */}
                 <div>
-                  <label style={{ color: '#F5C518', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
+                  <label style={{ color: '#FF6A3D', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
                     CATEGORÍA
                   </label>
                   <select
@@ -807,7 +807,7 @@ export default function ProductosAdmin() {
                       if (cat) loadSubcategorias(cat.id)
                       else setSubcategorias([])
                     }}
-                    style={{ width: '100%', background: '#0a1628', border: '1px solid rgba(245,197,24,0.25)', borderRadius: 8, padding: '10px 12px', color: form.categoria ? '#fff' : '#7a8a9a', fontSize: 14, outline: 'none' }}>
+                    style={{ width: '100%', background: '#0a1628', border: '1px solid rgba(255,106,61,0.25)', borderRadius: 8, padding: '10px 12px', color: form.categoria ? '#fff' : '#7a8a9a', fontSize: 14, outline: 'none' }}>
                     <option value="">Seleccioná una categoría</option>
                     {categorias.map(c => (
                       <option key={c.id} value={c.nombre}>{c.nombre}</option>
@@ -817,13 +817,13 @@ export default function ProductosAdmin() {
 
                 {/* Subcategoría dropdown */}
                 <div>
-                  <label style={{ color: '#F5C518', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
+                  <label style={{ color: '#FF6A3D', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
                     SUBCATEGORÍA <span style={{ color: '#7a8a9a', fontWeight: 400 }}>(opcional)</span>
                   </label>
                   <select
                     value={form.subcategoria}
                     onChange={e => setForm(f => ({ ...f, subcategoria: e.target.value }))}
-                    style={{ width: '100%', background: '#0a1628', border: '1px solid rgba(245,197,24,0.25)', borderRadius: 8, padding: '10px 12px', color: '#FFFFFF', fontSize: 14, outline: 'none' }}>
+                    style={{ width: '100%', background: '#0a1628', border: '1px solid rgba(255,106,61,0.25)', borderRadius: 8, padding: '10px 12px', color: '#FFFFFF', fontSize: 14, outline: 'none' }}>
                     <option value="">Sin subcategoría</option>
                     {subcategorias.map(s => (
                       <option key={s.id} value={s.nombre}>{s.nombre}</option>
@@ -833,7 +833,7 @@ export default function ProductosAdmin() {
 
                 {/* Badge */}
                 <div>
-                  <label style={{ color: '#F5C518', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
+                  <label style={{ color: '#FF6A3D', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
                     ETIQUETA
                   </label>
                   <select
@@ -841,7 +841,7 @@ export default function ProductosAdmin() {
                     onChange={e => setForm(f => ({ ...f, badge: e.target.value }))}
                     style={{
                       width: '100%', background: '#0a1628',
-                      border: '1px solid rgba(245,197,24,0.25)',
+                      border: '1px solid rgba(255,106,61,0.25)',
                       borderRadius: 8, padding: '10px 12px',
                       color: '#FFFFFF', fontSize: 14, outline: 'none',
                     }}>
@@ -856,7 +856,7 @@ export default function ProductosAdmin() {
 
                 {/* Imagen */}
                 <div>
-                  <label style={{ color: '#F5C518', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
+                  <label style={{ color: '#FF6A3D', fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>
                     FOTO DEL PRODUCTO
                   </label>
                   {form.imagen && (
@@ -869,9 +869,9 @@ export default function ProductosAdmin() {
                     disabled={uploadingImg}
                     style={{
                       width: '100%', background: 'rgba(255,255,255,0.07)',
-                      border: '1px dashed rgba(245,197,24,0.4)',
+                      border: '1px dashed rgba(255,106,61,0.4)',
                       borderRadius: 8, padding: '12px',
-                      color: '#F5C518', fontSize: 13, fontWeight: 700,
+                      color: '#FF6A3D', fontSize: 13, fontWeight: 700,
                       cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     }}>
                     <Upload size={16} />
@@ -954,9 +954,9 @@ export default function ProductosAdmin() {
             style={{
               width: '100%', boxSizing: 'border-box', marginBottom: 12, cursor: 'pointer',
               borderRadius: 10, padding: '12px 16px', fontSize: 15, fontWeight: 900,
-              border: soloDestacados ? '1px solid #F5C518' : '1px solid rgba(245,197,24,0.3)',
-              background: soloDestacados ? 'linear-gradient(135deg,#F5C518,#FFE45C)' : 'rgba(245,197,24,0.1)',
-              color: soloDestacados ? '#0F3460' : '#F5C518',
+              border: soloDestacados ? '1px solid #FF6A3D' : '1px solid rgba(255,106,61,0.3)',
+              background: soloDestacados ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,106,61,0.1)',
+              color: soloDestacados ? '#0F3460' : '#FF6A3D',
             }}>
             {soloDestacados ? '⭐ Viendo destacados — tocá para ver todos' : '⭐ Ver / cambiar fotos de Destacados'}
           </button>
@@ -969,7 +969,7 @@ export default function ProductosAdmin() {
             value={busqueda}
             onChange={e => setBusqueda(e.target.value)}
             placeholder="🔍 Buscar producto por nombre o código..."
-            style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 10, padding: '12px 16px', color: '#FFFFFF', fontSize: 15, outline: 'none', marginBottom: 14 }}
+            style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,106,61,0.35)', borderRadius: 10, padding: '12px 16px', color: '#FFFFFF', fontSize: 15, outline: 'none', marginBottom: 14 }}
           />
         )}
 
@@ -979,7 +979,7 @@ export default function ProductosAdmin() {
         ) : productos.length === 0 ? (
           <div style={{
             background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(245,197,24,0.15)',
+            border: '1px solid rgba(255,106,61,0.15)',
             borderRadius: 16, padding: 60, textAlign: 'center',
           }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>📦</div>
@@ -1003,7 +1003,7 @@ export default function ProductosAdmin() {
               return filtrados.map(p => (
               <div key={p.id} style={{
                 background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(245,197,24,0.15)',
+                border: '1px solid rgba(255,106,61,0.15)',
                 borderRadius: 14, padding: '14px 18px',
                 display: 'flex', alignItems: 'center', gap: 14,
               }}>
@@ -1014,15 +1014,15 @@ export default function ProductosAdmin() {
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, marginBottom: 2 }}>{p.nombre}</div>
                   <div style={{ color: '#7a8a9a', fontSize: 12 }}>
-                    {p.marca} · {p.categoria} · Mayorista: <span style={{ color: '#F5C518', fontWeight: 700 }}>${p.precio_mayorista?.toLocaleString('es-AR')}</span>
+                    {p.marca} · {p.categoria} · Mayorista: <span style={{ color: '#FF6A3D', fontWeight: 700 }}>${p.precio_mayorista?.toLocaleString('es-AR')}</span>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
                   <button onClick={() => toggleDestacado(p)}
                     title={p.badge === 'DESTACADO' ? 'Quitar de Destacados' : 'Poner en Destacados (home)'}
                     style={{
-                      background: p.badge === 'DESTACADO' ? 'linear-gradient(135deg,#F5C518,#FFE45C)' : 'rgba(255,255,255,0.06)',
-                      border: p.badge === 'DESTACADO' ? '1px solid #F5C518' : '1px solid rgba(255,255,255,0.18)',
+                      background: p.badge === 'DESTACADO' ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.06)',
+                      border: p.badge === 'DESTACADO' ? '1px solid #FF6A3D' : '1px solid rgba(255,255,255,0.18)',
                       borderRadius: 8, padding: '8px 12px',
                       color: p.badge === 'DESTACADO' ? '#0F3460' : '#9aabb8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 800,
                     }}>
@@ -1030,9 +1030,9 @@ export default function ProductosAdmin() {
                   </button>
                   <button onClick={() => handleEdit(p)}
                     style={{
-                      background: 'rgba(245,197,24,0.15)', border: '1px solid rgba(245,197,24,0.3)',
+                      background: 'rgba(255,106,61,0.15)', border: '1px solid rgba(255,106,61,0.3)',
                       borderRadius: 8, padding: '8px 12px',
-                      color: '#F5C518', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 700,
+                      color: '#FF6A3D', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 700,
                     }}>
                     <Pencil size={13} /> Editar
                   </button>

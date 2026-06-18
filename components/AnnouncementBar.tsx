@@ -21,7 +21,7 @@ export default function AnnouncementBar() {
       style={{
         width: '100%',
         height: '38px',
-        backgroundColor: '#F5C518',
+        backgroundColor: '#FF6A3D',
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',

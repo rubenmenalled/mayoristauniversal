@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
           subject: `🎉 Nuevo cliente registrado: ${nombre}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 24px; border-radius: 12px;">
-              <div style="background: linear-gradient(135deg,#F5C518,#FFE45C); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+              <div style="background: linear-gradient(135deg,#FF6A3D,#FF8A63); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
                 <h2 style="margin: 0; color: #0F3460; font-size: 22px;">🎉 Nuevo Cliente Registrado</h2>
                 <p style="margin: 8px 0 0; color: #0F3460; opacity: 0.8; font-size: 14px;">Mayorista Universal</p>
               </div>

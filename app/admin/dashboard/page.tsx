@@ -2,7 +2,7 @@
 
 import { Package, Grid3X3, LogOut, ArrowRight, Globe } from 'lucide-react'
 
-const GOLD = 'linear-gradient(135deg,#F5C518,#FFE45C)'
+const GOLD = 'linear-gradient(135deg,#FF6A3D,#FF8A63)'
 
 export default function Dashboard() {
 
@@ -54,7 +54,7 @@ export default function Dashboard() {
       {/* Header */}
       <div style={{
         background: '#1E293B',
-        borderBottom: '1px solid rgba(245,197,24,0.3)',
+        borderBottom: '1px solid rgba(255,106,61,0.3)',
         padding: '16px 24px',
         display: 'flex',
         alignItems: 'center',
@@ -115,15 +115,15 @@ export default function Dashboard() {
               onClick={() => window.location.href = card.href}
               style={{
                 background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(245,197,24,0.2)',
+                border: '1px solid rgba(255,106,61,0.2)',
                 borderRadius: 16,
                 padding: 28,
                 textAlign: 'left',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
               }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(245,197,24,0.6)')}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(245,197,24,0.2)')}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(255,106,61,0.6)')}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,106,61,0.2)')}
             >
               <div style={{ fontSize: 40, marginBottom: 16 }}>{card.icon}</div>
               <div style={{
@@ -131,7 +131,7 @@ export default function Dashboard() {
                 marginBottom: 8,
               }}>
                 <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18 }}>{card.title}</span>
-                <ArrowRight size={18} color="#F5C518" />
+                <ArrowRight size={18} color="#FF6A3D" />
               </div>
               <p style={{ color: '#7a8a9a', fontSize: 13, margin: 0 }}>{card.desc}</p>
             </button>

@@ -32,8 +32,8 @@ function playOrderSound() {
   } catch {}
 }
 
-const GOLD      = '#F5C518'
-const GOLD_GRAD = 'linear-gradient(135deg,#F5C518,#FFE45C)'
+const GOLD      = '#FF6A3D'
+const GOLD_GRAD = 'linear-gradient(135deg,#FF6A3D,#FF8A63)'
 const NAVY2     = '#F0F0F0'
 
 type Estado = 'pendiente' | 'confirmado' | 'enviado'
@@ -118,7 +118,7 @@ function printPedido(pedido: Pedido) {
         }
       </td>
       <td style="padding:12px 14px;border-bottom:1px solid #F0F0F0;vertical-align:middle;">
-        ${item.brand ? `<div style="font-size:9px;color:#F5C518;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">${item.brand}</div>` : ''}
+        ${item.brand ? `<div style="font-size:9px;color:#FF6A3D;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">${item.brand}</div>` : ''}
         <div style="font-weight:800;font-size:14px;color:#111827;margin-bottom:4px;line-height:1.3;">${item.name}</div>
         ${item.category ? `<span style="display:inline-block;background:#F3F4F6;color:#6B7280;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:4px;">${item.category}</span>` : ''}
       </td>
@@ -131,7 +131,7 @@ function printPedido(pedido: Pedido) {
         <div style="font-size:9px;color:#9CA3AF;margin-top:3px;">unid.</div>
       </td>
       <td style="padding:12px 14px;border-bottom:1px solid #F0F0F0;vertical-align:middle;text-align:right;white-space:nowrap;">
-        <div style="font-weight:900;font-size:17px;color:#F5C518;">${formatCurrency(item.wholesalePrice * item.quantity)}</div>
+        <div style="font-weight:900;font-size:17px;color:#FF6A3D;">${formatCurrency(item.wholesalePrice * item.quantity)}</div>
       </td>
     </tr>
   `).join('')
@@ -163,7 +163,7 @@ function printPedido(pedido: Pedido) {
 
   <!-- Botones acción -->
   <div class="no-print" style="display:flex;gap:10px;justify-content:flex-end;margin-bottom:20px;">
-    <button onclick="window.print()" style="background:linear-gradient(135deg,#F5C518,#FFE45C);border:none;border-radius:10px;padding:12px 28px;font-weight:900;font-size:14px;cursor:pointer;color:#fff;box-shadow:0 4px 12px rgba(245,197,24,0.4);">
+    <button onclick="window.print()" style="background:linear-gradient(135deg,#FF6A3D,#FF8A63);border:none;border-radius:10px;padding:12px 28px;font-weight:900;font-size:14px;cursor:pointer;color:#fff;box-shadow:0 4px 12px rgba(255,106,61,0.4);">
       🖨️ Imprimir / Guardar PDF
     </button>
   </div>
@@ -172,7 +172,7 @@ function printPedido(pedido: Pedido) {
   <div class="card">
     <div style="background:linear-gradient(135deg,#0F3460 0%,#1a4a8a 100%);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
       <div>
-        <div style="font-size:24px;font-weight:900;color:#F5C518;letter-spacing:0.04em;">MAYORISTA UNIVERSAL</div>
+        <div style="font-size:24px;font-weight:900;color:#FF6A3D;letter-spacing:0.04em;">MAYORISTA UNIVERSAL</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:3px;">mayoristauniversal.com</div>
       </div>
       <div style="text-align:right;">
@@ -231,7 +231,7 @@ function printPedido(pedido: Pedido) {
         <div style="color:rgba(255,255,255,0.55);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">Total del pedido</div>
         <div style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:3px;">${totalUnidades} unidades · ${items.length} artículo${items.length !== 1 ? 's' : ''}</div>
       </div>
-      <div style="color:#F5C518;font-size:36px;font-weight:900;letter-spacing:0.02em;">${formatCurrency(pedido.total)}</div>
+      <div style="color:#FF6A3D;font-size:36px;font-weight:900;letter-spacing:0.02em;">${formatCurrency(pedido.total)}</div>
     </div>
     <div style="padding:16px 28px;display:flex;align-items:center;gap:10px;">
       <span style="font-size:18px;">💳</span>
@@ -367,7 +367,7 @@ export default function PedidosPage() {
 
   // Genera HTML tabla para Excel con imágenes embebidas
   function buildExcelHTML(filas: { fecha: string; id: string; cliente: string; email: string; telefono: string; estado: string; marca: string; nombre: string; categoria: string; cantidad: number; precioUnit: number; subtotal: number; totalPedido: string; image: string }[]) {
-    const th = (t: string) => `<th style="background:#0F3460;color:#F5C518;font-weight:bold;padding:8px 10px;border:1px solid #ccc;white-space:nowrap;">${t}</th>`
+    const th = (t: string) => `<th style="background:#0F3460;color:#FF6A3D;font-weight:bold;padding:8px 10px;border:1px solid #ccc;white-space:nowrap;">${t}</th>`
     const td = (t: string, bold = false) => `<td style="padding:6px 10px;border:1px solid #ddd;vertical-align:middle;${bold ? 'font-weight:bold;' : ''}">${t}</td>`
     const rows = filas.map(f => `<tr>
       ${td(f.fecha)}${td(f.id)}${td(f.cliente, true)}${td(f.email)}${td(f.telefono)}${td(f.estado)}${td(f.marca)}${td(f.nombre, true)}${td(f.categoria)}
@@ -527,7 +527,7 @@ export default function PedidosPage() {
       {/* HEADER */}
       <div style={{
         background: '#1E293B',
-        borderBottom: '1px solid rgba(245,197,24,0.3)',
+        borderBottom: '1px solid rgba(255,106,61,0.3)',
         padding: '16px 24px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         flexWrap: 'wrap', gap: 12,
@@ -559,7 +559,7 @@ export default function PedidosPage() {
             onClick={toggleAlerta}
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
-              background: alertaActiva ? 'linear-gradient(135deg,#22c55e,#16a34a)' : 'linear-gradient(135deg,#F5C518,#FFE45C)',
+              background: alertaActiva ? 'linear-gradient(135deg,#22c55e,#16a34a)' : 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
               border: 'none', borderRadius: 8, padding: '8px 16px',
               color: '#FFFFFF', fontSize: 13, fontWeight: 900, cursor: 'pointer',
               boxShadow: alertaActiva ? '0 0 16px rgba(34,197,94,0.5)' : 'none',
@@ -583,7 +583,7 @@ export default function PedidosPage() {
         {/* STATS */}
         {!loading && !error && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 24 }}>
-            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(245,197,24,0.18)', borderRadius: 14, padding: '16px 20px' }}>
+            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,106,61,0.18)', borderRadius: 14, padding: '16px 20px' }}>
               <div style={{ color: '#7a8a9a', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Total pedidos</div>
               <div style={{ color: '#FFFFFF', fontSize: 28, fontWeight: 900, marginTop: 4 }}>{totalPedidos}</div>
             </div>
@@ -595,7 +595,7 @@ export default function PedidosPage() {
               <div style={{ color: '#60A5FA', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Enviados</div>
               <div style={{ color: '#60A5FA', fontSize: 28, fontWeight: 900, marginTop: 4 }}>{totalEnviados}</div>
             </div>
-            <div style={{ background: 'rgba(245,197,24,0.07)', border: '1px solid rgba(245,197,24,0.25)', borderRadius: 14, padding: '16px 20px' }}>
+            <div style={{ background: 'rgba(255,106,61,0.07)', border: '1px solid rgba(255,106,61,0.25)', borderRadius: 14, padding: '16px 20px' }}>
               <div style={{ color: '#7a8a9a', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Total facturado</div>
               <div style={{ color: GOLD, fontSize: 22, fontWeight: 900, marginTop: 4 }}>{formatCurrency(totalFacturado)}</div>
             </div>
@@ -636,7 +636,7 @@ export default function PedidosPage() {
             placeholder="Buscar por nombre o email..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            style={{ marginLeft: 'auto', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(245,197,24,0.25)', borderRadius: 10, padding: '9px 16px', color: '#FFFFFF', fontSize: 13, outline: 'none', minWidth: 220 }}
+            style={{ marginLeft: 'auto', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,106,61,0.25)', borderRadius: 10, padding: '9px 16px', color: '#FFFFFF', fontSize: 13, outline: 'none', minWidth: 220 }}
           />
         </div>
 
@@ -676,7 +676,7 @@ export default function PedidosPage() {
                   key={pedido.id}
                   style={{
                     background: isNuevo ? 'rgba(34,197,94,0.12)' : 'rgba(255,255,255,0.04)',
-                    border: `2px solid ${isNuevo ? '#22c55e' : isOpen ? 'rgba(245,197,24,0.5)' : 'rgba(245,197,24,0.18)'}`,
+                    border: `2px solid ${isNuevo ? '#22c55e' : isOpen ? 'rgba(255,106,61,0.5)' : 'rgba(255,106,61,0.18)'}`,
                     borderRadius: 16, overflow: 'hidden',
                     opacity: isUpdating ? 0.7 : 1,
                     transition: 'all 0.4s ease',
@@ -739,7 +739,7 @@ export default function PedidosPage() {
 
                   {/* ── DETALLE EXPANDIDO ── */}
                   {isOpen && (
-                    <div style={{ borderTop: '1px solid rgba(245,197,24,0.2)', padding: '20px' }}>
+                    <div style={{ borderTop: '1px solid rgba(255,106,61,0.2)', padding: '20px' }}>
 
                       {/* Thumbnails de productos */}
                       <div style={{ marginBottom: 20 }}>
@@ -775,7 +775,7 @@ export default function PedidosPage() {
                       </div>
 
                       {/* Total + acciones */}
-                      <div style={{ background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.25)', borderRadius: 12, padding: '14px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 16 }}>
+                      <div style={{ background: 'rgba(255,106,61,0.08)', border: '1px solid rgba(255,106,61,0.25)', borderRadius: 12, padding: '14px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 16 }}>
                         <div>
                           <div style={{ color: '#9aabb8', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>Total del pedido</div>
                           <div style={{ color: GOLD, fontSize: 26, fontWeight: 900 }}>{formatCurrency(pedido.total)}</div>
@@ -786,7 +786,7 @@ export default function PedidosPage() {
                             value={pedido.estado}
                             disabled={isUpdating}
                             onChange={e => handleEstadoChange(pedido.id, e.target.value as Estado)}
-                            style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(245,197,24,0.3)', borderRadius: 8, padding: '8px 12px', color: '#e0e6f0', fontSize: 13, fontWeight: 700, cursor: isUpdating ? 'not-allowed' : 'pointer', outline: 'none' }}
+                            style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,106,61,0.3)', borderRadius: 8, padding: '8px 12px', color: '#e0e6f0', fontSize: 13, fontWeight: 700, cursor: isUpdating ? 'not-allowed' : 'pointer', outline: 'none' }}
                           >
                             <option value="pendiente"  style={{ background: NAVY2 }}>Pendiente</option>
                             <option value="confirmado" style={{ background: NAVY2 }}>Confirmado</option>

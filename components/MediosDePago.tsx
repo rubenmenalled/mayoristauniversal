@@ -47,7 +47,7 @@ function getBadgeStyle(badge: string): React.CSSProperties {
   if (badge === 'Sin recargo') {
     return { ...base, background: '#14532d', color: '#4ade80', border: '1px solid #16a34a' };
   }
-  return { ...base, background: '#1a1200', color: '#F5C518', border: '1px solid #F5C518' };
+  return { ...base, background: '#1a1200', color: '#FF6A3D', border: '1px solid #FF6A3D' };
 }
 
 export default function MediosDePago() {
@@ -75,7 +75,7 @@ export default function MediosDePago() {
   const titleStyle: React.CSSProperties = {
     fontSize: isMobile ? '26px' : '34px',
     fontWeight: 800,
-    color: '#F5C518',
+    color: '#FF6A3D',
     textAlign: 'center',
     marginBottom: '8px',
     letterSpacing: '-0.02em',
@@ -97,9 +97,9 @@ export default function MediosDePago() {
 
   const getCardStyle = (index: number): React.CSSProperties => ({
     background: hovered === index
-      ? 'rgba(245,197,24, 0.08)'
+      ? 'rgba(255,106,61, 0.08)'
       : 'rgba(255, 255, 255, 0.03)',
-    border: `1px solid ${hovered === index ? 'rgba(245,197,24, 0.55)' : 'rgba(245,197,24, 0.18)'}`,
+    border: `1px solid ${hovered === index ? 'rgba(255,106,61, 0.55)' : 'rgba(255,106,61, 0.18)'}`,
     borderRadius: '14px',
     padding: '24px 18px',
     display: 'flex',
@@ -109,7 +109,7 @@ export default function MediosDePago() {
     cursor: medios[index].href ? 'pointer' : 'default',
     textDecoration: 'none',
     boxShadow: hovered === index
-      ? '0 4px 24px rgba(245,197,24, 0.12)'
+      ? '0 4px 24px rgba(255,106,61, 0.12)'
       : 'none',
   });
 

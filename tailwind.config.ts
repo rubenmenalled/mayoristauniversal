@@ -16,9 +16,9 @@ const config: Config = {
           dark: '#08306B',
         },
         gold: {
-          DEFAULT: '#F5C518',
-          light: '#FFE45C',
-          dark: '#D4A60A',
+          DEFAULT: '#FF6A3D',
+          light: '#FF8A63',
+          dark: '#E0521F',
         },
         electric: '#00A8FF',
       },
@@ -43,8 +43,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' },
         },
         glowPulse: {
-          '0%': { boxShadow: '0 0 10px rgba(245,197,24,0.3), 0 0 20px rgba(245,197,24,0.1)' },
-          '100%': { boxShadow: '0 0 30px rgba(245,197,24,0.8), 0 0 60px rgba(245,197,24,0.4), 0 0 100px rgba(245,197,24,0.2)' },
+          '0%': { boxShadow: '0 0 10px rgba(255,106,61,0.3), 0 0 20px rgba(255,106,61,0.1)' },
+          '100%': { boxShadow: '0 0 30px rgba(255,106,61,0.8), 0 0 60px rgba(255,106,61,0.4), 0 0 100px rgba(255,106,61,0.2)' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% center' },
@@ -60,12 +60,12 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        'gold-gradient': 'linear-gradient(135deg, #F5C518 0%, #FFE45C 50%, #F5C518 100%)',
+        'gold-gradient': 'linear-gradient(135deg, #FF6A3D 0%, #FF8A63 50%, #FF6A3D 100%)',
         'navy-gradient': 'linear-gradient(135deg, #0D47A1 0%, #1565C0 50%, #0D47A1 100%)',
         'hero-radial': 'radial-gradient(ellipse at center, #1565C0 0%, #0D47A1 60%, #08306B 100%)',
       },
       dropShadow: {
-        'gold': '0 0 20px rgba(245,197,24,0.6)',
+        'gold': '0 0 20px rgba(255,106,61,0.6)',
       },
     },
   },

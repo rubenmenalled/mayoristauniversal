@@ -49,13 +49,13 @@ export async function POST(request: NextRequest) {
   <!-- HEADER -->
   <div style="background:linear-gradient(135deg,#0F3460 0%,#1a4a8a 100%);border-radius:16px 16px 0 0;padding:28px 32px;text-align:center;">
     <div style="font-size:36px;margin-bottom:8px;">🛒</div>
-    <h1 style="color:#F5C518;margin:0 0 4px 0;font-size:22px;font-weight:900;letter-spacing:0.02em;">NUEVO PEDIDO</h1>
+    <h1 style="color:#FF6A3D;margin:0 0 4px 0;font-size:22px;font-weight:900;letter-spacing:0.02em;">NUEVO PEDIDO</h1>
     <p style="color:rgba(255,255,255,0.75);margin:0;font-size:13px;">Mayorista Universal — ${now}</p>
   </div>
 
   <!-- DATOS DEL CLIENTE -->
   <div style="background:#FFFFFF;padding:24px 32px;border-left:1px solid #E5E7EB;border-right:1px solid #E5E7EB;">
-    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #F5C518;padding-bottom:8px;">👤 Datos del cliente</h2>
+    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 16px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #FF6A3D;padding-bottom:8px;">👤 Datos del cliente</h2>
     <table style="width:100%;border-collapse:collapse;">
       <tr>
         <td style="padding:8px 0;color:#6B7280;font-size:12px;font-weight:700;width:120px;text-transform:uppercase;letter-spacing:0.05em;">Nombre</td>
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
 
   <!-- PRODUCTOS -->
   <div style="background:#FFFFFF;padding:24px 32px;border-left:1px solid #E5E7EB;border-right:1px solid #E5E7EB;border-top:1px solid #F3F4F6;">
-    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 20px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #F5C518;padding-bottom:8px;">📦 Productos (${cantidadTotal} unidades — ${items.length} artículo${items.length !== 1 ? 's' : ''})</h2>
+    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 20px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #FF6A3D;padding-bottom:8px;">📦 Productos (${cantidadTotal} unidades — ${items.length} artículo${items.length !== 1 ? 's' : ''})</h2>
 
     ${items.map((item: any, idx: number) => `
     <div style="display:table;width:100%;margin-bottom:${idx < items.length - 1 ? '16px' : '0'};padding-bottom:${idx < items.length - 1 ? '16px' : '0'};border-bottom:${idx < items.length - 1 ? '1px solid #F3F4F6' : 'none'};">
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
         <div style="display:table;width:100%;">
           <div style="display:table-cell;color:#6B7280;font-size:12px;">Unitario: <strong style="color:#374151;">$${Number(item.wholesalePrice).toLocaleString('es-AR')}</strong></div>
           <div style="display:table-cell;text-align:center;color:#6B7280;font-size:12px;">Cant: <strong style="color:#374151;">x${item.quantity}</strong></div>
-          <div style="display:table-cell;text-align:right;"><strong style="color:#F5C518;font-size:15px;font-weight:900;">$${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}</strong></div>
+          <div style="display:table-cell;text-align:right;"><strong style="color:#FF6A3D;font-size:15px;font-weight:900;">$${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}</strong></div>
         </div>
       </div>
     </div>
@@ -104,13 +104,13 @@ export async function POST(request: NextRequest) {
       <span style="color:rgba(255,255,255,0.5);font-size:11px;">${cantidadTotal} unidades · ${items.length} artículo${items.length !== 1 ? 's' : ''}</span>
     </div>
     <div style="display:table-cell;vertical-align:middle;text-align:right;">
-      <span style="color:#F5C518;font-size:30px;font-weight:900;">${totalFormato}</span>
+      <span style="color:#FF6A3D;font-size:30px;font-weight:900;">${totalFormato}</span>
     </div>
   </div>
 
   <!-- PAGO -->
   <div style="background:#FFFFFF;padding:20px 32px;border-left:1px solid #E5E7EB;border-right:1px solid #E5E7EB;border-top:1px solid #F3F4F6;">
-    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 12px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #F5C518;padding-bottom:8px;">💳 Pago</h2>
+    <h2 style="color:#0F3460;font-size:14px;font-weight:900;margin:0 0 12px 0;text-transform:uppercase;letter-spacing:0.08em;border-bottom:2px solid #FF6A3D;padding-bottom:8px;">💳 Pago</h2>
     <p style="color:#374151;font-size:13px;margin:0 0 6px 0;">Método: <strong>Mercado Pago (transferencia)</strong></p>
     <p style="color:#374151;font-size:13px;margin:0;">Alias: <strong style="color:#009ee3;">ruby.mena.1972</strong> — Titular: Andres Ruben Menalled</p>
   </div>

@@ -25,8 +25,8 @@ const TextReveal = React.memo(function TextReveal({
   staggerDelay = 22,
   duration = 220,
   easing = "ease-in-out",
-  color = "inherit",
-  hoverColor = "#FFFFFF",
+  color = "#FFFFFF",
+  hoverColor = "#0D2C54",
   direction = "up",
 }: TextRevealProps) {
   const [hovered, setHovered] = useState(false);
@@ -47,6 +47,8 @@ const TextReveal = React.memo(function TextReveal({
       style={{ fontSize, color: hovered ? hoverColor : color, height: "1em", lineHeight: 1, ...style }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onTouchStart={() => setHovered(true)}
+      onTouchEnd={() => setTimeout(() => setHovered(false), 600)}
       aria-label={text}
     >
       {chars.map((char, i) => (

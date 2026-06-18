@@ -108,14 +108,14 @@ export default function Testimonios() {
   const titleStyle: React.CSSProperties = {
     fontSize: 'clamp(24px, 4vw, 36px)',
     fontWeight: 700,
-    color: '#F5C518',
+    color: '#FF6A3D',
     margin: '0 0 12px 0',
     letterSpacing: '-0.5px',
   }
 
   const subtitleStyle: React.CSSProperties = {
     fontSize: '16px',
-    color: '#F5C518',
+    color: '#FF6A3D',
     margin: 0,
     fontWeight: 500,
   }
@@ -146,7 +146,7 @@ export default function Testimonios() {
     width: '52px',
     height: '52px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #F5C518, #FFE45C)',
+    background: 'linear-gradient(135deg, #FF6A3D, #FF8A63)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -233,7 +233,7 @@ export default function Testimonios() {
                 borderRadius: '5px',
                 border: 'none',
                 cursor: 'pointer',
-                background: i === currentIndex ? '#F5C518' : 'rgba(245,197,24, 0.3)',
+                background: i === currentIndex ? '#FF6A3D' : 'rgba(255,106,61, 0.3)',
                 transition: 'all 0.3s ease',
                 padding: 0,
               }}

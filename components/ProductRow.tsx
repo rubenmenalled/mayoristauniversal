@@ -38,18 +38,18 @@ function Card({ p }: { p: Prod }) {
               <div style={{ color: '#111827', fontSize: 18, fontWeight: 900, lineHeight: 1.1 }}>
                 {fmt(cu)} <span style={{ color: '#6B7280', fontSize: 11, fontWeight: 700 }}>{esDocena ? 'la docena' : 'c/u'}</span>
               </div>
-              <div style={{ color: '#B45309', fontSize: 12, fontWeight: 700, marginTop: 1 }}>
+              <div style={{ color: '#C2410C', fontSize: 12, fontWeight: 700, marginTop: 1 }}>
                 {esDocena ? `el bulto (${p.minOrder} docenas)` : esBulto ? `el bulto x${p.minOrder}` : p.minOrder === 12 ? 'la docena' : `pack x${p.minOrder}`}: {fmt(big)}
               </div>
             </>
           ) : (
-            <div style={{ color: '#F5C518', fontWeight: 900, fontSize: 18 }}>{fmt(big)}</div>
+            <div style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 18 }}>{fmt(big)}</div>
           )}
         </div>
         <button
           className="btn-agregar"
           onClick={() => { const dividir = !esU && p.minOrder > 1; addItem({ id: p.id, name: p.name, price: p.price, wholesalePrice: dividir ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice, image: p.image, minOrder: p.minOrder, brand: p.brand, category: p.category }); setCartOpen(true) }}
-          style={{ width: '100%', marginTop: 8, background: 'linear-gradient(135deg,#F5C518,#FFE45C)', border: 'none', borderRadius: 8, padding: '9px', color: '#0D2C54', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+          style={{ width: '100%', marginTop: 8, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', border: 'none', borderRadius: 8, padding: '9px', color: '#0D2C54', fontWeight: 900, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
           <ShoppingCart size={14} strokeWidth={2.5} /><TextReveal text="AGREGAR" />
         </button>
       </div>
@@ -95,7 +95,7 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
             <span style={{ fontSize: 22 }}>{emoji}</span>
             <h2 style={{ color: '#111827', fontWeight: 900, fontSize: 22, margin: 0 }}>{title}</h2>
           </div>
-          {href && <a href={href} style={{ color: '#B45309', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>Ver todo →</a>}
+          {href && <a href={href} style={{ color: '#C2410C', fontSize: 13, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>Ver todo →</a>}
         </div>
         {subtitle && <p style={{ color: '#6B7280', fontSize: 13, margin: '0 0 16px' }}>{subtitle}</p>}
         <div style={{ display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 8 }}>

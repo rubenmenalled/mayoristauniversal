@@ -57,7 +57,7 @@ export default function ComoComprar() {
           padding: 32px 20px;
           position: relative;
           background: rgba(240,240,240, 0.6);
-          border: 1px solid rgba(245,197,24, 0.18);
+          border: 1px solid rgba(255,106,61, 0.18);
           border-radius: 12px;
         }
 
@@ -66,7 +66,7 @@ export default function ComoComprar() {
           align-items: center;
           justify-content: center;
           padding: 0 4px;
-          color: #F5C518;
+          color: #FF6A3D;
           font-size: 22px;
           flex-shrink: 0;
           align-self: center;
@@ -87,7 +87,7 @@ export default function ComoComprar() {
             top: 24px;
             bottom: 24px;
             width: 2px;
-            background: linear-gradient(to bottom, #F5C518, rgba(245,197,24,0.2));
+            background: linear-gradient(to bottom, #FF6A3D, rgba(255,106,61,0.2));
             border-radius: 2px;
           }
 
@@ -161,7 +161,7 @@ export default function ComoComprar() {
               style={{
                 width: '56px',
                 height: '3px',
-                backgroundColor: '#F5C518',
+                backgroundColor: '#FF6A3D',
                 margin: '20px auto 0',
                 borderRadius: '2px',
               }}
@@ -192,7 +192,7 @@ export default function ComoComprar() {
                       width: '40px',
                       height: '40px',
                       borderRadius: '50%',
-                      backgroundColor: '#F5C518',
+                      backgroundColor: '#FF6A3D',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -248,7 +248,7 @@ export default function ComoComprar() {
               href="/#catalogos"
               style={{
                 display: 'inline-block',
-                backgroundColor: '#F5C518',
+                backgroundColor: '#FF6A3D',
                 color: '#C01515',
                 fontWeight: 800,
                 fontSize: '14px',
@@ -259,11 +259,11 @@ export default function ComoComprar() {
                 transition: 'background-color 0.2s ease, transform 0.15s ease',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#FFE45C';
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#FF8A63';
                 (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#F5C518';
+                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#FF6A3D';
                 (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)';
               }}
             >

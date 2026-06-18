@@ -115,12 +115,12 @@ export default function LoginPage() {
           <a href="/" style={{ textDecoration: 'none' }}>
             <div style={{
               width: 56, height: 56, borderRadius: 16, margin: '0 auto 12px',
-              background: 'linear-gradient(135deg,#F5C518,#FFE45C)',
+              background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <ShoppingCart size={28} color="#FFFFFF" />
             </div>
-            <div style={{ color: '#F5C518', fontWeight: 900, fontSize: 22, letterSpacing: '0.08em' }}>MAYORISTA UNIVERSAL</div>
+            <div style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 22, letterSpacing: '0.08em' }}>MAYORISTA UNIVERSAL</div>
           </a>
         </div>
 
@@ -138,7 +138,7 @@ export default function LoginPage() {
                   style={{
                     flex: 1, padding: '10px 0', borderRadius: 9, border: 'none', cursor: 'pointer',
                     fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
-                    background: mode === m ? 'linear-gradient(135deg,#F5C518,#FFE45C)' : 'transparent',
+                    background: mode === m ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'transparent',
                     color: mode === m ? '#FFFFFF' : '#C01515',
                   }}>
                   {m === 'login' ? 'Ingresar' : 'Registrarse'}
@@ -200,9 +200,9 @@ export default function LoginPage() {
                         style={{
                           flex: 1, padding: '11px 0', borderRadius: 10, cursor: 'pointer',
                           fontWeight: 800, fontSize: 13, transition: 'all 0.2s', border: '2px solid',
-                          borderColor: reemplazo === op.val ? '#F5C518' : 'rgba(245,197,24,0.2)',
-                          background: reemplazo === op.val ? 'rgba(245,197,24,0.15)' : 'rgba(255,255,255,0.04)',
-                          color: reemplazo === op.val ? '#F5C518' : '#C01515',
+                          borderColor: reemplazo === op.val ? '#FF6A3D' : 'rgba(255,106,61,0.2)',
+                          background: reemplazo === op.val ? 'rgba(255,106,61,0.15)' : 'rgba(255,255,255,0.04)',
+                          color: reemplazo === op.val ? '#FF6A3D' : '#C01515',
                         }}>
                         {op.label}
                       </button>
@@ -243,7 +243,7 @@ export default function LoginPage() {
               <div style={{ textAlign: 'right', marginBottom: 20 }}>
                 <button type="button"
                   onClick={() => { setMode('forgot'); setError(''); setSuccess('') }}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#F5C518', fontSize: 12, fontWeight: 700, textDecoration: 'underline' }}>
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#FF6A3D', fontSize: 12, fontWeight: 700, textDecoration: 'underline' }}>
                   ¿Olvidaste tu contraseña?
                 </button>
               </div>
@@ -264,7 +264,7 @@ export default function LoginPage() {
             <button type="submit" disabled={loading}
               style={{
                 width: '100%', padding: '14px', borderRadius: 12, border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-                background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#C01515',
+                background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#C01515',
                 fontWeight: 900, fontSize: 15, letterSpacing: '0.05em',
                 opacity: loading ? 0.7 : 1,
               }}>
@@ -283,7 +283,7 @@ export default function LoginPage() {
         </div>
 
         <p style={{ textAlign: 'center', marginTop: 20, color: '#4b5563', fontSize: 13 }}>
-          <a href="/" style={{ color: '#F5C518', textDecoration: 'none' }}>← Volver al inicio</a>
+          <a href="/" style={{ color: '#FF6A3D', textDecoration: 'none' }}>← Volver al inicio</a>
         </p>
       </div>
     </div>

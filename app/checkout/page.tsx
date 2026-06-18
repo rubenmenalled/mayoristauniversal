@@ -29,7 +29,7 @@ function MPLogo({ height = 28, white = false }: { height?: number; white?: boole
   )
 }
 
-const GOLD = '#F5C518'
+const GOLD = '#FF6A3D'
 const BLUE = '#C01515'
 
 const STEPS = [
@@ -58,11 +58,11 @@ function StepBar({ current }: { current: 'form' | 'pago' | 'listo' }) {
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%',
-                  background: done ? '#22c55e' : isCurrent ? 'linear-gradient(135deg,#F5C518,#FFE45C)' : '#E5E7EB',
+                  background: done ? '#22c55e' : isCurrent ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : '#E5E7EB',
                   color: done || isCurrent ? '#FFFFFF' : '#9CA3AF',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontWeight: 900, fontSize: 14, flexShrink: 0,
-                  boxShadow: isCurrent ? '0 2px 10px rgba(245,197,24,0.4)' : 'none',
+                  boxShadow: isCurrent ? '0 2px 10px rgba(255,106,61,0.4)' : 'none',
                   transition: 'all 0.3s',
                 }}>
                   {done ? '✓' : s.n}
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
                   { n: '4', text: 'Volvé aquí y envianos el comprobante', icon: '✅' },
                 ].map(s => (
                   <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#F5C518,#FFE45C)', color: '#fff', fontWeight: 900, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#fff', fontWeight: 900, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                       {s.n}
                     </div>
                     <span style={{ fontSize: 13, color: '#444', lineHeight: 1.4 }}>{s.icon} {s.text}</span>
@@ -334,9 +334,9 @@ export default function CheckoutPage() {
                   <span style={{ fontSize: 14, flexShrink: 0 }}>⚠️</span>
                   <p style={{ color: '#78350F', fontSize: 11, margin: 0, lineHeight: 1.5 }}>
                     <strong>Precios sin IVA.</strong> Si necesitás factura, consultanos antes:{' '}
-                    <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#B45309', fontWeight: 700, textDecoration: 'none' }}>rubenmenalled@gmail.com</a>{' '}
+                    <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#C2410C', fontWeight: 700, textDecoration: 'none' }}>rubenmenalled@gmail.com</a>{' '}
                     o{' '}
-                    <a href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación." target="_blank" rel="noopener noreferrer" style={{ color: '#B45309', fontWeight: 700, textDecoration: 'none' }}>WhatsApp</a>
+                    <a href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación." target="_blank" rel="noopener noreferrer" style={{ color: '#C2410C', fontWeight: 700, textDecoration: 'none' }}>WhatsApp</a>
                   </p>
                 </div>
               </div>
@@ -610,7 +610,7 @@ export default function CheckoutPage() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <a
                     href="mailto:rubenmenalled@gmail.com"
-                    style={{ color: '#B45309', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
+                    style={{ color: '#C2410C', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
                   >
                     ✉️ rubenmenalled@gmail.com
                   </a>
@@ -618,7 +618,7 @@ export default function CheckoutPage() {
                     href="https://wa.me/5491164660482?text=Hola%2C%20quiero%20consultar%20sobre%20facturación%20de%20mi%20pedido."
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: '#B45309', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
+                    style={{ color: '#C2410C', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
                   >
                     💬 WhatsApp: +54 9 11 6466-0482
                   </a>

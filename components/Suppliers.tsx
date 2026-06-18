@@ -10,7 +10,7 @@ export default function Suppliers() {
       style={{ background: 'linear-gradient(180deg, #F0F0F0 0%, #FFFFFF 50%, #F0F0F0 100%)' }}>
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(245,197,24,0.05) 0%, transparent 60%)' }} />
+        style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(255,106,61,0.05) 0%, transparent 60%)' }} />
 
       <div className="max-w-7xl mx-auto px-4 relative">
         {/* Header */}
@@ -50,7 +50,7 @@ export default function Suppliers() {
 
               {/* Hover glow */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
-                style={{ background: 'radial-gradient(ellipse at top right, rgba(245,197,24,0.05) 0%, transparent 60%)' }} />
+                style={{ background: 'radial-gradient(ellipse at top right, rgba(255,106,61,0.05) 0%, transparent 60%)' }} />
 
               {/* Card header */}
               <div className="flex items-start gap-4 mb-4">
@@ -58,8 +58,8 @@ export default function Suppliers() {
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(245,197,24,0.15), rgba(245,197,24,0.05))',
-                    border: '1px solid rgba(245,197,24,0.25)',
+                    background: 'linear-gradient(135deg, rgba(255,106,61,0.15), rgba(255,106,61,0.05))',
+                    border: '1px solid rgba(255,106,61,0.25)',
                   }}
                 >
                   {supplier.emoji}
