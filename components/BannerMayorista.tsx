@@ -1,3 +1,5 @@
+import { HandDrawnCircle } from '@/components/ui/hand-writing-text'
+
 export default function BannerMayorista() {
   const wrap: React.CSSProperties = {
     background: '#FFFFFF',
@@ -60,7 +62,7 @@ export default function BannerMayorista() {
         {/* Mayorista */}
         <div style={{ position: 'relative' }}>
           <div style={eyebrow}>💰 Precio mayorista</div>
-          <p style={big}>desde <span style={gold}>$100.000</span></p>
+          <p style={big}>desde <HandDrawnCircle><span style={gold}>$100.000</span></HandDrawnCircle></p>
           <span style={badge}>✅ SIN RECARGO</span>
         </div>
 
