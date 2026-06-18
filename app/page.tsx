@@ -66,9 +66,9 @@ export default async function HomePage() {
       <main>
         <GradientHero />
         <BannerMayorista />
-        <ConfianzaSection />
         <HomeRows />
         <CatalogosSection categorias={categorias} />
+        <ConfianzaSection />
         <ComoComprar />
         <MediosDePago />
         <FAQ />
