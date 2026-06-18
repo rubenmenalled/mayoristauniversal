@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
-import { useCart, RETAIL_MARKUP, RETAIL_MIN, itemIsWholesale } from '@/lib/CartContext'
+import { useCart, RETAIL_MARKUP, RETAIL_MIN, WHOLESALE_MIN, itemIsWholesale } from '@/lib/CartContext'
 import { supabase } from '@/lib/supabase'
 import { useState, useEffect, useRef } from 'react'
 
@@ -343,6 +343,18 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 ))}
 
+
+                {/* Mínimos bien visibles */}
+                <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                  <div style={{ flex: 1, background: '#FFF7ED', border: '1.5px solid #FFD7C2', borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
+                    <div style={{ color: '#9A3412', fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Mínimo minorista</div>
+                    <div style={{ color: '#E0521F', fontSize: 18, fontWeight: 900, lineHeight: 1.1 }}>${RETAIL_MIN.toLocaleString('es-AR')}</div>
+                  </div>
+                  <div style={{ flex: 1, background: '#F0FDF4', border: '1.5px solid #BBF7D0', borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
+                    <div style={{ color: '#15803D', fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Mínimo mayorista</div>
+                    <div style={{ color: '#16A34A', fontSize: 18, fontWeight: 900, lineHeight: 1.1 }}>${WHOLESALE_MIN.toLocaleString('es-AR')}</div>
+                  </div>
+                </div>
 
                 {/* Barra de progreso compacta */}
                 {isWholesale ? (
