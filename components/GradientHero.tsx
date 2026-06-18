@@ -10,7 +10,7 @@ const COLLAGE = [
   'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=70', // belleza
   'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=70', // ropa
   'https://www.juguetemayor.com/upload/goods/20201124/20201124020148_0.jpg', // peluche stitch
-  'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400&q=70', // deco bazar
+  'https://images.pexels.com/photos/6879815/pexels-photo-6879815.jpeg?w=400&h=400&fit=crop', // lenceria
   'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&q=70', // cocina
   'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=400&q=70', // relojes
   'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=70', // bijouterie
