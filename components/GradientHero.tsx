@@ -52,7 +52,6 @@ export default function GradientHero() {
     <section style={{ width: '100%' }}>
       <style>{`
         #grad-hero { padding-top: 200px; }
-        #grad-hero-band { height: 380px; }
         #hero-collage {
           position: absolute; inset: 0; display: grid;
           grid-template-columns: repeat(6, 1fr);
@@ -107,7 +106,6 @@ export default function GradientHero() {
         }
         @media (max-width: 767px) {
           #grad-hero { padding-top: 250px; }
-          #grad-hero-band { height: 320px; }
           #hero-collage { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 25%; }
         }
       `}</style>
@@ -134,8 +132,9 @@ export default function GradientHero() {
           <div className="hero-blob b" aria-hidden="true" />
           <div className="hero-blob c" aria-hidden="true" />
 
-          {/* Contenido */}
-          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center text-center px-4">
+          {/* Contenido — en flujo: el banner se adapta a su alto (no se desborda) */}
+          <div className="relative z-50 flex flex-col items-center justify-center text-center px-4"
+            style={{ padding: 'clamp(56px, 9vw, 104px) 16px' }}>
             <h1 style={{
               color: '#FFFFFF', fontWeight: 900, lineHeight: 1.05, margin: 0,
               fontSize: 'clamp(34px, 6vw, 68px)', letterSpacing: '-0.02em',
