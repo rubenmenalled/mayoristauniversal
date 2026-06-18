@@ -71,19 +71,28 @@ export default function ConfianzaSection() {
         </div>
 
         {/* Garantía de entrega — destacada */}
-        <div style={{
-          background: 'linear-gradient(135deg,#F0FDF4,#DCFCE7)',
+        <div className="conf-card" style={{
+          position: 'relative', overflow: 'hidden',
           border: '2px solid #16A34A', borderRadius: 16,
-          padding: '20px 24px', marginBottom: 32,
+          padding: '24px', marginBottom: 32,
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
           flexWrap: 'wrap', textAlign: 'center',
+          boxShadow: '0 10px 30px rgba(11,30,63,0.16)',
         }}>
-          <span style={{ fontSize: 40, lineHeight: 1 }}>🛡️</span>
-          <div style={{ textAlign: 'left', maxWidth: 760 }}>
-            <div style={{ color: '#15803D', fontWeight: 900, fontSize: 'clamp(17px,2.6vw,22px)', marginBottom: 4 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://images.unsplash.com/photo-1595246140625-573b715d11dc?w=1200&q=70" alt=""
+            className="conf-img"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+          <div style={{
+            position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+            background: 'linear-gradient(135deg, rgba(20,83,45,0.90) 0%, rgba(22,101,52,0.84) 100%)',
+          }} />
+          <span style={{ position: 'relative', zIndex: 2, fontSize: 40, lineHeight: 1 }}>🛡️</span>
+          <div style={{ position: 'relative', zIndex: 2, textAlign: 'left', maxWidth: 760 }}>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(17px,2.6vw,22px)', marginBottom: 4, textShadow: '0 2px 10px rgba(0,0,0,0.35)' }}>
               Garantía de entrega
             </div>
-            <div style={{ color: '#166534', fontSize: 'clamp(13px,2vw,15px)', lineHeight: 1.5 }}>
+            <div style={{ color: 'rgba(255,255,255,0.95)', fontSize: 'clamp(13px,2vw,15px)', lineHeight: 1.5, textShadow: '0 1px 8px rgba(0,0,0,0.35)' }}>
               Tu pedido <strong>llega sí o sí</strong>. Si no llega, o llega roto o fallado, <strong>te lo reponemos o te devolvemos tu dinero</strong>. Comprá tranquilo.
             </div>
           </div>
