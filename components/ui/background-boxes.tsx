@@ -32,12 +32,23 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
       )}
       {...rest}
     >
+      <style>{`
+        @keyframes boxglow0 { 0%,100%,72%{background-color:transparent} 80%{background-color:rgb(255 106 61)} }
+        @keyframes boxglow1 { 0%,100%,72%{background-color:transparent} 80%{background-color:rgb(245 197 24)} }
+        @keyframes boxglow2 { 0%,100%,72%{background-color:transparent} 80%{background-color:rgb(96 165 250)} }
+        @keyframes boxglow3 { 0%,100%,72%{background-color:transparent} 80%{background-color:rgb(255 255 255)} }
+      `}</style>
       {rows.map((_, i) => (
         <motion.div
           key={`row` + i}
           className="w-16 h-8 border-l border-slate-700/60 relative"
         >
-          {cols.map((_, j) => (
+          {cols.map((_, j) => {
+            const lit = (i * 31 + j * 17) % 19 === 0;
+            const autoGlow: React.CSSProperties | undefined = lit
+              ? { animation: `boxglow${(i + j) % 4} 4s ease-in-out ${((i * 7 + j * 5) % 60) / 8}s infinite` }
+              : undefined;
+            return (
             <motion.div
               whileHover={{
                 backgroundColor: getRandomColor(),
@@ -46,6 +57,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
               animate={{
                 transition: { duration: 2 },
               }}
+              style={autoGlow}
               key={`col` + j}
               className="w-16 h-8 border-r border-t border-slate-700/60 relative"
             >
@@ -66,7 +78,8 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                 </svg>
               ) : null}
             </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
       ))}
     </div>
