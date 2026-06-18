@@ -259,7 +259,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               <img
                 className="cat-img"
                 src={
-                  ['PELUCHES DE PERSONAJES', 'BEBÉ', 'BEBES', 'ARTICULOS X BULTO', 'PANTUFLAS', 'CAMPING', 'ILUMINACION', 'AUTOMOTOR'].includes(cat.name.toUpperCase())
+                  ['PELUCHES DE PERSONAJES', 'BEBÉ', 'BEBES', 'ARTICULOS X BULTO', 'PANTUFLAS', 'CAMPING', 'ILUMINACION', 'AUTOMOTOR', 'LLAVEROS', 'LICENCIA (BLANQUERIA Y ACCESORIOS)'].includes(cat.name.toUpperCase())
                     ? (cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR'])
                     : (FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR'])
                 }
