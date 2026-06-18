@@ -111,7 +111,7 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
           0% { background-position: 220% 0; }
           100% { background-position: -220% 0; }
         }
-        .row-marquee-wrap { overflow: hidden; padding-bottom: 8px; }
+        .row-marquee-wrap { overflow: hidden; padding-top: 16px; padding-bottom: 10px; }
         .row-marquee-track { display: flex; gap: 14px; width: max-content; animation: rowMarquee linear infinite; }
         .row-marquee-wrap:hover .row-marquee-track,
         .row-marquee-wrap:active .row-marquee-track { animation-play-state: paused; }
