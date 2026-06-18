@@ -29,7 +29,7 @@ export default function GradientHero() {
                 color: 'rgba(255,255,255,0.92)', margin: '14px 0 0', fontWeight: 600,
                 fontSize: 'clamp(15px, 2.4vw, 22px)', textShadow: '0 2px 16px rgba(0,0,0,0.4)',
               }}>
-                Precios mayoristas · Envíos a todo el país
+                Todo para tu negocio en un solo lugar · Comprá al por mayor con envío a todo el país
               </p>
               <a href="/catalogo" className="btn-agregar" style={{
                 marginTop: 26, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
