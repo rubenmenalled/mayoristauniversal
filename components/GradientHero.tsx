@@ -22,19 +22,30 @@ const COLLAGE = [
 export default function GradientHero() {
   // Medimos el alto real del header fijo (escritorio y celular) para que el
   // banner arranque justo debajo, sin franja blanca y sin quedar tapado.
+  // Usamos ResizeObserver porque el header crece cuando carga la barra de
+  // categorías (fetch async) y al cambiar de orientación.
   const [heroPad, setHeroPad] = useState<number | null>(null)
   useEffect(() => {
+    const header = document.querySelector('header') as HTMLElement | null
+    if (!header) return
     const calc = () => {
-      const header = document.querySelector('header')
-      const bottom = header ? header.getBoundingClientRect().bottom : 0
-      // -1px para que el banner quede tapado por el header en su borde y no se vea hueco
-      setHeroPad(bottom > 0 ? Math.round(bottom) - 1 : null)
+      const bottom = header.getBoundingClientRect().bottom
+      // -1px para que el banner quede tapado por el borde del header (sin hueco)
+      if (bottom > 0) setHeroPad(Math.round(bottom) - 1)
     }
     calc()
-    const t1 = setTimeout(calc, 250)
-    const t2 = setTimeout(calc, 1000)
+    const ro = new ResizeObserver(calc)
+    ro.observe(header)
     window.addEventListener('resize', calc)
-    return () => { window.removeEventListener('resize', calc); clearTimeout(t1); clearTimeout(t2) }
+    window.addEventListener('load', calc)
+    const t1 = setTimeout(calc, 600)
+    const t2 = setTimeout(calc, 1500)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', calc)
+      window.removeEventListener('load', calc)
+      clearTimeout(t1); clearTimeout(t2)
+    }
   }, [])
 
   return (
