@@ -99,7 +99,6 @@ const KEYFRAMES = `
 }
 .cat-card:hover .cat-ver-mas {
   letter-spacing: 0.18em !important;
-  color: #FF8A63 !important;
 }
 .cat-card .cat-img {
   transition: transform 0.6s cubic-bezier(.22,.68,0,1.2);
@@ -315,8 +314,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 {cat.name}
               </div>}
 
-              {/* Cantidad de productos (solo si 10+ y sin banner) */}
-              {!cat.image && cat.count >= 10 && !PROXIMAMENTE.has(cat.name.toUpperCase()) && (
+              {/* Cantidad de productos (solo si 10+) */}
+              {cat.count >= 10 && !PROXIMAMENTE.has(cat.name.toUpperCase()) && (
                 <div style={{
                   position: 'absolute', bottom: 14, right: 14, zIndex: 10,
                   background: 'rgba(255,106,61,0.95)', color: '#0B1E3F',
@@ -327,19 +326,19 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* VER MÁS — solo si no hay banner (el banner ya invita a comprar) */}
-              {!cat.image && <div className="cat-ver-mas" style={{
-                position: 'absolute', bottom: 14, left: 14,
-                background: 'rgba(11,30,63,0.78)',
-                color: '#fff', fontWeight: 700,
+              {/* Cartel naranja VER AQUÍ */}
+              <div className="cat-ver-mas" style={{
+                position: 'absolute', bottom: 14, left: 14, zIndex: 10,
+                background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
+                color: '#FFFFFF', fontWeight: 900,
                 fontSize: 12, letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 padding: '7px 16px', borderRadius: 99,
-                border: '1px solid rgba(255,106,61,0.7)',
+                boxShadow: '0 3px 12px rgba(255,106,61,0.5)',
                 display: 'flex', alignItems: 'center', gap: 6,
               }}>
-                <span style={{ color: '#FF6A3D', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
-              </div>}
+                <span style={{ color: '#FFFFFF', fontSize: 8 }}>●</span> VER AQUÍ
+              </div>
 
               {/* Borde dorado */}
               <div style={{

@@ -213,9 +213,9 @@ export default function CatalogoPage() {
                   {!c.image && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>}
-                  {!c.image && <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(11,30,63,0.78)', color: '#fff', fontWeight: 700, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, border: '1px solid rgba(255,106,61,0.7)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ color: '#FF6A3D', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
-                  </div>}
+                  <div style={{ position: 'absolute', bottom: 14, left: 14, zIndex: 10, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, boxShadow: '0 3px 12px rgba(255,106,61,0.5)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ color: '#FFFFFF', fontSize: 8 }}>●</span> VER AQUÍ
+                  </div>
                 </motion.div>
               )
             })}
