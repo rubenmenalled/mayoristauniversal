@@ -6,13 +6,13 @@ export async function getProductos() {
 }
 
 const ORDEN_CATEGORIAS = [
+  'ARTICULOS X BULTO',
   'LENCERIA',
   'PELUCHES',
   'BEBÉ',
   'JUGUETERIA',
   'PELUCHES DE PERSONAJES',
   'MARROQUINERIA',
-  'ARTICULOS X BULTO',
   'ACCESORIOS DE INVIERNO',
   'PANTUFLAS',
   'BELLEZA',
