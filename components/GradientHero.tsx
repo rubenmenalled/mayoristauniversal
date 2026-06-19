@@ -65,7 +65,7 @@ export default function GradientHero() {
         }
         #hero-collage > span {
           background-size: cover; background-position: center;
-          filter: brightness(1) saturate(1.08);
+          filter: brightness(1.07) saturate(1.1);
         }
         .hero-blob {
           position: absolute; border-radius: 50%;

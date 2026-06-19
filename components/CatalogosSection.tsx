@@ -273,7 +273,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* Overlay */}
               <div className="cat-overlay" style={{
                 position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.14) 36%, rgba(0,0,0,0.02) 58%, rgba(0,0,0,0.30) 100%)',
+                background: 'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 36%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.24) 100%)',
                 transition: 'background 0.35s ease',
               }} />
 
