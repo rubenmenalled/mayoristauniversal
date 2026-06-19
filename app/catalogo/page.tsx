@@ -171,7 +171,11 @@ export default function CatalogoPage() {
           }}>
             {filtradas.map((c, i) => {
               const nombre = c.nombre || c.name || ''
-              const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
+              // Misma lógica que la home (CatalogosSection): solo estas categorías
+              // usan la imagen de la base; el resto usa las fotos stock (FOTOS).
+              const foto = ['PELUCHES DE PERSONAJES', 'BEBÉ', 'BEBES', 'ARTICULOS X BULTO', 'PANTUFLAS', 'CAMPING', 'ILUMINACION', 'AUTOMOTOR', 'LLAVEROS', 'LICENCIA (BLANQUERIA Y ACCESORIOS)'].includes(nombre.toUpperCase())
+                ? (c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR'])
+                : (FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR'])
               const esProximamente = ['RODADOS'].includes(nombre.toUpperCase())
               return (
                 <motion.div
