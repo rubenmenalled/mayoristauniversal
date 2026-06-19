@@ -173,6 +173,7 @@ export default function CatalogoPage() {
               const nombre = c.nombre || c.name || ''
               // Igual que la home: usa la imagen de la base (banner) y si no, la stock.
               const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
+              const esBanner = (c.image || '').includes('/categorias/banner-')
               const esProximamente = ['RODADOS'].includes(nombre.toUpperCase())
               return (
                 <motion.div
@@ -197,7 +198,7 @@ export default function CatalogoPage() {
                     onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                   />
-                  {!c.image && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
+                  {!esBanner && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
                   {esProximamente && (
                     <div style={{
                       position: 'absolute', bottom: 14, right: 14, zIndex: 10,
@@ -210,7 +211,7 @@ export default function CatalogoPage() {
                       🔜 Próximamente
                     </div>
                   )}
-                  {!c.image && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                  {!esBanner && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>}
                   <div style={{ position: 'absolute', bottom: 14, left: 14, zIndex: 10, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, boxShadow: '0 3px 12px rgba(255,106,61,0.5)', display: 'flex', alignItems: 'center', gap: 6 }}>

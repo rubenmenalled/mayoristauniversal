@@ -235,7 +235,11 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
           gap: 12,
         }}>
-          {unicas.map((cat, i) => (
+          {unicas.map((cat, i) => {
+            // esBanner: la imagen es uno de los banners diseñados (con título propio).
+            // Si es una foto común, mostramos el nombre igual.
+            const esBanner = (cat.image || '').includes('/categorias/banner-')
+            return (
             <div
               key={cat.id}
               onClick={() => router.push(`/categorias/${encodeURIComponent(cat.name)}`)}
@@ -265,8 +269,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 }}
               />
 
-              {/* Overlay — solo cuando NO hay banner propio (el banner ya trae todo) */}
-              {!cat.image && <div className="cat-overlay" style={{
+              {/* Overlay — solo cuando NO es un banner diseñado (el banner ya trae todo) */}
+              {!esBanner && <div className="cat-overlay" style={{
                 position: 'absolute', inset: 0,
                 background: 'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 36%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.24) 100%)',
                 transition: 'background 0.35s ease',
@@ -292,8 +296,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* Emoji flotante — solo si no hay banner */}
-              {!cat.image && <div style={{
+              {/* Emoji flotante — solo si no es banner */}
+              {!esBanner && <div style={{
                 position: 'absolute', top: 12, right: 14,
                 fontSize: 28,
                 filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))',
@@ -301,8 +305,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 {cat.emoji}
               </div>}
 
-              {/* Nombre categoría — solo si no hay banner */}
-              {!cat.image && <div style={{
+              {/* Nombre categoría — solo si no es banner (foto común muestra el nombre) */}
+              {!esBanner && <div style={{
                 position: 'absolute', top: 16, left: 16,
                 color: '#FFFFFF', fontWeight: 900,
                 fontSize: 'clamp(18px, 2vw, 22px)',
@@ -349,7 +353,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 pointerEvents: 'none',
               }} />
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
