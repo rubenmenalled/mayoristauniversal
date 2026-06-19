@@ -33,8 +33,6 @@ const ORDEN_CATEGORIAS = [
   'PRODUCTOS REGIONALES',
   'BIJOUTERIE',
   'MARROQUINERIA',
-  'RODADOS',
-  'BLANQUERIA',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
