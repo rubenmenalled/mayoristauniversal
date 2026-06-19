@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
 
       // Imágenes hardcodeadas para subcategorías que no tienen productos con imagen en los primeros resultados
       const HARDCODED_IMGS: Record<string, string> = {
-        'bubble': 'https://usimg.k2049.com/files/x/bb5e793a31f0477c88994b2decee6035.jpg',
+        'peluches surtidos marca bubble': 'https://usimg.k2049.com/files/x/bb5e793a31f0477c88994b2decee6035.jpg',
       }
 
       // Portadas fijas elegidas a mano (tienen prioridad sobre la primera foto)
@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
       // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
       const ORDEN_SUBS: Record<string, number> = {
         'MEDIANOS LISOS': 1, 'PELUCHES CHICOS Y MEDIANOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
-        'BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
+        'PELUCHES SURTIDOS MARCA BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
         'CUNEROS': 10, 'MOVIL PARA CUNA': 11, 'MOCHILAS Y CARTERAS DE PELUCHE': 12,
         'OTROS ACCESORIOS': 13, 'ACCESORIOS DE MASCOTAS': 14, 'GRANDES LISOS': 15, 'GIGANTES': 16,
         // MARROQUINERIA — orden lógico
