@@ -137,9 +137,8 @@ body {
 }
 .btn-agregar:active{ transform: translateY(0) scale(.98) !important; }
 
-/* Realce de luz suave en las fotos. Se excluyen las de catálogos (.cat-img),
-   que se aclaran por su velo, para no reintroducir el flasheo de iOS que daba
-   el filter en esas imágenes. */
-img:not(.cat-img) {
+/* Realce de luz suave en todas las fotos (incluidos catálogos). Va sin
+   will-change ni backdrop-filter para no reintroducir el flasheo de iOS. */
+img {
   filter: brightness(1.05) contrast(1.02) saturate(1.06);
 }
