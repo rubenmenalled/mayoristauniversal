@@ -244,7 +244,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               style={{
                 position: 'relative',
                 display: 'block',
-                height: 'clamp(160px, 30vw, 220px)',
+                aspectRatio: '1 / 1',
                 borderRadius: 12,
                 overflow: 'hidden',
                 cursor: 'pointer',
@@ -256,11 +256,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className="cat-img"
-                src={
-                  ['PELUCHES DE PERSONAJES', 'BEBÉ', 'BEBES', 'ARTICULOS X BULTO', 'PANTUFLAS', 'CAMPING', 'ILUMINACION', 'AUTOMOTOR', 'LLAVEROS', 'LICENCIA (BLANQUERIA Y ACCESORIOS)'].includes(cat.name.toUpperCase())
-                    ? (cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR'])
-                    : (FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR'])
-                }
+                src={cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR']}
                 alt={cat.name}
                 style={{
                   position: 'absolute', inset: 0,

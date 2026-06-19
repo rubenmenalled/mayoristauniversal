@@ -171,11 +171,8 @@ export default function CatalogoPage() {
           }}>
             {filtradas.map((c, i) => {
               const nombre = c.nombre || c.name || ''
-              // Misma lógica que la home (CatalogosSection): solo estas categorías
-              // usan la imagen de la base; el resto usa las fotos stock (FOTOS).
-              const foto = ['PELUCHES DE PERSONAJES', 'BEBÉ', 'BEBES', 'ARTICULOS X BULTO', 'PANTUFLAS', 'CAMPING', 'ILUMINACION', 'AUTOMOTOR', 'LLAVEROS', 'LICENCIA (BLANQUERIA Y ACCESORIOS)'].includes(nombre.toUpperCase())
-                ? (c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR'])
-                : (FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR'])
+              // Igual que la home: usa la imagen de la base (banner) y si no, la stock.
+              const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
               const esProximamente = ['RODADOS'].includes(nombre.toUpperCase())
               return (
                 <motion.div
@@ -185,7 +182,7 @@ export default function CatalogoPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
                   style={{
-                    position: 'relative', height: 220,
+                    position: 'relative', aspectRatio: '1 / 1',
                     borderRadius: 12, overflow: 'hidden',
                     cursor: 'pointer',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
@@ -196,7 +193,7 @@ export default function CatalogoPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={foto} alt={nombre}
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', filter: 'brightness(1.15) saturate(1.1)' }}
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
                     onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                   />
