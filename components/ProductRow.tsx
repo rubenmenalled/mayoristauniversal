@@ -139,7 +139,7 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
         {subtitle && <p style={{ color: '#6B7280', fontSize: 13, margin: '0 0 16px' }}>{subtitle}</p>}
         {auto && prods.length > 2 ? (
           <div className="row-marquee-wrap">
-            <div className="row-marquee-track" style={{ animationDuration: `${Math.max(30, prods.length * 5)}s` }}>
+            <div className="row-marquee-track" style={{ animationDuration: `${Math.max(22, prods.length * 3.5)}s` }}>
               {prods.map(p => <Card key={p.id} p={p} />)}
               {prods.map(p => <Card key={`dup-${p.id}`} p={p} />)}
             </div>
