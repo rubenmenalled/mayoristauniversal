@@ -73,16 +73,7 @@ export default function CategoriaPage() {
   const [loading, setLoading] = useState(true)
 
   // Sub-subcategorías hardcodeadas por subcategoría
-  const SUB_SUBS: Record<string, { nombre: string; emoji: string; imagen: string; filtro: (p: Producto) => boolean }[]> = {
-    'BUBBLE': [
-      {
-        nombre: 'BOLSAS DE REGALO',
-        emoji: '🎁',
-        imagen: 'https://usimg.k2049.com/files/x/3e2f4a1b8c9d4e5f6a7b8c9d0e1f2a3b.jpg',
-        filtro: (p) => p.name.toLowerCase().includes('bolsa'),
-      },
-    ],
-  }
+  const SUB_SUBS: Record<string, { nombre: string; emoji: string; imagen: string; filtro: (p: Producto) => boolean }[]> = {}
   const [pagina, setPagina]           = useState(0)
   const [hayMas, setHayMas]           = useState(false)
   const [loadingMas, setLoadingMas]   = useState(false)
