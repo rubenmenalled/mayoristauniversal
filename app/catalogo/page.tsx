@@ -197,7 +197,7 @@ export default function CatalogoPage() {
                     onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />
+                  {!c.image && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
                   {esProximamente && (
                     <div style={{
                       position: 'absolute', bottom: 14, right: 14, zIndex: 10,
@@ -210,12 +210,12 @@ export default function CatalogoPage() {
                       🔜 Próximamente
                     </div>
                   )}
-                  <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                  {!c.image && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
-                  </div>
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', color: '#fff', fontWeight: 700, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, border: '1px solid rgba(255,106,61,0.7)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  </div>}
+                  {!c.image && <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(11,30,63,0.78)', color: '#fff', fontWeight: 700, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, border: '1px solid rgba(255,106,61,0.7)', display: 'flex', alignItems: 'center', gap: 6 }}>
                     <span style={{ color: '#FF6A3D', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
-                  </div>
+                  </div>}
                 </motion.div>
               )
             })}

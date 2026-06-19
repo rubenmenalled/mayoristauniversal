@@ -266,12 +266,12 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 }}
               />
 
-              {/* Overlay */}
-              <div className="cat-overlay" style={{
+              {/* Overlay — solo cuando NO hay banner propio (el banner ya trae todo) */}
+              {!cat.image && <div className="cat-overlay" style={{
                 position: 'absolute', inset: 0,
                 background: 'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 36%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.24) 100%)',
                 transition: 'background 0.35s ease',
-              }} />
+              }} />}
 
               {/* Cartel PRÓXIMAMENTE */}
               {PROXIMAMENTE.has(cat.name.toUpperCase()) && (
@@ -293,17 +293,17 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* Emoji flotante */}
-              <div style={{
+              {/* Emoji flotante — solo si no hay banner */}
+              {!cat.image && <div style={{
                 position: 'absolute', top: 12, right: 14,
                 fontSize: 28,
                 filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))',
               }}>
                 {cat.emoji}
-              </div>
+              </div>}
 
-              {/* Nombre categoría */}
-              <div style={{
+              {/* Nombre categoría — solo si no hay banner */}
+              {!cat.image && <div style={{
                 position: 'absolute', top: 16, left: 16,
                 color: '#FFFFFF', fontWeight: 900,
                 fontSize: 'clamp(18px, 2vw, 22px)',
@@ -313,10 +313,10 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 maxWidth: '70%',
               }}>
                 {cat.name}
-              </div>
+              </div>}
 
-              {/* Cantidad de productos (solo si 10+) */}
-              {cat.count >= 10 && !PROXIMAMENTE.has(cat.name.toUpperCase()) && (
+              {/* Cantidad de productos (solo si 10+ y sin banner) */}
+              {!cat.image && cat.count >= 10 && !PROXIMAMENTE.has(cat.name.toUpperCase()) && (
                 <div style={{
                   position: 'absolute', bottom: 14, right: 14, zIndex: 10,
                   background: 'rgba(255,106,61,0.95)', color: '#0B1E3F',
@@ -327,8 +327,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* VER MÁS */}
-              <div className="cat-ver-mas" style={{
+              {/* VER MÁS — solo si no hay banner (el banner ya invita a comprar) */}
+              {!cat.image && <div className="cat-ver-mas" style={{
                 position: 'absolute', bottom: 14, left: 14,
                 background: 'rgba(11,30,63,0.78)',
                 color: '#fff', fontWeight: 700,
@@ -339,7 +339,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 display: 'flex', alignItems: 'center', gap: 6,
               }}>
                 <span style={{ color: '#FF6A3D', fontSize: 8 }}>●</span> COMPRÁ AQUÍ
-              </div>
+              </div>}
 
               {/* Borde dorado */}
               <div style={{
