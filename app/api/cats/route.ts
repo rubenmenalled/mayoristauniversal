@@ -104,6 +104,17 @@ export async function GET() {
   )).filter(n => !OCULTAS.has(n))
   const uniqueNames = Array.from(new Set([...fromDB, ...CATEGORIAS_FIJAS]))
 
+  // Imágenes personalizadas desde la tabla categorias (igual que la home),
+  // para que /catalogo muestre las mismas fotos que la página principal.
+  const dbImg: Record<string, string> = {}
+  try {
+    const { data: cats } = await supabase.from('categorias').select('nombre,imagen')
+    ;(cats ?? []).forEach((c: any) => {
+      const k = (c.nombre || '').trim().toUpperCase()
+      if (k && c.imagen) dbImg[k] = c.imagen
+    })
+  } catch {}
+
   const EMOJIS: Record<string, string> = {
     'HOGAR Y BAZAR':       '🍳',
     'LICENCIA (BLANQUERIA Y ACCESORIOS)':     '🛏️',
@@ -167,7 +178,7 @@ export async function GET() {
     name:  nombre,
     nombre: nombre,
     emoji: EMOJIS[nombre] || '📦',
-    image: FOTOS[nombre] || '',
+    image: dbImg[nombre] || FOTOS[nombre] || '',
     description: '',
     subcategorias: SUBCATEGORIAS[nombre] || [],
     count: (data ?? []).filter((p: any) => (p.categoria || '').trim().toUpperCase() === nombre).length,
