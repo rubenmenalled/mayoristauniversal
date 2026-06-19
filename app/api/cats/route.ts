@@ -9,6 +9,7 @@ const ORDEN_CATEGORIAS = [
   'BEBÉ',
   'JUGUETERIA',
   'PELUCHES DE PERSONAJES',
+  'MARROQUINERIA',
   'ARTICULOS X BULTO',
   'ACCESORIOS DE INVIERNO',
   'PANTUFLAS',
@@ -33,7 +34,6 @@ const ORDEN_CATEGORIAS = [
   'LENTES',
   'PRODUCTOS REGIONALES',
   'BIJOUTERIE',
-  'MARROQUINERIA',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
