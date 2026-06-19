@@ -95,7 +95,7 @@ export async function GET() {
 
   if (data.length === 0 && from === 0) return NextResponse.json([], { status: 500 })
 
-  const OCULTAS = new Set(['PELUCHES ENAMORADOS'])
+  const OCULTAS = new Set(['PELUCHES ENAMORADOS', 'BLANQUERIA', 'RODADOS'])
 
   const fromDB = Array.from(new Set(
     (data ?? []).map((p: any) => (p.categoria || '').trim().toUpperCase()).filter(Boolean)
