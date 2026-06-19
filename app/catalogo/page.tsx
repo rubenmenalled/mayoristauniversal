@@ -183,7 +183,7 @@ export default function CatalogoPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
                   style={{
-                    position: 'relative', aspectRatio: '1254 / 1027',
+                    position: 'relative', aspectRatio: '16 / 10',
                     borderRadius: 12, overflow: 'hidden',
                     cursor: 'pointer',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
