@@ -247,7 +247,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               style={{
                 position: 'relative',
                 display: 'block',
-                aspectRatio: '1 / 1',
+                aspectRatio: '1254 / 1027',
                 borderRadius: 12,
                 overflow: 'hidden',
                 cursor: 'pointer',
