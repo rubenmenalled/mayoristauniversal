@@ -300,7 +300,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* Mínimo de compra por catálogo (todas) — arriba-centro, destacado */}
               <div style={{
                 position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)',
-                background: 'transparent', color: '#2EE85C',
+                background: 'transparent', color: '#FF7A3D',
                 fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap',
                 letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)',
               }}>
