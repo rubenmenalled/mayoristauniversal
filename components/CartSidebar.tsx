@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
 import { useCart, RETAIL_MARKUP, RETAIL_MIN, WHOLESALE_MIN, itemIsWholesale } from '@/lib/CartContext'
+import { minDeCatalogo } from '@/lib/minimos'
 import { supabase } from '@/lib/supabase'
 import { useState, useEffect, useRef } from 'react'
 
@@ -140,9 +141,6 @@ export default function CartSidebar({ open, onClose }: Props) {
 
   // Opción A: mínimo de compra en $ por catálogo (cada catálogo se compra por separado)
   const markupActual = isWholesale ? 1 : RETAIL_MARKUP
-  const MIN_CATALOGO_DEFAULT = 100000
-  const MIN_CATALOGO_OVERRIDE: Record<string, number> = { 'FATTZ IMPORT': 300000 }
-  const minDeCatalogo = (c?: string) => MIN_CATALOGO_OVERRIDE[(c || '').toUpperCase()] ?? MIN_CATALOGO_DEFAULT
   const gruposMap: Record<string, { cat: string; sub: number }> = {}
   items.forEach(i => {
     const cat = (i.category || 'OTROS').toUpperCase()

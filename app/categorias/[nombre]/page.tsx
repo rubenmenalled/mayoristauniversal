@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
+import { minDeCatalogo } from '@/lib/minimos'
 import { TextReveal } from '@/components/ui/cascade-text'
 import CartSidebar from '@/components/CartSidebar'
 
@@ -487,16 +488,14 @@ export default function CategoriaPage() {
           </button>
         )}
 
-        {/* Cartel destacado: mínimo de compra de FATTZ IMPORT */}
-        {(nombreDecoded.toUpperCase() === 'FATTZ IMPORT' || (subActiva && subActiva.toUpperCase() === 'FATTZ IMPORT')) && (
-          <div style={{ marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
-            <span style={{ fontSize: 26 }}>⚠️</span>
-            <div>
-              <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: $300.000</div>
-              <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Los productos de FATTZ IMPORT se compran por un mínimo de $300.000 en esta categoría.</div>
-            </div>
+        {/* Cartel destacado: mínimo de compra de esta categoría */}
+        <div style={{ marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
+          <span style={{ fontSize: 26 }}>⚠️</span>
+          <div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${minDeCatalogo(nombreDecoded).toLocaleString('es-AR')}</div>
+            <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Este catálogo se compra por un mínimo de ${minDeCatalogo(nombreDecoded).toLocaleString('es-AR')}.</div>
           </div>
-        )}
+        </div>
 
         {/* No mostrar productos si estamos en el picker de sub-subcategorías */}
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : (loading || loadingBusqueda) ? (

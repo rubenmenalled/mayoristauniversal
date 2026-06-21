@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { minDeCatalogo } from '@/lib/minimos'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -296,18 +297,16 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* Cartel mínimo de compra (FATTZ IMPORT) — centrado, no tapa el contador */}
-              {cat.name.toUpperCase() === 'FATTZ IMPORT' && (
-                <div style={{
-                  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-                  background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', color: '#FFFFFF',
-                  fontWeight: 900, fontSize: 13, padding: '7px 14px', borderRadius: 99,
-                  boxShadow: '0 3px 12px rgba(0,0,0,0.45)', zIndex: 9, whiteSpace: 'nowrap',
-                  border: '1.5px solid #FFD7C2',
-                }}>
-                  ⚠️ Mín. compra $300.000
-                </div>
-              )}
+              {/* Mínimo de compra por catálogo (todas) — arriba-centro */}
+              <div style={{
+                position: 'absolute', top: 10, left: '50%', transform: 'translateX(-50%)',
+                background: 'rgba(11,30,63,0.92)', color: '#FFD089',
+                fontWeight: 900, fontSize: 11, padding: '4px 11px', borderRadius: 99,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.45)', zIndex: 9, whiteSpace: 'nowrap',
+                border: '1px solid rgba(255,208,137,0.55)', letterSpacing: '0.02em',
+              }}>
+                Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
+              </div>
 
               {/* Emoji flotante — solo si no es banner */}
               {!esBanner && <div style={{
