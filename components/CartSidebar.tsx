@@ -376,6 +376,8 @@ export default function CartSidebar({ open, onClose }: Props) {
                 ))}
 
 
+                {/* Mínimos generales (se ocultan si hay mínimo por marca, ej FATTZ) */}
+                {alertasMarca.length === 0 && (<>
                 {/* Mínimos bien visibles */}
                 <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
                   <div style={{ flex: 1, background: '#FFF7ED', border: '1.5px solid #FFD7C2', borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
@@ -424,6 +426,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                     </div>
                   </div>
                 )}
+                </>)}
 
                 {/* Desglose de totales */}
                 <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: 8, marginBottom: 10 }}>
@@ -431,7 +434,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <span style={{ color: '#6B7280', fontSize: 12 }}>Subtotal</span>
                     <span style={{ color: '#111827', fontWeight: 700, fontSize: 12 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
                   </div>
-                  {!isWholesale && (
+                  {!isWholesale && alertasMarca.length === 0 && (
                     <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: 8, padding: '7px 10px', marginBottom: 8, fontSize: 11, color: '#0369A1', lineHeight: 1.45 }}>
                       ℹ️ Precio <strong>minorista</strong>. Comprando <strong>$100.000+</strong> accedés al <strong>precio mayorista</strong>; si no, se suma <strong>+30%</strong> al momento de pagar.
                     </div>
