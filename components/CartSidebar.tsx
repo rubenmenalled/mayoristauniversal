@@ -13,27 +13,35 @@ const MIN_CATEGORIA: Record<string, number> = {
   RELOJES: 12,
 }
 
-// Mínimo de compra en $ por marca/proveedor (solo estas marcas tienen mínimo propio)
-const MIN_MARCA_MONTO: Record<string, number> = {
-  'FATTZ IMPORT': 300000,
-}
-
 interface Props { open: boolean; onClose: () => void }
 
 function buildWAMessage(items: ReturnType<typeof useCart>['items'], isWholesale: boolean): string {
   const modo = isWholesale ? 'MAYORISTA' : 'MINORISTA'
   const markup = isWholesale ? 1 : RETAIL_MARKUP
   let msg = `🛒 *Pedido ${modo} - Mayorista Universal*\n\n`
+  // Agrupar por catálogo
+  const grupos: Record<string, typeof items> = {}
   for (const item of items) {
-    const unitPrice = Math.round(item.wholesalePrice * markup)
-    const subtotal = unitPrice * item.quantity
-    msg += `▪ *${item.name}*${item.brand ? ` (${item.brand})` : ''}\n`
-    msg += `  ${item.quantity} unid. × $${unitPrice.toLocaleString('es-AR')} = $${subtotal.toLocaleString('es-AR')}\n`
-    if (item.image) msg += `  🖼️ ${item.image}\n`
-    msg += `\n`
+    const cat = (item.category || 'OTROS').toUpperCase()
+    ;(grupos[cat] = grupos[cat] || []).push(item)
   }
-  const total = items.reduce((s, i) => s + Math.round(i.wholesalePrice * markup) * i.quantity, 0)
+  const cats = Object.keys(grupos)
+  let total = 0
+  for (const cat of cats) {
+    msg += `📦 *${cat}*\n`
+    let subCat = 0
+    for (const item of grupos[cat]) {
+      const unitPrice = Math.round(item.wholesalePrice * markup)
+      const subtotal = unitPrice * item.quantity
+      subCat += subtotal
+      msg += `▪ ${item.name}\n  ${item.quantity} unid. × $${unitPrice.toLocaleString('es-AR')} = $${subtotal.toLocaleString('es-AR')}\n`
+      if (item.image) msg += `  🖼️ ${item.image}\n`
+    }
+    total += subCat
+    msg += `  _Subtotal ${cat}: $${subCat.toLocaleString('es-AR')}_\n\n`
+  }
   msg += `💰 *Total: $${total.toLocaleString('es-AR')}*`
+  if (cats.length > 1) msg += `\n\n_Cada catálogo se procesa y envía por separado._`
   if (!isWholesale) {
     msg += `\n_(precio minorista, incluye recargo del ${Math.round((RETAIL_MARKUP - 1) * 100)}%)_`
   }
@@ -130,22 +138,28 @@ export default function CartSidebar({ open, onClose }: Props) {
     }
   })
 
-  // Mínimo de compra en $ por marca (ej: FATTZ IMPORT $300.000)
+  // Opción A: mínimo de compra en $ por catálogo (cada catálogo se compra por separado)
   const markupActual = isWholesale ? 1 : RETAIL_MARKUP
-  const alertasMarca = (Object.entries(MIN_MARCA_MONTO).map(([marca, minMonto]) => {
-    const its = items.filter(i => (i.brand || '').toUpperCase() === marca.toUpperCase())
-    if (its.length === 0) return null
-    const sub = its.reduce((s, i) => s + Math.round(i.wholesalePrice * markupActual) * i.quantity, 0)
-    return { marca, minMonto, sub, falta: Math.max(0, minMonto - sub), ok: sub >= minMonto }
-  }).filter(Boolean)) as { marca: string; minMonto: number; sub: number; falta: number; ok: boolean }[]
-  const marcaBloquea = alertasMarca.some(a => !a.ok)
+  const MIN_CATALOGO_DEFAULT = 100000
+  const MIN_CATALOGO_OVERRIDE: Record<string, number> = { 'FATTZ IMPORT': 300000 }
+  const minDeCatalogo = (c?: string) => MIN_CATALOGO_OVERRIDE[(c || '').toUpperCase()] ?? MIN_CATALOGO_DEFAULT
+  const gruposMap: Record<string, { cat: string; sub: number }> = {}
+  items.forEach(i => {
+    const cat = (i.category || 'OTROS').toUpperCase()
+    if (!gruposMap[cat]) gruposMap[cat] = { cat, sub: 0 }
+    gruposMap[cat].sub += Math.round(i.wholesalePrice * markupActual) * i.quantity
+  })
+  const grupos = Object.values(gruposMap).map(g => {
+    const min = minDeCatalogo(g.cat)
+    return { ...g, min, ok: g.sub >= min, falta: Math.max(0, min - g.sub) }
+  })
+  const todosCatalogosOk = grupos.length > 0 && grupos.every(g => g.ok)
 
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
-  const puedeComprar = items.length > 0 && alertasCategorias.length === 0 && !marcaBloquea
-  // Mínimo de compra (suave): se muestra como progreso, no como alerta
-  const alcanzaMin = wholesaleTotal >= RETAIL_MIN
-  const faltaMin = Math.max(0, RETAIL_MIN - wholesaleTotal)
-  const minProgress = Math.min((wholesaleTotal / RETAIL_MIN) * 100, 100)
+  const puedeComprar = items.length > 0 && alertasCategorias.length === 0 && todosCatalogosOk
+  // Los medios de pago se activan cuando CADA catálogo llega a su mínimo
+  const alcanzaMin = todosCatalogosOk
+  const faltaMin = grupos.reduce((s, g) => s + g.falta, 0)
 
   // Confirmar pedido → guarda en DB + notifica (ntfy, email, WhatsApp)
   async function notificarPedidoIniciado(metodo: string) {
@@ -361,72 +375,29 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 ))}
 
-                {/* Cartel destacado: mínimo de compra por proveedor (ej: FATTZ IMPORT) */}
-                {alertasMarca.map((a) => (
-                  <div key={a.marca} style={{ background: a.ok ? '#ECFDF5' : '#FEF2F2', border: `2px solid ${a.ok ? '#16A34A' : '#DC2626'}`, borderRadius: 10, padding: '10px 12px', marginBottom: 8 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: a.ok ? '#15803D' : '#B91C1C', fontWeight: 900, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
-                      <span>{a.ok ? '✅' : '⚠️'}</span> {a.marca} · mínimo ${a.minMonto.toLocaleString('es-AR')}
+                {/* Opción A: mínimo de compra por catálogo */}
+                {grupos.map((g) => (
+                  <div key={g.cat} style={{ background: g.ok ? '#ECFDF5' : '#FFF7ED', border: `1.5px solid ${g.ok ? '#86EFAC' : '#FFD7C2'}`, borderRadius: 10, padding: '9px 11px', marginBottom: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
+                      <span style={{ fontWeight: 900, fontSize: 12.5, color: g.ok ? '#15803D' : '#9A3412', textTransform: 'uppercase', letterSpacing: '0.02em' }}>{g.cat}</span>
+                      <span style={{ fontSize: 11, color: '#6B7280' }}>Subtotal ${g.sub.toLocaleString('es-AR')}</span>
                     </div>
-                    <div style={{ color: a.ok ? '#15803D' : '#B91C1C', fontSize: 12, fontWeight: 700, marginTop: 3, lineHeight: 1.35 }}>
-                      {a.ok
-                        ? '¡Mínimo de compra alcanzado!'
-                        : `Te faltan $${a.falta.toLocaleString('es-AR')} en productos ${a.marca} (tenés $${a.sub.toLocaleString('es-AR')} de $${a.minMonto.toLocaleString('es-AR')})`}
+                    <div style={{ background: '#E5E7EB', borderRadius: 99, height: 7, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', borderRadius: 99, width: `${Math.min(100, Math.round((g.sub / g.min) * 100))}%`, background: g.ok ? '#16A34A' : '#FF6A3D', transition: 'width .4s ease' }} />
+                    </div>
+                    <div style={{ fontSize: 11, fontWeight: 700, marginTop: 5, color: g.ok ? '#15803D' : '#B45309' }}>
+                      {g.ok
+                        ? `✅ Mínimo $${g.min.toLocaleString('es-AR')} alcanzado`
+                        : `⚠️ Faltan $${g.falta.toLocaleString('es-AR')} para el mínimo de $${g.min.toLocaleString('es-AR')}`}
                     </div>
                   </div>
                 ))}
-
-
-                {/* Mínimos generales (se ocultan si hay mínimo por marca, ej FATTZ) */}
-                {alertasMarca.length === 0 && (<>
-                {/* Mínimos bien visibles */}
-                <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-                  <div style={{ flex: 1, background: '#FFF7ED', border: '1.5px solid #FFD7C2', borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
-                    <div style={{ color: '#9A3412', fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Mínimo minorista</div>
-                    <div style={{ color: '#E0521F', fontSize: 18, fontWeight: 900, lineHeight: 1.1 }}>${RETAIL_MIN.toLocaleString('es-AR')}</div>
-                  </div>
-                  <div style={{ flex: 1, background: '#F0FDF4', border: '1.5px solid #BBF7D0', borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
-                    <div style={{ color: '#15803D', fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Mínimo mayorista</div>
-                    <div style={{ color: '#16A34A', fontSize: 18, fontWeight: 900, lineHeight: 1.1 }}>${WHOLESALE_MIN.toLocaleString('es-AR')}</div>
-                  </div>
-                </div>
-
-                {/* Barra de progreso compacta */}
-                {isWholesale ? (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,106,61,0.1)', border: '1px solid rgba(255,106,61,0.35)', borderRadius: 8, padding: '6px 10px', marginBottom: 8 }}>
-                    <span style={{ fontSize: 13 }}>🏆</span>
-                    <span style={{ color: '#92650A', fontWeight: 900, fontSize: 12 }}>¡Precio mayorista activo!</span>
-                  </div>
-                ) : !alcanzaMin ? (
-                  <div style={{ marginBottom: 8 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 11 }}>🛒 Agregá <strong>${faltaMin.toLocaleString('es-AR')}</strong> más para finalizar tu compra</span>
-                    </div>
-                    <div style={{ background: '#E0F2FE', borderRadius: 99, height: 6, overflow: 'hidden' }}>
-                      <motion.div
-                        style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#38BDF8,#0EA5E9)' }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${minProgress}%` }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
-                      />
-                    </div>
-                    <div style={{ color: '#9CA3AF', fontSize: 10, marginTop: 3 }}>Mínimo de compra: ${RETAIL_MIN.toLocaleString('es-AR')}</div>
-                  </div>
-                ) : (
-                  <div style={{ marginBottom: 8 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 11 }}>🛍️ Modo minorista — faltán <strong>${faltaMayorista.toLocaleString('es-AR')}</strong> para mayorista</span>
-                    </div>
-                    <div style={{ background: '#E0F2FE', borderRadius: 99, height: 6, overflow: 'hidden' }}>
-                      <motion.div
-                        style={{ height: '100%', borderRadius: 99, background: 'linear-gradient(90deg,#38BDF8,#0EA5E9)' }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${retailProgress}%` }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
-                      />
-                    </div>
+                {grupos.length > 1 && (
+                  <div style={{ fontSize: 10.5, color: '#6B7280', textAlign: 'center', marginBottom: 8, lineHeight: 1.4 }}>
+                    ℹ️ Cada catálogo tiene su mínimo y se procesa por separado.
                   </div>
                 )}
-                </>)}
+
 
                 {/* Desglose de totales */}
                 <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: 8, marginBottom: 10 }}>
@@ -434,7 +405,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <span style={{ color: '#6B7280', fontSize: 12 }}>Subtotal</span>
                     <span style={{ color: '#111827', fontWeight: 700, fontSize: 12 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
                   </div>
-                  {!isWholesale && alertasMarca.length === 0 && (
+                  {!isWholesale && (
                     <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: 8, padding: '7px 10px', marginBottom: 8, fontSize: 11, color: '#0369A1', lineHeight: 1.45 }}>
                       ℹ️ Precio <strong>minorista</strong>. Comprando <strong>$100.000+</strong> accedés al <strong>precio mayorista</strong>; si no, se suma <strong>+30%</strong> al momento de pagar.
                     </div>
