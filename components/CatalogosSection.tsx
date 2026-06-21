@@ -300,10 +300,9 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               {/* Mínimo de compra por catálogo (todas) — arriba-centro, destacado */}
               <div style={{
                 position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-                background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', color: '#FFFFFF',
-                fontWeight: 900, fontSize: 12.5, padding: '6px 14px', borderRadius: 99,
-                boxShadow: '0 3px 12px rgba(0,0,0,0.55)', zIndex: 9, whiteSpace: 'nowrap',
-                border: '2px solid #FFFFFF', letterSpacing: '0.02em',
+                background: 'transparent', color: '#FFFFFF',
+                fontWeight: 900, fontSize: 15, zIndex: 9, whiteSpace: 'nowrap',
+                letterSpacing: '0.02em', textShadow: '0 1px 4px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)',
               }}>
                 ⚠️ Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
               </div>
