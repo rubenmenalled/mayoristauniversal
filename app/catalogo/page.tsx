@@ -211,6 +211,11 @@ export default function CatalogoPage() {
                       🔜 Próximamente
                     </div>
                   )}
+                  {nombre.toUpperCase() === 'FATTZ IMPORT' && (
+                    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, padding: '7px 14px', borderRadius: 99, boxShadow: '0 3px 12px rgba(0,0,0,0.45)', zIndex: 9, whiteSpace: 'nowrap', border: '1.5px solid #FFD7C2' }}>
+                      ⚠️ Mín. compra $300.000
+                    </div>
+                  )}
                   {!esBanner && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}
                   </div>}
