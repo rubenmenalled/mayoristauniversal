@@ -13,6 +13,11 @@ const MIN_CATEGORIA: Record<string, number> = {
   RELOJES: 12,
 }
 
+// Mínimo de compra en $ por marca/proveedor (solo estas marcas tienen mínimo propio)
+const MIN_MARCA_MONTO: Record<string, number> = {
+  'FATTZ IMPORT': 300000,
+}
+
 interface Props { open: boolean; onClose: () => void }
 
 function buildWAMessage(items: ReturnType<typeof useCart>['items'], isWholesale: boolean): string {
@@ -125,8 +130,18 @@ export default function CartSidebar({ open, onClose }: Props) {
     }
   })
 
+  // Mínimo de compra en $ por marca (ej: FATTZ IMPORT $300.000)
+  const markupActual = isWholesale ? 1 : RETAIL_MARKUP
+  const alertasMarca = (Object.entries(MIN_MARCA_MONTO).map(([marca, minMonto]) => {
+    const its = items.filter(i => (i.brand || '').toUpperCase() === marca.toUpperCase())
+    if (its.length === 0) return null
+    const sub = its.reduce((s, i) => s + Math.round(i.wholesalePrice * markupActual) * i.quantity, 0)
+    return { marca, minMonto, sub, falta: Math.max(0, minMonto - sub), ok: sub >= minMonto }
+  }).filter(Boolean)) as { marca: string; minMonto: number; sub: number; falta: number; ok: boolean }[]
+  const marcaBloquea = alertasMarca.some(a => !a.ok)
+
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
-  const puedeComprar = items.length > 0 && alertasCategorias.length === 0
+  const puedeComprar = items.length > 0 && alertasCategorias.length === 0 && !marcaBloquea
   // Mínimo de compra (suave): se muestra como progreso, no como alerta
   const alcanzaMin = wholesaleTotal >= RETAIL_MIN
   const faltaMin = Math.max(0, RETAIL_MIN - wholesaleTotal)
@@ -343,6 +358,20 @@ export default function CartSidebar({ open, onClose }: Props) {
                 {alertasCategorias.map((msg, i) => (
                   <div key={i} style={{ background: '#FFFBEB', border: '1px solid #FCD34D', borderRadius: 8, padding: '8px 12px', marginBottom: 8, fontSize: 11, color: '#92400E', lineHeight: 1.4 }}>
                     {msg}
+                  </div>
+                ))}
+
+                {/* Cartel destacado: mínimo de compra por proveedor (ej: FATTZ IMPORT) */}
+                {alertasMarca.map((a) => (
+                  <div key={a.marca} style={{ background: a.ok ? '#ECFDF5' : '#FEF2F2', border: `2px solid ${a.ok ? '#16A34A' : '#DC2626'}`, borderRadius: 10, padding: '10px 12px', marginBottom: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: a.ok ? '#15803D' : '#B91C1C', fontWeight: 900, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                      <span>{a.ok ? '✅' : '⚠️'}</span> {a.marca} · mínimo ${a.minMonto.toLocaleString('es-AR')}
+                    </div>
+                    <div style={{ color: a.ok ? '#15803D' : '#B91C1C', fontSize: 12, fontWeight: 700, marginTop: 3, lineHeight: 1.35 }}>
+                      {a.ok
+                        ? '¡Mínimo de compra alcanzado!'
+                        : `Te faltan $${a.falta.toLocaleString('es-AR')} en productos ${a.marca} (tenés $${a.sub.toLocaleString('es-AR')} de $${a.minMonto.toLocaleString('es-AR')})`}
+                    </div>
                   </div>
                 ))}
 

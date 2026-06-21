@@ -482,6 +482,17 @@ export default function CategoriaPage() {
           </button>
         )}
 
+        {/* Cartel destacado: mínimo de compra de FATTZ IMPORT */}
+        {subActiva && subActiva.toUpperCase() === 'FATTZ IMPORT' && (
+          <div style={{ marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
+            <span style={{ fontSize: 26 }}>⚠️</span>
+            <div>
+              <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: $300.000</div>
+              <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Los productos de FATTZ IMPORT se compran por un mínimo de $300.000 en esta categoría.</div>
+            </div>
+          </div>
+        )}
+
         {/* No mostrar productos si estamos en el picker de sub-subcategorías */}
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && !busquedaInterna.trim() ? null : (loading || loadingBusqueda) ? (
           <div style={{ textAlign: 'center', color: '#FFFFFF', padding: 80, fontSize: 16 }}>{loadingBusqueda ? `Buscando "${busquedaInterna}"...` : 'Cargando productos...'}</div>
