@@ -382,6 +382,11 @@ export default function CategoriaPage() {
                       {(sub as any).count} modelos
                     </div>
                   )}
+                  {sub.nombre.toUpperCase() === 'FATTZ IMPORT' && (
+                    <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 6, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', color: '#FFFFFF', fontWeight: 900, fontSize: 10.5, padding: '4px 9px', borderRadius: 99, boxShadow: '0 2px 8px rgba(0,0,0,0.45)', letterSpacing: '0.02em' }}>
+                      ⚠️ Mín. compra $300.000
+                    </div>
+                  )}
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: 4, padding: 12 }}>
                     <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>{sub.nombre}</span>
                     <span style={{ color: '#FF6A3D', fontSize: 12, fontWeight: 700 }}>Ver productos →</span>
