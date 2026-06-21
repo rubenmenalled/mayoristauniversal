@@ -212,7 +212,7 @@ export default function CatalogoPage() {
                       🔜 Próximamente
                     </div>
                   )}
-                  <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', background: 'transparent', color: '#FFFFFF', fontWeight: 900, fontSize: 15, zIndex: 9, whiteSpace: 'nowrap', letterSpacing: '0.02em', textShadow: '0 1px 4px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)' }}>
+                  <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', background: 'transparent', color: '#FFE100', fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap', letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)' }}>
                     ⚠️ Mín. ${minDeCatalogo(nombre).toLocaleString('es-AR')}
                   </div>
                   {!esBanner && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
