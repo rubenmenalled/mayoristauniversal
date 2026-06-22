@@ -383,9 +383,9 @@ export default function CategoriaPage() {
                       {(sub as any).count} modelos
                     </div>
                   )}
-                  {sub.nombre.toUpperCase() === 'FATTZ IMPORT' && (
+                  {['FATTZ IMPORT', 'FITTZ MASCOTAS'].includes(sub.nombre.toUpperCase()) && (
                     <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 6, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', color: '#FFFFFF', fontWeight: 900, fontSize: 10.5, padding: '4px 9px', borderRadius: 99, boxShadow: '0 2px 8px rgba(0,0,0,0.45)', letterSpacing: '0.02em' }}>
-                      ⚠️ Mín. compra $300.000
+                      ⚠️ Mínimo de compra $300.000
                     </div>
                   )}
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: 4, padding: 12 }}>
@@ -492,8 +492,8 @@ export default function CategoriaPage() {
         <div style={{ marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
           <span style={{ fontSize: 26 }}>⚠️</span>
           <div>
-            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${minDeCatalogo(nombreDecoded).toLocaleString('es-AR')}</div>
-            <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Este catálogo se compra por un mínimo de ${minDeCatalogo(nombreDecoded).toLocaleString('es-AR')}.</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${((subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)).toLocaleString('es-AR')}</div>
+            <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Se compra por un mínimo de ${((subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)).toLocaleString('es-AR')}.</div>
           </div>
         </div>
 
