@@ -377,8 +377,8 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 ))}
 
-                {/* Opción A: mínimo de compra por catálogo */}
-                {grupos.map((g) => (
+                {/* Opción A: mínimo de compra por catálogo (no se muestra si el mínimo es 0) */}
+                {grupos.filter(g => g.min > 0).map((g) => (
                   <div key={g.cat} style={{ background: g.ok ? '#ECFDF5' : '#FFF7ED', border: `1.5px solid ${g.ok ? '#86EFAC' : '#FFD7C2'}`, borderRadius: 10, padding: '9px 11px', marginBottom: 8 }}>
                     <div style={{ fontWeight: 900, fontSize: 12, color: g.ok ? '#15803D' : '#9A3412', textTransform: 'uppercase', letterSpacing: '0.02em', lineHeight: 1.25 }}>
                       Mínimo de compra para {g.cat}: ${g.min.toLocaleString('es-AR')}

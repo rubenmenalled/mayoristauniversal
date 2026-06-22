@@ -297,8 +297,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* Mínimo de compra por catálogo (todas) — arriba-centro, destacado */}
-              <div style={{
+              {/* Mínimo de compra por catálogo (oculto si es 0) — arriba-centro, destacado */}
+              {minDeCatalogo(cat.name) > 0 && <div style={{
                 position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)',
                 background: 'transparent', color: '#FF7A3D', textAlign: 'center',
                 fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap',
@@ -308,7 +308,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 {cat.name.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && (
                   <div style={{ fontSize: 12, marginTop: 2 }}>FITTZ MASCOTAS: mínimo $300.000</div>
                 )}
-              </div>
+              </div>}
 
               {/* Emoji flotante — solo si no es banner */}
               {!esBanner && <div style={{
