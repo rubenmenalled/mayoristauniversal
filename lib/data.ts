@@ -7,11 +7,11 @@ export async function getProductos() {
 
 const ORDEN_CATEGORIAS = [
   'PELUCHES',
+  'PELUCHES DE PERSONAJES',
   'JUGUETERIA',
   'BEBÉ',
   'LENCERIA',
   'ARTICULOS X BULTO',
-  'PELUCHES DE PERSONAJES',
   'PERFUMERIA',
   'FATTZ IMPORT',
   'MARROQUINERIA',
