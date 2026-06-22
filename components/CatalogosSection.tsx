@@ -304,7 +304,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap',
                 letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)',
               }}>
-                ⚠️ Mínimo ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
+                ⚠️ Mínimo de compra ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
               </div>
 
               {/* Emoji flotante — solo si no es banner */}
