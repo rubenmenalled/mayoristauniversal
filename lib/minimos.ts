@@ -11,6 +11,7 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'TODO PARA EL DEPORTE': 120000,
   'RELOJES': 120000,
   'DECO CASA': 120000,
+  'PERFUMERIA': 120000,
 }
 
 export function minDeCatalogo(nombre?: string): number {
