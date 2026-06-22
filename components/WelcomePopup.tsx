@@ -19,6 +19,7 @@ export default function WelcomePopup() {
   const close = () => {
     setOpen(false)
     try { sessionStorage.setItem('promo_dn_seen', '1') } catch {}
+    try { window.dispatchEvent(new Event('welcome-closed')) } catch {}
   }
 
   return (
