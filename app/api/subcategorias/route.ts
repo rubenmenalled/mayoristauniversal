@@ -81,6 +81,12 @@ export async function GET(request: NextRequest) {
       // Portadas fijas elegidas a mano (tienen prioridad sobre la primera foto)
       const OVERRIDE_SUB: Record<string, string> = {
         'mochilas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/uc-4e4f3a66c3356e871a17714505755368_white.webp',
+        // HU IMPORT — subcategorías con el banner de la categoría original
+        'herramientas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-herramientas-v2.jpg?v=1',
+        'camping': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-camping-v2.jpg?v=1',
+        'automotor': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-automotor-v2.jpg?v=1',
+        'iluminacion': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-iluminacion-v2.jpg?v=1',
+        'electronica': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-electronica-v2.jpg?v=1',
       }
 
       // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
@@ -93,6 +99,8 @@ export async function GET(request: NextRequest) {
         // MARROQUINERIA — orden lógico
         'CARTERAS': 1, 'MOCHILAS': 2, 'BANDOLERAS': 3, 'RIÑONERAS': 4,
         'BILLETERAS': 5, 'PORTACOSMETICOS': 6, 'BOLSOS MATERNALES': 7,
+        // HU IMPORT — orden de las subcategorías
+        'HERRAMIENTAS': 1, 'CAMPING': 2, 'AUTOMOTOR': 3, 'ILUMINACION': 4, 'ELECTRONICA': 5,
       }
       const ordenadas = merged
         .map((s, i) => ({ s, i }))
