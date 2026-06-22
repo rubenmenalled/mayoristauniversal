@@ -405,7 +405,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                   {!isWholesale && (
                     <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: 8, padding: '7px 10px', marginBottom: 8, fontSize: 11, color: '#0369A1', lineHeight: 1.45 }}>
-                      ℹ️ Precio <strong>minorista</strong>. Comprando <strong>$100.000+</strong> accedés al <strong>precio mayorista</strong>; si no, se suma <strong>+30%</strong> al momento de pagar.
+                      ℹ️ Precio <strong>minorista</strong>. Comprando <strong>${WHOLESALE_MIN.toLocaleString('es-AR')}+</strong> accedés al <strong>precio mayorista</strong>; si no, se suma <strong>+30%</strong> al momento de pagar.
                     </div>
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 6, borderTop: '1px solid #E5E7EB' }}>
@@ -521,7 +521,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                           <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 15 }}>${displayTotal.toLocaleString('es-AR')}</span>
                         </div>
                         <div style={{ color: '#92400E', fontSize: 10, marginTop: 5, lineHeight: 1.4 }}>
-                          💡 Llegando a $100.000 te ahorrás el recargo (precio mayorista).
+                          💡 Llegando a ${WHOLESALE_MIN.toLocaleString('es-AR')} te ahorrás el recargo (precio mayorista).
                         </div>
                       </div>
                     )}
