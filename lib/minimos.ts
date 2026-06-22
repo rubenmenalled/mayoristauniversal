@@ -14,6 +14,11 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'PERFUMERIA': 120000,
 }
 
+// Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
+export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
+  'FITTZ MASCOTAS': 300000,
+}
+
 export function minDeCatalogo(nombre?: string): number {
   return MIN_CATALOGO_OVERRIDE[(nombre || '').trim().toUpperCase()] ?? MIN_CATALOGO_DEFAULT
 }

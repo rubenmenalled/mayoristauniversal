@@ -18,6 +18,7 @@ export interface CartItem {
   quantity: number
   minOrder: number
   category?: string
+  subcategory?: string
 }
 
 // Determina si un producto puntual está en modo mayorista

@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
 import { useCart, RETAIL_MARKUP, RETAIL_MIN, WHOLESALE_MIN, itemIsWholesale } from '@/lib/CartContext'
-import { minDeCatalogo } from '@/lib/minimos'
+import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE } from '@/lib/minimos'
 import { supabase } from '@/lib/supabase'
 import { useState, useEffect, useRef } from 'react'
 
@@ -23,7 +23,8 @@ function buildWAMessage(items: ReturnType<typeof useCart>['items'], isWholesale:
   // Agrupar por catálogo
   const grupos: Record<string, typeof items> = {}
   for (const item of items) {
-    const cat = (item.category || 'OTROS').toUpperCase()
+    const subU = (item.subcategory || '').toUpperCase()
+    const cat = MIN_SUBCATEGORIA_OVERRIDE[subU] != null ? subU : (item.category || 'OTROS').toUpperCase()
     ;(grupos[cat] = grupos[cat] || []).push(item)
   }
   const cats = Object.keys(grupos)
@@ -141,16 +142,19 @@ export default function CartSidebar({ open, onClose }: Props) {
 
   // Opción A: mínimo de compra en $ por catálogo (cada catálogo se compra por separado)
   const markupActual = isWholesale ? 1 : RETAIL_MARKUP
-  const gruposMap: Record<string, { cat: string; sub: number }> = {}
-  items.forEach(i => {
+  const grupoDe = (i: { category?: string; subcategory?: string }) => {
+    const sub = (i.subcategory || '').toUpperCase()
+    if (MIN_SUBCATEGORIA_OVERRIDE[sub] != null) return { label: sub, min: MIN_SUBCATEGORIA_OVERRIDE[sub] }
     const cat = (i.category || 'OTROS').toUpperCase()
-    if (!gruposMap[cat]) gruposMap[cat] = { cat, sub: 0 }
-    gruposMap[cat].sub += Math.round(i.wholesalePrice * markupActual) * i.quantity
+    return { label: cat, min: minDeCatalogo(cat) }
+  }
+  const gruposMap: Record<string, { cat: string; sub: number; min: number }> = {}
+  items.forEach(i => {
+    const { label, min } = grupoDe(i)
+    if (!gruposMap[label]) gruposMap[label] = { cat: label, sub: 0, min }
+    gruposMap[label].sub += Math.round(i.wholesalePrice * markupActual) * i.quantity
   })
-  const grupos = Object.values(gruposMap).map(g => {
-    const min = minDeCatalogo(g.cat)
-    return { ...g, min, ok: g.sub >= min, falta: Math.max(0, min - g.sub) }
-  })
+  const grupos = Object.values(gruposMap).map(g => ({ ...g, ok: g.sub >= g.min, falta: Math.max(0, g.min - g.sub) }))
   const todosCatalogosOk = grupos.length > 0 && grupos.every(g => g.ok)
 
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`

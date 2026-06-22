@@ -684,6 +684,7 @@ export default function CategoriaPage() {
                           image: p.image,
                           minOrder: isDescPor ? 1 : p.minOrder,
                           category: p.category,
+                          subcategory: p.subcategory,
                         })
                       }}>
                       <ShoppingCart size={12} /><TextReveal text="AGREGAR" />
@@ -930,6 +931,7 @@ export default function CategoriaPage() {
                         image: lightbox.image,
                         minOrder: isDescPor ? 1 : lightbox.minOrder,
                         category: lightbox.category,
+                        subcategory: lightbox.subcategory,
                       })
                       setLightbox(null)
                     }}
