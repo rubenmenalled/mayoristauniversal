@@ -376,17 +376,15 @@ export default function CartSidebar({ open, onClose }: Props) {
                 {/* Opción A: mínimo de compra por catálogo */}
                 {grupos.map((g) => (
                   <div key={g.cat} style={{ background: g.ok ? '#ECFDF5' : '#FFF7ED', border: `1.5px solid ${g.ok ? '#86EFAC' : '#FFD7C2'}`, borderRadius: 10, padding: '9px 11px', marginBottom: 8 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
-                      <span style={{ fontWeight: 900, fontSize: 12.5, color: g.ok ? '#15803D' : '#9A3412', textTransform: 'uppercase', letterSpacing: '0.02em' }}>{g.cat}</span>
-                      <span style={{ fontSize: 11, color: '#6B7280' }}>Subtotal ${g.sub.toLocaleString('es-AR')}</span>
+                    <div style={{ fontWeight: 900, fontSize: 12, color: g.ok ? '#15803D' : '#9A3412', textTransform: 'uppercase', letterSpacing: '0.02em', lineHeight: 1.25 }}>
+                      Mínimo de compra para {g.cat}: ${g.min.toLocaleString('es-AR')}
                     </div>
+                    <div style={{ fontSize: 11, color: '#6B7280', margin: '2px 0 6px' }}>Subtotal ${g.sub.toLocaleString('es-AR')}</div>
                     <div style={{ background: '#E5E7EB', borderRadius: 99, height: 7, overflow: 'hidden' }}>
                       <div style={{ height: '100%', borderRadius: 99, width: `${Math.min(100, Math.round((g.sub / g.min) * 100))}%`, background: g.ok ? '#16A34A' : '#FF6A3D', transition: 'width .4s ease' }} />
                     </div>
                     <div style={{ fontSize: 11, fontWeight: 700, marginTop: 5, color: g.ok ? '#15803D' : '#B45309' }}>
-                      {g.ok
-                        ? `✅ Mínimo $${g.min.toLocaleString('es-AR')} alcanzado`
-                        : `⚠️ Faltan $${g.falta.toLocaleString('es-AR')} para el mínimo de $${g.min.toLocaleString('es-AR')}`}
+                      {g.ok ? '✅ ¡Mínimo alcanzado!' : `⚠️ Faltan $${g.falta.toLocaleString('es-AR')}`}
                     </div>
                   </div>
                 ))}
