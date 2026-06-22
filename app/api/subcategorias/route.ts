@@ -85,6 +85,7 @@ export async function GET(request: NextRequest) {
 
       // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
       const ORDEN_SUBS: Record<string, number> = {
+        'PELUCHES ALIMENTOS': 0,
         'MEDIANOS LISOS': 1, 'PELUCHES CHICOS Y MEDIANOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
         'PELUCHES SURTIDOS MARCA BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
         'CUNEROS': 10, 'MOVIL PARA CUNA': 11, 'MOCHILAS Y CARTERAS DE PELUCHE': 12,
