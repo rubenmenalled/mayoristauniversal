@@ -329,7 +329,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 textShadow: '0 1px 3px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)',
                 maxWidth: '70%',
               }}>
-                {cat.name}
+                {cat.name.toUpperCase() === 'BEBÉ' ? 'BEBÉ (Peluches, Juguetes, Blanquería, Accesorios)' : cat.name}
               </div>}
 
               {/* Cantidad de productos (solo si 10+) */}

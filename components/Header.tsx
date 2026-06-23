@@ -327,7 +327,7 @@ export default function Header() {
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '7px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: 6, transition: 'background 0.15s, color 0.15s' }}
                     onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#FF6A3D' }}
                     onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#FFFFFF' }}>
-                    <span style={{ fontSize: 14 }}>{cat.emoji}</span>{cat.nombre}
+                    <span style={{ fontSize: 14 }}>{cat.emoji}</span>{cat.nombre.toUpperCase() === 'BEBÉ' ? 'BEBÉ (Peluches, Juguetes, Blanquería, Accesorios)' : cat.nombre}
                   </a>
                 ))}
             </nav>
