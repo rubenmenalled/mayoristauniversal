@@ -297,17 +297,15 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* Mínimo de compra por catálogo (oculto si es 0) — arriba-centro, destacado */}
+              {/* Mínimo de compra por catálogo (oculto si es 0) — chip discreto arriba-izquierda */}
               {minDeCatalogo(cat.name) > 0 && <div style={{
-                position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)',
-                background: 'transparent', color: '#FF7A3D', textAlign: 'center',
-                fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap',
-                letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)',
+                position: 'absolute', top: 12, left: 12, zIndex: 10,
+                background: 'rgba(255,106,61,0.95)', color: '#0B1E3F',
+                fontWeight: 900, fontSize: 11, padding: '4px 10px', borderRadius: 99,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.3)', whiteSpace: 'nowrap',
               }}>
-                ⚠️ Mínimo de compra ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
-                {cat.name.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && (
-                  <div style={{ fontSize: 12, marginTop: 2 }}>FITTZ MASCOTAS: mínimo $300.000</div>
-                )}
+                Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
+                {cat.name.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && ' · FITTZ $300.000'}
               </div>}
 
               {/* Emoji flotante — solo si no es banner */}
