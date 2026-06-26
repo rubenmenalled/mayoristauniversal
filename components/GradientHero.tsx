@@ -46,9 +46,15 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
   useEffect(() => {
     const el = counterRef.current
     if (!el) return
+    // Si ya está visible al cargar (caso hero), dispara enseguida; si no, espera al scroll.
+    const visible = () => {
+      const r = el.getBoundingClientRect()
+      return r.top < window.innerHeight && r.bottom > 0
+    }
+    if (visible()) { setInView(true); return }
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) setInView(true) }),
-      { threshold: 0.4 }
+      { threshold: 0 }
     )
     io.observe(el)
     return () => io.disconnect()
