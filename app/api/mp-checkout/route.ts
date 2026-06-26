@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
-  const { items, isWholesale } = await request.json()
+  const { items } = await request.json()
   const accessToken = process.env.MP_ACCESS_TOKEN
 
   if (!accessToken) {
@@ -11,9 +11,7 @@ export async function POST(request: NextRequest) {
   }
 
   const mpItems = items.map((item: any) => {
-    const basePrice = isWholesale
-      ? item.wholesalePrice
-      : Math.round(item.wholesalePrice * 1.30)
+    const basePrice = item.wholesalePrice
     const priceWithSurcharge = Math.round(basePrice * 1.10)
     return {
       id: String(item.id),

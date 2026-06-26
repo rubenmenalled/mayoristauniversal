@@ -111,7 +111,7 @@ const MP_WEB = 'https://www.mercadopago.com.ar/activities'
 
 export default function CheckoutPage() {
   const { items, clearCart, displayTotal, wholesaleTotal } = useCart()
-  // total a cobrar = displayTotal (incluye +30% si es minorista; mayorista si llegó a $100.000)
+  // total a cobrar = displayTotal (siempre precio mayorista, sin recargo minorista)
   const total = displayTotal
   const router = useRouter()
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '' })

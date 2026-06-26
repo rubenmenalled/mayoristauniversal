@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
-import { useCart, RETAIL_MARKUP, RETAIL_MIN, WHOLESALE_MIN, itemIsWholesale } from '@/lib/CartContext'
+import { useCart, WHOLESALE_MIN } from '@/lib/CartContext'
 import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE } from '@/lib/minimos'
 import { supabase } from '@/lib/supabase'
 import { useState, useEffect, useRef } from 'react'
@@ -16,10 +16,9 @@ const MIN_CATEGORIA: Record<string, number> = {
 
 interface Props { open: boolean; onClose: () => void }
 
-function buildWAMessage(items: ReturnType<typeof useCart>['items'], isWholesale: boolean): string {
-  const modo = isWholesale ? 'MAYORISTA' : 'MINORISTA'
-  const markup = isWholesale ? 1 : RETAIL_MARKUP
-  let msg = `🛒 *Pedido ${modo} - Mayorista Universal*\n\n`
+function buildWAMessage(items: ReturnType<typeof useCart>['items']): string {
+  const markup = 1
+  let msg = `🛒 *Pedido Mayorista - Mayorista Universal*\n\n`
   // Agrupar por catálogo
   const grupos: Record<string, typeof items> = {}
   for (const item of items) {
@@ -44,9 +43,6 @@ function buildWAMessage(items: ReturnType<typeof useCart>['items'], isWholesale:
   }
   msg += `💰 *Total: $${total.toLocaleString('es-AR')}*`
   if (cats.length > 1) msg += `\n\n_Cada catálogo se procesa y envía por separado._`
-  if (!isWholesale) {
-    msg += `\n_(precio minorista, incluye recargo del ${Math.round((RETAIL_MARKUP - 1) * 100)}%)_`
-  }
   return encodeURIComponent(msg)
 }
 
@@ -141,7 +137,7 @@ export default function CartSidebar({ open, onClose }: Props) {
   })
 
   // Opción A: mínimo de compra en $ por catálogo (cada catálogo se compra por separado)
-  const markupActual = isWholesale ? 1 : RETAIL_MARKUP
+  const markupActual = 1
   const grupoDe = (i: { category?: string; subcategory?: string }) => {
     const sub = (i.subcategory || '').toUpperCase()
     if (MIN_SUBCATEGORIA_OVERRIDE[sub] != null) return { label: sub, min: MIN_SUBCATEGORIA_OVERRIDE[sub] }
@@ -157,7 +153,7 @@ export default function CartSidebar({ open, onClose }: Props) {
   const grupos = Object.values(gruposMap).map(g => ({ ...g, ok: g.sub >= g.min, falta: Math.max(0, g.min - g.sub) }))
   const todosCatalogosOk = grupos.length > 0 && grupos.every(g => g.ok)
 
-  const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items, isWholesale)}`
+  const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items)}`
   const puedeComprar = items.length > 0 && alertasCategorias.length === 0 && todosCatalogosOk
   // Los medios de pago se activan cuando CADA catálogo llega a su mínimo
   const alcanzaMin = todosCatalogosOk
@@ -262,8 +258,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                   : { display: 'grid', gridTemplateColumns: items.length === 1 ? '1fr' : '1fr 1fr', gap: 10 }
                 }>
                   {items.map(item => {
-                    const ws = itemIsWholesale(item, isWholesale)
-                    // El carrito SIEMPRE muestra precio mayorista; el +30% minorista se revela al momento de pagar
+                    // El carrito muestra siempre precio mayorista (venta solo mayorista, sin recargo minorista)
                     const subtotal = item.wholesalePrice * item.quantity
 
                     /* ── MOBILE: fila horizontal compacta ── */
@@ -319,11 +314,9 @@ export default function CartSidebar({ open, onClose }: Props) {
                           {item.image
                             ? <img src={item.image} alt={item.name} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', maxWidth: 'calc(100% - 16px)', maxHeight: 'calc(100% - 16px)' }} />
                             : <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 44 }}>📦</div>}
-                          {/* Badge modo */}
+                          {/* Badge */}
                           <div style={{ position: 'absolute', top: 7, right: 7 }}>
-                            {ws
-                              ? <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4 }}>MAYORISTA</span>
-                              : <span style={{ background: '#DBEAFE', color: '#1E40AF', fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4 }}>MINORISTA</span>}
+                            <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4 }}>MAYORISTA</span>
                           </div>
                           {/* Botón eliminar */}
                           <button onClick={() => removeItem(item.id)}
@@ -407,7 +400,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                   {!isWholesale && (
                     <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: 8, padding: '7px 10px', marginBottom: 8, fontSize: 11, color: '#0369A1', lineHeight: 1.45 }}>
-                      ℹ️ Precio <strong>minorista</strong>. Comprando <strong>${WHOLESALE_MIN.toLocaleString('es-AR')}+</strong> accedés al <strong>precio mayorista</strong>; si no, se suma <strong>+30%</strong> al momento de pagar.
+                      ℹ️ El mínimo de compra es <strong>${WHOLESALE_MIN.toLocaleString('es-AR')}</strong> por catálogo. Seguí sumando productos para finalizar tu pedido.
                     </div>
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 6, borderTop: '1px solid #E5E7EB' }}>
@@ -502,31 +495,11 @@ export default function CartSidebar({ open, onClose }: Props) {
                       <div style={{ background: '#EFF6FF', border: '1.5px solid #BFDBFE', borderRadius: 10, padding: '10px 12px', display: 'flex', alignItems: 'flex-start', gap: 8 }}>
                         <span style={{ fontSize: 16, lineHeight: 1.2 }}>🔒</span>
                         <span style={{ color: '#0369A1', fontWeight: 700, fontSize: 12, lineHeight: 1.4 }}>
-                          Faltan <strong>${faltaMin.toLocaleString('es-AR')}</strong> para llegar al mínimo de <strong>${RETAIL_MIN.toLocaleString('es-AR')}</strong>. Los medios de pago se activan al alcanzarlo.
+                          Faltan <strong>${faltaMin.toLocaleString('es-AR')}</strong> para llegar al mínimo de compra. Los medios de pago se activan al alcanzarlo.
                         </span>
                       </div>
                     )}
 
-                    {/* Desglose del recargo minorista — se revela recién al momento de pagar */}
-                    {alcanzaMin && !isWholesale && (
-                      <div style={{ background: '#FFFBEB', border: '1px solid #FCD34D', borderRadius: 10, padding: '10px 12px', fontSize: 12 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
-                          <span style={{ color: '#6B7280' }}>Subtotal (precio mayorista)</span>
-                          <span style={{ color: '#374151', fontWeight: 700 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
-                          <span style={{ color: '#0369A1' }}>Recargo minorista (+{Math.round((RETAIL_MARKUP - 1) * 100)}%)</span>
-                          <span style={{ color: '#0369A1', fontWeight: 700 }}>+${(displayTotal - wholesaleTotal).toLocaleString('es-AR')}</span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #FDE68A', paddingTop: 4, marginTop: 2 }}>
-                          <span style={{ color: '#111827', fontWeight: 900 }}>Total a pagar</span>
-                          <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 15 }}>${displayTotal.toLocaleString('es-AR')}</span>
-                        </div>
-                        <div style={{ color: '#92400E', fontSize: 10, marginTop: 5, lineHeight: 1.4 }}>
-                          💡 Llegando a ${WHOLESALE_MIN.toLocaleString('es-AR')} te ahorrás el recargo (precio mayorista).
-                        </div>
-                      </div>
-                    )}
 
                     {/* Transferencia / dinero en cuenta — SIN RECARGO (opción recomendada, va arriba) */}
                     <button
