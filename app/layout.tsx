@@ -30,7 +30,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.mayoristauniversal.com'),
   title: 'Mayorista Universal | Compra Mayorista Multirubro Argentina',
-  description: 'Los mejores precios mayoristas en todos los rubros. Más de 20 categorías: indumentaria, bazar, juguetes, electrónica y más. Compra al por mayor en toda Argentina.',
+  description: 'Los mejores precios mayoristas en todos los rubros. Más de 28 categorías: indumentaria, bazar, juguetes, electrónica y más. Compra al por mayor en toda Argentina.',
   keywords: 'mayorista argentina, compra al por mayor, productos mayoristas, mayorista multirubro, venta mayorista argentina',
   verification: {
     google: 'lDQe0hIh43G49tCwjNSEswlsKxwFQDQKjfnEDPq2Glk',
@@ -85,7 +85,7 @@ const jsonLd = {
         height: 512,
       },
       image: 'https://www.mayoristauniversal.com/logo.png',
-      description: 'Distribuidora mayorista multirubro en Argentina. Más de 20 categorías: indumentaria, bazar, juguetes, electrónica y más.',
+      description: 'Distribuidora mayorista multirubro en Argentina. Más de 28 categorías: indumentaria, bazar, juguetes, electrónica y más.',
       areaServed: { '@type': 'Country', name: 'Argentina' },
       contactPoint: {
         '@type': 'ContactPoint',

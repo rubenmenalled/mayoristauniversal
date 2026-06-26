@@ -2,7 +2,7 @@
 
 const messages = [
   '🚚 Envíos a todo el país',
-  '📦 Más de 20 categorías disponibles',
+  '📦 Más de 28 categorías disponibles',
   '💙 Pagá con Mercado Pago',
   '💬 Atención personalizada por WhatsApp',
   '🏷️ Precios mayoristas',
