@@ -575,7 +575,7 @@ export default function CategoriaPage() {
                   </div>
                   <div style={{ padding: 8 }}>
                     {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
-                    {p.location && p.location !== 'Buenos Aires' && (
+                    {p.location && p.location !== 'Buenos Aires' && p.location !== 'POP' && (
                       <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255,106,61,0.15)', border: '1px solid rgba(255,106,61,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
                         <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 9 }}>COD</span>
                         <span style={{ color: '#111827', fontWeight: 700, fontSize: 10 }}>
@@ -861,7 +861,7 @@ export default function CategoriaPage() {
                     </div>
                   )
                 )}
-                {lightbox.location && lightbox.location !== 'Buenos Aires' && !getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder) && (
+                {lightbox.location && lightbox.location !== 'Buenos Aires' && lightbox.location !== 'POP' && !getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder) && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,106,61,0.12)', border: '1px solid rgba(255,106,61,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
                     <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>COD</span>
                     <span style={{ color: '#111827', fontWeight: 800, fontSize: 15 }}>
