@@ -8,6 +8,7 @@ export async function getProductos() {
 const ORDEN_CATEGORIAS = [
   'PELUCHES',
   'PELUCHES DE PERSONAJES',
+  'MULTI-POP',
   'JUGUETERIA',
   'BEBÉ',
   'LENCERIA',
