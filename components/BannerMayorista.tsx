@@ -42,7 +42,7 @@ export default function BannerMayorista() {
   const gold: React.CSSProperties = { color: '#FF8A63' }
   const badge: React.CSSProperties = {
     display: 'inline-block', marginTop: 12,
-    background: '#16A34A', color: '#FFFFFF',
+    background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', color: '#FFFFFF',
     fontWeight: 800, fontSize: 12.5, letterSpacing: '0.04em',
     padding: '5px 16px', borderRadius: 99,
   }
@@ -57,7 +57,7 @@ export default function BannerMayorista() {
           <div style={{ padding: '6px 14px' }}>
             <div style={eyebrow}>💰 Mínimo mayorista surtido</div>
             <p style={big}>desde <span style={gold}>$100.000</span></p>
-            <span style={badge}>✅ SIN RECARGO</span>
+            <span style={badge}>🔥 Precios de importador</span>
           </div>
         </HandDrawnCircle>
       </div>
