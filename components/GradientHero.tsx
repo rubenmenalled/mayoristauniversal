@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { TextReveal } from '@/components/ui/cascade-text'
 
 // Mosaico de rubros (mismas fotos que usan los catálogos)
@@ -19,11 +19,11 @@ const COLLAGE = [
   'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=70', // electronica
 ]
 
-// Cuenta de 0 al objetivo con easing (efecto "reloj digital" que sube solo)
-function useCountUp(target: number, duration = 1800) {
+// Cuenta de 0 al objetivo con easing (efecto "reloj digital"). Arranca cuando start=true.
+function useCountUp(target: number, duration = 1800, start = true) {
   const [val, setVal] = useState(0)
   useEffect(() => {
-    if (!target) { setVal(0); return }
+    if (!start || !target) return
     let raf = 0
     let startTs = 0
     const tick = (now: number) => {
@@ -35,13 +35,26 @@ function useCountUp(target: number, duration = 1800) {
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [target, duration])
+  }, [target, duration, start])
   return val
 }
 
 export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }: { totalProductos?: number; totalCategorias?: number }) {
-  const prodCount = useCountUp(totalProductos, 2200)
-  const catCount = useCountUp(totalCategorias, 1500)
+  // El contador arranca cuando entra en pantalla (IntersectionObserver)
+  const counterRef = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
+  useEffect(() => {
+    const el = counterRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setInView(true) }),
+      { threshold: 0.4 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  const prodCount = useCountUp(totalProductos, 2200, inView)
+  const catCount = useCountUp(totalCategorias, 1500, inView)
 
   // Medimos el alto real del header fijo (escritorio y celular) para que el
   // banner arranque justo debajo, sin franja blanca y sin quedar tapado.
@@ -188,8 +201,8 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
               <TextReveal text="Ver catálogo" />
             </a>
 
-            {/* Contador digital en vivo (sube solo al cargar) */}
-            <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 'clamp(8px,2vw,14px)', justifyContent: 'center', alignItems: 'stretch' }}>
+            {/* Contador digital en vivo (arranca al entrar en pantalla) */}
+            <div ref={counterRef} style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 'clamp(8px,2vw,14px)', justifyContent: 'center', alignItems: 'stretch' }}>
               {[
                 { v: prodCount.toLocaleString('es-AR'), l: 'productos' },
                 { v: catCount.toLocaleString('es-AR'), l: 'categorías' },
@@ -201,9 +214,12 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
                 }}>
                   <div style={{
                     fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace', fontWeight: 900,
-                    fontSize: 'clamp(22px,3.4vw,34px)', color: '#FFFFFF', letterSpacing: '0.04em',
+                    fontSize: 'clamp(22px,3.4vw,34px)', letterSpacing: '0.04em',
                     fontVariantNumeric: 'tabular-nums', lineHeight: 1.1,
-                    textShadow: '0 0 14px rgba(255,106,61,0.85), 0 2px 8px rgba(0,0,0,0.6)',
+                    backgroundImage: 'linear-gradient(180deg,#FFE08A 0%,#FFB347 45%,#FF6A3D 100%)',
+                    WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent', color: 'transparent',
+                    filter: 'drop-shadow(0 0 12px rgba(255,150,60,0.65)) drop-shadow(0 2px 6px rgba(0,0,0,0.5))',
                   }}>{s.v}</div>
                   <div style={{
                     color: 'rgba(255,255,255,0.85)', fontSize: 'clamp(10px,1.4vw,12px)',
