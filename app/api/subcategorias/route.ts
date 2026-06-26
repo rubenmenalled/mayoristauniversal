@@ -78,16 +78,19 @@ export async function GET(request: NextRequest) {
         'peluches surtidos marca bubble': 'https://usimg.k2049.com/files/x/bb5e793a31f0477c88994b2decee6035.jpg',
       }
 
-      // Portadas fijas elegidas a mano (tienen prioridad sobre la primera foto)
+      // Portadas fijas elegidas a mano (tienen prioridad sobre la primera foto).
+      // Clave: "CATEGORIA|subcategoria" para no pisar subcategorías con el mismo
+      // nombre en otra categoría (ej. HERRAMIENTAS existe en HU IMPORT y en MULTI-POP).
       const OVERRIDE_SUB: Record<string, string> = {
-        'mochilas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/uc-4e4f3a66c3356e871a17714505755368_white.webp',
+        'MARROQUINERIA|mochilas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/uc-4e4f3a66c3356e871a17714505755368_white.webp',
         // HU IMPORT — subcategorías con el banner de la categoría original
-        'herramientas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-herramientas-v2.jpg?v=1',
-        'camping': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-camping-v2.jpg?v=1',
-        'automotor': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-automotor-v2.jpg?v=1',
-        'iluminacion': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-iluminacion-v2.jpg?v=1',
-        'electronica': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-electronica-v2.jpg?v=1',
+        'HU IMPORT|herramientas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-herramientas-v2.jpg?v=1',
+        'HU IMPORT|camping': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-camping-v2.jpg?v=1',
+        'HU IMPORT|automotor': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-automotor-v2.jpg?v=1',
+        'HU IMPORT|iluminacion': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-iluminacion-v2.jpg?v=1',
+        'HU IMPORT|electronica': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-electronica-v2.jpg?v=1',
       }
+      const catKey = (categoria || '').toUpperCase()
 
       // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
       const ORDEN_SUBS: Record<string, number> = {
@@ -114,7 +117,7 @@ export async function GET(request: NextRequest) {
 
       const mergedWithImg = ordenadas.map(s => ({
         ...s,
-        preview_image: OVERRIDE_SUB[s.nombre.toLowerCase()] || imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
+        preview_image: OVERRIDE_SUB[`${catKey}|${s.nombre.toLowerCase()}`] || imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
         count: countBySub[s.nombre.toLowerCase()] ?? 0,
       }))
 
