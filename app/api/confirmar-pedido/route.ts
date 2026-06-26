@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
   // Armar lista de productos
   const listaProductos = items.map((item: any) =>
-    `• ${item.brand ? `[${item.brand}] ` : ''}${item.name} x${item.quantity} = $${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}`
+    `• ${item.brand ? `*${item.brand}* — ` : ''}${item.name} x${item.quantity} = $${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}`
   ).join('\n')
 
   const totalFormato = `$${Number(total).toLocaleString('es-AR')}`
@@ -209,6 +209,28 @@ export async function POST(request: NextRequest) {
       })
     } catch (e) {
       console.error('Error Fonnte:', e)
+    }
+
+    // Enviar la FOTO de cada producto al dueño (Fonnte soporta media con 'url')
+    try {
+      const conFoto = items.filter((i: any) => i.image).slice(0, 25)
+      await Promise.allSettled(conFoto.map((item: any) =>
+        fetch('https://api.fonnte.com/send', {
+          method: 'POST',
+          headers: { 'Authorization': FONNTE_TOKEN, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            target: '1164660482',
+            countryCode: '54',
+            url: item.image,
+            message:
+              `${item.brand ? `*${item.brand}*\n` : ''}` +
+              `${item.name}\n` +
+              `x${item.quantity} · $${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}`,
+          }),
+        })
+      ))
+    } catch (e) {
+      console.error('Error Fonnte fotos:', e)
     }
   }
 
