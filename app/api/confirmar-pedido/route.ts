@@ -86,6 +86,7 @@ export async function POST(request: NextRequest) {
       </div>
       <div style="display:table-cell;vertical-align:top;padding-left:14px;">
         <div style="color:#111827;font-size:14px;font-weight:800;line-height:1.3;margin-bottom:4px;">${item.name}</div>
+        ${item.brand ? `<div style="margin-bottom:5px;"><span style="display:inline-block;background:#FFF1EC;color:#FF6A3D;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;padding:2px 8px;border-radius:6px;border:1px solid #FFD9CC;">Marca: ${item.brand}</span></div>` : ''}
         ${item.category ? `<div style="color:#9CA3AF;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">${item.category}</div>` : ''}
         <div style="display:table;width:100%;">
           <div style="display:table-cell;color:#6B7280;font-size:12px;">Unitario: <strong style="color:#374151;">$${Number(item.wholesalePrice).toLocaleString('es-AR')}</strong></div>
