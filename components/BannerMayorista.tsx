@@ -46,13 +46,6 @@ export default function BannerMayorista() {
     fontWeight: 800, fontSize: 12.5, letterSpacing: '0.04em',
     padding: '5px 16px', borderRadius: 99,
   }
-  const divider: React.CSSProperties = {
-    width: 1.5, alignSelf: 'stretch', minHeight: 90,
-    background: 'linear-gradient(transparent, rgba(255,106,61,0.5), transparent)',
-  }
-  const subLabel: React.CSSProperties = { color: '#AEBED6', fontWeight: 600, fontSize: 15, marginBottom: 4 }
-  const subBig: React.CSSProperties = { color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(22px, 4.5vw, 32px)', lineHeight: 1.05, margin: 0 }
-  const note: React.CSSProperties = { color: '#8DA0BC', fontSize: 12.5, marginTop: 8 }
 
   return (
     <section style={wrap}>
@@ -67,22 +60,7 @@ export default function BannerMayorista() {
             <span style={badge}>✅ SIN RECARGO</span>
           </div>
         </HandDrawnCircle>
-
-        <div style={divider} className="banner-divider" />
-
-        {/* Menores */}
-        <div style={{ position: 'relative' }}>
-          <div style={subLabel}>Compras menores a $100.000</div>
-          <p style={subBig}>+ <span style={gold}>30%</span> de recargo</p>
-          <div style={note}>Venta también por unidad · mínimo $40.000</div>
-        </div>
       </div>
-
-      <style>{`
-        @media (max-width: 560px) {
-          .banner-divider { display: none; }
-        }
-      `}</style>
     </section>
   )
 }
