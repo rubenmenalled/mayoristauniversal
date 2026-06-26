@@ -19,7 +19,30 @@ const COLLAGE = [
   'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=70', // electronica
 ]
 
-export default function GradientHero() {
+// Cuenta de 0 al objetivo con easing (efecto "reloj digital" que sube solo)
+function useCountUp(target: number, duration = 1800) {
+  const [val, setVal] = useState(0)
+  useEffect(() => {
+    if (!target) { setVal(0); return }
+    let raf = 0
+    let startTs = 0
+    const tick = (now: number) => {
+      if (!startTs) startTs = now
+      const p = Math.min((now - startTs) / duration, 1)
+      const eased = 1 - Math.pow(1 - p, 3) // easeOutCubic
+      setVal(Math.round(target * eased))
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [target, duration])
+  return val
+}
+
+export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }: { totalProductos?: number; totalCategorias?: number }) {
+  const prodCount = useCountUp(totalProductos, 2200)
+  const catCount = useCountUp(totalCategorias, 1500)
+
   // Medimos el alto real del header fijo (escritorio y celular) para que el
   // banner arranque justo debajo, sin franja blanca y sin quedar tapado.
   // Usamos ResizeObserver porque el header crece cuando carga la barra de
@@ -164,6 +187,36 @@ export default function GradientHero() {
             }}>
               <TextReveal text="Ver catálogo" />
             </a>
+
+            {/* Contador digital en vivo (sube solo al cargar) */}
+            <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 'clamp(8px,2vw,14px)', justifyContent: 'center', alignItems: 'stretch' }}>
+              {[
+                { v: prodCount.toLocaleString('es-AR'), l: 'productos' },
+                { v: catCount.toLocaleString('es-AR'), l: 'categorías' },
+              ].map((s, i) => (
+                <div key={i} style={{
+                  background: 'rgba(0,0,0,0.32)', backdropFilter: 'blur(4px)',
+                  border: '1px solid rgba(255,255,255,0.18)', borderRadius: 12,
+                  padding: '8px 16px', minWidth: 92,
+                }}>
+                  <div style={{
+                    fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace', fontWeight: 900,
+                    fontSize: 'clamp(22px,3.4vw,34px)', color: '#FFFFFF', letterSpacing: '0.04em',
+                    fontVariantNumeric: 'tabular-nums', lineHeight: 1.1,
+                    textShadow: '0 0 14px rgba(255,106,61,0.85), 0 2px 8px rgba(0,0,0,0.6)',
+                  }}>{s.v}</div>
+                  <div style={{
+                    color: 'rgba(255,255,255,0.85)', fontSize: 'clamp(10px,1.4vw,12px)',
+                    fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 2,
+                  }}>{s.l}</div>
+                </div>
+              ))}
+              <div style={{
+                display: 'flex', alignItems: 'center', color: 'rgba(255,255,255,0.92)',
+                fontSize: 'clamp(11px,1.6vw,13px)', fontWeight: 700, padding: '0 6px',
+                textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+              }}>🆕 nuevos cada semana</div>
+            </div>
           </div>
         </div>
       </div>

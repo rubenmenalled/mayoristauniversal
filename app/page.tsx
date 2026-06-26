@@ -9,7 +9,7 @@ import MediosDePago    from '@/components/MediosDePago'
 import FAQ              from '@/components/FAQ'
 import Footer           from '@/components/Footer'
 import Script           from 'next/script'
-import { getCategorias } from '@/lib/data'
+import { getCategorias, getStats } from '@/lib/data'
 
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
@@ -53,6 +53,7 @@ const faqJsonLd = {
 
 export default async function HomePage() {
   const categorias = await getCategorias()
+  const stats = await getStats()
 
   return (
     <>
@@ -64,7 +65,7 @@ export default async function HomePage() {
       />
       <Header />
       <main>
-        <GradientHero />
+        <GradientHero totalProductos={stats.totalProductos} totalCategorias={stats.totalCategorias} />
         <BannerMayorista />
         <HomeRows />
         <CatalogosSection categorias={categorias} />

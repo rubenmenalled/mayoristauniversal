@@ -79,3 +79,20 @@ export async function getCategorias() {
   } catch { return [] }
 }
 
+// Totales en vivo para el contador del hero (se actualizan solos al agregar productos/categorías)
+export async function getStats() {
+  try {
+    const supabase = getAdminClient()
+    const [prodRes, catRes] = await Promise.all([
+      supabase.from('productos').select('id', { count: 'exact', head: true }),
+      supabase.from('categorias').select('id', { count: 'exact', head: true }),
+    ])
+    return {
+      totalProductos: prodRes.count ?? 0,
+      totalCategorias: catRes.count ?? 0,
+    }
+  } catch {
+    return { totalProductos: 0, totalCategorias: 0 }
+  }
+}
+
