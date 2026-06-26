@@ -42,7 +42,7 @@ export default function BannerMayorista() {
   const gold: React.CSSProperties = { color: '#FF8A63' }
   const badge: React.CSSProperties = {
     display: 'inline-block', marginTop: 12,
-    background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', color: '#FFFFFF',
+    background: 'linear-gradient(135deg,#22C55E,#15803D)', color: '#FFFFFF',
     fontWeight: 800, fontSize: 12.5, letterSpacing: '0.04em',
     padding: '5px 16px', borderRadius: 99,
   }
