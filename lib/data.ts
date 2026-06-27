@@ -7,11 +7,11 @@ export async function getProductos() {
 
 const ORDEN_CATEGORIAS = [
   'PELUCHES',
+  'BEBÉ',
   'PELUCHES DE PERSONAJES',
   'MULTI-POP',
   'BAZAR KIK',
   'JUGUETERIA',
-  'BEBÉ',
   'LENCERIA',
   'ARTICULOS X BULTO',
   'PERFUMERIA',

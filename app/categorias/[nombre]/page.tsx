@@ -633,7 +633,7 @@ export default function CategoriaPage() {
                         const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
                         // COTILLON guarda precio UNITARIO (la docena = unitario x minOrder).
                         // El resto de las categorías guarda el precio del pack.
-                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
+                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC'
                         if (esDocena) {
                           titulo = `VENTA POR ${p.minOrder} DOCENAS`
                           precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
@@ -652,7 +652,7 @@ export default function CategoriaPage() {
                             <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
                             <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(() => {
                               const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                              const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
+                              const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC'
                               const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
                               const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
                               return `${label}: $${total.toLocaleString('es-AR')}`
