@@ -297,17 +297,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 </div>
               )}
 
-              {/* Mínimo de compra por catálogo (oculto si es 0) — chip discreto arriba-izquierda */}
-              {minDeCatalogo(cat.name) > 0 && <div style={{
-                position: 'absolute', top: 12, right: 12, zIndex: 10,
-                background: 'rgba(255,106,61,0.95)', color: '#0B1E3F',
-                fontWeight: 900, fontSize: 11, padding: '4px 10px', borderRadius: 99,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.3)', whiteSpace: 'nowrap',
-              }}>
-                Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
-                {cat.name.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && ' · FITTZ $300.000'}
-              </div>}
-
               {/* Emoji flotante — solo si no es banner */}
               {!esBanner && <div style={{
                 position: 'absolute', top: 12, right: 14,
@@ -330,31 +319,37 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 {cat.name.toUpperCase() === 'BEBÉ' ? 'BEBÉ (Peluches, Juguetes, Blanquería, Accesorios)' : cat.name}
               </div>}
 
-              {/* Cantidad de productos (solo si 10+) */}
-              {cat.count >= 10 && !PROXIMAMENTE.has(cat.name.toUpperCase()) && (
+              {/* Franja inferior unificada: VER AQUÍ + (mínimo · modelos), deja el título libre */}
+              {!PROXIMAMENTE.has(cat.name.toUpperCase()) && (
                 <div style={{
-                  position: 'absolute', bottom: 14, right: 14, zIndex: 10,
-                  background: 'rgba(255,106,61,0.95)', color: '#0B1E3F',
-                  fontWeight: 900, fontSize: 11, padding: '4px 10px', borderRadius: 99,
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                  position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 10,
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
+                  padding: '14px 12px 12px',
+                  background: 'linear-gradient(transparent, rgba(11,30,63,0.92) 60%)',
                 }}>
-                  {cat.count} modelos
+                  <span className="cat-ver-mas" style={{
+                    background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
+                    color: '#FFFFFF', fontWeight: 900, fontSize: 12, letterSpacing: '0.1em',
+                    textTransform: 'uppercase', padding: '7px 14px', borderRadius: 99,
+                    boxShadow: '0 3px 12px rgba(255,106,61,0.5)', whiteSpace: 'nowrap',
+                  }}>
+                    VER AQUÍ →
+                  </span>
+                  {(minDeCatalogo(cat.name) > 0 || cat.count >= 10) && (
+                    <span style={{
+                      color: '#FFFFFF', fontWeight: 800, fontSize: 11, textAlign: 'right',
+                      lineHeight: 1.35, textShadow: '0 1px 4px rgba(0,0,0,0.9)',
+                    }}>
+                      {minDeCatalogo(cat.name) > 0 && (
+                        <>Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
+                          {cat.name.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && ' · FITTZ $300.000'}</>
+                      )}
+                      {minDeCatalogo(cat.name) > 0 && cat.count >= 10 && ' · '}
+                      {cat.count >= 10 && `${cat.count} modelos`}
+                    </span>
+                  )}
                 </div>
               )}
-
-              {/* Cartel naranja VER AQUÍ */}
-              <div className="cat-ver-mas" style={{
-                position: 'absolute', bottom: 14, left: 14, zIndex: 10,
-                background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
-                color: '#FFFFFF', fontWeight: 900,
-                fontSize: 12, letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                padding: '7px 16px', borderRadius: 99,
-                boxShadow: '0 3px 12px rgba(255,106,61,0.5)',
-                display: 'flex', alignItems: 'center', gap: 6,
-              }}>
-                <span style={{ color: '#FFFFFF', fontSize: 8 }}>●</span> VER AQUÍ
-              </div>
 
               {/* Borde dorado */}
               <div style={{
