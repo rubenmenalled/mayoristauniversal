@@ -232,27 +232,15 @@ export default function CategoriaPage() {
     ? productosBusqueda
     : porSubSub
 
-  // Alto del header fijo → para pegar el cartel del mínimo justo debajo (sticky)
-  const [stickyTop, setStickyTop] = useState(110)
+  // Barra fija del mínimo: aparece al scrollear (sticky no anda por el overflow del body)
+  const [showFixedMin, setShowFixedMin] = useState(false)
   useEffect(() => {
-    let last = -1
-    const calc = () => {
-      const h = document.querySelector('header') as HTMLElement | null
-      const b = h ? Math.round(h.getBoundingClientRect().bottom) : 0
-      const v = b > 0 ? b : 110
-      if (v !== last) { last = v; setStickyTop(v) }
-    }
-    calc()
-    window.addEventListener('resize', calc)
-    window.addEventListener('scroll', calc, { passive: true })
-    const iv = setInterval(calc, 400)
-    const stop = setTimeout(() => clearInterval(iv), 4000)
-    return () => {
-      window.removeEventListener('resize', calc)
-      window.removeEventListener('scroll', calc)
-      clearInterval(iv); clearTimeout(stop)
-    }
+    const onScroll = () => setShowFixedMin(((document.scrollingElement?.scrollTop) || 0) > 200)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
+  const minVal = (subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>
@@ -511,14 +499,29 @@ export default function CategoriaPage() {
         )}
 
         {/* Cartel destacado: mínimo de compra de esta categoría (oculto si es 0) */}
-        {(((subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)) > 0) && (
-        <div style={{ position: 'sticky', top: stickyTop, zIndex: 30, marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '12px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(11,30,63,0.5)' }}>
+        {minVal > 0 && (
+        <div style={{ marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
           <span style={{ fontSize: 26 }}>⚠️</span>
           <div>
-            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${((subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)).toLocaleString('es-AR')}</div>
-            <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Se compra por un mínimo de ${((subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)).toLocaleString('es-AR')}.</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${minVal.toLocaleString('es-AR')}</div>
+            <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Se compra por un mínimo de ${minVal.toLocaleString('es-AR')}.</div>
           </div>
         </div>
+        )}
+
+        {/* Barra FIJA del mínimo — aparece al scrollear, pegada bajo la barra de avisos (38px) */}
+        {minVal > 0 && (
+          <div style={{
+            position: 'fixed', top: 38, left: 0, right: 0, zIndex: 45,
+            transform: showFixedMin ? 'translateY(0)' : 'translateY(-130%)',
+            transition: 'transform 0.25s ease', pointerEvents: 'none',
+            background: 'linear-gradient(135deg,#FF6A3D,#E0521F)',
+            boxShadow: '0 4px 14px rgba(11,30,63,0.45)',
+            padding: '7px 16px', textAlign: 'center',
+            color: '#FFFFFF', fontWeight: 900, fontSize: 13, letterSpacing: '0.02em',
+          }}>
+            🛒 Mínimo de compra en este catálogo: ${minVal.toLocaleString('es-AR')}
+          </div>
         )}
 
         {/* No mostrar productos si estamos en el picker de sub-subcategorías */}
