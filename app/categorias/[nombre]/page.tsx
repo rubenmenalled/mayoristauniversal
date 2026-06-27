@@ -356,6 +356,19 @@ export default function CategoriaPage() {
         </div>
       )}
 
+      {/* Mínimo de compra — arriba de todo, siempre visible (antes de VER TODOS/subcategorías) */}
+      {minVal > 0 && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 16px 0' }}>
+          <div style={{ background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
+            <span style={{ fontSize: 26 }}>⚠️</span>
+            <div>
+              <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${minVal.toLocaleString('es-AR')}</div>
+              <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Se compra por un mínimo de ${minVal.toLocaleString('es-AR')}.</div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Subcategorías como tarjetas — solo si no hay ninguna activa */}
       {subcategorias.length > 0 && !subActiva && !loading && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
@@ -496,17 +509,6 @@ export default function CategoriaPage() {
             style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,106,61,0.4)', borderRadius: 20, padding: '8px 16px', color: '#FF6A3D', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
             ← Volver a subcategorías
           </button>
-        )}
-
-        {/* Cartel destacado: mínimo de compra de esta categoría (oculto si es 0) */}
-        {minVal > 0 && (
-        <div style={{ marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
-          <span style={{ fontSize: 26 }}>⚠️</span>
-          <div>
-            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${minVal.toLocaleString('es-AR')}</div>
-            <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Se compra por un mínimo de ${minVal.toLocaleString('es-AR')}.</div>
-          </div>
-        </div>
         )}
 
         {/* Barra FIJA del mínimo — aparece al scrollear, pegada bajo la barra de avisos (38px) */}
