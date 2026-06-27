@@ -232,6 +232,28 @@ export default function CategoriaPage() {
     ? productosBusqueda
     : porSubSub
 
+  // Alto del header fijo → para pegar el cartel del mínimo justo debajo (sticky)
+  const [stickyTop, setStickyTop] = useState(110)
+  useEffect(() => {
+    let last = -1
+    const calc = () => {
+      const h = document.querySelector('header') as HTMLElement | null
+      const b = h ? Math.round(h.getBoundingClientRect().bottom) : 0
+      const v = b > 0 ? b : 110
+      if (v !== last) { last = v; setStickyTop(v) }
+    }
+    calc()
+    window.addEventListener('resize', calc)
+    window.addEventListener('scroll', calc, { passive: true })
+    const iv = setInterval(calc, 400)
+    const stop = setTimeout(() => clearInterval(iv), 4000)
+    return () => {
+      window.removeEventListener('resize', calc)
+      window.removeEventListener('scroll', calc)
+      clearInterval(iv); clearTimeout(stop)
+    }
+  }, [])
+
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
@@ -490,7 +512,7 @@ export default function CategoriaPage() {
 
         {/* Cartel destacado: mínimo de compra de esta categoría (oculto si es 0) */}
         {(((subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)) > 0) && (
-        <div style={{ marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
+        <div style={{ position: 'sticky', top: stickyTop, zIndex: 30, marginBottom: 22, background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '12px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(11,30,63,0.5)' }}>
           <span style={{ fontSize: 26 }}>⚠️</span>
           <div>
             <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra: ${((subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)).toLocaleString('es-AR')}</div>
