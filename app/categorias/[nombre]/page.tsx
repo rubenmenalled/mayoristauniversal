@@ -756,7 +756,7 @@ export default function CategoriaPage() {
                       onClick={() => {
                         const cat = (p.category ?? '').toUpperCase()
                         const sub = (p.subcategory ?? '').toUpperCase()
-                        const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO'
+                        const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || sub === 'TOYS.AR'
                         const isDescPor = p.descripcion?.startsWith('PRECIO POR')
                         const dividir = !isDescPor && !esU && p.minOrder > 1
                         addItem({
@@ -1003,7 +1003,7 @@ export default function CategoriaPage() {
                     onClick={() => {
                       const cat = (lightbox.category ?? '').toUpperCase()
                       const sub = (lightbox.subcategory ?? '').toUpperCase()
-                      const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO'
+                      const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || sub === 'TOYS.AR'
                       const isDescPor = lightbox.descripcion?.startsWith('PRECIO POR')
                       const dividir = !isDescPor && !esU && lightbox.minOrder > 1
                       addItem({
