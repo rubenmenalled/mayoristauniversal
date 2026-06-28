@@ -242,6 +242,16 @@ export default function CategoriaPage() {
   }, [])
   const minVal = (subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)
 
+  // Cuenta regresiva Día del Niño (16 de agosto) — solo catálogos de niños
+  const esNino = ['PELUCHES', 'PELUCHES DE PERSONAJES', 'BEBÉ', 'JUGUETERIA'].includes(nombreDecoded.toUpperCase())
+  const [diasNino, setDiasNino] = useState<number | null>(null)
+  useEffect(() => {
+    const target = new Date(2026, 7, 16) // 16 ago 2026
+    const now = new Date()
+    const hoy = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    setDiasNino(Math.max(0, Math.ceil((target.getTime() - hoy.getTime()) / 86400000)))
+  }, [])
+
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>
       {/* Header — debajo del AnnouncementBar (38px fijo) */}
@@ -352,6 +362,25 @@ export default function CategoriaPage() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Cuenta regresiva Día del Niño — catálogos de niños */}
+      {esNino && diasNino !== null && diasNino > 0 && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 16px 0' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(8px,2vw,16px)', flexWrap: 'wrap',
+            background: 'linear-gradient(135deg,#FF6A3D 0%,#FF4D8D 55%,#7C3AED 100%)',
+            borderRadius: 14, padding: '12px 18px', boxShadow: '0 6px 20px rgba(124,58,237,0.32)', textAlign: 'center',
+          }}>
+            <span style={{ fontSize: 26 }}>🎁</span>
+            <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px,2.2vw,20px)', letterSpacing: '0.02em' }}>
+              ¡Faltan{' '}
+              <span style={{ background: '#FFFFFF', color: '#E0327A', padding: '2px 12px', borderRadius: 99, fontWeight: 900, fontSize: 'clamp(17px,2.6vw,24px)' }}>{diasNino} días</span>
+              {' '}para el DÍA DEL NIÑO!
+            </span>
+            <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 'clamp(11px,1.6vw,13px)', opacity: 0.96 }}>📅 16 de agosto · ¡Armá tu pedido!</span>
           </div>
         </div>
       )}
