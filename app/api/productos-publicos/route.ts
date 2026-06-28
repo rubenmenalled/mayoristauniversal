@@ -37,8 +37,15 @@ export async function GET(request: NextRequest) {
   if (idList.length) query = query.in('id', idList)
 
   if (q) {
+    // Búsqueda insensible a tildes (regex imatch): "corazon" también encuentra "corazón"
+    const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const ac: Record<string, string> = {
+      a: '[aáà]', e: '[eéè]', i: '[iíì]', o: '[oóò]', u: '[uúùü]', n: '[nñ]',
+      'á': '[aáà]', 'é': '[eéè]', 'í': '[iíì]', 'ó': '[oóò]', 'ú': '[uúùü]', 'ñ': '[nñ]',
+    }
+    const pat = Array.from(esc.toLowerCase()).map(c => ac[c] || c).join('')
     query = query.or(
-      `nombre.ilike.%${q}%,marca.ilike.%${q}%,subcategoria.ilike.%${q}%,descripcion.ilike.%${q}%,ubicacion.ilike.%${q}%`
+      `nombre.imatch.${pat},marca.imatch.${pat},subcategoria.imatch.${pat},descripcion.imatch.${pat},ubicacion.imatch.${pat}`
     )
   } else if (destacados) {
     query = (query as any).limit(20)
