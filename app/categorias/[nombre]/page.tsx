@@ -668,7 +668,9 @@ export default function CategoriaPage() {
                           precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
                         } else {
                           titulo = `PRECIO POR ${p.minOrder} UNIDADES`
-                          precioUnit = `$${(esCot ? p.wholesalePrice : Math.round(p.wholesalePrice / p.minOrder)).toLocaleString('es-AR')} c/u`
+                          const setQ = ((p.name ?? '').match(/set\s*x\s*(\d+)/i) || [])[1]
+                          const u = esCot ? p.wholesalePrice : Math.round(p.wholesalePrice / p.minOrder)
+                          precioUnit = `$${u.toLocaleString('es-AR')} ${setQ ? `por set de ${setQ}` : 'c/u'}`
                         }
                       }
 
@@ -959,7 +961,7 @@ export default function CategoriaPage() {
                         {lightbox.minOrder > 1 && (
                           <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: 8 }}>
                             <div style={{ color: '#92400E', fontSize: 12, fontWeight: 900 }}>{esDocena ? `VENTA POR ${lightbox.minOrder} DOCENAS` : `PRECIO POR ${lightbox.minOrder} UNIDADES`}</div>
-                            <div style={{ color: '#111', fontSize: 15, fontWeight: 900, marginTop: 2 }}>${cu.toLocaleString('es-AR')} {esDocena ? 'la docena' : 'c/u'}</div>
+                            <div style={{ color: '#111', fontSize: 15, fontWeight: 900, marginTop: 2 }}>${cu.toLocaleString('es-AR')} {esDocena ? 'la docena' : (((lightbox.name ?? '').match(/set\s*x\s*(\d+)/i) || [])[1] ? `por set de ${((lightbox.name ?? '').match(/set\s*x\s*(\d+)/i) || [])[1]}` : 'c/u')}</div>
                             <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 700, marginTop: 2 }}>{esDocena ? `EL BULTO (${lightbox.minOrder} DOCENAS)` : esBulto ? `EL BULTO X${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'LA DOCENA' : `PACK X ${lightbox.minOrder}`}: ${packTotal.toLocaleString('es-AR')}</div>
                           </div>
                         )}
