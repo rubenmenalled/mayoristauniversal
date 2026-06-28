@@ -94,6 +94,7 @@ export async function GET(request: NextRequest) {
 
       // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
       const ORDEN_SUBS: Record<string, number> = {
+        'INFAC-TEC': -2,
         'PELUCHES POP': -1,
         'PELUCHES ALIMENTOS': 0,
         'MEDIANOS LISOS': 1, 'PELUCHES CHICOS Y MEDIANOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
