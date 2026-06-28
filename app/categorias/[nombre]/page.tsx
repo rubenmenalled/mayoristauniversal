@@ -245,11 +245,13 @@ export default function CategoriaPage() {
   // Cuenta regresiva Día del Niño (16 de agosto) — solo catálogos de niños
   const esNino = ['PELUCHES', 'PELUCHES DE PERSONAJES', 'BEBÉ', 'JUGUETERIA'].includes(nombreDecoded.toUpperCase())
   const [diasNino, setDiasNino] = useState<number | null>(null)
+  const [diasAmigo, setDiasAmigo] = useState<number | null>(null)
   useEffect(() => {
-    const target = new Date(2026, 7, 16) // 16 ago 2026
     const now = new Date()
     const hoy = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    setDiasNino(Math.max(0, Math.ceil((target.getTime() - hoy.getTime()) / 86400000)))
+    const dias = (d: Date) => Math.max(0, Math.ceil((d.getTime() - hoy.getTime()) / 86400000))
+    setDiasNino(dias(new Date(2026, 7, 16)))  // 16 ago 2026
+    setDiasAmigo(dias(new Date(2026, 6, 20))) // 20 jul 2026
   }, [])
 
   return (
@@ -362,6 +364,25 @@ export default function CategoriaPage() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Cuenta regresiva Día del Amigo — TODOS los catálogos */}
+      {diasAmigo !== null && diasAmigo > 0 && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 16px 0' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(8px,2vw,16px)', flexWrap: 'wrap',
+            background: 'linear-gradient(135deg,#0EA5E9 0%,#14B8A6 55%,#22C55E 100%)',
+            borderRadius: 14, padding: '12px 18px', boxShadow: '0 6px 20px rgba(13,148,136,0.32)', textAlign: 'center',
+          }}>
+            <span style={{ fontSize: 26 }}>🤝</span>
+            <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px,2.2vw,20px)', letterSpacing: '0.02em' }}>
+              ¡Faltan{' '}
+              <span style={{ background: '#FFFFFF', color: '#0E7490', padding: '2px 12px', borderRadius: 99, fontWeight: 900, fontSize: 'clamp(17px,2.6vw,24px)' }}>{diasAmigo} días</span>
+              {' '}para el DÍA DEL AMIGO!
+            </span>
+            <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 'clamp(11px,1.6vw,13px)', opacity: 0.96 }}>📅 20 de julio · ¡Armá tu pedido!</span>
           </div>
         </div>
       )}
