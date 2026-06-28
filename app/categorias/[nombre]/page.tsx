@@ -683,7 +683,7 @@ export default function CategoriaPage() {
                               const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
                               const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR'
                               const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
-                              const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : ((p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR') ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
+                              const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : (p.subcategory ?? '').toUpperCase() === 'TOYS.AR' ? `PACK X ${p.minOrder}` : (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
                               return `${label}: $${total.toLocaleString('es-AR')}`
                             })()}</div>
                           </div>
@@ -960,12 +960,12 @@ export default function CategoriaPage() {
                           <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 8, padding: '8px 12px', marginBottom: 8 }}>
                             <div style={{ color: '#92400E', fontSize: 12, fontWeight: 900 }}>{esDocena ? `VENTA POR ${lightbox.minOrder} DOCENAS` : `PRECIO POR ${lightbox.minOrder} UNIDADES`}</div>
                             <div style={{ color: '#111', fontSize: 15, fontWeight: 900, marginTop: 2 }}>${cu.toLocaleString('es-AR')} {esDocena ? 'la docena' : 'c/u'}</div>
-                            <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 700, marginTop: 2 }}>{esDocena ? `EL BULTO (${lightbox.minOrder} DOCENAS)` : esBulto ? `EL BULTO X${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'LA DOCENA' : `PACK X ${lightbox.minOrder}`}: ${packTotal.toLocaleString('es-AR')}</div>
+                            <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 700, marginTop: 2 }}>{esDocena ? `EL BULTO (${lightbox.minOrder} DOCENAS)` : (lightbox.subcategory ?? '').toUpperCase() === 'TOYS.AR' ? `PACK X ${lightbox.minOrder}` : esBulto ? `EL BULTO X${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'LA DOCENA' : `PACK X ${lightbox.minOrder}`}: ${packTotal.toLocaleString('es-AR')}</div>
                           </div>
                         )}
                         <div style={{ color: '#FF6A3D', fontWeight: 900, fontSize: isMobile ? 26 : 22 }}>
                           ${(lightbox.minOrder > 1 ? packTotal : lightbox.wholesalePrice).toLocaleString('es-AR')}
-                          {lightbox.minOrder > 1 && <span style={{ fontSize: 13, fontWeight: 600, color: '#92400E', marginLeft: 6 }}>{esDocena ? `el bulto (${lightbox.minOrder} docenas)` : esBulto ? `el bulto x${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'la docena' : `el pack x ${lightbox.minOrder}`}</span>}
+                          {lightbox.minOrder > 1 && <span style={{ fontSize: 13, fontWeight: 600, color: '#92400E', marginLeft: 6 }}>{esDocena ? `el bulto (${lightbox.minOrder} docenas)` : (lightbox.subcategory ?? '').toUpperCase() === 'TOYS.AR' ? `el pack x ${lightbox.minOrder}` : esBulto ? `el bulto x${lightbox.minOrder}` : lightbox.minOrder === 12 ? 'la docena' : `el pack x ${lightbox.minOrder}`}</span>}
                         </div>
                       </>
                     )
