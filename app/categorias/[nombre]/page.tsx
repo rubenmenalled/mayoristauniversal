@@ -382,7 +382,7 @@ export default function CategoriaPage() {
               <span style={{ background: '#FFFFFF', color: '#0E7490', padding: '2px 12px', borderRadius: 99, fontWeight: 900, fontSize: 'clamp(17px,2.6vw,24px)' }}>{diasAmigo} días</span>
               {' '}para el DÍA DEL AMIGO!
             </span>
-            <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 'clamp(11px,1.6vw,13px)', opacity: 0.96 }}>📅 20 de julio · ¡Armá tu pedido!</span>
+            <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 'clamp(11px,1.6vw,13px)', opacity: 0.96 }}>⏰ 20 de julio · ¡Armá tu pedido!</span>
           </div>
         </div>
       )}
@@ -401,7 +401,7 @@ export default function CategoriaPage() {
               <span style={{ background: '#FFFFFF', color: '#E0327A', padding: '2px 12px', borderRadius: 99, fontWeight: 900, fontSize: 'clamp(17px,2.6vw,24px)' }}>{diasNino} días</span>
               {' '}para el DÍA DEL NIÑO!
             </span>
-            <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 'clamp(11px,1.6vw,13px)', opacity: 0.96 }}>📅 16 de agosto · ¡Armá tu pedido!</span>
+            <span style={{ color: '#FFFFFF', fontWeight: 800, fontSize: 'clamp(11px,1.6vw,13px)', opacity: 0.96 }}>⏰ 16 de agosto · ¡Armá tu pedido!</span>
           </div>
         </div>
       )}
