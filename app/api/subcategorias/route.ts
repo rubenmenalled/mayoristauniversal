@@ -61,8 +61,8 @@ export async function GET(request: NextRequest) {
           if (imgData.length > 0 && imgData[0].imagen) {
             imgBySub[s.nombre.toLowerCase()] = imgData[0].imagen.split('|')[0]
           }
-          // cantidad
-          const urlCount = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=ilike.${encodeURIComponent(s.nombre)}&select=id`
+          // cantidad (solo productos visibles, no los ocultos)
+          const urlCount = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=ilike.${encodeURIComponent(s.nombre)}&or=(badge.is.null,badge.neq.OCULTO)&select=id`
           const resCount = await fetch(urlCount, {
             headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}`, Prefer: 'count=exact', Range: '0-0' },
             cache: 'no-store',
@@ -127,11 +127,14 @@ export async function GET(request: NextRequest) {
         })
         .map(x => x.s)
 
-      const mergedWithImg = ordenadas.map(s => ({
-        ...s,
-        preview_image: OVERRIDE_SUB[`${catKey}|${s.nombre.toLowerCase()}`] || imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
-        count: countBySub[s.nombre.toLowerCase()] ?? 0,
-      }))
+      const mergedWithImg = ordenadas
+        .map(s => ({
+          ...s,
+          preview_image: OVERRIDE_SUB[`${catKey}|${s.nombre.toLowerCase()}`] || imgBySub[s.nombre.toLowerCase()] || HARDCODED_IMGS[s.nombre.toLowerCase()] || '',
+          count: countBySub[s.nombre.toLowerCase()] ?? 0,
+        }))
+        // Ocultar subcategorías sin productos visibles (ej. marca oculta)
+        .filter(s => s.count > 0)
 
       return NextResponse.json(mergedWithImg, {
         headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' }

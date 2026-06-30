@@ -61,10 +61,13 @@ export async function getCategorias() {
     if (error || !data) return []
 
     const mapped = await Promise.all(data.map(async (c: any) => {
+      // Contar solo productos VISIBLES (no los ocultos), para no mostrar
+      // categorías vacías ni contadores inflados.
       const { count } = await supabase
         .from('productos')
         .select('id', { count: 'exact', head: true })
         .ilike('categoria', c.nombre)
+        .or('badge.is.null,badge.neq.OCULTO')
       return {
         id:          c.id,
         name:        c.nombre,
@@ -76,7 +79,8 @@ export async function getCategorias() {
       }
     }))
 
-    return sortCategorias(mapped)
+    // Ocultar categorías sin productos visibles (ej. si se ocultó toda una marca)
+    return sortCategorias(mapped.filter(c => c.count > 0))
   } catch { return [] }
 }
 
