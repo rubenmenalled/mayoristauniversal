@@ -49,10 +49,11 @@ export async function GET(request: NextRequest) {
       const esc = s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
       return Array.from(esc.toLowerCase()).map(c => ac[c] || c).join('')
     }
+    const stripAcc = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     let tokens = q
       .split(/\s+/)
       .map(t => t.replace(/^[^0-9A-Za-zÁÉÍÓÚÑáéíóúñ]+|[^0-9A-Za-zÁÉÍÓÚÑáéíóúñ-]+$/g, '').trim())
-      .filter(t => t.length >= 2 && !NOISE.has(t.toLowerCase()))
+      .filter(t => t.length >= 2 && !NOISE.has(stripAcc(t)))
     if (tokens.length === 0) tokens = [q.trim()]
     tokens = tokens.slice(0, 8) // tope de seguridad
     for (const t of tokens) {
