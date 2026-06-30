@@ -84,6 +84,7 @@ export async function GET(request: NextRequest) {
       const OVERRIDE_SUB: Record<string, string> = {
         'MARROQUINERIA|mochilas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/uc-4e4f3a66c3356e871a17714505755368_white.webp',
         'PELUCHES|city land': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-cityland.jpg?v=1',
+        'TENDENCIAS|jugueteria': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
         // HU IMPORT — subcategorías con el banner de la categoría original
         'HU IMPORT|herramientas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-herramientas-v2.jpg?v=1',
         'HU IMPORT|camping': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-camping-v2.jpg?v=1',
