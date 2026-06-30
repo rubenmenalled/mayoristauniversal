@@ -12,14 +12,20 @@ export async function GET(request: NextRequest) {
     const categoria = searchParams.get('categoria')
 
     if (categoria) {
-      // 1) Subcategorías desde productos (las que ya tienen productos asignados)
-      const urlProds = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=neq.&select=subcategoria`
-      const resProds = await fetch(urlProds, {
-        headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
-        cache: 'no-store',
-      })
-      const prodsData: { subcategoria: string }[] = resProds.ok ? await resProds.json() : []
-      const fromProds = new Set(prodsData.map(p => p.subcategoria).filter(Boolean) as string[])
+      // 1) Subcategorías desde productos (las que ya tienen productos asignados).
+      // Paginado: una categoría puede tener >1000 productos (límite de PostgREST),
+      // así que recorremos en bloques para no perder subcategorías.
+      const fromProds = new Set<string>()
+      for (let offset = 0; offset < 20000; offset += 1000) {
+        const urlProds = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=neq.&select=subcategoria&offset=${offset}&limit=1000`
+        const resProds = await fetch(urlProds, {
+          headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
+          cache: 'no-store',
+        })
+        const chunk: { subcategoria: string }[] = resProds.ok ? await resProds.json() : []
+        chunk.forEach(p => { if (p.subcategoria) fromProds.add(p.subcategoria) })
+        if (chunk.length < 1000) break
+      }
 
       // 2) Subcategorías desde la tabla subcategorias (aunque no tengan productos aún)
       const urlCat = `${SUPABASE_URL}/rest/v1/categorias?nombre=ilike.${encodeURIComponent(categoria)}&select=id`
