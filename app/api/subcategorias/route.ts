@@ -105,6 +105,8 @@ export async function GET(request: NextRequest) {
         'CUIDADO PERSONAL': -5,
         'ELECTRODOMESTICOS': -4,
         'VARIOS': 999,
+        // JUGUETERIA: JUGUETES primero
+        'JUGUETES': -3,
         'PELUCHES ALIMENTOS': 0,
         'MEDIANOS LISOS': 1, 'PELUCHES CHICOS Y MEDIANOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
         'PELUCHES SURTIDOS MARCA BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
