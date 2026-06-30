@@ -345,7 +345,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                           {cat.name.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && ' · FITTZ $300.000'}</>
                       )}
                       {minDeCatalogo(cat.name) > 0 && cat.count >= 10 && ' · '}
-                      {cat.count >= 10 && `${cat.count} modelos`}
+                      {cat.count >= 10 && `${cat.count} artículos`}
                     </span>
                   )}
                 </div>

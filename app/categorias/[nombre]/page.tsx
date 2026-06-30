@@ -453,7 +453,7 @@ export default function CategoriaPage() {
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
                   {((sub as any).count ?? 0) >= 10 && (
                     <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 5, background: 'rgba(255,106,61,0.95)', color: '#0B1E3F', fontWeight: 900, fontSize: 10, padding: '3px 8px', borderRadius: 99, boxShadow: '0 2px 6px rgba(0,0,0,0.35)' }}>
-                      {(sub as any).count} modelos
+                      {(sub as any).count} artículos
                     </div>
                   )}
                   {['FATTZ IMPORT', 'FITTZ MASCOTAS'].includes(sub.nombre.toUpperCase()) && (
