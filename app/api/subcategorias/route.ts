@@ -99,6 +99,9 @@ export async function GET(request: NextRequest) {
       const ORDEN_SUBS: Record<string, number> = {
         'INFAC-TEC': -2,
         'PELUCHES POP': -1,
+        // TENDENCIAS: orden pedido
+        'CUIDADO PERSONAL': -5,
+        'ELECTRODOMESTICOS': -4,
         'VARIOS': 999,
         'PELUCHES ALIMENTOS': 0,
         'MEDIANOS LISOS': 1, 'PELUCHES CHICOS Y MEDIANOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
