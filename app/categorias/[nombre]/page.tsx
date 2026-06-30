@@ -269,7 +269,7 @@ export default function CategoriaPage() {
               style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#FF6A3D', fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
               <ArrowLeft size={16} /> Inicio
             </button>
-            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, flex: 1 }}>{nombreDecoded.toUpperCase() === 'BEBÉ' ? 'BEBÉ (Peluches, Juguetes, Blanquería, Accesorios)' : nombreDecoded}</div>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, flex: 1 }}>{nombreDecoded}</div>
             <a href="/catalogo" style={{
               display: 'flex', alignItems: 'center', gap: 6,
               background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
