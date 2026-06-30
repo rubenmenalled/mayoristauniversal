@@ -37,16 +37,30 @@ export async function GET(request: NextRequest) {
   if (idList.length) query = query.in('id', idList)
 
   if (q) {
-    // Búsqueda insensible a tildes (regex imatch): "corazon" también encuentra "corazón"
-    const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    // Búsqueda por palabras (AND) e insensible a tildes (regex imatch).
+    // Cada palabra debe aparecer en algún campo → encuentra el producto aunque
+    // se pegue el texto completo ("AUTO ... CÓDIGO: 302715"). Ignora palabras de relleno.
     const ac: Record<string, string> = {
       a: '[aáà]', e: '[eéè]', i: '[iíì]', o: '[oóò]', u: '[uúùü]', n: '[nñ]',
       'á': '[aáà]', 'é': '[eéè]', 'í': '[iíì]', 'ó': '[oóò]', 'ú': '[uúùü]', 'ñ': '[nñ]',
     }
-    const pat = Array.from(esc.toLowerCase()).map(c => ac[c] || c).join('')
-    query = query.or(
-      `nombre.imatch.${pat},marca.imatch.${pat},subcategoria.imatch.${pat},descripcion.imatch.${pat},ubicacion.imatch.${pat}`
-    )
+    const NOISE = new Set(['codigo', 'cod', 'sku', 'articulo', 'art', 'el', 'la', 'los', 'las', 'de', 'del', 'y', 'con', 'para', 'por'])
+    const accentPat = (s: string) => {
+      const esc = s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      return Array.from(esc.toLowerCase()).map(c => ac[c] || c).join('')
+    }
+    let tokens = q
+      .split(/\s+/)
+      .map(t => t.replace(/^[^0-9A-Za-zÁÉÍÓÚÑáéíóúñ]+|[^0-9A-Za-zÁÉÍÓÚÑáéíóúñ-]+$/g, '').trim())
+      .filter(t => t.length >= 2 && !NOISE.has(t.toLowerCase()))
+    if (tokens.length === 0) tokens = [q.trim()]
+    tokens = tokens.slice(0, 8) // tope de seguridad
+    for (const t of tokens) {
+      const pat = accentPat(t)
+      query = query.or(
+        `nombre.imatch.${pat},marca.imatch.${pat},subcategoria.imatch.${pat},descripcion.imatch.${pat},ubicacion.imatch.${pat}`
+      )
+    }
   } else if (destacados) {
     query = (query as any).limit(20)
   } else if (idList.length) {
