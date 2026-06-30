@@ -66,7 +66,7 @@ export default async function HomePage() {
       />
       <Header />
       <main>
-        <GradientHero totalProductos={stats.totalProductos} totalCategorias={stats.totalCategorias} />
+        <GradientHero totalProductos={stats.totalProductos} totalCategorias={categorias.length} />
         <CountdownBanners />
         <BannerMayorista />
         <HomeRows />

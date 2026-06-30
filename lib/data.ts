@@ -84,20 +84,21 @@ export async function getCategorias() {
   } catch { return [] }
 }
 
-// Totales en vivo para el contador del hero (se actualizan solos al agregar productos/categorías)
+// Totales en vivo para el contador del hero. Cuenta SOLO productos visibles
+// (excluye los ocultos/badge OCULTO). Las categorías visibles se calculan aparte
+// en la home con getCategorias().length (ya filtra las vacías).
 export async function getStats() {
   try {
     const supabase = getAdminClient()
-    const [prodRes, catRes] = await Promise.all([
-      supabase.from('productos').select('id', { count: 'exact', head: true }),
-      supabase.from('categorias').select('id', { count: 'exact', head: true }),
-    ])
+    const { count } = await supabase
+      .from('productos')
+      .select('id', { count: 'exact', head: true })
+      .or('badge.is.null,badge.neq.OCULTO')
     return {
-      totalProductos: prodRes.count ?? 0,
-      totalCategorias: catRes.count ?? 0,
+      totalProductos: count ?? 0,
     }
   } catch {
-    return { totalProductos: 0, totalCategorias: 0 }
+    return { totalProductos: 0 }
   }
 }
 
