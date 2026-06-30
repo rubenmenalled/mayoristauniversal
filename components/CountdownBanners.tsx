@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import ShaderBg from './ShaderBg'
 
 // Fechas objetivo (mes 0-indexado: 6=julio, 7=agosto)
 const EVENTOS = [
@@ -11,7 +12,7 @@ const EVENTOS = [
     fecha: '20 jul',
     target: new Date(2026, 6, 20),
     accent: '#38BDF8',
-    glow: 'rgba(56,189,248,0.25)',
+    tint: 'linear-gradient(100deg, rgba(13,44,84,0.82) 0%, rgba(29,78,216,0.55) 55%, rgba(22,163,74,0.45) 100%)',
   },
   {
     key: 'nino',
@@ -20,7 +21,7 @@ const EVENTOS = [
     fecha: '16 ago',
     target: new Date(2026, 7, 16),
     accent: '#F472B6',
-    glow: 'rgba(244,114,182,0.25)',
+    tint: 'linear-gradient(100deg, rgba(13,44,84,0.82) 0%, rgba(219,39,119,0.55) 55%, rgba(147,51,234,0.45) 100%)',
   },
 ]
 
@@ -52,20 +53,17 @@ export default function CountdownBanners() {
       <style>{`
         .cd-wrap { max-width: 760px; margin: 0 auto; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
         .cd-pill {
+          position: relative; overflow: hidden;
           flex: 1 1 0; min-width: 230px;
           display: flex; align-items: center; gap: 12px;
-          padding: 10px 16px; border-radius: 16px;
-          background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.12);
-          backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-          transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+          padding: 12px 16px; border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.14);
+          transition: transform .25s ease;
+          isolation: isolate;
         }
         .cd-pill:hover { transform: translateY(-2px); }
-        .cd-emoji { font-size: 22px; line-height: 1; }
-        .cd-num {
-          font-weight: 800; font-size: 26px; line-height: 1;
-          font-variant-numeric: tabular-nums; letter-spacing: -1px;
-        }
+        .cd-emoji { font-size: 22px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.5)); }
+        .cd-num { font-weight: 800; font-size: 27px; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -1px; text-shadow: 0 2px 6px rgba(0,0,0,.45); }
         @keyframes cdDot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
         .cd-dot { width: 6px; height: 6px; border-radius: 50%; animation: cdDot 1.6s ease-in-out infinite; }
       `}</style>
@@ -74,30 +72,32 @@ export default function CountdownBanners() {
         {visibles.map(e => {
           const n = dias[e.key] ?? 0
           return (
-            <div
-              key={e.key}
-              className="cd-pill"
-              style={{ boxShadow: `0 6px 18px -8px ${e.glow}` }}
-            >
-              <span className="cd-emoji">{e.emoji}</span>
+            <div key={e.key} className="cd-pill" style={{ boxShadow: `0 8px 22px -10px ${e.accent}` }}>
+              {/* Fondo shader animado */}
+              <ShaderBg style={{ zIndex: 0 }} />
+              {/* Tinte de color del evento */}
+              <div style={{ position: 'absolute', inset: 0, background: e.tint, zIndex: 1, pointerEvents: 'none' }} />
 
-              <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
+              {/* Contenido */}
+              <span className="cd-emoji" style={{ position: 'relative', zIndex: 2 }}>{e.emoji}</span>
+
+              <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span className="cd-dot" style={{ background: e.accent, boxShadow: `0 0 8px ${e.accent}` }} />
-                  <span style={{ color: '#fff', fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap' }}>{e.titulo}</span>
+                  <span style={{ color: '#fff', fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap', textShadow: '0 1px 3px rgba(0,0,0,.5)' }}>{e.titulo}</span>
                 </div>
-                <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11.5, fontWeight: 500, marginTop: 2 }}>
+                <span style={{ color: 'rgba(255,255,255,0.78)', fontSize: 11.5, fontWeight: 500, marginTop: 2, textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>
                   {e.fecha} · armá tu pedido
                 </span>
               </div>
 
-              <div style={{ textAlign: 'right', display: 'flex', alignItems: 'baseline', gap: 4 }}>
+              <div style={{ position: 'relative', zIndex: 2, textAlign: 'right', display: 'flex', alignItems: 'baseline', gap: 4 }}>
                 {n === 0 ? (
-                  <span className="cd-num" style={{ color: e.accent, fontSize: 20 }}>¡HOY!</span>
+                  <span className="cd-num" style={{ color: '#fff', fontSize: 20 }}>¡HOY!</span>
                 ) : (
                   <>
-                    <span className="cd-num" style={{ color: e.accent }}>{n}</span>
-                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, fontWeight: 600 }}>días</span>
+                    <span className="cd-num" style={{ color: '#fff' }}>{n}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: 12, fontWeight: 600, textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>días</span>
                   </>
                 )}
               </div>
