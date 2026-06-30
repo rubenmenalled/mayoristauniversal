@@ -1,5 +1,6 @@
 import Header           from '@/components/Header'
 import GradientHero     from '@/components/GradientHero'
+import CountdownBanners  from '@/components/CountdownBanners'
 import BannerMayorista  from '@/components/BannerMayorista'
 import HomeRows         from '@/components/HomeRows'
 import CatalogosSection from '@/components/CatalogosSection'
@@ -66,6 +67,7 @@ export default async function HomePage() {
       <Header />
       <main>
         <GradientHero totalProductos={stats.totalProductos} totalCategorias={stats.totalCategorias} />
+        <CountdownBanners />
         <BannerMayorista />
         <HomeRows />
         <CatalogosSection categorias={categorias} />
