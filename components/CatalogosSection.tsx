@@ -95,22 +95,20 @@ const KEYFRAMES = `
   transform: translateY(-6px) scale(1.02) !important;
   box-shadow: 0 16px 40px rgba(255,106,61,0.35) !important;
 }
-/* Glow spotlight: luz de color que sigue el mouse sobre la tarjeta (continuo, estilo spotlight-card) */
+/* Glow spotlight: luz de color que sigue el mouse sobre la tarjeta (posición relativa a la tarjeta) */
 .cat-card::after {
   pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 4;
   border-radius: 12px;
-  background: radial-gradient(240px 240px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 62% / 0.5), transparent 62%);
-  background-attachment: fixed;
+  background: radial-gradient(220px 220px at var(--mx, -999px) var(--my, -999px),
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 62% / 0.6), transparent 60%);
   mix-blend-mode: screen;
 }
-/* Borde interior que también se ilumina con el spotlight */
+/* Borde interior que se ilumina con el spotlight */
 .cat-card::before {
   pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 5;
   border-radius: 12px; border: 2px solid transparent; padding: 0;
-  background: radial-gradient(200px 200px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 65% / 1), transparent 70%) border-box;
-  background-attachment: fixed;
+  background: radial-gradient(200px 200px at var(--mx, -999px) var(--my, -999px),
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 66% / 1), transparent 68%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
@@ -170,16 +168,25 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   const [modalOpen, setModalOpen] = useState(false)
   const router = useRouter()
 
-  // Efecto spotlight/glow: seguimos el mouse (coords de viewport) en variables CSS globales.
+  // Efecto spotlight/glow: por cada tarjeta seteamos la posición del mouse RELATIVA a
+  // esa tarjeta (--mx/--my). Así el brillo aparece sobre la tarjeta que apuntás.
   useEffect(() => {
-    const sync = (e: PointerEvent) => {
-      const r = document.documentElement
-      r.style.setProperty('--x', e.clientX.toFixed(1))
-      r.style.setProperty('--y', e.clientY.toFixed(1))
-      r.style.setProperty('--xp', (e.clientX / Math.max(1, window.innerWidth)).toFixed(3))
+    let raf = 0
+    let last: { x: number; y: number } | null = null
+    const apply = () => {
+      raf = 0
+      if (!last) return
+      const { x, y } = last
+      document.querySelectorAll<HTMLElement>('.cat-card').forEach((el) => {
+        const r = el.getBoundingClientRect()
+        el.style.setProperty('--mx', (x - r.left).toFixed(0) + 'px')
+        el.style.setProperty('--my', (y - r.top).toFixed(0) + 'px')
+        el.style.setProperty('--xp', (x / Math.max(1, window.innerWidth)).toFixed(3))
+      })
     }
+    const sync = (e: PointerEvent) => { last = { x: e.clientX, y: e.clientY }; if (!raf) raf = requestAnimationFrame(apply) }
     document.addEventListener('pointermove', sync)
-    return () => document.removeEventListener('pointermove', sync)
+    return () => { document.removeEventListener('pointermove', sync); if (raf) cancelAnimationFrame(raf) }
   }, [])
 
   if (categorias === undefined) return null
