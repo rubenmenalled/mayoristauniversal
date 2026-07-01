@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
         'PELUCHES|city land': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-cityland.jpg?v=1',
         'PELUCHES|peluches personajes': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-personajes-toystory.jpg?v=2',
         'TENDENCIAS|jugueteria': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
-        'JUGUETERIA|juguetes': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
+        'JUGUETERIA|juguetes tendencias': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
         'TENDENCIAS|bazar': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-bazar.jpg?v=1',
         'TENDENCIAS|cuidado personal': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-cuidado.jpg?v=2',
         // HU IMPORT — subcategorías con el banner de la categoría original
@@ -112,8 +112,8 @@ export async function GET(request: NextRequest) {
         'CUIDADO PERSONAL': -5,
         'ELECTRODOMESTICOS': -4,
         'VARIOS': 999,
-        // JUGUETERIA: JUGUETES primero
-        'JUGUETES': -3,
+        // JUGUETERIA: JUGUETES TENDENCIAS primero, luego RUBYLAND
+        'JUGUETES TENDENCIAS': -3, 'JUGUETES RUBYLAND': -2.5,
         'PELUCHES ALIMENTOS': 0,
         'MEDIANOS LISOS': 1, 'PELUCHES CHICOS Y MEDIANOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
         'PELUCHES SURTIDOS MARCA BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
