@@ -84,20 +84,23 @@ export default function CountdownBanners() {
               <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span className="cd-dot" style={{ background: e.accent, boxShadow: `0 0 8px ${e.accent}` }} />
-                  <span style={{ color: '#fff', fontWeight: 700, fontSize: 14, whiteSpace: 'nowrap', textShadow: '0 1px 3px rgba(0,0,0,.5)' }}>{e.titulo}</span>
+                  <span style={{ color: '#fff', fontWeight: 800, fontSize: 15.5, whiteSpace: 'nowrap', textShadow: '0 1px 4px rgba(0,0,0,.6)', letterSpacing: 0.2 }}>{e.titulo}</span>
                 </div>
                 <span style={{ color: 'rgba(255,255,255,0.78)', fontSize: 11.5, fontWeight: 500, marginTop: 2, textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>
                   {e.fecha} · armá tu pedido
                 </span>
               </div>
 
-              <div style={{ position: 'relative', zIndex: 2, textAlign: 'right', display: 'flex', alignItems: 'baseline', gap: 4 }}>
+              <div style={{ position: 'relative', zIndex: 2, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: 1 }}>
                 {n === 0 ? (
-                  <span className="cd-num" style={{ color: '#fff', fontSize: 20 }}>¡HOY!</span>
+                  <span className="cd-num" style={{ color: '#fff', fontSize: 24 }}>¡HOY!</span>
                 ) : (
                   <>
-                    <span className="cd-num" style={{ color: '#fff' }}>{n}</span>
-                    <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: 12, fontWeight: 600, textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>días</span>
+                    <span style={{ color: e.accent, fontSize: 11, fontWeight: 900, letterSpacing: 1.5, textShadow: '0 1px 3px rgba(0,0,0,.6)' }}>FALTAN</span>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 5, marginTop: 3 }}>
+                      <span className="cd-num" style={{ color: '#fff' }}>{n}</span>
+                      <span style={{ color: '#fff', fontSize: 15, fontWeight: 800, textShadow: '0 1px 3px rgba(0,0,0,.6)' }}>DÍAS</span>
+                    </div>
                   </>
                 )}
               </div>
