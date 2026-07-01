@@ -8,7 +8,7 @@ export default function BannerMayorista() {
     boxSizing: 'border-box',
   }
   const card: React.CSSProperties = {
-    maxWidth: 2200,
+    maxWidth: 1600,
     margin: '0 auto',
     background: 'linear-gradient(135deg,#0B1E3F 0%,#16335f 100%)',
     border: '1.5px solid rgba(255,106,61,0.45)',
