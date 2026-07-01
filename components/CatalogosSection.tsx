@@ -103,14 +103,14 @@ const KEYFRAMES = `
   pointer-events: none; content: ""; position: absolute; inset: -2px; z-index: 7;
   border-radius: 13px; border: 4px solid transparent; padding: 0;
   background: radial-gradient(300px 300px at var(--mx, -999px) var(--my, -999px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 62% / 1) 0%,
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 55% / 0.4) 35%, transparent 55%) border-box;
+    hsl(18 100% 62% / 1) 0%,
+    hsl(18 100% 55% / 0.4) 35%, transparent 55%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
-  filter: drop-shadow(0 0 6px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1))
-          drop-shadow(0 0 20px hsl(calc(28 + var(--xp, 0) * 180) 100% 58% / 0.9));
+  filter: drop-shadow(0 0 6px hsl(18 100% 60% / 1))
+          drop-shadow(0 0 20px hsl(18 100% 58% / 0.9));
 }
 .cat-glow-wrap:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
