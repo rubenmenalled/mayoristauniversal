@@ -204,10 +204,10 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
   return (
     <>
-    <section id="catalogos" style={{ background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', padding: '4px 16px 24px' }}>
+    <section id="catalogos" style={{ background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', padding: '4px clamp(16px, 2.5vw, 40px) 24px' }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <div style={{ maxWidth: 2200, margin: '0 auto' }}>
 
         {/* Barra envíos — fondo blanco */}
         <style dangerouslySetInnerHTML={{ __html: `
