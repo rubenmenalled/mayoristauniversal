@@ -124,6 +124,10 @@ const KEYFRAMES = `
 .cat-glow-wrap:hover .cat-img {
   transform: scale(1.09);
 }
+/* En celular: catálogos de a 2 por fila (como los productos) */
+@media (max-width: 640px) {
+  .cat-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+}
 `
 
 function SkeletonGrid() {
@@ -269,7 +273,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         </div>
 
         {/* Grid de tarjetas */}
-        <div style={{
+        <div className="cat-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
           gap: 12,
