@@ -606,8 +606,10 @@ export default function CategoriaPage() {
               @media (hover: hover) { .prod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(255,106,61,0.2); } }
               .prod-hover-img { opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
               @media (hover: hover) { .prod-card:hover .prod-hover-img { opacity: 1; } }
+              .cat-prod-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+              @media (max-width: 640px) { .cat-prod-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; } }
             ` }} />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 14 }}>
+            <div className="cat-prod-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 14 }}>
               {productosFiltrados.map((p, i) => (
                 <div key={p.id}
                   className="prod-card rounded-xl overflow-hidden relative"
