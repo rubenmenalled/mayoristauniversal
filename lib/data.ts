@@ -6,12 +6,12 @@ export async function getProductos() {
 }
 
 const ORDEN_CATEGORIAS = [
+  'JUGUETERIA',
   'PELUCHES',
   'BEBÉ',
   'TENDENCIAS',
   'NEXT MUNDO',
   'PELUCHES DE PERSONAJES',
-  'JUGUETERIA',
   'MULTI-POP',
   'BAZAR KIK',
   'LENCERIA',
