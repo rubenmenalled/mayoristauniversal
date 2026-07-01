@@ -371,8 +371,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 }}>
                   <span className="cat-ver-mas" style={{
                     background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
-                    color: '#FFFFFF', fontWeight: 900, fontSize: 12, letterSpacing: '0.1em',
-                    textTransform: 'uppercase', padding: '7px 14px', borderRadius: 99,
+                    color: '#FFFFFF', fontWeight: 900, fontSize: 10.5, letterSpacing: '0.08em',
+                    textTransform: 'uppercase', padding: '5px 11px', borderRadius: 99,
                     boxShadow: '0 3px 12px rgba(255,106,61,0.5)', whiteSpace: 'nowrap',
                   }}>
                     VER AQUÍ →
