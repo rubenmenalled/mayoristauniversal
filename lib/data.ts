@@ -17,7 +17,6 @@ const ORDEN_CATEGORIAS = [
   'LENCERIA',
   'PERFUMERIA',
   'FATTZ IMPORT',
-  'ARTICULOS X BULTO',
   'MARROQUINERIA',
   'ACCESORIOS DE INVIERNO',
   'PANTUFLAS',
@@ -39,6 +38,7 @@ const ORDEN_CATEGORIAS = [
   'BIJOUTERIE',
   'RODADOS',
   'BLANQUERIA',
+  'ARTICULOS X BULTO',
 ]
 
 function sortCategorias(cats: any[]) {
