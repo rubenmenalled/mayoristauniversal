@@ -88,38 +88,40 @@ const KEYFRAMES = `
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-4px); }
 }
+.cat-glow-wrap {
+  transition: transform 0.35s cubic-bezier(.22,.68,0,1.2) !important;
+}
+.cat-glow-wrap:hover {
+  transform: translateY(-6px) scale(1.02);
+  z-index: 10;
+}
 .cat-card {
-  transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease !important;
+  transition: box-shadow 0.35s ease !important;
 }
-.cat-card:hover {
-  transform: translateY(-6px) scale(1.02) !important;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.45) !important;
-  z-index: 10 !important;
-}
-/* Glow spotlight SOLO en el borde: se ilumina el borde que sigue el mouse (estilo spotlight-card) */
-.cat-card::before {
-  pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 6;
-  border-radius: 12px; border: 5px solid transparent; padding: 0;
+/* Glow SOLO en el borde: se ilumina el borde siguiendo el mouse (bloom hacia afuera, wrapper sin overflow) */
+.cat-glow-wrap::before {
+  pointer-events: none; content: ""; position: absolute; inset: -2px; z-index: 7;
+  border-radius: 13px; border: 4px solid transparent; padding: 0;
   background: radial-gradient(300px 300px at var(--mx, -999px) var(--my, -999px),
     hsl(calc(28 + var(--xp, 0) * 180) 100% 62% / 1) 0%,
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 55% / 0.35) 35%, transparent 55%) border-box;
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 55% / 0.4) 35%, transparent 55%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   filter: drop-shadow(0 0 6px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1))
-          drop-shadow(0 0 16px hsl(calc(28 + var(--xp, 0) * 180) 100% 58% / 0.85));
+          drop-shadow(0 0 20px hsl(calc(28 + var(--xp, 0) * 180) 100% 58% / 0.9));
 }
-.cat-card:hover .cat-overlay {
+.cat-glow-wrap:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
 }
-.cat-card:hover .cat-ver-mas {
+.cat-glow-wrap:hover .cat-ver-mas {
   letter-spacing: 0.18em !important;
 }
 .cat-card .cat-img {
   transition: transform 0.6s cubic-bezier(.22,.68,0,1.2);
 }
-.cat-card:hover .cat-img {
+.cat-glow-wrap:hover .cat-img {
   transform: scale(1.09);
 }
 `
@@ -173,7 +175,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
       raf = 0
       if (!last) return
       const { x, y } = last
-      document.querySelectorAll<HTMLElement>('.cat-card').forEach((el) => {
+      document.querySelectorAll<HTMLElement>('.cat-glow-wrap').forEach((el) => {
         const r = el.getBoundingClientRect()
         el.style.setProperty('--mx', (x - r.left).toFixed(0) + 'px')
         el.style.setProperty('--my', (y - r.top).toFixed(0) + 'px')
@@ -280,11 +282,15 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             <div
               key={cat.id}
               onClick={() => router.push(`/categorias/${encodeURIComponent(cat.name)}`)}
+              className="cat-glow-wrap"
+              style={{ position: 'relative', borderRadius: 12, cursor: 'pointer', aspectRatio: '16 / 10' }}
+            >
+            <div
               className="cat-card"
               style={{
-                position: 'relative',
+                position: 'absolute',
+                inset: 0,
                 display: 'block',
-                aspectRatio: '16 / 10',
                 borderRadius: 12,
                 overflow: 'hidden',
                 cursor: 'pointer',
@@ -395,6 +401,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 transition: 'border-color 0.3s',
                 pointerEvents: 'none',
               }} />
+            </div>
             </div>
             )
           })}
