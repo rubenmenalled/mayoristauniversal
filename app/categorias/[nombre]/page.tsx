@@ -210,16 +210,22 @@ export default function CategoriaPage() {
 
   // Scroll infinito: carga la siguiente tanda (de a 60) al acercarse al final,
   // en vez de un botón "Ver más". Misma velocidad, más cómodo.
+  // Usamos refs para que el listener (creado una sola vez) siempre lea el estado fresco.
+  const hayMasRef = useRef(hayMas); hayMasRef.current = hayMas
+  const loadingMasRef = useRef(loadingMas); loadingMasRef.current = loadingMas
+  const busqRef = useRef(busquedaInterna); busqRef.current = busquedaInterna
+  const cargarMasRef = useRef(cargarMas); cargarMasRef.current = cargarMas
   useEffect(() => {
-    const el = sentinelRef.current
-    if (!el || !hayMas || loadingMas || busquedaInterna.trim()) return
-    const obs = new IntersectionObserver((entries) => {
-      if (entries[0]?.isIntersecting) cargarMas()
-    }, { rootMargin: '500px' })
-    obs.observe(el)
-    return () => obs.disconnect()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hayMas, loadingMas, busquedaInterna, pagina])
+    const onScroll = () => {
+      if (!hayMasRef.current || loadingMasRef.current || busqRef.current.trim()) return
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 900) {
+        cargarMasRef.current()
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll) }
+  }, [])
 
   // Filtro de sub-subcategoría (client-side)
   const subSubConfig = subActiva && SUB_SUBS[subActiva] && subSubActiva && subSubActiva !== '__todos__'
