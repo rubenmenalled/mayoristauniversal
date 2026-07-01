@@ -94,24 +94,17 @@ const KEYFRAMES = `
 .cat-card:hover {
   box-shadow: 0 10px 30px rgba(0,0,0,0.45) !important;
 }
-/* Glow spotlight: luz brillante que sigue el mouse sobre la tarjeta (posición relativa) */
-.cat-card::after {
-  pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 4;
-  border-radius: 12px;
-  background: radial-gradient(230px 230px at var(--mx, -999px) var(--my, -999px),
-    rgba(255,255,255,0.5), hsla(calc(28 + var(--xp, 0) * 180), 100%, 60%, 0.4) 42%, transparent 62%);
-}
-/* Borde que se ilumina fuerte con el spotlight */
+/* Glow spotlight SOLO en el borde: se ilumina el borde que sigue el mouse (estilo spotlight-card) */
 .cat-card::before {
   pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 6;
-  border-radius: 12px; border: 4px solid transparent; padding: 0;
-  background: radial-gradient(230px 230px at var(--mx, -999px) var(--my, -999px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1), transparent 62%) border-box;
+  border-radius: 12px; border: 3px solid transparent; padding: 0;
+  background: radial-gradient(240px 240px at var(--mx, -999px) var(--my, -999px),
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1), transparent 60%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
-  filter: drop-shadow(0 0 6px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 0.9));
+  filter: drop-shadow(0 0 5px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 0.85));
 }
 .cat-card:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
