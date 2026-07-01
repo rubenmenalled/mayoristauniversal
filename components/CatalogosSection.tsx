@@ -99,14 +99,16 @@ const KEYFRAMES = `
 /* Glow spotlight SOLO en el borde: se ilumina el borde que sigue el mouse (estilo spotlight-card) */
 .cat-card::before {
   pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 6;
-  border-radius: 12px; border: 3px solid transparent; padding: 0;
-  background: radial-gradient(240px 240px at var(--mx, -999px) var(--my, -999px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1), transparent 60%) border-box;
+  border-radius: 12px; border: 5px solid transparent; padding: 0;
+  background: radial-gradient(300px 300px at var(--mx, -999px) var(--my, -999px),
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 62% / 1) 0%,
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 55% / 0.35) 35%, transparent 55%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
-  filter: drop-shadow(0 0 5px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 0.85));
+  filter: drop-shadow(0 0 6px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1))
+          drop-shadow(0 0 16px hsl(calc(28 + var(--xp, 0) * 180) 100% 58% / 0.85));
 }
 .cat-card:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
