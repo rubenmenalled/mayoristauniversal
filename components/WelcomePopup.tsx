@@ -31,9 +31,10 @@ export default function WelcomePopup() {
           style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.72)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
         >
           <motion.div
+            onClick={e => e.stopPropagation()}
             initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.85, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            style={{ position: 'relative', maxWidth: 'min(82vw, 330px)', maxHeight: '78vh', cursor: 'pointer' }}
+            style={{ position: 'relative', maxWidth: 'min(82vw, 330px)', maxHeight: '78vh' }}
           >
             <button onClick={close} aria-label="Cerrar"
               style={{ position: 'absolute', top: -14, right: -14, zIndex: 2, background: '#fff', border: 'none', borderRadius: '50%', width: 38, height: 38, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,0,0,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
