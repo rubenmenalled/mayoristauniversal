@@ -93,11 +93,31 @@ const KEYFRAMES = `
 }
 .cat-card:hover {
   transform: translateY(-6px) scale(1.02) !important;
-  box-shadow:
-    0 16px 40px rgba(0,0,0,0.45),
-    0 0 0 2px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 0.95),
-    0 0 24px hsl(calc(28 + var(--xp, 0) * 180) 100% 58% / 0.75),
-    0 0 55px hsl(calc(28 + var(--xp, 0) * 180) 100% 55% / 0.35) !important;
+  box-shadow: 0 16px 40px rgba(255,106,61,0.35) !important;
+}
+/* Glow spotlight: borde brillante que sigue el mouse (continuo, estilo spotlight-card) */
+.cat-card::before {
+  pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 5;
+  border-radius: 12px; border: 3px solid transparent; padding: 0;
+  background: radial-gradient(200px 200px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1), transparent 72%) border-box;
+  background-attachment: fixed;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0.9;
+}
+.cat-card::after {
+  pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 5;
+  border-radius: 12px; border: 3px solid transparent; padding: 0;
+  background: radial-gradient(90px 90px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+    hsl(0 0% 100% / 0.95), transparent 75%) border-box;
+  background-attachment: fixed;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
 }
 .cat-card:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
