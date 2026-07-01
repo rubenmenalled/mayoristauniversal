@@ -91,12 +91,16 @@ export async function getCategorias() {
 export async function getStats() {
   try {
     const supabase = getAdminClient()
-    const { count } = await supabase
-      .from('productos')
-      .select('id', { count: 'exact', head: true })
-      .or('badge.is.null,badge.neq.OCULTO')
+    const [allRes, dupRes] = await Promise.all([
+      supabase.from('productos').select('id', { count: 'exact', head: true })
+        .or('badge.is.null,badge.neq.OCULTO'),
+      // Duplicados de referencia (PELUCHES > PELUCHES PERSONAJES): no cuentan en el total
+      supabase.from('productos').select('id', { count: 'exact', head: true })
+        .ilike('categoria', 'PELUCHES').ilike('subcategoria', 'PELUCHES PERSONAJES')
+        .or('badge.is.null,badge.neq.OCULTO'),
+    ])
     return {
-      totalProductos: count ?? 0,
+      totalProductos: (allRes.count ?? 0) - (dupRes.count ?? 0),
     }
   } catch {
     return { totalProductos: 0 }
