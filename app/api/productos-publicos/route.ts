@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       a: '[aáà]', e: '[eéè]', i: '[iíì]', o: '[oóò]', u: '[uúùü]', n: '[nñ]',
       'á': '[aáà]', 'é': '[eéè]', 'í': '[iíì]', 'ó': '[oóò]', 'ú': '[uúùü]', 'ñ': '[nñ]',
     }
-    const NOISE = new Set(['codigo', 'cod', 'sku', 'articulo', 'art', 'el', 'la', 'los', 'las', 'de', 'del', 'y', 'con', 'para', 'por'])
+    const NOISE = new Set(['codigo', 'cod', 'sku', 'articulo', 'art', 'rubro', 'el', 'la', 'los', 'las', 'de', 'del', 'y', 'con', 'para', 'por'])
     const accentPat = (s: string) => {
       const esc = s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
       return Array.from(esc.toLowerCase()).map(c => ac[c] || c).join('')
