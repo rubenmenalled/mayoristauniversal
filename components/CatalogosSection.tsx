@@ -94,6 +94,7 @@ const KEYFRAMES = `
 .cat-card:hover {
   transform: translateY(-6px) scale(1.02) !important;
   box-shadow: 0 16px 40px rgba(0,0,0,0.45) !important;
+  z-index: 10 !important;
 }
 /* Glow spotlight SOLO en el borde: se ilumina el borde que sigue el mouse (estilo spotlight-card) */
 .cat-card::before {
