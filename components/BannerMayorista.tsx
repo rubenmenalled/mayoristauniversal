@@ -3,7 +3,7 @@ import { HandDrawnCircle } from '@/components/ui/hand-writing-text'
 export default function BannerMayorista() {
   const wrap: React.CSSProperties = {
     background: '#FFFFFF',
-    padding: '6px clamp(16px, 2.5vw, 40px) 16px',
+    padding: '2px clamp(16px, 2.5vw, 40px) 8px',
     width: '100%',
     boxSizing: 'border-box',
   }
@@ -12,9 +12,9 @@ export default function BannerMayorista() {
     margin: '0 auto',
     background: 'linear-gradient(135deg,#0B1E3F 0%,#16335f 100%)',
     border: '1.5px solid rgba(255,106,61,0.45)',
-    borderRadius: 22,
+    borderRadius: 18,
     boxShadow: '0 14px 40px rgba(11,30,63,0.28)',
-    padding: '16px 26px',
+    padding: '6px 26px',
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -32,8 +32,8 @@ export default function BannerMayorista() {
     pointerEvents: 'none',
   }
   const eyebrow: React.CSSProperties = {
-    color: '#FF6A3D', fontWeight: 800, fontSize: 13,
-    letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6,
+    color: '#FF6A3D', fontWeight: 800, fontSize: 12.5,
+    letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 2,
   }
   const big: React.CSSProperties = {
     color: '#FFFFFF', fontWeight: 900,
@@ -41,10 +41,10 @@ export default function BannerMayorista() {
   }
   const gold: React.CSSProperties = { color: '#FF8A63' }
   const badge: React.CSSProperties = {
-    display: 'inline-block', marginTop: 12,
+    display: 'inline-block', marginTop: 7,
     background: 'linear-gradient(135deg,#22C55E,#15803D)', color: '#FFFFFF',
     fontWeight: 800, fontSize: 12.5, letterSpacing: '0.04em',
-    padding: '5px 16px', borderRadius: 99,
+    padding: '4px 14px', borderRadius: 99,
   }
 
   return (
@@ -54,10 +54,10 @@ export default function BannerMayorista() {
 
         {/* Mayorista */}
         <HandDrawnCircle color="#FFFFFF" strokeWidth={3.2}>
-          <div style={{ padding: '6px 14px' }}>
+          <div style={{ padding: '2px 14px' }}>
             <div style={eyebrow}>💰 Mínimo por catálogo</div>
             <p style={big}>desde <span style={gold}>$100.000</span></p>
-            <div style={{ color: '#AEBED6', fontWeight: 600, fontSize: 12.5, marginTop: 6 }}>Surtí libremente dentro de cada rubro</div>
+            <div style={{ color: '#AEBED6', fontWeight: 600, fontSize: 12.5, marginTop: 3 }}>Surtí libremente dentro de cada rubro</div>
             <span style={badge}>🔥 Precios de importador</span>
           </div>
         </HandDrawnCircle>
