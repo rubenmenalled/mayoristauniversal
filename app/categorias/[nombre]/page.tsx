@@ -78,6 +78,7 @@ export default function CategoriaPage() {
   const [pagina, setPagina]           = useState(0)
   const [hayMas, setHayMas]           = useState(false)
   const [loadingMas, setLoadingMas]   = useState(false)
+  const sentinelRef = useRef<HTMLDivElement>(null)
   const [busquedaInterna, setBusquedaInterna] = useState('')
   const [productosBusqueda, setProductosBusqueda] = useState<Producto[]>([])
   const [loadingBusqueda, setLoadingBusqueda] = useState(false)
@@ -206,6 +207,19 @@ export default function CategoriaPage() {
     }, 300)
     return () => clearTimeout(timer)
   }, [busquedaInterna, nombreDecoded, subActiva])
+
+  // Scroll infinito: carga la siguiente tanda (de a 60) al acercarse al final,
+  // en vez de un botón "Ver más". Misma velocidad, más cómodo.
+  useEffect(() => {
+    const el = sentinelRef.current
+    if (!el || !hayMas || loadingMas || busquedaInterna.trim()) return
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0]?.isIntersecting) cargarMas()
+    }, { rootMargin: '500px' })
+    obs.observe(el)
+    return () => obs.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hayMas, loadingMas, busquedaInterna, pagina])
 
   // Filtro de sub-subcategoría (client-side)
   const subSubConfig = subActiva && SUB_SUBS[subActiva] && subSubActiva && subSubActiva !== '__todos__'
@@ -776,15 +790,12 @@ export default function CategoriaPage() {
                 </div>
               ))}
             </div>
-            {/* Botón cargar más */}
+            {/* Scroll infinito: carga automática al acercarse al final */}
             {hayMas && !busquedaInterna.trim() && (
-              <div style={{ textAlign: 'center', marginTop: 32 }}>
-                <button
-                  onClick={cargarMas}
-                  disabled={loadingMas}
-                  style={{ background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', border: 'none', borderRadius: 12, padding: '14px 40px', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: loadingMas ? 'not-allowed' : 'pointer', opacity: loadingMas ? 0.7 : 1 }}>
-                  {loadingMas ? 'Cargando...' : 'Ver más productos'}
-                </button>
+              <div ref={sentinelRef} style={{ textAlign: 'center', marginTop: 24, minHeight: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {loadingMas && (
+                  <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 14, opacity: 0.85 }}>Cargando más productos…</span>
+                )}
               </div>
             )}
           </>
