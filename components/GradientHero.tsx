@@ -184,7 +184,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
           {/* Contenido — z-10: por encima del collage pero DEBAJO del header (z-50),
               así al scrollear el título se oculta detrás del header y no lo pisa */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-4"
-            style={{ padding: 'clamp(56px, 9vw, 104px) 16px' }}>
+            style={{ padding: 'clamp(20px, 4vw, 88px) 16px' }}>
             <h1 id="hero-title" style={{
               color: '#FFFFFF', fontWeight: 900, lineHeight: 1.05, margin: 0,
               fontSize: 'clamp(34px, 6vw, 68px)', letterSpacing: '-0.02em',
