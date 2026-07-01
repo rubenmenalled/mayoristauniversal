@@ -92,7 +92,8 @@ const KEYFRAMES = `
   transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease !important;
 }
 .cat-card:hover {
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45) !important;
+  transform: translateY(-6px) scale(1.02) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.45) !important;
 }
 /* Glow spotlight SOLO en el borde: se ilumina el borde que sigue el mouse (estilo spotlight-card) */
 .cat-card::before {
@@ -116,7 +117,7 @@ const KEYFRAMES = `
   transition: transform 0.6s cubic-bezier(.22,.68,0,1.2);
 }
 .cat-card:hover .cat-img {
-  transform: none;
+  transform: scale(1.09);
 }
 `
 
