@@ -149,6 +149,18 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   const [modalOpen, setModalOpen] = useState(false)
   const router = useRouter()
 
+  // Efecto spotlight/glow: seguimos el mouse (coords de viewport) en variables CSS globales.
+  useEffect(() => {
+    const sync = (e: PointerEvent) => {
+      const r = document.documentElement
+      r.style.setProperty('--x', e.clientX.toFixed(1))
+      r.style.setProperty('--y', e.clientY.toFixed(1))
+      r.style.setProperty('--xp', (e.clientX / Math.max(1, window.innerWidth)).toFixed(3))
+    }
+    document.addEventListener('pointermove', sync)
+    return () => document.removeEventListener('pointermove', sync)
+  }, [])
+
   if (categorias === undefined) return null
   if (categorias.length === 0) return <SkeletonGrid />
 
@@ -231,6 +243,28 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         </div>
 
         {/* Grid de tarjetas */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          .cat-card::before, .cat-card::after {
+            pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 6;
+            border: 2px solid transparent; border-radius: 12px;
+            background-attachment: fixed;
+            background-size: calc(100% + 4px) calc(100% + 4px);
+            background-repeat: no-repeat; background-position: 50% 50%;
+            -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+            mask: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+            -webkit-mask-clip: padding-box, border-box; mask-clip: padding-box, border-box;
+            -webkit-mask-composite: source-in; mask-composite: intersect;
+          }
+          .cat-card::before {
+            background-image: radial-gradient(220px 220px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+              hsl(calc(28 + var(--xp, 0) * 200) 100% 55% / 0.95), transparent 100%);
+            filter: brightness(1.5);
+          }
+          .cat-card::after {
+            background-image: radial-gradient(120px 120px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+              hsl(0 0% 100% / 0.9), transparent 100%);
+          }
+        ` }} />
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
