@@ -93,7 +93,7 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
   if (prods.length === 0) return null
 
   return (
-    <section style={{ padding: '28px 0', borderTop: '1px solid #EEEEEE' }}>
+    <section style={{ padding: '16px 0 12px', borderTop: '1px solid #EEEEEE' }}>
       <style>{`
         .row-title {
           font-weight: 900; font-size: 22px; margin: 0; letter-spacing: -0.01em;
@@ -111,7 +111,7 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
           0% { background-position: 220% 0; }
           100% { background-position: -220% 0; }
         }
-        .row-marquee-wrap { overflow: hidden; padding-top: 16px; padding-bottom: 10px; }
+        .row-marquee-wrap { overflow: hidden; padding-top: 10px; padding-bottom: 6px; }
         .row-marquee-track { display: flex; gap: 14px; width: max-content; animation: rowMarquee linear infinite; }
         .row-marquee-wrap:hover .row-marquee-track,
         .row-marquee-wrap:active .row-marquee-track { animation-play-state: paused; }
@@ -125,7 +125,7 @@ export default function ProductRow({ title, emoji, subtitle, urls, max = 18, hre
           box-shadow: 0 14px 28px rgba(11,30,63,0.22);
         }
       `}</style>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
+      <div style={{ maxWidth: 2200, margin: '0 auto', padding: '0 clamp(16px, 2.5vw, 40px)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2, flexWrap: 'wrap', gap: 8 }}>
           <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 2 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

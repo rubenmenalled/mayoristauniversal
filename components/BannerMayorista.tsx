@@ -3,18 +3,18 @@ import { HandDrawnCircle } from '@/components/ui/hand-writing-text'
 export default function BannerMayorista() {
   const wrap: React.CSSProperties = {
     background: '#FFFFFF',
-    padding: '8px 16px 34px',
+    padding: '6px clamp(16px, 2.5vw, 40px) 16px',
     width: '100%',
     boxSizing: 'border-box',
   }
   const card: React.CSSProperties = {
-    maxWidth: 1080,
+    maxWidth: 2200,
     margin: '0 auto',
     background: 'linear-gradient(135deg,#0B1E3F 0%,#16335f 100%)',
     border: '1.5px solid rgba(255,106,61,0.45)',
     borderRadius: 22,
     boxShadow: '0 14px 40px rgba(11,30,63,0.28)',
-    padding: '30px 26px',
+    padding: '16px 26px',
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
