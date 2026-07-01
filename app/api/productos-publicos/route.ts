@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
     .from('productos')
     .select(COLS)
     .order('created_at', { ascending: false })
+    .order('id', { ascending: false })
 
   // Ocultar productos inactivos/archivados (badge = 'OCULTO').
   // Incluye los que no tienen badge (null) y excluye solo los marcados OCULTO.
