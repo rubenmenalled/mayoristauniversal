@@ -92,8 +92,7 @@ const KEYFRAMES = `
   transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease !important;
 }
 .cat-card:hover {
-  transform: translateY(-6px) scale(1.02) !important;
-  box-shadow: 0 16px 40px rgba(255,106,61,0.35) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45) !important;
 }
 /* Glow spotlight: luz brillante que sigue el mouse sobre la tarjeta (posición relativa) */
 .cat-card::after {
@@ -124,7 +123,7 @@ const KEYFRAMES = `
   transition: transform 0.6s cubic-bezier(.22,.68,0,1.2);
 }
 .cat-card:hover .cat-img {
-  transform: scale(1.09);
+  transform: none;
 }
 `
 
