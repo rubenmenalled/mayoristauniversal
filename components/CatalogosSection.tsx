@@ -95,24 +95,24 @@ const KEYFRAMES = `
   transform: translateY(-6px) scale(1.02) !important;
   box-shadow: 0 16px 40px rgba(255,106,61,0.35) !important;
 }
-/* Glow spotlight: luz de color que sigue el mouse sobre la tarjeta (posición relativa a la tarjeta) */
+/* Glow spotlight: luz brillante que sigue el mouse sobre la tarjeta (posición relativa) */
 .cat-card::after {
   pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 4;
   border-radius: 12px;
-  background: radial-gradient(220px 220px at var(--mx, -999px) var(--my, -999px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 62% / 0.6), transparent 60%);
-  mix-blend-mode: screen;
+  background: radial-gradient(230px 230px at var(--mx, -999px) var(--my, -999px),
+    rgba(255,255,255,0.5), hsla(calc(28 + var(--xp, 0) * 180), 100%, 60%, 0.4) 42%, transparent 62%);
 }
-/* Borde interior que se ilumina con el spotlight */
+/* Borde que se ilumina fuerte con el spotlight */
 .cat-card::before {
-  pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 5;
-  border-radius: 12px; border: 2px solid transparent; padding: 0;
-  background: radial-gradient(200px 200px at var(--mx, -999px) var(--my, -999px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 66% / 1), transparent 68%) border-box;
+  pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 6;
+  border-radius: 12px; border: 4px solid transparent; padding: 0;
+  background: radial-gradient(230px 230px at var(--mx, -999px) var(--my, -999px),
+    hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1), transparent 62%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
+  filter: drop-shadow(0 0 6px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 0.9));
 }
 .cat-card:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
