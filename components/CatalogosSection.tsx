@@ -93,7 +93,11 @@ const KEYFRAMES = `
 }
 .cat-card:hover {
   transform: translateY(-6px) scale(1.02) !important;
-  box-shadow: 0 16px 40px rgba(255,106,61,0.35) !important;
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.45),
+    0 0 0 2px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 0.95),
+    0 0 24px hsl(calc(28 + var(--xp, 0) * 180) 100% 58% / 0.75),
+    0 0 55px hsl(calc(28 + var(--xp, 0) * 180) 100% 55% / 0.35) !important;
 }
 .cat-card:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
@@ -243,28 +247,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         </div>
 
         {/* Grid de tarjetas */}
-        <style dangerouslySetInnerHTML={{ __html: `
-          .cat-card::before, .cat-card::after {
-            pointer-events: none; content: ""; position: absolute; inset: 0; z-index: 6;
-            border: 2px solid transparent; border-radius: 12px;
-            background-attachment: fixed;
-            background-size: calc(100% + 4px) calc(100% + 4px);
-            background-repeat: no-repeat; background-position: 50% 50%;
-            -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
-            mask: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
-            -webkit-mask-clip: padding-box, border-box; mask-clip: padding-box, border-box;
-            -webkit-mask-composite: source-in; mask-composite: intersect;
-          }
-          .cat-card::before {
-            background-image: radial-gradient(220px 220px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-              hsl(calc(28 + var(--xp, 0) * 200) 100% 55% / 0.95), transparent 100%);
-            filter: brightness(1.5);
-          }
-          .cat-card::after {
-            background-image: radial-gradient(120px 120px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
-              hsl(0 0% 100% / 0.9), transparent 100%);
-          }
-        ` }} />
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
