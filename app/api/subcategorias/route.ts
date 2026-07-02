@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
       // Clave: "CATEGORIA|subcategoria" para no pisar subcategorías con el mismo
       // nombre en otra categoría (ej. HERRAMIENTAS existe en HU IMPORT y en MULTI-POP).
       const OVERRIDE_SUB: Record<string, string> = {
-        'ACCESORIOS PARA MASCOTAS|acuario': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/monce/portada-acuario.jpg',
+        'ACCESORIOS PARA MASCOTAS|acuario': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/monce/portada-acuario-v2.jpg',
         'MARROQUINERIA|mochilas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/uc-4e4f3a66c3356e871a17714505755368_white.webp',
         'PELUCHES|city land': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-cityland.jpg?v=1',
         'PELUCHES|peluches personajes': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-personajes-toystory.jpg?v=2',
