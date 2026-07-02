@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
-import { minDeCatalogo } from '@/lib/minimos'
+import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE } from '@/lib/minimos'
 import { TextReveal } from '@/components/ui/cascade-text'
 import CartSidebar from '@/components/CartSidebar'
 
@@ -260,7 +260,9 @@ export default function CategoriaPage() {
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  const minVal = (subActiva && subActiva.toUpperCase() === 'FITTZ MASCOTAS') ? 300000 : minDeCatalogo(nombreDecoded)
+  const minVal = (subActiva && MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()] != null)
+    ? MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()]
+    : minDeCatalogo(nombreDecoded)
 
   // Cuenta regresiva Día del Niño (16 de agosto) — solo catálogos de niños
   const esNino = ['PELUCHES', 'PELUCHES DE PERSONAJES', 'BEBÉ', 'JUGUETERIA'].includes(nombreDecoded.toUpperCase())
