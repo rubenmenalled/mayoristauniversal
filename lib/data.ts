@@ -17,6 +17,7 @@ const ORDEN_CATEGORIAS = [
   'LENCERIA',
   'ACCESORIOS DE TRABAJO Y MAS',
   'PRODUCTOS REGIONALES',
+  'PARAGUAS',
   'PERFUMERIA',
   'MARROQUINERIA',
   'ACCESORIOS DE INVIERNO',
@@ -92,16 +93,20 @@ export async function getCategorias() {
 export async function getStats() {
   try {
     const supabase = getAdminClient()
-    const [allRes, dupRes] = await Promise.all([
+    const [allRes, dupRes, parRes] = await Promise.all([
       supabase.from('productos').select('id', { count: 'exact', head: true })
         .or('badge.is.null,badge.neq.OCULTO'),
       // Duplicados de referencia (PELUCHES > PELUCHES PERSONAJES): no cuentan en el total
       supabase.from('productos').select('id', { count: 'exact', head: true })
         .ilike('categoria', 'PELUCHES').ilike('subcategoria', 'PELUCHES PERSONAJES')
         .or('badge.is.null,badge.neq.OCULTO'),
+      // Duplicados de la categoría PARAGUAS (copias de paraguas de otras categorías): no cuentan
+      supabase.from('productos').select('id', { count: 'exact', head: true })
+        .ilike('categoria', 'PARAGUAS')
+        .or('badge.is.null,badge.neq.OCULTO'),
     ])
     return {
-      totalProductos: (allRes.count ?? 0) - (dupRes.count ?? 0),
+      totalProductos: (allRes.count ?? 0) - (dupRes.count ?? 0) - (parRes.count ?? 0),
     }
   } catch {
     return { totalProductos: 0 }
