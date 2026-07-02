@@ -72,6 +72,9 @@ export default function CategoriaPage() {
   )
   const [subSubActiva, setSubSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
+  // Total real que coincide con el filtro actual (lo devuelve la API en X-Total-Count),
+  // para el encabezado — el scroll infinito carga de a 60 pero mostramos el total.
+  const [totalReal, setTotalReal] = useState<number | null>(null)
 
   // Sub-subcategorías hardcodeadas por subcategoría
   const SUB_SUBS: Record<string, { nombre: string; emoji: string; imagen: string; filtro: (p: Producto) => boolean }[]> = {}
@@ -111,6 +114,15 @@ export default function CategoriaPage() {
     return url
   }
 
+  // Carga la primera página y guarda el total real (X-Total-Count) para el encabezado.
+  function fetchConTotal(url: string) {
+    return fetch(url).then(r => {
+      const t = parseInt(r.headers.get('X-Total-Count') || '', 10)
+      setTotalReal(Number.isFinite(t) ? t : null)
+      return r.json()
+    })
+  }
+
   // Cargar subcategorías al entrar
   useEffect(() => {
     fetch('/api/subcategorias?categoria=' + encodeURIComponent(nombreDecoded))
@@ -119,8 +131,7 @@ export default function CategoriaPage() {
         if (Array.isArray(data)) setSubcategorias(data)
         if (!Array.isArray(data) || data.length === 0) {
           setLoading(true)
-          fetch(buildUrl(nombreDecoded, '', 0))
-            .then(r => r.json())
+          fetchConTotal(buildUrl(nombreDecoded, '', 0))
             .then((d: Producto[]) => {
               const lista = Array.isArray(d) ? d : []
               setProductos(lista)
@@ -133,8 +144,7 @@ export default function CategoriaPage() {
           // Mostrar los productos directamente al entrar (debajo de las
           // subcategorías). Las subcategorías quedan arriba para filtrar.
           setLoading(true)
-          fetch(buildUrl(nombreDecoded, '', 0))
-            .then(r => r.json())
+          fetchConTotal(buildUrl(nombreDecoded, '', 0))
             .then((d: Producto[]) => {
               const lista = Array.isArray(d) ? d : []
               setProductos(lista)
@@ -155,8 +165,7 @@ export default function CategoriaPage() {
     if (!subActiva || subActiva === '__todos__') {
       if (subcategorias.length === 0) return
       setLoading(true)
-      fetch(buildUrl(nombreDecoded, '', 0))
-        .then(r => r.json())
+      fetchConTotal(buildUrl(nombreDecoded, '', 0))
         .then((d: Producto[]) => {
           const lista = Array.isArray(d) ? d : []
           setProductos(lista); setHayMas(lista.length === 60); setPagina(0); setLoading(false)
@@ -167,8 +176,7 @@ export default function CategoriaPage() {
     setLoading(true)
     setProductos([])
     setPagina(0)
-    fetch(buildUrl(nombreDecoded, subActiva, 0))
-      .then(r => r.json())
+    fetchConTotal(buildUrl(nombreDecoded, subActiva, 0))
       .then((d: Producto[]) => {
         const lista = Array.isArray(d) ? d : []
         setProductos(lista); setHayMas(lista.length === 60); setPagina(0); setLoading(false)
@@ -252,11 +260,14 @@ export default function CategoriaPage() {
     ? productosBusqueda
     : porSubSub
 
-  // Total real de la subcategoría para el encabezado: el scroll infinito carga de a 60,
-  // pero mostramos el total (ej. "992") en vez del cargado ("60") para no confundir.
+  // Encabezado: mostramos el TOTAL real que devuelve la API (X-Total-Count), no lo cargado
+  // por el scroll infinito (de a 60). Así no dice "60" cuando en realidad hay 992.
+  // En sub-subcategorías (filtro en cliente) usamos lo efectivamente mostrado.
   const _subInfo = subActiva ? (subcategorias as any[]).find(s => (s.nombre || '').toUpperCase() === subActiva.toUpperCase()) : null
-  const totalSubActiva = (subActiva && !subSubActiva && _subInfo && typeof _subInfo.count === 'number') ? (_subInfo.count as number) : null
-  const nProductosMostrar = totalSubActiva ?? productosFiltrados.length
+  const _totalSubTile = _subInfo && typeof _subInfo.count === 'number' ? (_subInfo.count as number) : null
+  const nProductosMostrar = subSubActiva
+    ? productosFiltrados.length
+    : (totalReal ?? _totalSubTile ?? productosFiltrados.length)
 
   // Barra fija del mínimo: aparece al scrollear (sticky no anda por el overflow del body)
   const [showFixedMin, setShowFixedMin] = useState(false)

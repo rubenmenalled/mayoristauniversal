@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
   let query = supabase
     .from('productos')
-    .select(COLS)
+    .select(COLS, { count: 'exact' })
     .order('created_at', { ascending: false })
     .order('id', { ascending: false })
 
@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
     query = (query as any).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
   }
 
-  const { data, error } = await query
+  const { data, error, count } = await query
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
@@ -103,7 +103,12 @@ export async function GET(request: NextRequest) {
   }
 
   // Catálogo siempre fresco: los cambios de precio/stock deben verse al instante.
+  // X-Total-Count = total real que coincide con el filtro (categoría/subcategoría/búsqueda),
+  // más allá de la página; el front lo usa para el encabezado ("992 productos" y no "60").
   return NextResponse.json(mapped, {
-    headers: { 'Cache-Control': 'no-store, max-age=0' }
+    headers: {
+      'Cache-Control': 'no-store, max-age=0',
+      'X-Total-Count': String(count ?? mapped.length),
+    }
   })
 }
