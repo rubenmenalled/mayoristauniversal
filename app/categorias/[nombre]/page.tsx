@@ -252,6 +252,12 @@ export default function CategoriaPage() {
     ? productosBusqueda
     : porSubSub
 
+  // Total real de la subcategoría para el encabezado: el scroll infinito carga de a 60,
+  // pero mostramos el total (ej. "992") en vez del cargado ("60") para no confundir.
+  const _subInfo = subActiva ? (subcategorias as any[]).find(s => (s.nombre || '').toUpperCase() === subActiva.toUpperCase()) : null
+  const totalSubActiva = (subActiva && !subSubActiva && _subInfo && typeof _subInfo.count === 'number') ? (_subInfo.count as number) : null
+  const nProductosMostrar = totalSubActiva ?? productosFiltrados.length
+
   // Barra fija del mínimo: aparece al scrollear (sticky no anda por el overflow del body)
   const [showFixedMin, setShowFixedMin] = useState(false)
   useEffect(() => {
@@ -619,7 +625,7 @@ export default function CategoriaPage() {
             <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 24 }}>
               {busquedaInterna.trim()
                 ? <><span style={{ color: '#FF6A3D', fontWeight: 700 }}>{productosFiltrados.length}</span> resultado{productosFiltrados.length !== 1 ? 's' : ''} para <span style={{ color: '#FF6A3D', fontWeight: 700 }}>"{busquedaInterna}"</span></>
-                : <>{productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''} en <span style={{ color: '#FF6A3D', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
+                : <>{nProductosMostrar} producto{nProductosMostrar !== 1 ? 's' : ''} en <span style={{ color: '#FF6A3D', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
               }
             </div>
             <style dangerouslySetInnerHTML={{ __html: `
