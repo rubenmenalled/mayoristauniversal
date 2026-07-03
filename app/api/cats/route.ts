@@ -24,7 +24,7 @@ const ORDEN_CATEGORIAS = [
   'TODO PARA EL DEPORTE',
   'COTILLON',
   'DECO CASA',
-  'DECO BAZAR',
+  'BAZAR Y HOGAR',
   'ELECTROHOGAR',
   'LLAVEROS',
   'LIBRERIA',
@@ -40,7 +40,7 @@ const CATEGORIAS_FIJAS = ORDEN_CATEGORIAS
 const FOTOS: Record<string, string> = {
   'ACCESORIOS DE INVIERNO':    'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
   'DECO CASA':        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
-  'DECO BAZAR':       'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
+  'BAZAR Y HOGAR':       'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
   'ELECTROHOGAR':     'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=800&q=90',
   'ACCESORIOS PARA MASCOTAS': 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   'HOGAR Y BAZAR':       'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
