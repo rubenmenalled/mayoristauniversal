@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { minDeCatalogo } from '@/lib/minimos'
 
@@ -98,20 +98,7 @@ const KEYFRAMES = `
 .cat-card {
   transition: box-shadow 0.35s ease !important;
 }
-/* Glow SOLO en el borde: se ilumina el borde siguiendo el mouse (bloom hacia afuera, wrapper sin overflow) */
-.cat-glow-wrap::before {
-  pointer-events: none; content: ""; position: absolute; inset: -2px; z-index: 7;
-  border-radius: 13px; border: 4px solid transparent; padding: 0;
-  background: radial-gradient(300px 300px at var(--mx, -999px) var(--my, -999px),
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 62% / 1) 0%,
-    hsl(calc(28 + var(--xp, 0) * 180) 100% 55% / 0.4) 35%, transparent 55%) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  filter: drop-shadow(0 0 6px hsl(calc(28 + var(--xp, 0) * 180) 100% 60% / 1))
-          drop-shadow(0 0 20px hsl(calc(28 + var(--xp, 0) * 180) 100% 58% / 0.9));
-}
+/* (Se quitó el brillo/flash del borde de las tarjetas que seguía al mouse) */
 .cat-glow-wrap:hover .cat-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.55) 100%) !important;
 }
@@ -165,27 +152,6 @@ function SkeletonGrid() {
 export default function CatalogosSection({ categorias }: { categorias?: Categoria[] }) {
   const [modalOpen, setModalOpen] = useState(false)
   const router = useRouter()
-
-  // Efecto spotlight/glow: por cada tarjeta seteamos la posición del mouse RELATIVA a
-  // esa tarjeta (--mx/--my). Así el brillo aparece sobre la tarjeta que apuntás.
-  useEffect(() => {
-    let raf = 0
-    let last: { x: number; y: number } | null = null
-    const apply = () => {
-      raf = 0
-      if (!last) return
-      const { x, y } = last
-      document.querySelectorAll<HTMLElement>('.cat-glow-wrap').forEach((el) => {
-        const r = el.getBoundingClientRect()
-        el.style.setProperty('--mx', (x - r.left).toFixed(0) + 'px')
-        el.style.setProperty('--my', (y - r.top).toFixed(0) + 'px')
-        el.style.setProperty('--xp', (x / Math.max(1, window.innerWidth)).toFixed(3))
-      })
-    }
-    const sync = (e: PointerEvent) => { last = { x: e.clientX, y: e.clientY }; if (!raf) raf = requestAnimationFrame(apply) }
-    document.addEventListener('pointermove', sync)
-    return () => { document.removeEventListener('pointermove', sync); if (raf) cancelAnimationFrame(raf) }
-  }, [])
 
   if (categorias === undefined) return null
   if (categorias.length === 0) return <SkeletonGrid />
