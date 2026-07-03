@@ -21,6 +21,7 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
 export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
   'FITTZ MASCOTAS': 300000,
   'M ELEVEN': 100000,
+  'NEXT PARAGUAS': 120000,
 }
 
 export function minDeCatalogo(nombre?: string): number {
