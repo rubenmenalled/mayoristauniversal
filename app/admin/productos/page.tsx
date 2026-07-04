@@ -958,7 +958,12 @@ export default function ProductosAdmin() {
               background: soloDestacados ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,106,61,0.1)',
               color: soloDestacados ? '#0F3460' : '#FF6A3D',
             }}>
-            {soloDestacados ? '⭐ Viendo destacados — tocá para ver todos' : '⭐ Ver / cambiar fotos de Destacados'}
+            {soloDestacados
+              ? '⭐ Viendo destacados — tocá para ver todos'
+              : (() => {
+                  const n = productos.filter(p => p.badge === 'DESTACADO').length
+                  return n > 0 ? `⭐ Ver los ${n} destacados` : '⭐ Ver / poner destacados (no hay todavía)'
+                })()}
           </button>
         )}
 
@@ -1026,7 +1031,7 @@ export default function ProductosAdmin() {
                       borderRadius: 8, padding: '8px 12px',
                       color: p.badge === 'DESTACADO' ? '#0F3460' : '#9aabb8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 800,
                     }}>
-                    {p.badge === 'DESTACADO' ? '⭐ Destacado' : '☆ Destacar'}
+                    {p.badge === 'DESTACADO' ? '✕ Quitar de destacados' : '☆ Destacar'}
                   </button>
                   <button onClick={() => handleEdit(p)}
                     style={{
