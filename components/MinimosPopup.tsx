@@ -70,7 +70,7 @@ function construirTramos(): { monto: string; rubros: string }[] {
   tramos.push({ monto: 'Desde ' + fmtPesos(DEF), rubros: 'La mayoría de los rubros' })
 
   // Montos > 0 y distintos del default, ascendente
-  for (const m of [...porMonto.keys()].filter(m => m > 0).sort((a, b) => a - b)) {
+  for (const m of Array.from(porMonto.keys()).filter(m => m > 0).sort((a, b) => a - b)) {
     const nombres = porMonto.get(m)!
     const rubros = nombres.length > MAX_NOMBRES
       ? nombres.slice(0, MAX_NOMBRES).join(', ') + ' y más'
