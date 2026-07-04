@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ShoppingCart, Package, Shuffle, ShoppingBag, BellRing } from 'lucide-react'
+import { MIN_CATALOGO_DEFAULT, MIN_CATALOGO_OVERRIDE, MIN_SUBCATEGORIA_OVERRIDE, fmtPesos } from '@/lib/minimos'
 
-// Puntos que explican CÓMO funciona la compra mínima
+// Puntos que explican CÓMO funciona la compra mínima (fijos, no dependen de los montos)
 const PUNTOS = [
   { Icon: Package,     texto: <>Cada rubro tiene su propia compra mínima.</> },
   { Icon: Shuffle,     texto: <>Dentro de un rubro mezclás libremente los productos que quieras.</> },
@@ -12,15 +13,80 @@ const PUNTOS = [
   { Icon: BellRing,    texto: <>El carrito te avisa cuánto te falta en cada rubro.</> },
 ]
 
-// Mínimos agrupados por monto. Editar acá si cambian los mínimos de lib/minimos.ts
-const TRAMOS: { monto: string; rubros: string }[] = [
-  { monto: 'Desde $100.000', rubros: 'La mayoría de los rubros' },
-  { monto: '$120.000',       rubros: 'Librería, Belleza, Bazar y Hogar, Deporte, Perfumería y más' },
-  { monto: '$150.000',       rubros: 'Juguetería, Peluches' },
-  { monto: '$200.000',       rubros: 'Camping, Regionales Indio Mohi' },
-  { monto: '$300.000',       rubros: 'Fattz Import' },
-  { monto: 'Cajas cerradas', rubros: 'Artículos x Bulto (por bulto)' },
-]
+// Nombres lindos para mostrar. Fallback: capitaliza la key.
+// Solo hace falta tocar esto si sumás un RUBRO NUEVO con mínimo especial; los MONTOS salen solos de lib/minimos.ts
+const NOMBRE_LINDO: Record<string, string> = {
+  'FATTZ IMPORT': 'Fattz Import',
+  'JUGUETERIA': 'Juguetería',
+  'PELUCHES': 'Peluches',
+  'HU IMPORT': 'HU Import',
+  'LIBRERIA': 'Librería',
+  'BAZAR Y HOGAR': 'Bazar y Hogar',
+  'BELLEZA': 'Belleza',
+  'CAMPING': 'Camping',
+  'ARTICULOS X BULTO': 'Artículos x Bulto',
+  'LENCERIA': 'Lencería',
+  'PANTUFLAS': 'Pantuflas',
+  'MARROQUINERIA': 'Marroquinería',
+  'LICENCIA (BLANQUERIA Y ACCESORIOS)': 'Blanquería y Accesorios',
+  'TODO PARA EL DEPORTE': 'Deporte',
+  'RELOJES': 'Relojes',
+  'DECO CASA': 'Deco Casa',
+  'PERFUMERIA': 'Perfumería',
+  'FITTZ MASCOTAS': 'Fittz Mascotas',
+  'NEXT PARAGUAS': 'Next Paraguas',
+  'PARAGUAS M ELEVEN': 'Paraguas M Eleven',
+  'INDIO MOHI': 'Indio Mohi',
+}
+
+const MAX_NOMBRES = 5
+
+function lindo(key: string): string {
+  if (NOMBRE_LINDO[key]) return NOMBRE_LINDO[key]
+  return key.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
+}
+
+// Arma los tramos de mínimos automáticamente a partir de lib/minimos.ts.
+// Cambiás un monto en minimos.ts → el popup se reagrupa solo (con re-deploy).
+function construirTramos(): { monto: string; rubros: string }[] {
+  const DEF = MIN_CATALOGO_DEFAULT
+  const entradas = [
+    ...Object.entries(MIN_CATALOGO_OVERRIDE),
+    ...Object.entries(MIN_SUBCATEGORIA_OVERRIDE),
+  ]
+
+  // Agrupa por monto, ignorando los que igualan el default (ya cuentan como "la mayoría")
+  const porMonto = new Map<number, string[]>()
+  for (const [key, monto] of entradas) {
+    if (monto === DEF) continue
+    const nombre = lindo(key)
+    const arr = porMonto.get(monto) ?? []
+    if (!arr.includes(nombre)) arr.push(nombre)
+    porMonto.set(monto, arr)
+  }
+
+  const tramos: { monto: string; rubros: string }[] = []
+  // Línea del default primero
+  tramos.push({ monto: 'Desde ' + fmtPesos(DEF), rubros: 'La mayoría de los rubros' })
+
+  // Montos > 0 y distintos del default, ascendente
+  for (const m of [...porMonto.keys()].filter(m => m > 0).sort((a, b) => a - b)) {
+    const nombres = porMonto.get(m)!
+    const rubros = nombres.length > MAX_NOMBRES
+      ? nombres.slice(0, MAX_NOMBRES).join(', ') + ' y más'
+      : nombres.join(', ')
+    tramos.push({ monto: fmtPesos(m), rubros })
+  }
+
+  // Monto 0 (por bulto) al final
+  if (porMonto.has(0)) {
+    tramos.push({ monto: 'Cajas cerradas', rubros: porMonto.get(0)!.join(', ') + ' (por bulto)' })
+  }
+
+  return tramos
+}
+
+const TRAMOS = construirTramos()
 
 export default function MinimosPopup() {
   const [open, setOpen] = useState(false)
@@ -74,7 +140,7 @@ export default function MinimosPopup() {
               ))}
             </div>
 
-            {/* Tramos de mínimos */}
+            {/* Tramos de mínimos (automáticos desde lib/minimos.ts) */}
             <div style={{ padding: '4px 20px 4px' }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: '#8A94A6', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 6 }}>Mínimo por rubro</div>
               {TRAMOS.map((t, i) => (
