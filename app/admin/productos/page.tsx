@@ -278,6 +278,9 @@ export default function ProductosAdmin() {
   async function handleDelete(id: number) {
     if (!confirm('¿Borrar este producto?')) return
     await fetch(`/api/admin/productos/${id}`, { method: 'DELETE' })
+    // Sacarlo también de la vista de destacados y de los resultados de búsqueda
+    setDestacados(prev => prev.filter(x => x.id !== id))
+    setResultados(prev => prev.filter(x => x.id !== id))
     loadProductos()
   }
 
