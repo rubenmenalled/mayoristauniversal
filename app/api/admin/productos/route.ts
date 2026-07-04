@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
 
   const { searchParams } = new URL(request.url)
   const q = (searchParams.get('q') || '').trim().replace(/[%,()]/g, ' ')
+  const soloDestacados = searchParams.get('destacados')
 
   const supabase = getAdminClient()
   let query = supabase
@@ -14,7 +15,10 @@ export async function GET(request: NextRequest) {
     .select('*')
     .order('created_at', { ascending: false })
 
-  if (q) {
+  if (soloDestacados) {
+    // Trae TODOS los destacados sin importar antigüedad (no dependen del batch de 1000)
+    query = query.eq('badge', 'DESTACADO').limit(300)
+  } else if (q) {
     query = query
       .or(`nombre.ilike.%${q}%,marca.ilike.%${q}%,categoria.ilike.%${q}%,subcategoria.ilike.%${q}%`)
       .limit(300)

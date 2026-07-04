@@ -34,6 +34,7 @@ export default function ProductosAdmin() {
   const [busqueda, setBusqueda] = useState('')
   const [soloDestacados, setSoloDestacados] = useState(false)
   const [resultados, setResultados] = useState<Producto[]>([])
+  const [destacados, setDestacados] = useState<Producto[]>([])
   const [buscando, setBuscando] = useState(false)
   const [categorias, setCategorias] = useState<{id: number, nombre: string}[]>([])
   const [subcategorias, setSubcategorias] = useState<{id: number, nombre: string, categoria_id: number}[]>([])
@@ -62,7 +63,7 @@ export default function ProductosAdmin() {
   const fileRef = useRef<HTMLInputElement>(null)
   const csvRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => { loadProductos(); loadCategorias() }, [])
+  useEffect(() => { loadProductos(); loadCategorias(); loadDestacados() }, [])
 
   // Búsqueda en el servidor (toda la base, no solo lo cargado)
   useEffect(() => {
@@ -89,6 +90,11 @@ export default function ProductosAdmin() {
     const res = await fetch(`/api/admin/subcategorias?categoria_id=${categoria_id}`)
     if (res.ok) setSubcategorias(await res.json())
     else setSubcategorias([])
+  }
+
+  async function loadDestacados() {
+    const res = await fetch('/api/admin/productos?destacados=1')
+    if (res.ok) setDestacados(await res.json())
   }
 
   async function loadProductos() {
@@ -252,6 +258,9 @@ export default function ProductosAdmin() {
     const nuevo = p.badge === 'DESTACADO' ? '' : 'DESTACADO'
     setProductos(prev => prev.map(x => x.id === p.id ? { ...x, badge: nuevo } : x)) // optimista
     setResultados(prev => prev.map(x => x.id === p.id ? { ...x, badge: nuevo } : x))
+    setDestacados(prev => nuevo === 'DESTACADO'
+      ? (prev.some(x => x.id === p.id) ? prev : [{ ...p, badge: nuevo }, ...prev])
+      : prev.filter(x => x.id !== p.id))
     try {
       await fetch(`/api/admin/productos/${p.id}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' },
@@ -260,6 +269,9 @@ export default function ProductosAdmin() {
     } catch {
       setProductos(prev => prev.map(x => x.id === p.id ? { ...x, badge: p.badge } : x)) // revertir si falla
       setResultados(prev => prev.map(x => x.id === p.id ? { ...x, badge: p.badge } : x))
+      setDestacados(prev => nuevo === 'DESTACADO'
+        ? prev.filter(x => x.id !== p.id)
+        : (prev.some(x => x.id === p.id) ? prev : [{ ...p }, ...prev]))
     }
   }
 
@@ -960,10 +972,9 @@ export default function ProductosAdmin() {
             }}>
             {soloDestacados
               ? '⭐ Viendo destacados — tocá para ver todos'
-              : (() => {
-                  const n = productos.filter(p => p.badge === 'DESTACADO').length
-                  return n > 0 ? `⭐ Ver los ${n} destacados` : '⭐ Ver / poner destacados (no hay todavía)'
-                })()}
+              : (destacados.length > 0
+                  ? `⭐ Ver los ${destacados.length} destacados`
+                  : '⭐ Ver / poner destacados (no hay todavía)')}
           </button>
         )}
 
@@ -998,7 +1009,7 @@ export default function ProductosAdmin() {
               const buscandoServer = q.length >= 2
               let filtrados = buscandoServer
                 ? resultados
-                : (soloDestacados ? productos.filter(p => p.badge === 'DESTACADO') : productos)
+                : (soloDestacados ? destacados : productos)
               if (buscando) {
                 return <div style={{ color: '#7a8a9a', textAlign: 'center', padding: 40 }}>Buscando “{busqueda}”...</div>
               }
