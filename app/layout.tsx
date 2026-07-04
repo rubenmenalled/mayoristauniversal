@@ -5,7 +5,7 @@ import './globals.css'
 import { CartProvider } from '@/lib/CartContext'
 import AnnouncementBar from '@/components/AnnouncementBar'
 import ExitIntentPopup from '@/components/ExitIntentPopup'
-import WelcomePopup from '@/components/WelcomePopup'
+import MinimosPopup from '@/components/MinimosPopup'
 import WhatsAppChannelPopup from '@/components/WhatsAppChannelPopup'
 import ScrollToTop from '@/components/ScrollToTop'
 import WhatsAppButton from '@/components/WhatsAppButton'
@@ -152,7 +152,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</Script>
           </>
         )}
-        <CartProvider><NoPinchZoom /><AnnouncementBar />{children}<WelcomePopup /><WhatsAppChannelPopup /><ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
+        <CartProvider><NoPinchZoom /><AnnouncementBar />{children}<MinimosPopup /><WhatsAppChannelPopup /><ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
       </body>
     </html>
   )
