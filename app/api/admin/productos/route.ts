@@ -6,7 +6,9 @@ export async function GET(request: NextRequest) {
   if (!await isAuthenticated()) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
   const { searchParams } = new URL(request.url)
-  const q = (searchParams.get('q') || '').trim().replace(/[%,()]/g, ' ')
+  let q = (searchParams.get('q') || '').trim().replace(/[%,()]/g, ' ')
+  // Ignora un "COD"/"CÓDIGO" inicial que se suele tipear antes del código
+  q = q.replace(/^\s*c[oó]d(igo)?\.?[:\s]+/i, '').trim()
   const soloDestacados = searchParams.get('destacados')
 
   const supabase = getAdminClient()
