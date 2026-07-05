@@ -49,6 +49,8 @@ function BuscarContent() {
   const [query, setQuery] = useState(q)
   const [productos, setProductos] = useState<Producto[]>([])
   const [loading, setLoading] = useState(true)
+  const [zoomP, setZoomP] = useState<Producto | null>(null)
+  const [zoomed, setZoomed] = useState(false)
 
   useEffect(() => {
     if (!q.trim()) { setProductos([]); setLoading(false); return }
@@ -142,7 +144,8 @@ function BuscarContent() {
                     style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: Math.min(i * 0.03, 0.3) }} whileHover={{ y: -4 }}>
-                    <div style={{ position: 'relative', height: 220, background: '#F8F8F8', overflow: 'hidden' }}>
+                    <div onClick={() => { if (p.image) { setZoomP(p); setZoomed(false) } }}
+                      style={{ position: 'relative', height: 220, background: '#F8F8F8', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}>
                       {p.image ? (
                         <Image src={p.image} alt={p.name} fill className="object-contain" sizes="250px" quality={85} />
                       ) : (
@@ -150,6 +153,9 @@ function BuscarContent() {
                       )}
                       {(p.discount ?? 0) > 0 && (
                         <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#FFFFFF', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
+                      )}
+                      {p.image && (
+                        <span style={{ position: 'absolute', top: 8, right: 8, background: 'rgba(255,255,255,0.92)', borderRadius: 99, width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, boxShadow: '0 1px 5px rgba(0,0,0,0.18)', pointerEvents: 'none' }}>🔍</span>
                       )}
                     </div>
                     <div style={{ padding: 8 }}>
@@ -251,6 +257,24 @@ function BuscarContent() {
         )}
       </div>
       <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
+
+      {zoomP && zoomP.image && (
+        <div
+          onClick={() => { if (zoomed) setZoomed(false); else setZoomP(null) }}
+          style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+          <div onClick={e => { e.stopPropagation(); setZoomed(z => !z) }}
+            style={{ position: 'relative', width: '100%', maxWidth: 640, height: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={zoomP.image} alt={zoomP.name}
+              style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', transition: 'transform .2s ease', transform: zoomed ? 'scale(2)' : 'scale(1)', cursor: zoomed ? 'zoom-out' : 'zoom-in' }} />
+          </div>
+          <button onClick={e => { e.stopPropagation(); setZoomP(null); setZoomed(false) }} aria-label="Cerrar"
+            style={{ position: 'absolute', top: 16, right: 16, background: '#FFFFFF', border: 'none', borderRadius: '50%', width: 40, height: 40, cursor: 'pointer', fontSize: 18, fontWeight: 700, color: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+          <div style={{ position: 'absolute', bottom: 18, left: 0, right: 0, textAlign: 'center', color: '#FFFFFF', fontSize: 12.5, opacity: 0.85, padding: '0 20px' }}>
+            {zoomP.name} · tocá la imagen para {zoomed ? 'alejar' : 'acercar'}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
