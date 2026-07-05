@@ -20,7 +20,6 @@ const ORDEN_CATEGORIAS = [
   'PANTUFLAS',
   'BELLEZA',
   'ACCESORIOS DE PELO',
-  'LICENCIA (BLANQUERIA Y ACCESORIOS)',
   'TODO PARA EL DEPORTE',
   'COTILLON',
   'DECO CASA',
@@ -66,7 +65,6 @@ const FOTOS: Record<string, string> = {
   'MASCOTAS':            'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   'COTILLON':            'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
   'LENTES':              'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=90',
-  'LICENCIA (BLANQUERIA Y ACCESORIOS)':     'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/cat_blanqueria_licencias.jpg',
   'BLANQUERIA':                            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=90',
   'PERFUMERIA':          '/cat_perfumeria.jpg',
   'RELOJES':             'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
@@ -116,7 +114,6 @@ export async function GET() {
 
   const EMOJIS: Record<string, string> = {
     'HOGAR Y BAZAR':       '🍳',
-    'LICENCIA (BLANQUERIA Y ACCESORIOS)':     '🛏️',
     'BLANQUERIA':                            '🛏️',
     'PELUCHES':            '🧸',
     'PELUCHES ENAMORADOS': '💕',
@@ -167,7 +164,6 @@ export async function GET() {
     'BIJOUTERIE':         ['Collares', 'Aros', 'Pulseras', 'Anillos', 'Sets de Bijou'],
     'PRODUCTOS REGIONALES':['Alimentos Regionales', 'Dulces y Conservas', 'Artesanías', 'Bebidas'],
     'PERFUMERIA':         ['Perfumes Mujer', 'Perfumes Hombre', 'Desodorantes', 'Cremas y Lociones'],
-    'LICENCIA (BLANQUERIA Y ACCESORIOS)':    ['Sábanas', 'Toallas', 'Almohadas', 'Edredones', 'Acolchados'],
     'LENTES':             ['Anteojos de Sol', 'Anteojos de Lectura', 'LENTES DE SOL', 'LENTES INYECTADOS', 'LENTES CICLISMO', 'Estuches', 'Limpiadores'],
     'LENCERIA':           ['Ropa Interior Mujer', 'Pijamas', 'Medias y Medias Cañas', 'Camisones'],
     'RODADOS':            ['Bicicletas', 'Patines', 'Scooters', 'Accesorios Rodados'],
