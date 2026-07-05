@@ -369,10 +369,11 @@ export default function CartSidebar({ open, onClose }: Props) {
                 </div>
               )}
             </div>
+            </div>
 
-            {/* Footer */}
+            {/* Footer fijo abajo — siempre visible sin tener que scrollear */}
             {items.length > 0 && (
-              <div style={{ padding: '12px 16px', borderTop: '1px solid #E5E7EB', background: '#FFFFFF' }}>
+              <div style={{ padding: '12px 16px', borderTop: '1px solid #E5E7EB', background: '#FFFFFF', flexShrink: 0, maxHeight: '64vh', overflowY: 'auto' }}>
 
                 {/* Alertas por categoría */}
                 {alertasCategorias.map((msg, i) => (
@@ -620,7 +621,6 @@ export default function CartSidebar({ open, onClose }: Props) {
                 </button>
               </div>
             )}
-            </div>
           </motion.div>
         </>
       )}
