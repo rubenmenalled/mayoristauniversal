@@ -572,11 +572,26 @@ export default function CartSidebar({ open, onClose }: Props) {
                     </a>
                   </div>
                 ) : (
-                  <button
-                    onClick={onClose}
-                    style={{ width: '100%', padding: '14px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 16px rgba(255,106,61,0.35)' }}>
-                    + SEGUIR AGREGANDO PRODUCTOS
-                  </button>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {/* No perder el lead: consultar por WhatsApp aunque NO llegue al mínimo */}
+                    <a
+                      href={waLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => { try { notificarPedidoIniciado('WhatsApp consulta') } catch {} }}
+                      style={{ width: '100%', padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#25D366,#128C7E)', color: '#FFFFFF', fontWeight: 900, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', boxShadow: '0 4px 16px rgba(37,211,102,0.35)' }}>
+                      <MessageCircle size={17} />
+                      CONSULTÁ TU PEDIDO POR WHATSAPP
+                    </a>
+                    <div style={{ fontSize: 11.5, color: '#6B7280', textAlign: 'center', lineHeight: 1.45 }}>
+                      ¿No llegás al mínimo? Escribinos con lo que tenés en el carrito y te ayudamos a completar tu pedido.
+                    </div>
+                    <button
+                      onClick={onClose}
+                      style={{ width: '100%', padding: '12px', borderRadius: 12, border: '1.5px solid #FF6A3D', background: 'transparent', color: '#FF6A3D', fontWeight: 900, fontSize: 14, cursor: 'pointer' }}>
+                      + SEGUIR AGREGANDO PRODUCTOS
+                    </button>
+                  </div>
                 )}
                 <button onClick={clearCart}
                   style={{ width: '100%', marginTop: 8, padding: '10px', borderRadius: 12, border: '1px solid #FECACA', background: '#FEF2F2', color: '#EF4444', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
