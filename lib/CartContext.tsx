@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { track } from './track'
 
 export const WHOLESALE_MIN = 100000
 export const RETAIL_MIN = 40000            // mínimo para compra minorista
@@ -67,6 +68,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [...prev, { ...item, quantity: item.minOrder }]
     })
     setCartOpen(true)
+    track('add_to_cart', {
+      item_id: item.id,
+      item_name: item.name,
+      item_category: item.category,
+      value: Math.round(item.wholesalePrice * item.minOrder),
+      currency: 'ARS',
+    })
   }
 
   function removeItem(id: number) {

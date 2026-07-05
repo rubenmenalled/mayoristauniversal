@@ -5,6 +5,7 @@ import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } 
 import { useCart, WHOLESALE_MIN } from '@/lib/CartContext'
 import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE } from '@/lib/minimos'
 import { supabase } from '@/lib/supabase'
+import { track } from '@/lib/track'
 import { useState, useEffect, useRef } from 'react'
 
 const WA_NUMBER = '5491164660482'
@@ -123,6 +124,16 @@ export default function CartSidebar({ open, onClose }: Props) {
   useEffect(() => {
     if (pedirDatos) setTimeout(() => datosRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60)
   }, [pedirDatos])
+
+  // Medición: avisar a Google cuando abren el carrito con productos (intención de compra)
+  const checkoutTracked = useRef(false)
+  useEffect(() => {
+    if (open && items.length > 0 && !checkoutTracked.current) {
+      checkoutTracked.current = true
+      track('begin_checkout', { value: Math.round(wholesaleTotal), currency: 'ARS', items: items.length })
+    }
+    if (!open) checkoutTracked.current = false
+  }, [open, items.length, wholesaleTotal])
 
   // Verificar mínimos por categoría
   const alertasCategorias: string[] = []
@@ -572,7 +583,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                       href={alcanzaMin ? waLink : undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={e => { if (!alcanzaMin) { e.preventDefault(); return } if (!tieneDatos()) { e.preventDefault(); return } notificarPedidoIniciado('WhatsApp') }}
+                      onClick={e => { if (!alcanzaMin) { e.preventDefault(); return } if (!tieneDatos()) { e.preventDefault(); return } track('whatsapp_click', { tipo: 'pedido', value: Math.round(wholesaleTotal), currency: 'ARS' }); notificarPedidoIniciado('WhatsApp') }}
                       style={{ width: '100%', padding: '11px', borderRadius: 12, border: '1.5px solid #25D366', background: 'transparent', color: '#128C7E', fontWeight: 900, fontSize: 13, cursor: alcanzaMin ? 'pointer' : 'not-allowed', opacity: alcanzaMin ? 1 : 0.45, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', flexDirection: 'column' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <MessageCircle size={16} />
@@ -588,7 +599,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                       href={waLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => { try { notificarPedidoIniciado('WhatsApp consulta') } catch {} }}
+                      onClick={() => { track('whatsapp_click', { tipo: 'consulta', value: Math.round(wholesaleTotal), currency: 'ARS' }); try { notificarPedidoIniciado('WhatsApp consulta') } catch {} }}
                       style={{ width: '100%', padding: '13px', borderRadius: 12, border: 'none', background: 'linear-gradient(135deg,#25D366,#128C7E)', color: '#FFFFFF', fontWeight: 900, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, textDecoration: 'none', boxShadow: '0 4px 16px rgba(37,211,102,0.35)' }}>
                       <MessageCircle size={17} />
                       CONSULTÁ TU PEDIDO POR WHATSAPP
