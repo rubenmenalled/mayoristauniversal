@@ -144,10 +144,10 @@ export default function CartSidebar({ open, onClose }: Props) {
     const cat = (i.category || 'OTROS').toUpperCase()
     return { label: cat, min: minDeCatalogo(cat) }
   }
-  const gruposMap: Record<string, { cat: string; sub: number; min: number }> = {}
+  const gruposMap: Record<string, { cat: string; sub: number; min: number; navCat: string }> = {}
   items.forEach(i => {
     const { label, min } = grupoDe(i)
-    if (!gruposMap[label]) gruposMap[label] = { cat: label, sub: 0, min }
+    if (!gruposMap[label]) gruposMap[label] = { cat: label, sub: 0, min, navCat: (i.category || label) }
     gruposMap[label].sub += Math.round(i.wholesalePrice * markupActual) * i.quantity
   })
   const grupos = Object.values(gruposMap).map(g => ({ ...g, ok: g.sub >= g.min, falta: Math.max(0, g.min - g.sub) }))
@@ -380,9 +380,19 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <div style={{ background: '#E5E7EB', borderRadius: 99, height: 7, overflow: 'hidden' }}>
                       <div style={{ height: '100%', borderRadius: 99, width: `${Math.min(100, Math.round((g.sub / g.min) * 100))}%`, background: g.ok ? '#16A34A' : '#FF6A3D', transition: 'width .4s ease' }} />
                     </div>
-                    <div style={{ fontSize: 11, fontWeight: 700, marginTop: 5, color: g.ok ? '#15803D' : '#B45309' }}>
-                      {g.ok ? '✅ ¡Mínimo alcanzado!' : `⚠️ Faltan $${g.falta.toLocaleString('es-AR')}`}
+                    <div style={{ fontSize: 11.5, fontWeight: 800, marginTop: 5, color: g.ok ? '#15803D' : '#B45309' }}>
+                      {g.ok
+                        ? '✅ ¡Mínimo alcanzado!'
+                        : (g.sub / g.min >= 0.6
+                            ? `🔥 ¡Ya casi! Te faltan solo $${g.falta.toLocaleString('es-AR')}`
+                            : `⚠️ Te faltan $${g.falta.toLocaleString('es-AR')}`)}
                     </div>
+                    {!g.ok && (
+                      <a href={`/categorias/${encodeURIComponent(g.navCat)}`}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 8, padding: '9px 12px', borderRadius: 9, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 12.5, textDecoration: 'none', boxShadow: '0 2px 8px rgba(255,106,61,0.3)' }}>
+                        + Sumá más de {g.cat} →
+                      </a>
+                    )}
                   </div>
                 ))}
                 {grupos.length > 1 && (
