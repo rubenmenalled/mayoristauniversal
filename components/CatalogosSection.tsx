@@ -166,7 +166,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
     return true
   })
 
-  const PROXIMAMENTE = new Set(['RODADOS', 'BLANQUERIA'])
+  const PROXIMAMENTE = new Set(['RODADOS'])
 
   return (
     <>

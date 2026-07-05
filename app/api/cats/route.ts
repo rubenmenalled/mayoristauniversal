@@ -65,7 +65,6 @@ const FOTOS: Record<string, string> = {
   'MASCOTAS':            'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   'COTILLON':            'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
   'LENTES':              'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&q=90',
-  'BLANQUERIA':                            'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=90',
   'PERFUMERIA':          '/cat_perfumeria.jpg',
   'RELOJES':             'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
@@ -94,7 +93,7 @@ export async function GET() {
 
   if (data.length === 0 && from === 0) return NextResponse.json([], { status: 500 })
 
-  const OCULTAS = new Set(['PELUCHES ENAMORADOS', 'BLANQUERIA', 'RODADOS'])
+  const OCULTAS = new Set(['PELUCHES ENAMORADOS', 'RODADOS'])
 
   const fromDB = Array.from(new Set(
     (data ?? []).map((p: any) => (p.categoria || '').trim().toUpperCase()).filter(Boolean)
@@ -114,7 +113,6 @@ export async function GET() {
 
   const EMOJIS: Record<string, string> = {
     'HOGAR Y BAZAR':       '🍳',
-    'BLANQUERIA':                            '🛏️',
     'PELUCHES':            '🧸',
     'PELUCHES ENAMORADOS': '💕',
     'LENCERIA':            '👙',
