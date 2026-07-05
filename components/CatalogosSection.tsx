@@ -349,8 +349,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                       lineHeight: 1.35, textShadow: '0 1px 4px rgba(0,0,0,0.9)',
                     }}>
                       {minDeCatalogo(cat.name) > 0 && (
-                        <>Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}
-                          {cat.name.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && ' · FITTZ $300.000'}</>
+                        <>Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}</>
                       )}
                       {minDeCatalogo(cat.name) > 0 && cat.count >= 10 && ' · '}
                       {cat.count >= 10 && `${cat.count} artículos`}

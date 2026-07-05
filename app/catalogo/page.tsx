@@ -214,9 +214,6 @@ export default function CatalogoPage() {
                   )}
                   {minDeCatalogo(nombre) > 0 && <div style={{ position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)', background: 'transparent', color: '#FF7A3D', textAlign: 'center', fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap', letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)' }}>
                     ⚠️ Mínimo de compra ${minDeCatalogo(nombre).toLocaleString('es-AR')}
-                    {nombre.toUpperCase() === 'ACCESORIOS PARA MASCOTAS' && (
-                      <div style={{ fontSize: 12, marginTop: 2 }}>FITTZ MASCOTAS: mínimo $300.000</div>
-                    )}
                   </div>}
                   {!esBanner && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}

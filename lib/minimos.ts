@@ -23,7 +23,6 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
 
 // Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
 export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
-  'FITTZ MASCOTAS': 300000,
   'M ELEVEN': 100000,
   'NEXT PARAGUAS': 120000,
   'PARAGUAS M ELEVEN': 120000,
