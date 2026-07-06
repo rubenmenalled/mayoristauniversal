@@ -36,9 +36,13 @@ function getVariants(term: string): string[] {
   const t = term.toLowerCase().trim()
   if (!t) return []
   const base = stripAccents(t)
-  const variants = new Set<string>([t])
-  if (base !== t) variants.add(base)
-  return Array.from(variants)
+  const variants = new Set<string>([t, base])
+  // Confusión frecuente i <-> y al final (ej. "squishi" vs "squishy", "kuromy" vs "kuromi")
+  for (const v of [t, base]) {
+    if (v.endsWith('i')) variants.add(v.slice(0, -1) + 'y')
+    if (v.endsWith('y')) variants.add(v.slice(0, -1) + 'i')
+  }
+  return Array.from(variants).filter(Boolean)
 }
 
 function BuscarContent() {
