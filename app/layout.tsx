@@ -12,7 +12,7 @@ import WhatsAppButton from '@/components/WhatsAppButton'
 import NoPinchZoom from '@/components/NoPinchZoom'
 import { Analytics } from '@vercel/analytics/react'
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-JQQZVQQ6EB'
 const GTM_ID = 'GTM-549CX2X6'
 
 const montserrat = Montserrat({
