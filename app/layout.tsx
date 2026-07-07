@@ -10,6 +10,7 @@ import WhatsAppChannelPopup from '@/components/WhatsAppChannelPopup'
 import ScrollToTop from '@/components/ScrollToTop'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import NoPinchZoom from '@/components/NoPinchZoom'
+import { Analytics } from '@vercel/analytics/react'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 const GTM_ID = 'GTM-549CX2X6'
@@ -153,6 +154,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </>
         )}
         <CartProvider><NoPinchZoom /><AnnouncementBar />{children}<MinimosPopup /><WhatsAppChannelPopup /><ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
+        <Analytics />
       </body>
     </html>
   )
