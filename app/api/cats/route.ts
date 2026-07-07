@@ -14,6 +14,7 @@ const ORDEN_CATEGORIAS = [
   'CAMPING',
   'PERFUMERIA',
   'FATTZ IMPORT',
+  'BIJOUTERIE',
   'ACCESORIOS PARA MASCOTAS',
   'MARROQUINERIA',
   'PRODUCTOS REGIONALES',
@@ -32,7 +33,6 @@ const ORDEN_CATEGORIAS = [
   'RELOJES',
   'HU IMPORT',
   'LENTES',
-  'BIJOUTERIE',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
@@ -159,7 +159,7 @@ export async function GET() {
     'CAMPING':            ['TACTICO', 'ACCESORIOS CAMPING'],
     'BEBÉ':               ['Ropa de Bebé', 'Juguetes Bebé', 'Higiene Bebé', 'Accesorios Bebé'],
     'MASCOTAS':           ['Accesorios Perro', 'Accesorios Gato', 'Juguetes Mascotas', 'Higiene Mascotas'],
-    'BIJOUTERIE':         ['Collares', 'Aros', 'Pulseras', 'Anillos', 'Sets de Bijou'],
+    'BIJOUTERIE':         ['Aros', 'Collares', 'Pulseras'],
     'PRODUCTOS REGIONALES':['Alimentos Regionales', 'Dulces y Conservas', 'Artesanías', 'Bebidas'],
     'PERFUMERIA':         ['Perfumes Mujer', 'Perfumes Hombre', 'Desodorantes', 'Cremas y Lociones'],
     'LENTES':             ['Anteojos de Sol', 'Anteojos de Lectura', 'LENTES DE SOL', 'LENTES INYECTADOS', 'LENTES CICLISMO', 'Estuches', 'Limpiadores'],
