@@ -26,24 +26,30 @@ export default function WelcomePopup() {
     <AnimatePresence>
       {open && (
         <motion.div
-          onClick={close}
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-          style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.72)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
+          initial={{ opacity: 0, y: 20, x: -8 }}
+          animate={{ opacity: 1, y: 0, x: 0 }}
+          exit={{ opacity: 0, y: 20, x: -8 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+          style={{
+            position: 'fixed',
+            bottom: 130,
+            left: 24,
+            zIndex: 9000,
+            width: 'min(88vw, 260px)',
+            background: 'linear-gradient(160deg,#0D2C54,#0B1E3F)',
+            borderRadius: 16,
+            padding: 10,
+            boxShadow: '0 12px 34px rgba(0,0,0,0.45)',
+            border: '1px solid rgba(255,255,255,0.08)',
+          }}
         >
-          <motion.div
-            onClick={e => e.stopPropagation()}
-            initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.85, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            style={{ position: 'relative', maxWidth: 'min(82vw, 330px)', maxHeight: '78vh' }}
-          >
-            <button onClick={close} aria-label="Cerrar"
-              style={{ position: 'absolute', top: -14, right: -14, zIndex: 2, background: '#fff', border: 'none', borderRadius: '50%', width: 38, height: 38, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,0,0,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <X size={20} color="#0D2C54" />
-            </button>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG} alt="Promo Día del Niño - Mayorista Universal"
-              style={{ display: 'block', width: '100%', height: 'auto', maxHeight: '78vh', objectFit: 'contain', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,0.55)' }} />
-          </motion.div>
+          <button onClick={close} aria-label="Cerrar"
+            style={{ position: 'absolute', top: -8, right: -8, zIndex: 2, background: '#fff', border: 'none', borderRadius: '50%', width: 26, height: 26, cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <X size={14} color="#0D2C54" />
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={IMG} alt="Promo Día del Niño - Mayorista Universal"
+            style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 10 }} />
         </motion.div>
       )}
     </AnimatePresence>
