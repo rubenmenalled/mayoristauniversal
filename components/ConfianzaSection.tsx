@@ -3,7 +3,7 @@ export default function ConfianzaSection() {
     {
       emoji: '🏢',
       titulo: 'Empresa registrada',
-      texto: 'Operamos desde nuestra oficina en Lavalle 2378, Piso 8, Of. 82 — CABA. Factura disponible según tu condición.',
+      texto: 'Operamos desde nuestra oficina en Once, CABA. Factura disponible según tu condición.',
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=70',
     },
     {
