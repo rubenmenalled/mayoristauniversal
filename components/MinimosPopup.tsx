@@ -88,6 +88,7 @@ const TRAMOS = construirTramos()
 
 export default function MinimosPopup() {
   const [open, setOpen] = useState(false)
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -107,58 +108,79 @@ export default function MinimosPopup() {
     <AnimatePresence>
       {open && (
         <motion.div
-          onClick={close}
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-          style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.72)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(4px)' }}
+          initial={{ opacity: 0, y: 20, x: 8 }}
+          animate={{ opacity: 1, y: 0, x: 0 }}
+          exit={{ opacity: 0, y: 20, x: 8 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+          style={{
+            position: 'fixed',
+            bottom: 110,
+            right: 24,
+            zIndex: 9000,
+            width: 'min(90vw, 320px)',
+            maxHeight: '75vh',
+            overflowY: 'auto',
+            background: '#FFFFFF',
+            borderRadius: 16,
+            boxShadow: '0 14px 40px rgba(0,0,0,0.4)',
+            border: '1px solid rgba(0,0,0,0.06)',
+          }}
         >
-          <motion.div
-            onClick={e => e.stopPropagation()}
-            initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.88, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            style={{ position: 'relative', width: '100%', maxWidth: 'min(92vw, 430px)', maxHeight: '90vh', overflowY: 'auto', background: '#FFFFFF', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,0.55)' }}
-          >
-            {/* Header */}
-            <div style={{ position: 'sticky', top: 0, background: '#0E2A57', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <ShoppingCart size={22} color="#FF8A3D" />
-                <span style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 700 }}>Cómo funciona la compra mínima</span>
+          {/* Header */}
+          <div style={{ position: 'sticky', top: 0, background: '#0E2A57', padding: '12px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: '16px 16px 0 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <ShoppingCart size={18} color="#FF8A3D" />
+              <span style={{ color: '#FFFFFF', fontSize: 13.5, fontWeight: 700 }}>Cómo funciona la compra mínima</span>
+            </div>
+            <button onClick={close} aria-label="Cerrar" style={{ background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', padding: 2, flexShrink: 0 }}>
+              <X size={17} color="#9FB3D6" />
+            </button>
+          </div>
+
+          {/* Puntos */}
+          <div style={{ padding: '12px 14px 4px' }}>
+            {PUNTOS.map(({ Icon, texto }, i) => (
+              <div key={i} style={{ display: 'flex', gap: 9, marginBottom: 9 }}>
+                <Icon size={16} color="#F26522" style={{ flexShrink: 0, marginTop: 1 }} />
+                <span style={{ fontSize: 12.5, color: '#2C3E5A', lineHeight: 1.4 }}>{texto}</span>
               </div>
-              <button onClick={close} aria-label="Cerrar" style={{ background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', padding: 2 }}>
-                <X size={20} color="#9FB3D6" />
+            ))}
+          </div>
+
+          {!expanded ? (
+            <div style={{ padding: '2px 14px 14px' }}>
+              <button onClick={() => setExpanded(true)}
+                style={{ width: '100%', background: '#F1F4F9', color: '#0E2A57', border: 'none', textAlign: 'center', padding: 9, borderRadius: 8, fontSize: 12.5, fontWeight: 700, cursor: 'pointer', marginBottom: 8 }}>
+                Ver mínimo por rubro
               </button>
-            </div>
-
-            {/* Puntos */}
-            <div style={{ padding: '16px 20px 6px' }}>
-              {PUNTOS.map(({ Icon, texto }, i) => (
-                <div key={i} style={{ display: 'flex', gap: 11, marginBottom: 12 }}>
-                  <Icon size={19} color="#F26522" style={{ flexShrink: 0, marginTop: 1 }} />
-                  <span style={{ fontSize: 14.5, color: '#2C3E5A', lineHeight: 1.5 }}>{texto}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Tramos de mínimos (automáticos desde lib/minimos.ts) */}
-            <div style={{ padding: '4px 20px 4px' }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: '#8A94A6', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 6 }}>Mínimo por rubro</div>
-              {TRAMOS.map((t, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 10, padding: '8px 0', borderBottom: i < TRAMOS.length - 1 ? '1px solid #EEF1F5' : 'none' }}>
-                  <span style={{ fontSize: 15, fontWeight: 700, color: '#0E2A57', minWidth: 100, flexShrink: 0 }}>{t.monto}</span>
-                  <span style={{ fontSize: 13.5, color: '#5A6B84', lineHeight: 1.4 }}>{t.rubros}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div style={{ padding: '10px 20px 20px' }}>
-              <button onClick={close} style={{ width: '100%', background: '#F26522', color: '#FFFFFF', border: 'none', textAlign: 'center', padding: 13, borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+              <button onClick={close} style={{ width: '100%', background: '#F26522', color: '#FFFFFF', border: 'none', textAlign: 'center', padding: 10, borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
                 Entendido, a comprar
               </button>
-              <div style={{ textAlign: 'center', fontSize: 12, color: '#9AA4B4', marginTop: 10, lineHeight: 1.5 }}>
-                Sumá los rubros que quieras · el mínimo de cada uno lo ves en cada catálogo
-              </div>
             </div>
-          </motion.div>
+          ) : (
+            <>
+              {/* Tramos de mínimos (automáticos desde lib/minimos.ts) */}
+              <div style={{ padding: '4px 14px 4px' }}>
+                <div style={{ fontSize: 10.5, fontWeight: 700, color: '#8A94A6', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 4 }}>Mínimo por rubro</div>
+                {TRAMOS.map((t, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 8, padding: '6px 0', borderBottom: i < TRAMOS.length - 1 ? '1px solid #EEF1F5' : 'none' }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: '#0E2A57', minWidth: 82, flexShrink: 0 }}>{t.monto}</span>
+                    <span style={{ fontSize: 11.5, color: '#5A6B84', lineHeight: 1.35 }}>{t.rubros}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div style={{ padding: '8px 14px 14px' }}>
+                <button onClick={close} style={{ width: '100%', background: '#F26522', color: '#FFFFFF', border: 'none', textAlign: 'center', padding: 10, borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+                  Entendido, a comprar
+                </button>
+                <div style={{ textAlign: 'center', fontSize: 10.5, color: '#9AA4B4', marginTop: 8, lineHeight: 1.4 }}>
+                  Sumá los rubros que quieras · el mínimo de cada uno lo ves en cada catálogo
+                </div>
+              </div>
+            </>
+          )}
         </motion.div>
       )}
     </AnimatePresence>
