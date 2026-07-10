@@ -225,12 +225,15 @@ export default function CartSidebar({ open, onClose }: Props) {
     <AnimatePresence>
       {open && (
         <>
-          {/* Overlay */}
-          <motion.div
-            className="fixed inset-0 bg-black/60 z-[100]"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
+          {/* Overlay — solo en mobile. En desktop el carrito queda fijo y no bloquea la página
+              para poder seguir agregando productos sin tener que cerrarlo cada vez. */}
+          {isMobile && (
+            <motion.div
+              className="fixed inset-0 bg-black/60 z-[100]"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={onClose}
+            />
+          )}
           {/* Sidebar */}
           <motion.div
             className="fixed right-0 top-0 bottom-0 z-[101] flex flex-col"
