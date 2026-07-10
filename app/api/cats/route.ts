@@ -12,7 +12,7 @@ const ORDEN_CATEGORIAS = [
   'BIJOUTERIE',
   'ARTICULOS X BULTO',
   'CAMPING',
-  'PERFUMERIA',
+  'PELUQUERIA Y BARBERIA',
   'FATTZ IMPORT',
   'LENCERIA',
   'ACCESORIOS PARA MASCOTAS',
@@ -32,7 +32,7 @@ const ORDEN_CATEGORIAS = [
   'LIBRERIA',
   'RELOJES',
   'LENTES',
-  'PELUQUERIA Y BARBERIA',
+  'PERFUMERIA',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
