@@ -40,6 +40,7 @@ const ORDEN_CATEGORIAS = [
   'RODADOS',
   'ARTICULOS X BULTO',
   'FATTZ IMPORT',
+  'PELUQUERIA Y BARBERIA',
 ]
 
 function sortCategorias(cats: any[]) {

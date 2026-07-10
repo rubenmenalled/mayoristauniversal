@@ -31,6 +31,7 @@ const NOMBRE_LINDO: Record<string, string> = {
   'RELOJES': 'Relojes',
   'DECO CASA': 'Deco Casa',
   'PERFUMERIA': 'Perfumería',
+  'PELUQUERIA Y BARBERIA': 'Peluquería y Barbería',
   'NEXT PARAGUAS': 'Next Paraguas',
   'PARAGUAS M ELEVEN': 'Paraguas M Eleven',
   'INDIO MOHI': 'Indio Mohi',
