@@ -31,7 +31,6 @@ const ORDEN_CATEGORIAS = [
   'LLAVEROS',
   'LIBRERIA',
   'RELOJES',
-  'HU IMPORT',
   'LENTES',
 ]
 

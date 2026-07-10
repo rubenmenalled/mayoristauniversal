@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
 
       // Portadas fijas elegidas a mano (tienen prioridad sobre la primera foto).
       // Clave: "CATEGORIA|subcategoria" para no pisar subcategorías con el mismo
-      // nombre en otra categoría (ej. HERRAMIENTAS existe en HU IMPORT y en MULTI-POP).
+      // nombre en otra categoría (ej. HERRAMIENTAS existe en varias categorías).
       const OVERRIDE_SUB: Record<string, string> = {
         'ACCESORIOS PARA MASCOTAS|acuario': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/monce/portada-acuario-v2.jpg',
         'ACCESORIOS DE INVIERNO|hz invierno': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/monce/portada-hz-invierno.jpg',
@@ -97,12 +97,6 @@ export async function GET(request: NextRequest) {
         'JUGUETERIA|juguetes tendencias': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
         'TENDENCIAS|bazar': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-bazar.jpg?v=1',
         'TENDENCIAS|cuidado personal': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-cuidado.jpg?v=2',
-        // HU IMPORT — subcategorías con el banner de la categoría original
-        'HU IMPORT|herramientas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-herramientas-v2.jpg?v=1',
-        'HU IMPORT|camping': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-camping-v2.jpg?v=1',
-        'HU IMPORT|automotor': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-automotor-v2.jpg?v=1',
-        'HU IMPORT|iluminacion': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-iluminacion-v2.jpg?v=1',
-        'HU IMPORT|electronica': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-electronica-v2.jpg?v=1',
       }
       const catKey = (categoria || '').toUpperCase()
 

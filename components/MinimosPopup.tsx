@@ -19,7 +19,6 @@ const NOMBRE_LINDO: Record<string, string> = {
   'FATTZ IMPORT': 'Fattz Import',
   'JUGUETERIA': 'Juguetería',
   'PELUCHES': 'Peluches',
-  'HU IMPORT': 'HU Import',
   'LIBRERIA': 'Librería',
   'BAZAR Y HOGAR': 'Bazar y Hogar',
   'BELLEZA': 'Belleza',

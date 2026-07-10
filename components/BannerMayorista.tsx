@@ -56,7 +56,7 @@ export default function BannerMayorista() {
         <HandDrawnCircle color="#FFFFFF" strokeWidth={3.2}>
           <div style={{ padding: '2px 14px' }}>
             <div style={eyebrow}>💰 Mínimo por catálogo</div>
-            <p style={big}>desde <span style={gold}>$100.000</span></p>
+            <p style={big}>desde <span style={gold}>$130.000</span></p>
             <div style={{ color: '#AEBED6', fontWeight: 600, fontSize: 12.5, marginTop: 3 }}>Surtí libremente dentro de cada rubro</div>
             <span style={badge}>🔥 Precios de importador</span>
           </div>
