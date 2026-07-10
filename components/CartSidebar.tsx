@@ -237,7 +237,7 @@ export default function CartSidebar({ open, onClose }: Props) {
           {/* Sidebar */}
           <motion.div
             className="fixed right-0 top-0 bottom-0 z-[101] flex flex-col"
-            style={{ width: '100%', maxWidth: 'min(520px, 95vw)', background: '#FFFFFF', borderLeft: '1px solid #E5E7EB', boxShadow: '-8px 0 40px rgba(0,0,0,0.12)' }}
+            style={{ width: '100%', maxWidth: isMobile ? 'min(520px, 95vw)' : 400, background: '#FFFFFF', borderLeft: '1px solid #E5E7EB', boxShadow: '-8px 0 40px rgba(0,0,0,0.12)' }}
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
 
@@ -267,16 +267,13 @@ export default function CartSidebar({ open, onClose }: Props) {
                   <div style={{ color: '#6B7280', fontSize: 13 }}>Agregá productos para comenzar</div>
                 </div>
               ) : (
-                <div style={isMobile
-                  ? { display: 'flex', flexDirection: 'column', gap: 8 }
-                  : { display: 'grid', gridTemplateColumns: items.length === 1 ? '1fr' : '1fr 1fr', gap: 10 }
-                }>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {items.map(item => {
                     // El carrito muestra siempre precio mayorista (venta solo mayorista, sin recargo minorista)
                     const subtotal = item.wholesalePrice * item.quantity
 
-                    /* ── MOBILE: fila horizontal compacta ── */
-                    if (isMobile) return (
+                    /* ── Fila horizontal compacta (mobile y desktop) ── */
+                    return (
                       <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, padding: '10px 12px', display: 'flex', gap: 10, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', alignItems: 'center' }}>
                         {/* Imagen 70px */}
                         <div style={{ width: 70, height: 70, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', border: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -315,55 +312,6 @@ export default function CartSidebar({ open, onClose }: Props) {
                                 <Trash2 size={13} />
                               </button>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-
-                    /* ── DESKTOP: tarjeta vertical (imagen arriba) ── */
-                    return (
-                      <div key={item.id} style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 12, overflow: 'hidden', boxShadow: '0 1px 6px rgba(0,0,0,0.06)', display: 'flex', flexDirection: 'column' }}>
-                        {/* Imagen */}
-                        <div style={{ width: '100%', height: items.length === 1 ? 190 : 140, background: '#F9FAFB', borderBottom: '1px solid #F3F4F6', position: 'relative', overflow: 'hidden' }}>
-                          {item.image
-                            ? <img src={item.image} alt={item.name} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', maxWidth: 'calc(100% - 16px)', maxHeight: 'calc(100% - 16px)' }} />
-                            : <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 44 }}>📦</div>}
-                          {/* Badge */}
-                          <div style={{ position: 'absolute', top: 7, right: 7 }}>
-                            <span style={{ background: '#D1FAE5', color: '#065F46', fontSize: 8, fontWeight: 800, padding: '2px 6px', borderRadius: 4 }}>MAYORISTA</span>
-                          </div>
-                          {/* Botón eliminar */}
-                          <button onClick={() => removeItem(item.id)}
-                            style={{ position: 'absolute', top: 6, left: 6, background: 'rgba(255,255,255,0.9)', border: '1px solid #FECACA', borderRadius: 6, cursor: 'pointer', color: '#EF4444', width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Trash2 size={12} />
-                          </button>
-                        </div>
-                        {/* Info */}
-                        <div style={{ padding: '8px 10px', flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                          {item.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{item.brand}</div>}
-                          <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, lineHeight: 1.3, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', flex: 1 }}>{item.name}</div>
-                          {/* Precio (siempre mayorista en el carrito) */}
-                          <div>
-                            <div style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 15 }}>${subtotal.toLocaleString('es-AR')}</div>
-                            <div style={{ color: '#9CA3AF', fontSize: 10 }}>{item.minOrder > 1 ? `$${(item.wholesalePrice * item.minOrder).toLocaleString('es-AR')}/doc.` : `$${item.wholesalePrice.toLocaleString('es-AR')} c/u`}</div>
-                          </div>
-                          {/* Qty controls */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
-                            <button onClick={() => updateQty(item.id, Math.max(item.minOrder, item.quantity - item.minOrder))}
-                              style={{ width: 26, height: 26, borderRadius: 6, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                              <Minus size={11} />
-                            </button>
-                            <div style={{ textAlign: 'center', flex: 1 }}>
-                              {item.minOrder > 1 ? (
-                                <><div style={{ color: '#111827', fontWeight: 800, fontSize: 14, lineHeight: 1 }}>{item.quantity / item.minOrder}</div><div style={{ color: '#9CA3AF', fontSize: 9 }}>doc.</div></>
-                              ) : (
-                                <span style={{ color: '#111827', fontWeight: 800, fontSize: 14 }}>{item.quantity}</span>
-                              )}
-                            </div>
-                            <button onClick={() => updateQty(item.id, item.quantity + item.minOrder)}
-                              style={{ width: 26, height: 26, borderRadius: 6, background: '#F3F4F6', border: '1px solid #E5E7EB', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                              <Plus size={11} />
-                            </button>
                           </div>
                         </div>
                       </div>
