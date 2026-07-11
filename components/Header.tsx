@@ -186,10 +186,10 @@ export default function Header() {
                 transition={{ duration: 1.3, repeat: Infinity, ease: 'easeInOut' }}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0,
-                  background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
+                  background: 'linear-gradient(135deg,#16a34a,#15803d)',
                   color: '#FFFFFF', fontWeight: 800, fontSize: 11.5,
                   padding: '6px 11px', borderRadius: 20,
-                  boxShadow: '0 3px 12px rgba(255,106,61,0.55)',
+                  boxShadow: '0 3px 12px rgba(22,163,74,0.55)',
                   whiteSpace: 'nowrap', pointerEvents: 'none',
                 }}>
                 🔍 ¡Buscá acá lo que necesitás!
@@ -309,10 +309,10 @@ export default function Header() {
             transition={{ duration: 1.3, repeat: Infinity, ease: 'easeInOut' }}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 5,
-              margin: '6px 12px 0', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
+              margin: '6px 12px 0', background: 'linear-gradient(135deg,#16a34a,#15803d)',
               color: '#FFFFFF', fontWeight: 800, fontSize: 11,
               padding: '5px 10px', borderRadius: 20,
-              boxShadow: '0 3px 10px rgba(255,106,61,0.5)',
+              boxShadow: '0 3px 10px rgba(22,163,74,0.5)',
               pointerEvents: 'none',
             }}>
             🔍 ¡Buscá acá lo que necesitás!
