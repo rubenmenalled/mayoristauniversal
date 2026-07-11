@@ -179,7 +179,22 @@ export default function Header() {
           </div>
 
           {/* Search bar */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-2">
+          <div className="hidden md:flex flex-1 max-w-2xl mx-2 items-center gap-2">
+            {!search && (
+              <motion.div
+                animate={{ scale: [1, 1.07, 1] }}
+                transition={{ duration: 1.3, repeat: Infinity, ease: 'easeInOut' }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0,
+                  background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
+                  color: '#FFFFFF', fontWeight: 800, fontSize: 11.5,
+                  padding: '6px 11px', borderRadius: 20,
+                  boxShadow: '0 3px 12px rgba(255,106,61,0.55)',
+                  whiteSpace: 'nowrap', pointerEvents: 'none',
+                }}>
+                🔍 ¡Buscá acá lo que necesitás!
+              </motion.div>
+            )}
             <form className="flex w-full rounded-lg overflow-hidden border border-gold/25 focus-within:border-gold/60 transition-colors"
               onSubmit={e => { e.preventDefault(); if (search.trim()) window.location.href = `/buscar?q=${encodeURIComponent(search.trim())}` }}>
               <input type="text" value={search} onChange={e => setSearch(e.target.value)}
@@ -288,6 +303,21 @@ export default function Header() {
 
       {/* Mobile search bar — siempre visible */}
       <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(10,54,128,0.98)' }}>
+        {!mobileSearch && (
+          <motion.div
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 1.3, repeat: Infinity, ease: 'easeInOut' }}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 5,
+              margin: '6px 12px 0', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
+              color: '#FFFFFF', fontWeight: 800, fontSize: 11,
+              padding: '5px 10px', borderRadius: 20,
+              boxShadow: '0 3px 10px rgba(255,106,61,0.5)',
+              pointerEvents: 'none',
+            }}>
+            🔍 ¡Buscá acá lo que necesitás!
+          </motion.div>
+        )}
         <form className="px-3 py-2 flex gap-2"
           onSubmit={e => { e.preventDefault(); if (mobileSearch.trim()) { window.location.href = `/buscar?q=${encodeURIComponent(mobileSearch.trim())}` } }}>
           <input

@@ -50,6 +50,16 @@ export async function GET(request: NextRequest) {
       const esc = s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
       return Array.from(esc.toLowerCase()).map(c => ac[c] || c).join('')
     }
+    // Reduce un plural a su raíz singular (peluches→peluche, relojes→reloj) para que
+    // la búsqueda encuentre ambas formas: la raíz siempre queda como substring de la
+    // palabra completa, así que buscar por la raíz nunca pierde matches del plural,
+    // solo suma los del singular que el plural completo no encontraba.
+    const singularize = (t: string) => {
+      const low = t.toLowerCase()
+      if (low.length > 4 && low.endsWith('es')) return t.slice(0, -2)
+      if (low.length > 3 && low.endsWith('s'))  return t.slice(0, -1)
+      return t
+    }
     const stripAcc = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     let tokens = q
       .split(/\s+/)
@@ -58,7 +68,7 @@ export async function GET(request: NextRequest) {
     if (tokens.length === 0) tokens = [q.trim()]
     tokens = tokens.slice(0, 8) // tope de seguridad
     for (const t of tokens) {
-      const pat = accentPat(t)
+      const pat = accentPat(singularize(t))
       query = query.or(
         `nombre.imatch.${pat},marca.imatch.${pat},subcategoria.imatch.${pat},descripcion.imatch.${pat},ubicacion.imatch.${pat}`
       )
