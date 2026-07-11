@@ -33,6 +33,7 @@ const ORDEN_CATEGORIAS = [
   'RELOJES',
   'LENTES',
   'PERFUMERIA',
+  'ADULTOS',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
@@ -70,6 +71,7 @@ const FOTOS: Record<string, string> = {
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
   'PANTUFLAS':           'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/pantuflas-banner-1780665741.jpg',
+  'ADULTOS':             'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=800&q=90',
 }
 
 export async function GET() {
@@ -140,6 +142,7 @@ export async function GET() {
     'ACCESORIOS DE PELO':  '💇',
   'PANTUFLAS':           '🥿',
   'PELUQUERIA Y BARBERIA': '💈',
+  'ADULTOS':             '🔞',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {

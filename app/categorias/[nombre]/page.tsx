@@ -101,6 +101,13 @@ export default function CategoriaPage() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
+  // Verificación de edad para la categoría ADULTOS
+  const esAdultos = nombreDecoded.trim().toUpperCase() === 'ADULTOS'
+  const [ageVerified, setAgeVerified] = useState(false)
+  useEffect(() => {
+    if (esAdultos && sessionStorage.getItem('mu_age18ok') === '1') setAgeVerified(true)
+  }, [esAdultos])
+
   function normalizar(s: string) {
     return (s || '').toLowerCase().trim()
       .normalize('NFD').replace(/[̀-ͯ]/g, '')
@@ -292,6 +299,30 @@ export default function CategoriaPage() {
     setDiasNino(dias(new Date(2026, 7, 16)))  // 16 ago 2026
     setDiasAmigo(dias(new Date(2026, 6, 20))) // 20 jul 2026
   }, [])
+
+  if (esAdultos && !ageVerified) {
+    return (
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+        <div style={{ background: '#FFFFFF', borderRadius: 20, padding: '32px 28px', maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.4)' }}>
+          <div style={{ fontSize: 48, marginBottom: 12 }}>🔞</div>
+          <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 20, marginBottom: 10 }}>Contenido para mayores de 18 años</div>
+          <div style={{ color: '#555', fontSize: 14, marginBottom: 24, lineHeight: 1.5 }}>
+            Esta categoría contiene productos para adultos. Confirmá que sos mayor de edad para continuar.
+          </div>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <button onClick={() => router.push('/')}
+              style={{ flex: 1, padding: '13px', borderRadius: 10, border: '1.5px solid #E5E7EB', background: '#F9FAFB', color: '#555', fontWeight: 800, fontSize: 14, cursor: 'pointer' }}>
+              No, salir
+            </button>
+            <button onClick={() => { sessionStorage.setItem('mu_age18ok', '1'); setAgeVerified(true) }}
+              style={{ flex: 1, padding: '13px', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 14, cursor: 'pointer' }}>
+              Sí, soy mayor
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>

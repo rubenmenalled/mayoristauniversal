@@ -39,6 +39,7 @@ const ORDEN_CATEGORIAS = [
   'ARTICULOS X BULTO',
   'FATTZ IMPORT',
   'PERFUMERIA',
+  'ADULTOS',
 ]
 
 export async function GET() {
