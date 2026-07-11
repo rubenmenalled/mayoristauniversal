@@ -182,14 +182,15 @@ export default function Header() {
           <div className="hidden md:flex flex-1 max-w-2xl mx-2 items-center gap-2">
             {!search && (
               <motion.div
-                animate={{ scale: [1, 1.07, 1] }}
-                transition={{ duration: 1.3, repeat: Infinity, ease: 'easeInOut' }}
+                animate={{ x: [0, 6, 0] }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0,
                   background: 'linear-gradient(135deg,#16a34a,#15803d)',
                   color: '#FFFFFF', fontWeight: 800, fontSize: 11.5,
-                  padding: '6px 11px', borderRadius: 20,
-                  boxShadow: '0 3px 12px rgba(22,163,74,0.55)',
+                  padding: '6px 20px 6px 12px',
+                  clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)',
+                  filter: 'drop-shadow(0 3px 8px rgba(22,163,74,0.55))',
                   whiteSpace: 'nowrap', pointerEvents: 'none',
                 }}>
                 🔍 ¡Buscá acá lo que necesitás!
@@ -305,14 +306,15 @@ export default function Header() {
       <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(10,54,128,0.98)' }}>
         {!mobileSearch && (
           <motion.div
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 1.3, repeat: Infinity, ease: 'easeInOut' }}
+            animate={{ y: [0, 5, 0] }}
+            transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 5,
               margin: '6px 12px 0', background: 'linear-gradient(135deg,#16a34a,#15803d)',
               color: '#FFFFFF', fontWeight: 800, fontSize: 11,
-              padding: '5px 10px', borderRadius: 20,
-              boxShadow: '0 3px 10px rgba(22,163,74,0.5)',
+              padding: '5px 10px 14px',
+              clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 10px), 50% 100%, 0 calc(100% - 10px))',
+              filter: 'drop-shadow(0 3px 6px rgba(22,163,74,0.5))',
               pointerEvents: 'none',
             }}>
             🔍 ¡Buscá acá lo que necesitás!
