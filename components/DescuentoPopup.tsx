@@ -1,25 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
-// Categorías donde se muestra el aviso de descuento (nombre EXACTO en mayúsculas)
-export const CATEGORIAS_DESCUENTO = [
-  'TENDENCIAS',
-  'NEXT MUNDO',
-  'KIK',
-  'BEBÉ',
-  'ACCESORIOS PARA MASCOTAS',
-  'ACCESORIOS DE INVIERNO',
-  'JUGUETERIA',
-  'PELUCHES DE PERSONAJES',
-  'BIJOUTERIE',
-]
+import { CATEGORIAS_DESCUENTO_10 } from '@/lib/descuentos'
 
 interface Props { categoria: string }
 
 export default function DescuentoPopup({ categoria }: Props) {
   const cat = (categoria || '').trim().toUpperCase()
-  const aplica = CATEGORIAS_DESCUENTO.includes(cat)
+  const aplica = CATEGORIAS_DESCUENTO_10.includes(cat)
   const storageKey = `promo10_${cat}_seen`
 
   const [visible, setVisible] = useState(false)

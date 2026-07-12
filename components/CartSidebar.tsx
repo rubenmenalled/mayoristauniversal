@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
 import { useCart, WHOLESALE_MIN } from '@/lib/CartContext'
-import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE } from '@/lib/minimos'
+import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE, catalogoDe } from '@/lib/minimos'
+import { CATEGORIAS_DESCUENTO_10, DESCUENTO_10_MIN, catalogosConDescuento, precioUnitarioConDescuento } from '@/lib/descuentos'
 import { supabase } from '@/lib/supabase'
 import { track } from '@/lib/track'
 import { useState, useEffect, useRef } from 'react'
@@ -18,22 +19,21 @@ const MIN_CATEGORIA: Record<string, number> = {
 interface Props { open: boolean; onClose: () => void }
 
 function buildWAMessage(items: ReturnType<typeof useCart>['items']): string {
-  const markup = 1
+  const catalogosDescontados = catalogosConDescuento(items)
   let msg = `🛒 *Pedido Mayorista - Mayorista Universal*\n\n`
   // Agrupar por catálogo
   const grupos: Record<string, typeof items> = {}
   for (const item of items) {
-    const subU = (item.subcategory || '').toUpperCase()
-    const cat = MIN_SUBCATEGORIA_OVERRIDE[subU] != null ? subU : (item.category || 'OTROS').toUpperCase()
+    const cat = catalogoDe(item.category, item.subcategory)
     ;(grupos[cat] = grupos[cat] || []).push(item)
   }
   const cats = Object.keys(grupos)
   let total = 0
   for (const cat of cats) {
-    msg += `📦 *${cat}*\n`
+    msg += `📦 *${cat}*${catalogosDescontados.has(cat) ? ' — 🎉 10% OFF aplicado' : ''}\n`
     let subCat = 0
     for (const item of grupos[cat]) {
-      const unitPrice = Math.round(item.wholesalePrice * markup)
+      const unitPrice = precioUnitarioConDescuento(item, catalogosDescontados)
       const subtotal = unitPrice * item.quantity
       subCat += subtotal
       msg += `▪ ${item.name}\n  ${item.quantity} unid. × $${unitPrice.toLocaleString('es-AR')} = $${subtotal.toLocaleString('es-AR')}\n`
@@ -48,7 +48,7 @@ function buildWAMessage(items: ReturnType<typeof useCart>['items']): string {
 }
 
 export default function CartSidebar({ open, onClose }: Props) {
-  const { items, removeItem, updateQty, clearCart, isWholesale, displayTotal, wholesaleTotal, retailProgress, faltaMayorista } = useCart()
+  const { items, removeItem, updateQty, clearCart, isWholesale, displayTotal, wholesaleTotal, retailProgress, faltaMayorista, catalogosDescontados, descuentoTotal } = useCart()
   const [mpLoading, setMpLoading] = useState(false)
   const [showTransfer, setShowTransfer] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -148,20 +148,19 @@ export default function CartSidebar({ open, onClose }: Props) {
   })
 
   // Opción A: mínimo de compra en $ por catálogo (cada catálogo se compra por separado)
-  const markupActual = 1
   const grupoDe = (i: { category?: string; subcategory?: string }) => {
-    const sub = (i.subcategory || '').toUpperCase()
-    if (MIN_SUBCATEGORIA_OVERRIDE[sub] != null) return { label: sub, min: MIN_SUBCATEGORIA_OVERRIDE[sub] }
-    const cat = (i.category || 'OTROS').toUpperCase()
-    return { label: cat, min: minDeCatalogo(cat) }
+    const label = catalogoDe(i.category, i.subcategory)
+    const min = MIN_SUBCATEGORIA_OVERRIDE[label] != null ? MIN_SUBCATEGORIA_OVERRIDE[label] : minDeCatalogo(label)
+    return { label, min }
   }
-  const gruposMap: Record<string, { cat: string; sub: number; min: number; navCat: string }> = {}
+  const gruposMap: Record<string, { cat: string; sub: number; neto: number; min: number; navCat: string }> = {}
   items.forEach(i => {
     const { label, min } = grupoDe(i)
-    if (!gruposMap[label]) gruposMap[label] = { cat: label, sub: 0, min, navCat: (i.category || label) }
-    gruposMap[label].sub += Math.round(i.wholesalePrice * markupActual) * i.quantity
+    if (!gruposMap[label]) gruposMap[label] = { cat: label, sub: 0, neto: 0, min, navCat: (i.category || label) }
+    gruposMap[label].sub += i.wholesalePrice * i.quantity
+    gruposMap[label].neto += precioUnitarioConDescuento(i, catalogosDescontados) * i.quantity
   })
-  const grupos = Object.values(gruposMap).map(g => ({ ...g, ok: g.sub >= g.min, falta: Math.max(0, g.min - g.sub) }))
+  const grupos = Object.values(gruposMap).map(g => ({ ...g, ok: g.sub >= g.min, falta: Math.max(0, g.min - g.sub), ahorro: g.sub - g.neto }))
   const todosCatalogosOk = grupos.length > 0 && grupos.every(g => g.ok)
 
   const waLink = `https://wa.me/${WA_NUMBER}?text=${buildWAMessage(items)}`
@@ -173,7 +172,7 @@ export default function CartSidebar({ open, onClose }: Props) {
   // Confirmar pedido → guarda en DB + notifica (ntfy, email, WhatsApp)
   async function notificarPedidoIniciado(metodo: string) {
     try {
-      const total = items.reduce((s, i) => s + i.wholesalePrice * i.quantity, 0)
+      const total = wholesaleTotal // ya incluye el 10% OFF por catálogo si corresponde
       const nombre   = clienteData?.nombre   || sessionUser?.nombre   || ''
       const email    = clienteData?.email    || sessionUser?.email    || ''
       const telefono = clienteData?.telefono || sessionUser?.telefono || ''
@@ -270,7 +269,9 @@ export default function CartSidebar({ open, onClose }: Props) {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {items.map(item => {
                     // El carrito muestra siempre precio mayorista (venta solo mayorista, sin recargo minorista)
-                    const subtotal = item.wholesalePrice * item.quantity
+                    const unitPrice = precioUnitarioConDescuento(item, catalogosDescontados)
+                    const conDescuento = unitPrice < item.wholesalePrice
+                    const subtotal = unitPrice * item.quantity
 
                     /* ── Fila horizontal compacta (mobile y desktop) ── */
                     return (
@@ -287,8 +288,16 @@ export default function CartSidebar({ open, onClose }: Props) {
                           <div style={{ color: '#111827', fontWeight: 700, fontSize: 12, lineHeight: 1.3, marginBottom: 4, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{item.name}</div>
                           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             <div>
+                              {conDescuento && (
+                                <span style={{ color: '#9CA3AF', fontSize: 10, textDecoration: 'line-through', marginRight: 4 }}>
+                                  ${(item.wholesalePrice * item.quantity).toLocaleString('es-AR')}
+                                </span>
+                              )}
                               <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 13 }}>${subtotal.toLocaleString('es-AR')}</span>
                               <span style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginLeft: 4 }}>{item.minOrder > 1 ? '/doc.' : 'c/u'}</span>
+                              {conDescuento && (
+                                <span style={{ color: '#FFFFFF', background: '#16A34A', fontSize: 9, fontWeight: 800, marginLeft: 4, padding: '1px 5px', borderRadius: 99 }}>-10%</span>
+                              )}
                             </div>
                             {/* Qty + delete */}
                             <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -356,6 +365,18 @@ export default function CartSidebar({ open, onClose }: Props) {
                         + Sumá más de {g.cat} →
                       </a>
                     )}
+                    {/* 10% OFF automático al llegar a $500.000 en catálogos elegibles */}
+                    {CATEGORIAS_DESCUENTO_10.includes(g.cat) && (
+                      g.sub >= DESCUENTO_10_MIN ? (
+                        <div style={{ marginTop: 8, background: '#16A34A', color: '#FFFFFF', borderRadius: 8, padding: '6px 10px', fontSize: 11.5, fontWeight: 800, textAlign: 'center' }}>
+                          🎉 10% OFF aplicado · ahorrás ${g.ahorro.toLocaleString('es-AR')}
+                        </div>
+                      ) : (
+                        <div style={{ marginTop: 8, fontSize: 10.5, color: '#6B7280', textAlign: 'center' }}>
+                          Sumá ${(DESCUENTO_10_MIN - g.sub).toLocaleString('es-AR')} más en {g.cat} y obtenés 10% OFF
+                        </div>
+                      )
+                    )}
                   </div>
                 ))}
                 {grupos.length > 1 && (
@@ -369,8 +390,14 @@ export default function CartSidebar({ open, onClose }: Props) {
                 <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: 8, marginBottom: 10 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                     <span style={{ color: '#6B7280', fontSize: 12 }}>Subtotal</span>
-                    <span style={{ color: '#111827', fontWeight: 700, fontSize: 12 }}>${wholesaleTotal.toLocaleString('es-AR')}</span>
+                    <span style={{ color: '#111827', fontWeight: 700, fontSize: 12 }}>${(wholesaleTotal + descuentoTotal).toLocaleString('es-AR')}</span>
                   </div>
+                  {descuentoTotal > 0 && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                      <span style={{ color: '#16A34A', fontSize: 12, fontWeight: 700 }}>🎉 10% OFF</span>
+                      <span style={{ color: '#16A34A', fontWeight: 700, fontSize: 12 }}>-${descuentoTotal.toLocaleString('es-AR')}</span>
+                    </div>
+                  )}
                   {!isWholesale && (
                     <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: 8, padding: '7px 10px', marginBottom: 8, fontSize: 11, color: '#0369A1', lineHeight: 1.45 }}>
                       ℹ️ El mínimo de compra es <strong>${WHOLESALE_MIN.toLocaleString('es-AR')}</strong> por catálogo. Seguí sumando productos para finalizar tu pedido.

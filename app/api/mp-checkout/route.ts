@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { catalogosConDescuento, precioUnitarioConDescuento } from '@/lib/descuentos'
 
 export const dynamic = 'force-dynamic'
 
@@ -10,8 +11,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'MP_ACCESS_TOKEN no configurado' }, { status: 500 })
   }
 
+  const catalogosDescontados = catalogosConDescuento(items)
   const mpItems = items.map((item: any) => {
-    const basePrice = item.wholesalePrice
+    const basePrice = precioUnitarioConDescuento(item, catalogosDescontados)
     const priceWithSurcharge = Math.round(basePrice * 1.10)
     return {
       id: String(item.id),

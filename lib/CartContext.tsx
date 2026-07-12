@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { track } from './track'
+import { catalogosConDescuento, precioUnitarioConDescuento } from './descuentos'
 
 export const WHOLESALE_MIN = 100000
 export const RETAIL_MIN = 40000            // mínimo para compra minorista
@@ -42,6 +43,8 @@ interface CartContextType {
   displayTotal: number
   retailProgress: number
   faltaMayorista: number
+  catalogosDescontados: Set<string>
+  descuentoTotal: number
 }
 
 const CartContext = createContext<CartContextType | null>(null)
@@ -89,13 +92,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([])
   }
 
-  const wholesaleTotal = items.reduce((sum, i) => sum + i.wholesalePrice * i.quantity, 0)
+  // Catálogos (categoría/subcategoría) que llegaron a $500.000 y tienen 10% OFF automático
+  // (ver lib/descuentos.ts). El disparador se calcula sobre el precio SIN descontar.
+  const catalogosDescontados = catalogosConDescuento(items)
+  const wholesaleTotalBruto = items.reduce((sum, i) => sum + i.wholesalePrice * i.quantity, 0)
+  const wholesaleTotal = items.reduce((sum, i) => sum + precioUnitarioConDescuento(i, catalogosDescontados) * i.quantity, 0)
+  const descuentoTotal = wholesaleTotalBruto - wholesaleTotal
   const isWholesale = wholesaleTotal >= WHOLESALE_MIN
 
-  // displayTotal: suma por producto según su regla individual
+  // displayTotal: suma por producto según su regla individual (ya con el 10% OFF aplicado)
   const displayTotal = items.reduce((sum, i) => {
     const ws = itemIsWholesale(i, isWholesale)
-    return sum + (ws ? i.wholesalePrice : Math.round(i.wholesalePrice * RETAIL_MARKUP)) * i.quantity
+    const unit = precioUnitarioConDescuento(i, catalogosDescontados)
+    return sum + (ws ? unit : Math.round(unit * RETAIL_MARKUP)) * i.quantity
   }, 0)
 
   const total = wholesaleTotal
@@ -108,6 +117,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       items, addItem, removeItem, updateQty, clearCart,
       total, count, cartOpen, setCartOpen,
       wholesaleTotal, isWholesale, displayTotal, retailProgress, faltaMayorista,
+      catalogosDescontados, descuentoTotal,
     }}>
       {children}
     </CartContext.Provider>

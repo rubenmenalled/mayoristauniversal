@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { catalogosConDescuento, precioUnitarioConDescuento } from '@/lib/descuentos'
 
 export const dynamic = 'force-dynamic'
 
@@ -7,11 +8,18 @@ const OWNER_EMAIL = 'rubenmenalled@gmail.com'
 
 export async function POST(request: NextRequest) {
   try {
-    const { items, isWholesale, total } = await request.json()
+    const { items: itemsRecibidos, isWholesale, total } = await request.json()
 
-    if (!items?.length || !RESEND_API_KEY) {
+    if (!itemsRecibidos?.length || !RESEND_API_KEY) {
       return NextResponse.json({ ok: false })
     }
+
+    // Precio unitario ya con el 10% OFF aplicado, para que coincida con `total`
+    const catalogosDescontados = catalogosConDescuento(itemsRecibidos)
+    const items = itemsRecibidos.map((item: any) => ({
+      ...item,
+      wholesalePrice: precioUnitarioConDescuento(item, catalogosDescontados),
+    }))
 
     const now = new Date().toLocaleString('es-AR', {
       timeZone: 'America/Argentina/Buenos_Aires',

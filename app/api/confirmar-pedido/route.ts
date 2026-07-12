@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminClient } from '@/lib/supabase'
+import { catalogosConDescuento, precioUnitarioConDescuento } from '@/lib/descuentos'
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const FONNTE_TOKEN = process.env.FONNTE_TOKEN || 'mDipqJjpjoe7kVLUnwq3'
@@ -9,11 +10,19 @@ const SITE_NAME = 'Mayorista Universal'
 const NTFY_TOPIC = 'mayorista-ruben-pedidos-2024'
 
 export async function POST(request: NextRequest) {
-  const { nombre, email, telefono, items, total, user_id, metodoPago } = await request.json()
+  const { nombre, email, telefono, items: itemsRecibidos, total, user_id, metodoPago } = await request.json()
 
-  if (!nombre || !email || !telefono || !items?.length) {
+  if (!nombre || !email || !telefono || !itemsRecibidos?.length) {
     return NextResponse.json({ error: 'Faltan datos' }, { status: 400 })
   }
+
+  // Precio unitario ya con el 10% OFF aplicado (si el catálogo llegó a $500.000),
+  // para que el desglose de productos coincida con el `total` que llega del carrito.
+  const catalogosDescontados = catalogosConDescuento(itemsRecibidos)
+  const items = itemsRecibidos.map((item: any) => ({
+    ...item,
+    wholesalePrice: precioUnitarioConDescuento(item, catalogosDescontados),
+  }))
 
   // Armar lista de productos
   const listaProductos = items.map((item: any) =>

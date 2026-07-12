@@ -36,6 +36,15 @@ export function minDeCatalogo(nombre?: string): number {
   return MIN_CATALOGO_OVERRIDE[(nombre || '').trim().toUpperCase()] ?? MIN_CATALOGO_DEFAULT
 }
 
+// Catálogo efectivo de un producto en el carrito: su subcategoría si tiene mínimo
+// propio (ej. NEXT +18, INDIO MOHI), si no la categoría. Misma regla para el mínimo
+// de compra y para el descuento por volumen (lib/descuentos.ts) — son "el mismo catálogo".
+export function catalogoDe(category?: string, subcategory?: string): string {
+  const sub = (subcategory || '').trim().toUpperCase()
+  if (MIN_SUBCATEGORIA_OVERRIDE[sub] != null) return sub
+  return (category || 'OTROS').trim().toUpperCase()
+}
+
 export function fmtPesos(n: number): string {
   return '$' + n.toLocaleString('es-AR')
 }
