@@ -28,6 +28,8 @@ export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
   'PARAGUAS M ELEVEN': 130000,
   'GAUCHO SANTI': 130000,
   'INDIO MOHI': 200000,
+  'NEXT +18': 150000,
+  'HU +18': 150000,
 }
 
 export function minDeCatalogo(nombre?: string): number {
