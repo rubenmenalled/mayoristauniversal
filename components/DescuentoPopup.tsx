@@ -8,21 +8,20 @@ interface Props { categoria: string }
 export default function DescuentoPopup({ categoria }: Props) {
   const cat = (categoria || '').trim().toUpperCase()
   const aplica = CATEGORIAS_DESCUENTO_10.includes(cat)
-  const storageKey = `promo10_${cat}_seen`
 
   const [visible, setVisible] = useState(false)
   const [closing, setClosing] = useState(false)
 
+  // Se muestra cada vez que se entra a una categoría elegible (sin recordar cierres previos)
   useEffect(() => {
     if (!aplica) return
-    try { if (sessionStorage.getItem(storageKey)) return } catch {}
+    setClosing(false)
     const t = setTimeout(() => setVisible(true), 700)
     return () => clearTimeout(t)
-  }, [aplica, storageKey])
+  }, [aplica, cat])
 
   const close = () => {
     setClosing(true)
-    try { sessionStorage.setItem(storageKey, '1') } catch {}
     setTimeout(() => { setVisible(false); setClosing(false) }, 250)
   }
 
