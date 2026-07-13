@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic'
 const ORDEN_CATEGORIAS = [
   'PELUCHES',
   'PELUCHES DE PERSONAJES',
+  'ANIMÉ',
   'JUGUETERIA',
   'BEBÉ',
   'ACCESORIOS DE INVIERNO',
@@ -143,6 +144,7 @@ export async function GET() {
   'PANTUFLAS':           '🥿',
   'PELUQUERIA Y BARBERIA': '💈',
   'ADULTOS':             '🔞',
+  'ANIMÉ':               '🎌',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
