@@ -13,19 +13,28 @@ export async function GET(request: NextRequest) {
 
     if (categoria) {
       // 1) Subcategorías desde productos (las que ya tienen productos asignados).
-      // Paginado: una categoría puede tener >1000 productos (límite de PostgREST),
-      // así que recorremos en bloques para no perder subcategorías.
+      // Paginado: una categoría puede tener >1000 productos (límite de PostgREST).
+      // Primero pedimos el total (Range 0-0 + count=exact) y después traemos todas
+      // las páginas EN PARALELO — categorías grandes (ej. ANIMÉ, 16k+ productos)
+      // tardaban varios segundos con el loop secuencial anterior.
       const fromProds = new Set<string>()
-      for (let offset = 0; offset < 20000; offset += 1000) {
-        const urlProds = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=neq.&select=subcategoria&offset=${offset}&limit=1000`
-        const resProds = await fetch(urlProds, {
+      const urlBase = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=neq.&select=subcategoria`
+      const countRes = await fetch(urlBase + '&limit=1', {
+        headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}`, Prefer: 'count=exact', Range: '0-0' },
+        cache: 'no-store',
+      })
+      const cr = countRes.headers.get('content-range') || ''
+      const total = cr.includes('/') ? parseInt(cr.split('/')[1], 10) : 0
+      const pageOffsets: number[] = []
+      for (let offset = 0; offset < Math.min(total || 1000, 20000); offset += 1000) pageOffsets.push(offset)
+      await Promise.all(pageOffsets.map(async (offset) => {
+        const resProds = await fetch(`${urlBase}&offset=${offset}&limit=1000`, {
           headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
           cache: 'no-store',
         })
         const chunk: { subcategoria: string }[] = resProds.ok ? await resProds.json() : []
         chunk.forEach(p => { if (p.subcategoria) fromProds.add(p.subcategoria) })
-        if (chunk.length < 1000) break
-      }
+      }))
 
       // 2) Subcategorías desde la tabla subcategorias (aunque no tengan productos aún)
       const urlCat = `${SUPABASE_URL}/rest/v1/categorias?nombre=ilike.${encodeURIComponent(categoria)}&select=id`
