@@ -37,9 +37,9 @@ function subtotalesPorCatalogo(items: ItemParaDescuento[]): Map<string, number> 
 // para que el descuento no reduzca su propio disparador).
 export function catalogosConDescuento(items: ItemParaDescuento[]): Set<string> {
   const conDescuento = new Set<string>()
-  for (const [cat, sub] of subtotalesPorCatalogo(items)) {
+  subtotalesPorCatalogo(items).forEach((sub, cat) => {
     if (CATEGORIAS_DESCUENTO_10.includes(cat) && sub >= DESCUENTO_10_MIN) conDescuento.add(cat)
-  }
+  })
   return conDescuento
 }
 
