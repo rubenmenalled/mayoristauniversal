@@ -6,8 +6,8 @@ export const dynamic = 'force-dynamic'
 const ORDEN_CATEGORIAS = [
   'PELUCHES',
   'PELUCHES DE PERSONAJES',
-  'ANIMÉ',
   'JUGUETERIA',
+  'ANIMÉ',
   'BEBÉ',
   'ACCESORIOS DE INVIERNO',
   'BIJOUTERIE',
