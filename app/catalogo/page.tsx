@@ -44,8 +44,6 @@ const FOTOS: Record<string, string> = {
   BIJOUTERIE:   'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO': 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
   ILUMINACION:  'https://images.unsplash.com/photo-1712294252418-680891540aa8?w=800&q=90',
-  ADULTOS:      'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=800&q=90',
-
 }
 
 interface Categoria {

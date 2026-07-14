@@ -102,11 +102,15 @@ export default function CategoriaPage() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  // Verificación de edad para la categoría ADULTOS
+  // Verificación de edad: categoría ADULTOS completa (legacy) o las
+  // subcategorías +18 dentro de LENCERIA (HU +18, NEXT +18)
+  const SUBCATS_ADULTOS = ['HU +18', 'NEXT +18']
   const esAdultos = nombreDecoded.trim().toUpperCase() === 'ADULTOS'
+    || SUBCATS_ADULTOS.includes(subActiva.trim().toUpperCase())
   const [ageVerified, setAgeVerified] = useState(false)
   useEffect(() => {
     if (esAdultos && sessionStorage.getItem('mu_age18ok') === '1') setAgeVerified(true)
+    if (!esAdultos) setAgeVerified(false)
   }, [esAdultos])
 
   function normalizar(s: string) {
@@ -308,10 +312,10 @@ export default function CategoriaPage() {
           <div style={{ fontSize: 48, marginBottom: 12 }}>🔞</div>
           <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 20, marginBottom: 10 }}>Contenido para mayores de 18 años</div>
           <div style={{ color: '#555', fontSize: 14, marginBottom: 24, lineHeight: 1.5 }}>
-            Esta categoría contiene productos para adultos. Confirmá que sos mayor de edad para continuar.
+            Esta sección contiene productos para adultos. Confirmá que sos mayor de edad para continuar.
           </div>
           <div style={{ display: 'flex', gap: 12 }}>
-            <button onClick={() => router.push('/')}
+            <button onClick={() => router.push(nombreDecoded.trim().toUpperCase() === 'ADULTOS' ? '/' : `/categorias/${encodeURIComponent(nombreDecoded)}`)}
               style={{ flex: 1, padding: '13px', borderRadius: 10, border: '1.5px solid #E5E7EB', background: '#F9FAFB', color: '#555', fontWeight: 800, fontSize: 14, cursor: 'pointer' }}>
               No, salir
             </button>

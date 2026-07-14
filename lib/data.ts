@@ -42,7 +42,6 @@ const ORDEN_CATEGORIAS = [
   'ARTICULOS X BULTO',
   'FATTZ IMPORT',
   'LENCERIA',
-  'ADULTOS',
 ]
 
 function sortCategorias(cats: any[]) {

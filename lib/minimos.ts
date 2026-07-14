@@ -18,7 +18,6 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'DECO CASA': 130000,
   'PERFUMERIA': 130000,
   'PELUQUERIA Y BARBERIA': 180000,
-  'ADULTOS': 150000,
   'ANIMÉ': 150000,
 }
 
