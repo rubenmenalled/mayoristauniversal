@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Search } from 'lucide-react'
-import { minDeCatalogo } from '@/lib/minimos'
+import { minDeCatalogo, catalogoDe } from '@/lib/minimos'
 
 const FOTOS: Record<string, string> = {
   'ACCESORIOS DE INVIERNO': 'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
@@ -211,8 +211,8 @@ export default function CatalogoPage() {
                       🔜 Próximamente
                     </div>
                   )}
-                  {minDeCatalogo(nombre) > 0 && <div style={{ position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)', background: 'transparent', color: '#FF7A3D', textAlign: 'center', fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap', letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)' }}>
-                    ⚠️ Mínimo de compra ${minDeCatalogo(nombre).toLocaleString('es-AR')}
+                  {minDeCatalogo(catalogoDe(nombre)) > 0 && <div style={{ position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)', background: 'transparent', color: '#FF7A3D', textAlign: 'center', fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap', letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)' }}>
+                    ⚠️ Mínimo de compra ${minDeCatalogo(catalogoDe(nombre)).toLocaleString('es-AR')}
                   </div>}
                   {!esBanner && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                     {nombre}

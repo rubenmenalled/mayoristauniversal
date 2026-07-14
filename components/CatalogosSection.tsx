@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { minDeCatalogo } from '@/lib/minimos'
+import { minDeCatalogo, catalogoDe } from '@/lib/minimos'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -343,15 +343,15 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                   }}>
                     VER AQUÍ →
                   </span>
-                  {(minDeCatalogo(cat.name) > 0 || cat.count >= 10) && (
+                  {(minDeCatalogo(catalogoDe(cat.name)) > 0 || cat.count >= 10) && (
                     <span style={{
                       color: '#FFFFFF', fontWeight: 800, fontSize: 11, textAlign: 'right',
                       lineHeight: 1.35, textShadow: '0 1px 4px rgba(0,0,0,0.9)',
                     }}>
-                      {minDeCatalogo(cat.name) > 0 && (
-                        <>Mín. ${minDeCatalogo(cat.name).toLocaleString('es-AR')}</>
+                      {minDeCatalogo(catalogoDe(cat.name)) > 0 && (
+                        <>Mín. ${minDeCatalogo(catalogoDe(cat.name)).toLocaleString('es-AR')}</>
                       )}
-                      {minDeCatalogo(cat.name) > 0 && cat.count >= 10 && ' · '}
+                      {minDeCatalogo(catalogoDe(cat.name)) > 0 && cat.count >= 10 && ' · '}
                       {cat.count >= 10 && `${cat.count} artículos`}
                     </span>
                   )}
