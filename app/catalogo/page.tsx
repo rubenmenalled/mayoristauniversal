@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Search } from 'lucide-react'
-import { minDeCatalogo, catalogoDe } from '@/lib/minimos'
+import { minDeCatalogo, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
 
 const FOTOS: Record<string, string> = {
   'ACCESORIOS DE INVIERNO': 'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
@@ -175,6 +175,7 @@ export default function CatalogoPage() {
               const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
               const esBanner = (c.image || '').includes('/categorias/banner-')
               const esProximamente = ['RODADOS'].includes(nombre.toUpperCase())
+              const esGrupoCompartido = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
               return (
                 <motion.div
                   key={c.id}
@@ -185,8 +186,10 @@ export default function CatalogoPage() {
                   style={{
                     position: 'relative', aspectRatio: '16 / 10',
                     borderRadius: 12, overflow: 'hidden',
+                    boxSizing: 'border-box',
                     cursor: 'pointer',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                    border: esGrupoCompartido ? '3px solid #FFD13C' : '3px solid transparent',
                     transition: 'transform 0.2s ease',
                   }}
                   onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
@@ -199,6 +202,18 @@ export default function CatalogoPage() {
                     onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                   />
                   {!esBanner && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
+                  {esGrupoCompartido && (
+                    <div style={{
+                      position: 'absolute', top: 10, left: 10, zIndex: 11,
+                      background: '#FFD13C', color: '#3A2A00',
+                      fontWeight: 900, fontSize: 10, letterSpacing: '0.02em',
+                      padding: '4px 9px', borderRadius: 99,
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
+                      whiteSpace: 'nowrap',
+                    }}>
+                      🔗 Combinable
+                    </div>
+                  )}
                   {esProximamente && (
                     <div style={{
                       position: 'absolute', bottom: 14, right: 14, zIndex: 10,

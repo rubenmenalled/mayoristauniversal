@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { minDeCatalogo, catalogoDe } from '@/lib/minimos'
+import { minDeCatalogo, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -244,6 +244,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             // esBanner: la imagen es uno de los banners diseñados (con título propio).
             // Si es una foto común, mostramos el nombre igual.
             const esBanner = (cat.image || '').includes('/categorias/banner-')
+            const esGrupoCompartido = !!CATEGORIA_GRUPO_OVERRIDE[cat.name.toUpperCase()]
             return (
             <div
               key={cat.id}
@@ -256,14 +257,28 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               style={{
                 position: 'absolute',
                 inset: 0,
+                boxSizing: 'border-box',
                 display: 'block',
                 borderRadius: 12,
                 overflow: 'hidden',
                 cursor: 'pointer',
                 background: '#F0F0F0',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                boxShadow: esGrupoCompartido ? '0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,209,60,0.5)' : '0 4px 20px rgba(0,0,0,0.4)',
+                border: esGrupoCompartido ? '3px solid #FFD13C' : '3px solid transparent',
               }}
             >
+              {esGrupoCompartido && (
+                <div style={{
+                  position: 'absolute', top: 10, left: 10, zIndex: 11,
+                  background: '#FFD13C', color: '#3A2A00',
+                  fontWeight: 900, fontSize: 10, letterSpacing: '0.02em',
+                  padding: '4px 9px', borderRadius: 99,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
+                  display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap',
+                }}>
+                  🔗 Combinable
+                </div>
+              )}
               {/* Imagen con Ken Burns */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
