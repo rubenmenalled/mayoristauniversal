@@ -125,6 +125,9 @@ export async function GET(request: NextRequest) {
 
       // Orden de subcategorías: primero las más accesibles, lo más caro (gigantes) al final
       const ORDEN_SUBS: Record<string, number> = {
+        // LENCERIA: HU +18 y NEXT +18 primero
+        'HU +18': -11,
+        'NEXT +18': -10,
         'INFAC-TEC': -2,
         'PELUCHES POP': -1,
         // TENDENCIAS: orden pedido
