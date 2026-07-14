@@ -348,15 +348,14 @@ export default function Header() {
               <span style={{ fontSize: 9, transition: 'transform 0.2s', transform: openCat === '__desktop__' ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
             </button>
 
-            {/* Accesos directos a categorías top */}
-            <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: 2, marginLeft: 6, overflow: 'hidden' }}>
+            {/* Accesos directos a categorías — todas, en el mismo orden que el resto
+                del sitio (ORDEN_CATEGORIAS), scrolleable en vez de recortar a una lista fija */}
+            <nav className="hidden lg:flex catbar-scroll" style={{ alignItems: 'center', gap: 2, marginLeft: 6, overflowX: 'auto', overflowY: 'hidden', flexWrap: 'nowrap', maskImage: 'linear-gradient(to right, transparent, black 12px, black calc(100% - 24px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 12px, black calc(100% - 24px), transparent)' }}>
+              <style>{`.catbar-scroll{scrollbar-width:none}.catbar-scroll::-webkit-scrollbar{display:none}`}</style>
               <span style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.2)', marginRight: 4, flexShrink: 0 }} />
-              {['PELUCHES','JUGUETERIA','LENCERIA','BEBÉ','COTILLON MAGIC KINGDOM','BELLEZA','PANTUFLAS','ACCESORIOS DE INVIERNO','PERFUMERIA','BAZAR Y HOGAR','ELECTRONICA','RELOJES','BIJOUTERIE','LLAVEROS','HERRAMIENTAS']
-                .map(name => categorias.find(c => c.nombre.toUpperCase() === name))
-                .filter((c): c is (typeof categorias)[number] => Boolean(c))
-                .map(cat => (
+              {categorias.map(cat => (
                   <a key={cat.id} href={`/categorias/${encodeURIComponent(cat.nombre)}`}
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '7px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: 6, transition: 'background 0.15s, color 0.15s' }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '7px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: 6, transition: 'background 0.15s, color 0.15s', flexShrink: 0 }}
                     onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#FF6A3D' }}
                     onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#FFFFFF' }}>
                     <span style={{ fontSize: 14 }}>{cat.emoji}</span>{cat.nombre}
