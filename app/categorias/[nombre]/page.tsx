@@ -66,6 +66,8 @@ const NOMBRES_GRUPO: Record<string, string> = {
   'PELUCHES DE PERSONAJES': 'Peluches de Personajes',
   'BEBÉ': 'Bebé',
   'KIK': 'Kik',
+  'TENDENCIAS': 'Tendencias',
+  'PERFUMERIA': 'Perfumería',
 }
 
 export default function CategoriaPage() {

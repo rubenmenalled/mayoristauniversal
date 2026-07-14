@@ -35,6 +35,7 @@ const NOMBRE_LINDO: Record<string, string> = {
   'NEXT PARAGUAS': 'Next Paraguas',
   'PARAGUAS M ELEVEN': 'Paraguas M Eleven',
   'INDIO MOHI': 'Indio Mohi',
+  'JUGUETES, PELUCHES Y MÁS': 'Juguetería, Peluches, Bebé, Kik, Tendencias y Perfumería',
 }
 
 const MAX_NOMBRES = 5

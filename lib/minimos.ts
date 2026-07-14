@@ -3,8 +3,6 @@
 export const MIN_CATALOGO_DEFAULT = 130000
 export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'FATTZ IMPORT': 300000,
-  'JUGUETERIA': 130000,
-  'PELUCHES': 150000,
   'LIBRERIA': 130000,
   'BAZAR Y HOGAR': 130000,
   'BELLEZA': 130000,
@@ -16,10 +14,11 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'TODO PARA EL DEPORTE': 130000,
   'RELOJES': 130000,
   'DECO CASA': 130000,
-  'PERFUMERIA': 130000,
   'PELUQUERIA Y BARBERIA': 180000,
   'ANIMÉ': 150000,
-  'JUGUETES Y PELUCHES': 150000,
+  // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIK, TENDENCIAS y PERFUMERIA
+  // ya NO tienen entrada individual acá — comparten el mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE.
+  'JUGUETES, PELUCHES Y MÁS': 150000,
 }
 
 // Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
@@ -37,11 +36,13 @@ export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
 // de Ruben). Solo afecta el mínimo de compra — el 10% OFF sigue siendo por categoría
 // individual, ver catalogoDeDescuento() más abajo.
 export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
-  'JUGUETERIA': 'JUGUETES Y PELUCHES',
-  'PELUCHES': 'JUGUETES Y PELUCHES',
-  'PELUCHES DE PERSONAJES': 'JUGUETES Y PELUCHES',
-  'BEBÉ': 'JUGUETES Y PELUCHES',
-  'KIK': 'JUGUETES Y PELUCHES',
+  'JUGUETERIA': 'JUGUETES, PELUCHES Y MÁS',
+  'PELUCHES': 'JUGUETES, PELUCHES Y MÁS',
+  'PELUCHES DE PERSONAJES': 'JUGUETES, PELUCHES Y MÁS',
+  'BEBÉ': 'JUGUETES, PELUCHES Y MÁS',
+  'KIK': 'JUGUETES, PELUCHES Y MÁS',
+  'TENDENCIAS': 'JUGUETES, PELUCHES Y MÁS',
+  'PERFUMERIA': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {
