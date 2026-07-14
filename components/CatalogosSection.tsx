@@ -407,6 +407,15 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         )}
 
         {/* Grid del resto de las categorías */}
+        {grupo.length > 0 && resto.length > 0 && (
+          <div style={{
+            color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px, 1.8vw, 18px)',
+            textTransform: 'uppercase', letterSpacing: '0.03em',
+            marginBottom: 14, opacity: 0.85,
+          }}>
+            Desde acá, cada categoría con su mínimo de compra
+          </div>
+        )}
         <div className="cat-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
