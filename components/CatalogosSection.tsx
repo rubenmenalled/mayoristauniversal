@@ -269,12 +269,12 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             >
               {esGrupoCompartido && (
                 <div style={{
-                  position: 'absolute', top: 10, left: 10, zIndex: 11,
+                  position: 'absolute', top: 54, left: 12, zIndex: 11,
                   background: '#FFD13C', color: '#3A2A00',
-                  fontWeight: 900, fontSize: 10, letterSpacing: '0.02em',
-                  padding: '4px 9px', borderRadius: 99,
+                  fontWeight: 900, fontSize: 12.5, letterSpacing: '0.02em',
+                  padding: '6px 12px', borderRadius: 99,
                   boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
-                  display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap',
+                  display: 'flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap',
                 }}>
                   🔗 Combinable
                 </div>

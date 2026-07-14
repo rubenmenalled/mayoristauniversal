@@ -204,10 +204,10 @@ export default function CatalogoPage() {
                   {!esBanner && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
                   {esGrupoCompartido && (
                     <div style={{
-                      position: 'absolute', top: 10, left: 10, zIndex: 11,
+                      position: 'absolute', top: 54, left: 12, zIndex: 11,
                       background: '#FFD13C', color: '#3A2A00',
-                      fontWeight: 900, fontSize: 10, letterSpacing: '0.02em',
-                      padding: '4px 9px', borderRadius: 99,
+                      fontWeight: 900, fontSize: 12.5, letterSpacing: '0.02em',
+                      padding: '6px 12px', borderRadius: 99,
                       boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
                       whiteSpace: 'nowrap',
                     }}>
