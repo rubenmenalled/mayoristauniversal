@@ -392,7 +392,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                   textTransform: 'uppercase', letterSpacing: '0.03em',
                   textShadow: '0 2px 6px rgba(0,0,0,0.45)',
                 }}>
-                  Estas categorías comparten el mínimo
+                  Estas {grupo.length} categorías comparten el mínimo
                 </div>
                 <div style={{
                   color: '#FFFFFF', fontWeight: 700, fontSize: 'clamp(13.5px, 1.6vw, 15.5px)', marginTop: 4,

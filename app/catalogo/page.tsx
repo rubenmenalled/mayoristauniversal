@@ -240,7 +240,7 @@ export default function CatalogoPage() {
                       color: '#B8860B', fontWeight: 900, fontSize: 'clamp(14px, 1.8vw, 17px)',
                       textTransform: 'uppercase', letterSpacing: '0.04em',
                     }}>
-                      Estas categorías comparten el mínimo
+                      Estas {grupo.length} categorías comparten el mínimo
                     </div>
                     <div style={{ color: '#7A5C2E', fontSize: 12.5, marginTop: 2 }}>
                       Combiná artículos entre todas y llegá junto/a a Mín. ${minDeCatalogo(catalogoDe(grupo[0].nombre || grupo[0].name || '')).toLocaleString('es-AR')}
