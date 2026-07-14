@@ -68,6 +68,7 @@ const NOMBRES_GRUPO: Record<string, string> = {
   'KIK': 'Kik',
   'TENDENCIAS': 'Tendencias',
   'PERFUMERIA': 'Perfumería',
+  'ANIMÉ': 'Animé',
 }
 
 export default function CategoriaPage() {

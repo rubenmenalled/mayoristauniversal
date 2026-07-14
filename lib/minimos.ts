@@ -15,9 +15,9 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'RELOJES': 130000,
   'DECO CASA': 130000,
   'PELUQUERIA Y BARBERIA': 180000,
-  'ANIMÉ': 150000,
-  // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIK, TENDENCIAS y PERFUMERIA
-  // ya NO tienen entrada individual acá — comparten el mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE.
+  // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIK, TENDENCIAS, PERFUMERIA
+  // y ANIMÉ ya NO tienen entrada individual acá — comparten el mínimo de abajo vía
+  // CATEGORIA_GRUPO_OVERRIDE.
   'JUGUETES, PELUCHES Y MÁS': 150000,
 }
 
@@ -43,6 +43,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'KIK': 'JUGUETES, PELUCHES Y MÁS',
   'TENDENCIAS': 'JUGUETES, PELUCHES Y MÁS',
   'PERFUMERIA': 'JUGUETES, PELUCHES Y MÁS',
+  'ANIMÉ': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {
