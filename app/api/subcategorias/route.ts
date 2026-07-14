@@ -67,12 +67,26 @@ export async function GET(request: NextRequest) {
       const countBySub: Record<string, number> = {}
       await Promise.all(
         merged.map(async (s) => {
-          const urlImg = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=ilike.${encodeURIComponent(s.nombre)}&imagen=neq.&select=imagen&limit=1`
-          const resImg = await fetch(urlImg, {
+          // Preferir una foto que NO sea de un llavero (si la subcategoría tiene
+          // otro tipo de producto además de llaveros, ej. SANRIO/POKEMON/STITCH
+          // que mezclan llaveros con figuras/peluches). Si todo lo que hay son
+          // llaveros, usar esa igual.
+          const baseImgUrl = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=ilike.${encodeURIComponent(s.nombre)}&imagen=neq.`
+          const urlImgNoLlavero = `${baseImgUrl}&nombre=not.ilike.*LLAVERO*&select=imagen&limit=1`
+          const urlImg = `${baseImgUrl}&select=imagen&limit=1`
+          let imgData: { imagen: string }[] = []
+          const resImgNoLlavero = await fetch(urlImgNoLlavero, {
             headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
             cache: 'no-store',
           })
-          const imgData: { imagen: string }[] = resImg.ok ? await resImg.json() : []
+          imgData = resImgNoLlavero.ok ? await resImgNoLlavero.json() : []
+          if (imgData.length === 0) {
+            const resImg = await fetch(urlImg, {
+              headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
+              cache: 'no-store',
+            })
+            imgData = resImg.ok ? await resImg.json() : []
+          }
           if (imgData.length > 0 && imgData[0].imagen) {
             imgBySub[s.nombre.toLowerCase()] = imgData[0].imagen.split('|')[0]
           }
