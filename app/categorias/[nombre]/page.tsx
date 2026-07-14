@@ -345,10 +345,10 @@ export default function CategoriaPage() {
               style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#FF6A3D', fontWeight: 700, fontSize: 13, flexShrink: 0 }}>
               <ArrowLeft size={16} /> Inicio
             </button>
-            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, flex: 1, display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, flex: 1, display: 'flex', alignItems: 'center', gap: 20 }}>
               {nombreDecoded}
               {nombreDecoded.trim().toUpperCase() === 'LENCERIA' && (
-                <span style={{ background: '#FF3B30', color: '#FFFFFF', fontSize: 16, fontWeight: 900, padding: '4px 12px', borderRadius: 8, letterSpacing: '0.02em' }}>Y +18</span>
+                <span style={{ background: '#E30613', color: '#FFFFFF', fontSize: 16, fontWeight: 900, padding: '5px 14px', borderRadius: 6, border: '2px solid #FFFFFF', letterSpacing: '0.12em', textTransform: 'uppercase', boxShadow: '0 2px 6px rgba(227,6,19,0.5)' }}>Y +18</span>
               )}
             </div>
             <a href="/catalogo" style={{
