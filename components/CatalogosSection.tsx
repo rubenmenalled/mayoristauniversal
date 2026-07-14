@@ -392,13 +392,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                   textTransform: 'uppercase', letterSpacing: '0.03em',
                   textShadow: '0 2px 6px rgba(0,0,0,0.45)',
                 }}>
-                  Estas {grupo.length} categorías comparten el mínimo
-                </div>
-                <div style={{
-                  color: '#FFFFFF', fontWeight: 700, fontSize: 'clamp(13.5px, 1.6vw, 15.5px)', marginTop: 4,
-                  textShadow: '0 1px 4px rgba(0,0,0,0.4)',
-                }}>
-                  Combiná artículos entre todas y llegá junto/a a Mín. ${minDeCatalogo(catalogoDe(grupo[0].name)).toLocaleString('es-AR')}
+                  Combiná estas {grupo.length} categorías que comparten el mínimo de compra de ${minDeCatalogo(catalogoDe(grupo[0].name)).toLocaleString('es-AR')} pesos
                 </div>
               </div>
             </div>
