@@ -384,16 +384,20 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
             padding: 'clamp(14px, 2vw, 20px)',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 24, flexShrink: 0 }}>🔗</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 32, flexShrink: 0, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' }}>🔗</span>
               <div>
                 <div style={{
-                  color: '#FFD13C', fontWeight: 900, fontSize: 'clamp(14px, 1.8vw, 17px)',
-                  textTransform: 'uppercase', letterSpacing: '0.04em',
+                  color: '#FFD13C', fontWeight: 900, fontSize: 'clamp(18px, 2.6vw, 24px)',
+                  textTransform: 'uppercase', letterSpacing: '0.03em',
+                  textShadow: '0 2px 6px rgba(0,0,0,0.45)',
                 }}>
                   Estas categorías comparten el mínimo
                 </div>
-                <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 12.5, marginTop: 2 }}>
+                <div style={{
+                  color: '#FFFFFF', fontWeight: 700, fontSize: 'clamp(13.5px, 1.6vw, 15.5px)', marginTop: 4,
+                  textShadow: '0 1px 4px rgba(0,0,0,0.4)',
+                }}>
                   Combiná artículos entre todas y llegá junto/a a Mín. ${minDeCatalogo(catalogoDe(grupo[0].name)).toLocaleString('es-AR')}
                 </div>
               </div>
