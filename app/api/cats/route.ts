@@ -4,18 +4,21 @@ import { getAdminClient } from '@/lib/supabase'
 export const dynamic = 'force-dynamic'
 
 const ORDEN_CATEGORIAS = [
-  'PELUCHES',
-  'PELUCHES DE PERSONAJES',
+  // Grupo de mínimo compartido ($150.000), posicionadas juntas
   'JUGUETERIA',
-  'ANIMÉ',
+  'PELUCHES',
+  'KIK',
   'BEBÉ',
+  'TENDENCIAS',
+  'PELUCHES DE PERSONAJES',
+  'PERFUMERIA',
+  'ANIMÉ',
   'ACCESORIOS DE INVIERNO',
   'BIJOUTERIE',
   'ARTICULOS X BULTO',
   'CAMPING',
   'PARAGUAS',
   'FATTZ IMPORT',
-  'PERFUMERIA',
   'ACCESORIOS PARA MASCOTAS',
   'MARROQUINERIA',
   'PRODUCTOS REGIONALES',
