@@ -381,7 +381,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             marginBottom: 22,
             borderRadius: 16,
             border: '2px solid rgba(255,209,60,0.5)',
-            background: 'linear-gradient(180deg, rgba(49,140,231,0.28) 0%, rgba(49,140,231,0.10) 100%)',
+            background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
             padding: 'clamp(14px, 2vw, 20px)',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
