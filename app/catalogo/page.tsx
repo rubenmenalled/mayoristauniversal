@@ -240,7 +240,7 @@ export default function CatalogoPage() {
                       color: '#B8860B', fontWeight: 900, fontSize: 'clamp(14px, 1.8vw, 17px)',
                       textTransform: 'uppercase', letterSpacing: '0.04em',
                     }}>
-                      Combiná estas {grupo.length} categorías que comparten el mínimo de compra de ${minDeCatalogo(catalogoDe(grupo[0].nombre || grupo[0].name || '')).toLocaleString('es-AR')} pesos
+                      Podés combinar estas {grupo.length} categorías para superar el mínimo de compra de ${minDeCatalogo(catalogoDe(grupo[0].nombre || grupo[0].name || '')).toLocaleString('es-AR')}
                     </div>
                   </div>
                 </div>
