@@ -1,4 +1,4 @@
-import { catalogoDe } from './minimos'
+import { catalogoDeDescuento } from './minimos'
 
 // Categorías con 10% OFF automático al llegar a $500.000 (ver DescuentoPopup.tsx,
 // que avisa de esto al entrar a la categoría).
@@ -27,7 +27,7 @@ export interface ItemParaDescuento {
 function subtotalesPorCatalogo(items: ItemParaDescuento[]): Map<string, number> {
   const subtotales = new Map<string, number>()
   for (const it of items) {
-    const cat = catalogoDe(it.category, it.subcategory)
+    const cat = catalogoDeDescuento(it.category, it.subcategory)
     subtotales.set(cat, (subtotales.get(cat) || 0) + it.wholesalePrice * it.quantity)
   }
   return subtotales
@@ -45,6 +45,6 @@ export function catalogosConDescuento(items: ItemParaDescuento[]): Set<string> {
 
 // Precio unitario final de un ítem: con 10% OFF si su catálogo alcanzó el mínimo.
 export function precioUnitarioConDescuento(item: ItemParaDescuento, catalogosDescontados: Set<string>): number {
-  const cat = catalogoDe(item.category, item.subcategory)
+  const cat = catalogoDeDescuento(item.category, item.subcategory)
   return catalogosDescontados.has(cat) ? Math.round(item.wholesalePrice * (1 - DESCUENTO_10_PCT)) : item.wholesalePrice
 }

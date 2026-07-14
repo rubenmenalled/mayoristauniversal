@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
-import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE } from '@/lib/minimos'
+import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
 import { TextReveal } from '@/components/ui/cascade-text'
 import CartSidebar from '@/components/CartSidebar'
 import DescuentoPopup from '@/components/DescuentoPopup'
@@ -57,6 +57,15 @@ function Stars({ n }: { n: number }) {
       ))}
     </div>
   )
+}
+
+// Nombres lindos para mostrar en el aviso de mínimo compartido (CATEGORIA_GRUPO_OVERRIDE)
+const NOMBRES_GRUPO: Record<string, string> = {
+  'JUGUETERIA': 'Juguetería',
+  'PELUCHES': 'Peluches',
+  'PELUCHES DE PERSONAJES': 'Peluches de Personajes',
+  'BEBÉ': 'Bebé',
+  'KIK': 'Kik',
 }
 
 export default function CategoriaPage() {
@@ -291,7 +300,14 @@ export default function CategoriaPage() {
   }, [])
   const minVal = (subActiva && MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()] != null)
     ? MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()]
-    : minDeCatalogo(nombreDecoded)
+    : minDeCatalogo(catalogoDe(nombreDecoded))
+  // Categorías cuyo mínimo se comparte con otras (ej. JUGUETERIA+PELUCHES+BEBÉ+KIK+PELUCHES DE PERSONAJES)
+  const grupoCompartido = (!subActiva || MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()] == null)
+    ? CATEGORIA_GRUPO_OVERRIDE[nombreDecoded.trim().toUpperCase()]
+    : undefined
+  const categoriasDelGrupo = grupoCompartido
+    ? Object.entries(CATEGORIA_GRUPO_OVERRIDE).filter(([, g]) => g === grupoCompartido).map(([c]) => c)
+    : []
 
   // Cuenta regresiva Día del Niño (16 de agosto) — solo catálogos de niños
   const esNino = ['PELUCHES', 'PELUCHES DE PERSONAJES', 'BEBÉ', 'JUGUETERIA'].includes(nombreDecoded.toUpperCase())
@@ -496,7 +512,11 @@ export default function CategoriaPage() {
             <span style={{ fontSize: 26 }}>⚠️</span>
             <div>
               <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra en este catálogo: ${minVal.toLocaleString('es-AR')}</div>
-              <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>Cada rubro se compra por separado · no se combinan distintos catálogos.</div>
+              <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>
+                {grupoCompartido
+                  ? `Este mínimo se comparte con: ${categoriasDelGrupo.filter(c => c !== nombreDecoded.trim().toUpperCase()).map(c => NOMBRES_GRUPO[c] || c).join(', ')}.`
+                  : 'Cada rubro se compra por separado · no se combinan distintos catálogos.'}
+              </div>
             </div>
           </div>
         </div>

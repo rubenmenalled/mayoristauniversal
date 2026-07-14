@@ -19,6 +19,7 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'PERFUMERIA': 130000,
   'PELUQUERIA Y BARBERIA': 180000,
   'ANIMÉ': 150000,
+  'JUGUETES Y PELUCHES': 150000,
 }
 
 // Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
@@ -32,14 +33,37 @@ export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
   'HU +18': 150000,
 }
 
+// Categorías que comparten UN SOLO mínimo de compra entre todas (2026-07-14, a pedido
+// de Ruben). Solo afecta el mínimo de compra — el 10% OFF sigue siendo por categoría
+// individual, ver catalogoDeDescuento() más abajo.
+export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
+  'JUGUETERIA': 'JUGUETES Y PELUCHES',
+  'PELUCHES': 'JUGUETES Y PELUCHES',
+  'PELUCHES DE PERSONAJES': 'JUGUETES Y PELUCHES',
+  'BEBÉ': 'JUGUETES Y PELUCHES',
+  'KIK': 'JUGUETES Y PELUCHES',
+}
+
 export function minDeCatalogo(nombre?: string): number {
   return MIN_CATALOGO_OVERRIDE[(nombre || '').trim().toUpperCase()] ?? MIN_CATALOGO_DEFAULT
 }
 
 // Catálogo efectivo de un producto en el carrito: su subcategoría si tiene mínimo
-// propio (ej. NEXT +18, INDIO MOHI), si no la categoría. Misma regla para el mínimo
-// de compra y para el descuento por volumen (lib/descuentos.ts) — son "el mismo catálogo".
+// propio (ej. NEXT +18, INDIO MOHI), si no el grupo de categorías al que pertenece
+// (ej. JUGUETES Y PELUCHES), si no la categoría tal cual. Usado para el mínimo de
+// compra (Opción A) — NO usar para el 10% OFF, ver catalogoDeDescuento().
 export function catalogoDe(category?: string, subcategory?: string): string {
+  const sub = (subcategory || '').trim().toUpperCase()
+  if (MIN_SUBCATEGORIA_OVERRIDE[sub] != null) return sub
+  const cat = (category || 'OTROS').trim().toUpperCase()
+  return CATEGORIA_GRUPO_OVERRIDE[cat] || cat
+}
+
+// Igual que catalogoDe pero SIN agrupar categorías — el 10% OFF (lib/descuentos.ts)
+// debe seguir calculándose por categoría individual aunque su mínimo de compra esté
+// agrupado con otras (ej. PELUCHES y BEBÉ no tienen 10% OFF aunque compartan mínimo
+// con JUGUETERIA/KIK/PELUCHES DE PERSONAJES, que sí lo tienen).
+export function catalogoDeDescuento(category?: string, subcategory?: string): string {
   const sub = (subcategory || '').trim().toUpperCase()
   if (MIN_SUBCATEGORIA_OVERRIDE[sub] != null) return sub
   return (category || 'OTROS').trim().toUpperCase()
