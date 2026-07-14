@@ -82,6 +82,66 @@ export default function CatalogoPage() {
     (c.nombre || '').toLowerCase().includes(busqueda.toLowerCase())
   )
 
+  const esGrupo = (c: Categoria) => !!CATEGORIA_GRUPO_OVERRIDE[(c.nombre || c.name || '').toUpperCase()]
+  const grupo = filtradas.filter(esGrupo)
+  const resto = filtradas.filter(c => !esGrupo(c))
+
+  const renderCard = (c: Categoria, i: number) => {
+    const nombre = c.nombre || c.name || ''
+    const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
+    const esBanner = (c.image || '').includes('/categorias/banner-')
+    const esProximamente = ['RODADOS'].includes(nombre.toUpperCase())
+    return (
+      <motion.div
+        key={c.id}
+        onClick={() => router.push(`/categorias/${encodeURIComponent(nombre)}`)}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.04 }}
+        style={{
+          position: 'relative', aspectRatio: '16 / 10',
+          borderRadius: 12, overflow: 'hidden',
+          boxSizing: 'border-box',
+          cursor: 'pointer',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+          border: '3px solid transparent',
+          transition: 'transform 0.2s ease',
+        }}
+        onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
+        onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={foto} alt={nombre}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
+          onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
+          onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+        />
+        {!esBanner && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
+        {esProximamente && (
+          <div style={{
+            position: 'absolute', bottom: 14, right: 14, zIndex: 10,
+            background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
+            color: '#fff', fontWeight: 900, fontSize: 11,
+            letterSpacing: '0.12em', textTransform: 'uppercase',
+            padding: '5px 12px', borderRadius: 20,
+            boxShadow: '0 3px 12px rgba(255,78,0,0.6)',
+          }}>
+            🔜 Próximamente
+          </div>
+        )}
+        {minDeCatalogo(catalogoDe(nombre)) > 0 && <div style={{ position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)', background: 'transparent', color: '#FF7A3D', textAlign: 'center', fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap', letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)' }}>
+          ⚠️ Mínimo de compra ${minDeCatalogo(catalogoDe(nombre)).toLocaleString('es-AR')}
+        </div>}
+        {!esBanner && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+          {nombre}
+        </div>}
+        <div style={{ position: 'absolute', bottom: 14, left: 14, zIndex: 10, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, boxShadow: '0 3px 12px rgba(255,106,61,0.5)', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ color: '#FFFFFF', fontSize: 8 }}>●</span> VER AQUÍ
+        </div>
+      </motion.div>
+    )
+  }
+
   return (
     <div style={{ minHeight: '100vh', background: '#FFFFFF', paddingTop: 38 }}>
 
@@ -164,81 +224,46 @@ export default function CatalogoPage() {
             No se encontraron catálogos
           </div>
         ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: 16,
-          }}>
-            {filtradas.map((c, i) => {
-              const nombre = c.nombre || c.name || ''
-              // Igual que la home: usa la imagen de la base (banner) y si no, la stock.
-              const foto = c.image || FOTOS[nombre.toUpperCase()] || FOTOS['BAZAR']
-              const esBanner = (c.image || '').includes('/categorias/banner-')
-              const esProximamente = ['RODADOS'].includes(nombre.toUpperCase())
-              const esGrupoCompartido = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
-              return (
-                <motion.div
-                  key={c.id}
-                  onClick={() => router.push(`/categorias/${encodeURIComponent(nombre)}`)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}
-                  style={{
-                    position: 'relative', aspectRatio: '16 / 10',
-                    borderRadius: 12, overflow: 'hidden',
-                    boxSizing: 'border-box',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
-                    border: esGrupoCompartido ? '3px solid #FFD13C' : '3px solid transparent',
-                    transition: 'transform 0.2s ease',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
-                  onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={foto} alt={nombre}
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
-                    onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
-                    onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-                  />
-                  {!esBanner && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
-                  {esGrupoCompartido && (
+          <>
+            {grupo.length > 0 && (
+              <div style={{
+                marginBottom: 24,
+                borderRadius: 16,
+                border: '2px solid rgba(255,209,60,0.6)',
+                background: 'linear-gradient(180deg, rgba(255,209,60,0.10) 0%, rgba(255,209,60,0.02) 100%)',
+                padding: 'clamp(14px, 2vw, 20px)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: 24, flexShrink: 0 }}>🔗</span>
+                  <div>
                     <div style={{
-                      position: 'absolute', top: 54, left: 12, zIndex: 11,
-                      background: '#FFD13C', color: '#3A2A00',
-                      fontWeight: 900, fontSize: 12.5, letterSpacing: '0.02em',
-                      padding: '6px 12px', borderRadius: 99,
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
-                      whiteSpace: 'nowrap',
+                      color: '#B8860B', fontWeight: 900, fontSize: 'clamp(14px, 1.8vw, 17px)',
+                      textTransform: 'uppercase', letterSpacing: '0.04em',
                     }}>
-                      🔗 Combinable
+                      Estas categorías comparten el mínimo
                     </div>
-                  )}
-                  {esProximamente && (
-                    <div style={{
-                      position: 'absolute', bottom: 14, right: 14, zIndex: 10,
-                      background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
-                      color: '#fff', fontWeight: 900, fontSize: 11,
-                      letterSpacing: '0.12em', textTransform: 'uppercase',
-                      padding: '5px 12px', borderRadius: 20,
-                      boxShadow: '0 3px 12px rgba(255,78,0,0.6)',
-                    }}>
-                      🔜 Próximamente
+                    <div style={{ color: '#7A5C2E', fontSize: 12.5, marginTop: 2 }}>
+                      Combiná artículos entre todas y llegá junto/a a Mín. ${minDeCatalogo(catalogoDe(grupo[0].nombre || grupo[0].name || '')).toLocaleString('es-AR')}
                     </div>
-                  )}
-                  {minDeCatalogo(catalogoDe(nombre)) > 0 && <div style={{ position: 'absolute', top: '66%', left: '50%', transform: 'translate(-50%,-50%)', background: 'transparent', color: '#FF7A3D', textAlign: 'center', fontWeight: 900, fontSize: 16, zIndex: 9, whiteSpace: 'nowrap', letterSpacing: '0.02em', textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 0 2px 8px rgba(0,0,0,0.7)' }}>
-                    ⚠️ Mínimo de compra ${minDeCatalogo(catalogoDe(nombre)).toLocaleString('es-AR')}
-                  </div>}
-                  {!esBanner && <div style={{ position: 'absolute', top: 16, left: 16, color: '#FFFFFF', fontWeight: 900, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
-                    {nombre}
-                  </div>}
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, zIndex: 10, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', padding: '7px 16px', borderRadius: 99, boxShadow: '0 3px 12px rgba(255,106,61,0.5)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ color: '#FFFFFF', fontSize: 8 }}>●</span> VER AQUÍ
                   </div>
-                </motion.div>
-              )
-            })}
-          </div>
+                </div>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                  gap: 16,
+                }}>
+                  {grupo.map((c, i) => renderCard(c, i))}
+                </div>
+              </div>
+            )}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: 16,
+            }}>
+              {resto.map((c, i) => renderCard(c, i))}
+            </div>
+          </>
         )}
       </div>
     </div>

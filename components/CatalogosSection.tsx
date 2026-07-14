@@ -168,6 +168,147 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
   const PROXIMAMENTE = new Set(['RODADOS'])
 
+  // Separamos las categorías que comparten mínimo (grupo) del resto,
+  // preservando el orden relativo original en cada lado.
+  let firstGrupoIdx = -1
+  unicas.forEach((c, i) => {
+    if (firstGrupoIdx === -1 && CATEGORIA_GRUPO_OVERRIDE[c.name.toUpperCase()]) firstGrupoIdx = i
+  })
+  const esGrupo = (c: Categoria) => !!CATEGORIA_GRUPO_OVERRIDE[c.name.toUpperCase()]
+  const grupo = unicas.filter(esGrupo)
+  const resto = unicas.filter(c => !esGrupo(c))
+
+  const renderCard = (cat: Categoria) => {
+    const esBanner = (cat.image || '').includes('/categorias/banner-')
+    return (
+      <div
+        key={cat.id}
+        onClick={() => router.push(`/categorias/${encodeURIComponent(cat.name)}`)}
+        className="cat-glow-wrap"
+        style={{ position: 'relative', borderRadius: 12, cursor: 'pointer', aspectRatio: '16 / 10' }}
+      >
+      <div
+        className="cat-card"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          boxSizing: 'border-box',
+          display: 'block',
+          borderRadius: 12,
+          overflow: 'hidden',
+          cursor: 'pointer',
+          background: '#F0F0F0',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+          border: '3px solid transparent',
+        }}
+      >
+        {/* Imagen con Ken Burns */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="cat-img"
+          src={cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR']}
+          alt={cat.name}
+          style={{
+            position: 'absolute', inset: 0,
+            width: '100%', height: '100%',
+            objectFit: 'cover',
+            transformOrigin: 'center center',
+          }}
+        />
+
+        {/* Overlay — solo cuando NO es un banner diseñado (el banner ya trae todo) */}
+        {!esBanner && <div className="cat-overlay" style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 36%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.24) 100%)',
+          transition: 'background 0.35s ease',
+        }} />}
+
+        {/* Cartel PRÓXIMAMENTE */}
+        {PROXIMAMENTE.has(cat.name.toUpperCase()) && (
+          <div style={{
+            position: 'absolute', bottom: 14, right: 14,
+            background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
+            color: '#fff',
+            fontWeight: 900,
+            fontSize: 11,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            padding: '5px 12px',
+            borderRadius: 20,
+            boxShadow: '0 3px 12px rgba(255,78,0,0.6)',
+            zIndex: 10,
+            textShadow: '0 1px 3px rgba(0,0,0,0.3)',
+          }}>
+            🔜 Próximamente
+          </div>
+        )}
+
+        {/* Emoji flotante — solo si no es banner */}
+        {!esBanner && <div style={{
+          position: 'absolute', top: 12, right: 14,
+          fontSize: 28,
+          filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))',
+        }}>
+          {cat.emoji}
+        </div>}
+
+        {/* Nombre categoría — solo si no es banner (foto común muestra el nombre) */}
+        {!esBanner && <div style={{
+          position: 'absolute', top: 16, left: 16,
+          color: '#FFFFFF', fontWeight: 900,
+          fontSize: 'clamp(18px, 2vw, 22px)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          textShadow: '0 1px 3px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)',
+          maxWidth: '70%',
+        }}>
+          {cat.name}
+        </div>}
+
+        {/* Franja inferior unificada: VER AQUÍ + (mínimo · modelos), deja el título libre */}
+        {!PROXIMAMENTE.has(cat.name.toUpperCase()) && (
+          <div style={{
+            position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 10,
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
+            padding: '14px 12px 12px',
+            background: 'linear-gradient(transparent, rgba(11,30,63,0.92) 60%)',
+          }}>
+            <span className="cat-ver-mas" style={{
+              background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
+              color: '#FFFFFF', fontWeight: 900, fontSize: 10.5, letterSpacing: '0.08em',
+              textTransform: 'uppercase', padding: '5px 11px', borderRadius: 99,
+              boxShadow: '0 3px 12px rgba(255,106,61,0.5)', whiteSpace: 'nowrap',
+            }}>
+              VER AQUÍ →
+            </span>
+            {(minDeCatalogo(catalogoDe(cat.name)) > 0 || cat.count >= 10) && (
+              <span style={{
+                color: '#FFFFFF', fontWeight: 800, fontSize: 11, textAlign: 'right',
+                lineHeight: 1.35, textShadow: '0 1px 4px rgba(0,0,0,0.9)',
+              }}>
+                {minDeCatalogo(catalogoDe(cat.name)) > 0 && (
+                  <>Mín. ${minDeCatalogo(catalogoDe(cat.name)).toLocaleString('es-AR')}</>
+                )}
+                {minDeCatalogo(catalogoDe(cat.name)) > 0 && cat.count >= 10 && ' · '}
+                {cat.count >= 10 && `${cat.count} artículos`}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Borde dorado */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          borderRadius: 12,
+          border: '2px solid rgba(255,106,61,0)',
+          transition: 'border-color 0.3s',
+          pointerEvents: 'none',
+        }} />
+      </div>
+      </div>
+    )
+  }
+
   return (
     <>
     <section id="catalogos" style={{ background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', padding: '4px clamp(16px, 2.5vw, 40px) 24px' }}>
@@ -234,157 +375,46 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </a>
         </div>
 
-        {/* Grid de tarjetas */}
+        {/* Caja de categorías combinables — comparten el mínimo entre todas */}
+        {grupo.length > 0 && (
+          <div style={{
+            marginBottom: 22,
+            borderRadius: 16,
+            border: '2px solid rgba(255,209,60,0.5)',
+            background: 'linear-gradient(180deg, rgba(255,209,60,0.09) 0%, rgba(255,209,60,0.02) 100%)',
+            padding: 'clamp(14px, 2vw, 20px)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 24, flexShrink: 0 }}>🔗</span>
+              <div>
+                <div style={{
+                  color: '#FFD13C', fontWeight: 900, fontSize: 'clamp(14px, 1.8vw, 17px)',
+                  textTransform: 'uppercase', letterSpacing: '0.04em',
+                }}>
+                  Estas categorías comparten el mínimo
+                </div>
+                <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 12.5, marginTop: 2 }}>
+                  Combiná artículos entre todas y llegá junto/a a Mín. ${minDeCatalogo(catalogoDe(grupo[0].name)).toLocaleString('es-AR')}
+                </div>
+              </div>
+            </div>
+            <div className="cat-grid" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+              gap: 12,
+            }}>
+              {grupo.map(cat => renderCard(cat))}
+            </div>
+          </div>
+        )}
+
+        {/* Grid del resto de las categorías */}
         <div className="cat-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
           gap: 12,
         }}>
-          {unicas.map((cat, i) => {
-            // esBanner: la imagen es uno de los banners diseñados (con título propio).
-            // Si es una foto común, mostramos el nombre igual.
-            const esBanner = (cat.image || '').includes('/categorias/banner-')
-            const esGrupoCompartido = !!CATEGORIA_GRUPO_OVERRIDE[cat.name.toUpperCase()]
-            return (
-            <div
-              key={cat.id}
-              onClick={() => router.push(`/categorias/${encodeURIComponent(cat.name)}`)}
-              className="cat-glow-wrap"
-              style={{ position: 'relative', borderRadius: 12, cursor: 'pointer', aspectRatio: '16 / 10' }}
-            >
-            <div
-              className="cat-card"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                boxSizing: 'border-box',
-                display: 'block',
-                borderRadius: 12,
-                overflow: 'hidden',
-                cursor: 'pointer',
-                background: '#F0F0F0',
-                boxShadow: esGrupoCompartido ? '0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,209,60,0.5)' : '0 4px 20px rgba(0,0,0,0.4)',
-                border: esGrupoCompartido ? '3px solid #FFD13C' : '3px solid transparent',
-              }}
-            >
-              {esGrupoCompartido && (
-                <div style={{
-                  position: 'absolute', top: 54, left: 12, zIndex: 11,
-                  background: '#FFD13C', color: '#3A2A00',
-                  fontWeight: 900, fontSize: 12.5, letterSpacing: '0.02em',
-                  padding: '6px 12px', borderRadius: 99,
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
-                  display: 'flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap',
-                }}>
-                  🔗 Combinable
-                </div>
-              )}
-              {/* Imagen con Ken Burns */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="cat-img"
-                src={cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR']}
-                alt={cat.name}
-                style={{
-                  position: 'absolute', inset: 0,
-                  width: '100%', height: '100%',
-                  objectFit: 'cover',
-                  transformOrigin: 'center center',
-                }}
-              />
-
-              {/* Overlay — solo cuando NO es un banner diseñado (el banner ya trae todo) */}
-              {!esBanner && <div className="cat-overlay" style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 36%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.24) 100%)',
-                transition: 'background 0.35s ease',
-              }} />}
-
-              {/* Cartel PRÓXIMAMENTE */}
-              {PROXIMAMENTE.has(cat.name.toUpperCase()) && (
-                <div style={{
-                  position: 'absolute', bottom: 14, right: 14,
-                  background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
-                  color: '#fff',
-                  fontWeight: 900,
-                  fontSize: 11,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  padding: '5px 12px',
-                  borderRadius: 20,
-                  boxShadow: '0 3px 12px rgba(255,78,0,0.6)',
-                  zIndex: 10,
-                  textShadow: '0 1px 3px rgba(0,0,0,0.3)',
-                }}>
-                  🔜 Próximamente
-                </div>
-              )}
-
-              {/* Emoji flotante — solo si no es banner */}
-              {!esBanner && <div style={{
-                position: 'absolute', top: 12, right: 14,
-                fontSize: 28,
-                filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))',
-              }}>
-                {cat.emoji}
-              </div>}
-
-              {/* Nombre categoría — solo si no es banner (foto común muestra el nombre) */}
-              {!esBanner && <div style={{
-                position: 'absolute', top: 16, left: 16,
-                color: '#FFFFFF', fontWeight: 900,
-                fontSize: 'clamp(18px, 2vw, 22px)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                textShadow: '0 1px 3px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)',
-                maxWidth: '70%',
-              }}>
-                {cat.name}
-              </div>}
-
-              {/* Franja inferior unificada: VER AQUÍ + (mínimo · modelos), deja el título libre */}
-              {!PROXIMAMENTE.has(cat.name.toUpperCase()) && (
-                <div style={{
-                  position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 10,
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
-                  padding: '14px 12px 12px',
-                  background: 'linear-gradient(transparent, rgba(11,30,63,0.92) 60%)',
-                }}>
-                  <span className="cat-ver-mas" style={{
-                    background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
-                    color: '#FFFFFF', fontWeight: 900, fontSize: 10.5, letterSpacing: '0.08em',
-                    textTransform: 'uppercase', padding: '5px 11px', borderRadius: 99,
-                    boxShadow: '0 3px 12px rgba(255,106,61,0.5)', whiteSpace: 'nowrap',
-                  }}>
-                    VER AQUÍ →
-                  </span>
-                  {(minDeCatalogo(catalogoDe(cat.name)) > 0 || cat.count >= 10) && (
-                    <span style={{
-                      color: '#FFFFFF', fontWeight: 800, fontSize: 11, textAlign: 'right',
-                      lineHeight: 1.35, textShadow: '0 1px 4px rgba(0,0,0,0.9)',
-                    }}>
-                      {minDeCatalogo(catalogoDe(cat.name)) > 0 && (
-                        <>Mín. ${minDeCatalogo(catalogoDe(cat.name)).toLocaleString('es-AR')}</>
-                      )}
-                      {minDeCatalogo(catalogoDe(cat.name)) > 0 && cat.count >= 10 && ' · '}
-                      {cat.count >= 10 && `${cat.count} artículos`}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              {/* Borde dorado */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                borderRadius: 12,
-                border: '2px solid rgba(255,106,61,0)',
-                transition: 'border-color 0.3s',
-                pointerEvents: 'none',
-              }} />
-            </div>
-            </div>
-            )
-          })}
+          {resto.map(cat => renderCard(cat))}
         </div>
       </div>
     </section>
