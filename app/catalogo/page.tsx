@@ -154,7 +154,7 @@ export default function CatalogoPage() {
         backdropFilter: 'blur(16px)',
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
-          <button onClick={() => router.push('/')}
+          <button onClick={() => { window.location.href = '/' }}
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
               background: 'none', border: 'none', cursor: 'pointer',
