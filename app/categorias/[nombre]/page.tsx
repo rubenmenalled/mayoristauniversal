@@ -529,8 +529,7 @@ export default function CategoriaPage() {
           entrar a cada subcategoría para ver qué hay: el producto se ve de una. */}
       {subcategorias.length > 0 && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 16px 0' }}>
-          <div className="subcat-pills" style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 6 }}>
-            <style dangerouslySetInnerHTML={{ __html: `.subcat-pills{scrollbar-width:none}.subcat-pills::-webkit-scrollbar{display:none}` }} />
+          <div className="subcat-pills" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'flex-start' }}>
             {(() => {
               const esTodos = subActiva === '' || subActiva === '__todos__'
               return (
