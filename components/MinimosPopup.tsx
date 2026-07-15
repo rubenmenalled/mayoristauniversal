@@ -33,7 +33,7 @@ const NOMBRE_LINDO: Record<string, string> = {
   'PERFUMERIA': 'Perfumería',
   'PELUQUERIA Y BARBERIA': 'Peluquería y Barbería',
   'INDIO MOHI': 'Indio Mohi',
-  'JUGUETES, PELUCHES Y MÁS': 'Juguetería, Peluches, Bebé, Kik, Tendencias, Perfumería y Animé',
+  'JUGUETES, PELUCHES Y MÁS': 'Juguetería, Peluches, Bebé, Kik, Tendencias, Perfumería, Animé y Llaveros',
 }
 
 const MAX_NOMBRES = 5
