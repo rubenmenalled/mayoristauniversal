@@ -1,4 +1,5 @@
 import Header           from '@/components/Header'
+import ScrollMemory     from '@/components/ScrollMemory'
 import GradientHero     from '@/components/GradientHero'
 import CountdownBanners  from '@/components/CountdownBanners'
 import HomeRows         from '@/components/HomeRows'
@@ -64,6 +65,7 @@ export default async function HomePage() {
         strategy="beforeInteractive"
       />
       <Header />
+      <ScrollMemory />
       <main>
         <GradientHero totalProductos={stats.totalProductos} totalCategorias={categorias.length} />
         <CountdownBanners />
