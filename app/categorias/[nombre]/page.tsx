@@ -81,7 +81,7 @@ export default function CategoriaPage() {
   const [productos, setProductos] = useState<Producto[]>([])
   const [subcategorias, setSubcategorias] = useState<Subcategoria[]>([])
   const [subActiva, setSubActiva] = useState<string>(
-    searchParams.get('sub') ? decodeURIComponent(searchParams.get('sub')!) : ''
+    searchParams.get('sub') ? decodeURIComponent(searchParams.get('sub')!) : '__todos__'
   )
   const [subSubActiva, setSubSubActiva] = useState<string>('')
   const [loading, setLoading] = useState(true)
@@ -164,7 +164,7 @@ export default function CategoriaPage() {
               setLoading(false)
             })
             .catch(() => setLoading(false))
-        } else if (!subActiva) {
+        } else if (!subActiva || subActiva === '__todos__') {
           // Mostrar los productos directamente al entrar (debajo de las
           // subcategorías). Las subcategorías quedan arriba para filtrar.
           setLoading(true)
@@ -525,6 +525,55 @@ export default function CategoriaPage() {
         </div>
       )}
 
+      {/* Filtro rápido por subcategoría — chips, siempre visibles. Reemplaza tener que
+          entrar a cada subcategoría para ver qué hay: el producto se ve de una. */}
+      {subcategorias.length > 0 && !busquedaInterna.trim() && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 16px 0' }}>
+          <div className="subcat-pills" style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 6 }}>
+            <style dangerouslySetInnerHTML={{ __html: `.subcat-pills{scrollbar-width:none}.subcat-pills::-webkit-scrollbar{display:none}` }} />
+            {(() => {
+              const esTodos = subActiva === '' || subActiva === '__todos__'
+              return (
+                <button onClick={() => setSubActiva('__todos__')}
+                  style={{
+                    flexShrink: 0, padding: '8px 16px', borderRadius: 99, fontWeight: 800, fontSize: 12.5,
+                    border: `1.5px solid ${esTodos ? '#FF6A3D' : 'rgba(255,255,255,0.22)'}`,
+                    background: esTodos ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.06)',
+                    color: esTodos ? '#0D2C54' : '#FFFFFF', cursor: 'pointer', whiteSpace: 'nowrap',
+                  }}>
+                  🛍️ Todos
+                </button>
+              )
+            })()}
+            {subcategorias.map(sub => {
+              const activa = subActiva.toUpperCase() === sub.nombre.toUpperCase()
+              const cnt = (sub as any).count ?? 0
+              return (
+                <button key={sub.id} onClick={() => setSubActiva(sub.nombre)}
+                  style={{
+                    flexShrink: 0, padding: '8px 16px', borderRadius: 99, fontWeight: 800, fontSize: 12.5,
+                    border: `1.5px solid ${activa ? '#FF6A3D' : 'rgba(255,255,255,0.22)'}`,
+                    background: activa ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.06)',
+                    color: activa ? '#0D2C54' : '#FFFFFF', cursor: 'pointer', whiteSpace: 'nowrap',
+                  }}>
+                  {cnt >= 300 ? '🔥 ' : ''}{sub.nombre}{cnt > 0 ? ` (${cnt})` : ''}
+                </button>
+              )
+            })}
+            <button onClick={() => setSubActiva('')}
+              title="Ver subcategorías en fotos"
+              style={{
+                flexShrink: 0, padding: '8px 14px', borderRadius: 99, fontWeight: 800, fontSize: 12.5,
+                border: `1.5px solid ${subActiva === '' ? '#FF6A3D' : 'rgba(255,255,255,0.22)'}`,
+                background: subActiva === '' ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.06)',
+                color: subActiva === '' ? '#0D2C54' : '#FFFFFF', cursor: 'pointer', whiteSpace: 'nowrap',
+              }}>
+              🖼️ Ver en fotos
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Subcategorías como tarjetas — solo si no hay ninguna activa */}
       {subcategorias.length > 0 && !subActiva && !loading && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 16px' }}>
@@ -651,14 +700,6 @@ export default function CategoriaPage() {
           </button>
         )}
 
-        {/* Botón volver — nivel 2: volver a subcategorías (solo si no hay sub-subs pendientes de elegir) */}
-        {subActiva && subcategorias.length > 0 && (!SUB_SUBS[subActiva] || subSubActiva) && (
-          <button onClick={() => { setSubActiva(''); setSubSubActiva('') }}
-            style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,106,61,0.4)', borderRadius: 20, padding: '8px 16px', color: '#FF6A3D', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
-            ← Volver a subcategorías
-          </button>
-        )}
-
         {/* Botón volver — cuando estoy en sub-subs picker (BUBBLE sin subSubActiva), volver a subcategorías */}
         {subActiva && SUB_SUBS[subActiva] && !subSubActiva && subcategorias.length > 0 && (
           <button onClick={() => setSubActiva('')}
@@ -689,7 +730,7 @@ export default function CategoriaPage() {
           <div style={{ textAlign: 'center', padding: 80, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,106,61,0.15)', borderRadius: 20 }}>
             <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
             <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 22, marginBottom: 8 }}>
-              {busquedaInterna.trim() ? `Sin resultados para "${busquedaInterna}"` : subActiva ? `No hay productos en ${subActiva}` : `No hay productos en ${nombreDecoded} todavía`}
+              {busquedaInterna.trim() ? `Sin resultados para "${busquedaInterna}"` : (subActiva && subActiva !== '__todos__') ? `No hay productos en ${subActiva}` : `No hay productos en ${nombreDecoded} todavía`}
             </div>
             {(subActiva || busquedaInterna.trim()) && (
               <button onClick={() => { setSubActiva(''); setBusquedaInterna('') }}
@@ -703,7 +744,7 @@ export default function CategoriaPage() {
             <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginBottom: 24 }}>
               {busquedaInterna.trim()
                 ? <><span style={{ color: '#FF6A3D', fontWeight: 700 }}>{productosFiltrados.length}</span> resultado{productosFiltrados.length !== 1 ? 's' : ''} para <span style={{ color: '#FF6A3D', fontWeight: 700 }}>"{busquedaInterna}"</span></>
-                : <>{nProductosMostrar} producto{nProductosMostrar !== 1 ? 's' : ''} en <span style={{ color: '#FF6A3D', fontWeight: 700 }}>{subActiva || nombreDecoded}</span></>
+                : <>{nProductosMostrar} producto{nProductosMostrar !== 1 ? 's' : ''} en <span style={{ color: '#FF6A3D', fontWeight: 700 }}>{(subActiva && subActiva !== '__todos__') ? subActiva : nombreDecoded}</span></>
               }
             </div>
             <style dangerouslySetInnerHTML={{ __html: `
