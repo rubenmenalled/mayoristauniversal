@@ -43,6 +43,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'TENDENCIAS': 'JUGUETES, PELUCHES Y MÁS',
   'PERFUMERIA': 'JUGUETES, PELUCHES Y MÁS',
   'LLAVEROS': 'JUGUETES, PELUCHES Y MÁS',
+  'MIX POP': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {

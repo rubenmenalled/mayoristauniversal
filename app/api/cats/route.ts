@@ -32,6 +32,7 @@ const ORDEN_CATEGORIAS = [
   'ELECTROHOGAR',
   'HERRAMIENTAS',
   'LLAVEROS',
+  'MIX POP',
   'LIBRERIA',
   'RELOJES',
   'LENTES',
@@ -143,6 +144,7 @@ export async function GET() {
   'PANTUFLAS':           '🥿',
   'PELUQUERIA Y BARBERIA': '💈',
   'ANIMÉ':               '🎌',
+  'MIX POP':             '🎀',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
