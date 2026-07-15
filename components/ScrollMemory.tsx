@@ -3,22 +3,35 @@
 import { useEffect, useRef } from 'react'
 
 const KEY = 'mu_home_scroll_y'
+const RESTORE_WINDOW_MS = 1200
 
 // Recuerda el scroll de la home entre navegaciones (ej. Inicio → categoría → Inicio),
 // así el usuario no tiene que volver a bajar para elegir otro catálogo.
+// Reafirma la posición durante RESTORE_WINDOW_MS porque Next.js (o el propio
+// navegador en un back/forward) puede resetear el scroll a 0 después del mount,
+// en un momento que no controlamos — así ganamos esa carrera sin importar cuándo pase.
+// Si el usuario scrollea de verdad durante esa ventana, se cancela el forzado.
 export default function ScrollMemory() {
   const restored = useRef(false)
 
   useEffect(() => {
     const saved = sessionStorage.getItem(KEY)
-    let restoreTimer: ReturnType<typeof setTimeout> | undefined
-    if (saved && !restored.current) {
+    let cancelled = false
+    const targetY = saved ? parseInt(saved, 10) : null
+
+    if (targetY != null && !restored.current) {
       restored.current = true
-      const targetY = parseInt(saved, 10)
-      window.scrollTo(0, targetY)
-      // El contenido ya viene renderizado por SSR, pero por si algo layoutea tarde
-      // (imágenes, fuentes), reintentamos una vez más tras el primer paint.
-      restoreTimer = setTimeout(() => window.scrollTo(0, targetY), 150)
+      const start = performance.now()
+      const enforce = (now: number) => {
+        if (cancelled) return
+        if (Math.abs(window.scrollY - targetY) > 2) {
+          window.scrollTo(0, targetY)
+        }
+        if (now - start < RESTORE_WINDOW_MS) {
+          requestAnimationFrame(enforce)
+        }
+      }
+      requestAnimationFrame(enforce)
     }
 
     let ticking = false
@@ -26,16 +39,16 @@ export default function ScrollMemory() {
       if (!ticking) {
         ticking = true
         requestAnimationFrame(() => {
-          sessionStorage.setItem(KEY, String(window.scrollY))
+          const y = window.scrollY
+          sessionStorage.setItem(KEY, String(y))
+          // Un scroll bien lejos de lo que estamos forzando = el usuario tomó el control.
+          if (targetY != null && Math.abs(y - targetY) > 80) cancelled = true
           ticking = false
         })
       }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      if (restoreTimer) clearTimeout(restoreTimer)
-    }
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return null
