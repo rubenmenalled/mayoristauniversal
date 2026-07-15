@@ -531,14 +531,12 @@ export default function CategoriaPage() {
         <style dangerouslySetInnerHTML={{ __html: `
           @media (max-width: 900px) {
             .cat-layout { flex-direction: column !important; }
-            .cat-sidebar { width: 100% !important; position: static !important; max-height: none !important; }
+            .cat-sidebar { width: 100% !important; }
           }
-          .cat-sidebar { scrollbar-width: none; }
-          .cat-sidebar::-webkit-scrollbar { display: none; }
         ` }} />
 
         {subcategorias.length > 0 && !busquedaInterna.trim() && (
-          <div className="cat-sidebar" style={{ width: 230, flexShrink: 0, position: 'sticky', top: 90, display: 'flex', flexDirection: 'column', gap: 4, maxHeight: 'calc(100vh - 110px)', overflowY: 'auto' }}>
+          <div className="cat-sidebar" style={{ width: 230, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
             {(() => {
               const esTodos = subActiva === '' || subActiva === '__todos__'
               return (
