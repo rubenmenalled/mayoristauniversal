@@ -178,7 +178,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   const grupo = unicas.filter(esGrupo)
   const resto = unicas.filter(c => !esGrupo(c))
 
-  const renderCard = (cat: Categoria) => {
+  const renderCard = (cat: Categoria, ocultarMinimo = false) => {
     const esBanner = (cat.image || '').includes('/categorias/banner-')
     return (
       <div
@@ -281,15 +281,15 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             }}>
               VER AQUÍ →
             </span>
-            {(minDeCatalogo(catalogoDe(cat.name)) > 0 || cat.count >= 10) && (
+            {((!ocultarMinimo && minDeCatalogo(catalogoDe(cat.name)) > 0) || cat.count >= 10) && (
               <span style={{
                 color: '#FFFFFF', fontWeight: 800, fontSize: 11, textAlign: 'right',
                 lineHeight: 1.35, textShadow: '0 1px 4px rgba(0,0,0,0.9)',
               }}>
-                {minDeCatalogo(catalogoDe(cat.name)) > 0 && (
+                {!ocultarMinimo && minDeCatalogo(catalogoDe(cat.name)) > 0 && (
                   <>Mín. ${minDeCatalogo(catalogoDe(cat.name)).toLocaleString('es-AR')}</>
                 )}
-                {minDeCatalogo(catalogoDe(cat.name)) > 0 && cat.count >= 10 && ' · '}
+                {!ocultarMinimo && minDeCatalogo(catalogoDe(cat.name)) > 0 && cat.count >= 10 && ' · '}
                 {cat.count >= 10 && `${cat.count} artículos`}
               </span>
             )}
@@ -401,7 +401,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
               gap: 12,
             }}>
-              {grupo.map(cat => renderCard(cat))}
+              {grupo.map(cat => renderCard(cat, true))}
             </div>
           </div>
         )}
