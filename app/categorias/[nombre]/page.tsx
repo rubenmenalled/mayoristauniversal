@@ -65,10 +65,11 @@ const NOMBRES_GRUPO: Record<string, string> = {
   'PELUCHES': 'Peluches',
   'PELUCHES DE PERSONAJES': 'Peluches de Personajes',
   'BEBÉ': 'Bebé',
-  'KIK': 'Kik',
+  'KIKLAND': 'Kikland',
   'TENDENCIAS': 'Tendencias',
   'PERFUMERIA': 'Perfumería',
-  'ANIMÉ': 'Animé',
+  'LLAVEROS': 'Llaveros',
+  'MIX POP': 'Mix Pop',
 }
 
 export default function CategoriaPage() {
@@ -304,7 +305,7 @@ export default function CategoriaPage() {
   const minVal = (subActiva && MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()] != null)
     ? MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()]
     : minDeCatalogo(catalogoDe(nombreDecoded))
-  // Categorías cuyo mínimo se comparte con otras (ej. JUGUETERIA+PELUCHES+BEBÉ+KIK+PELUCHES DE PERSONAJES)
+  // Categorías cuyo mínimo se comparte con otras (ej. JUGUETERIA+PELUCHES+BEBÉ+KIKLAND+PELUCHES DE PERSONAJES)
   const grupoCompartido = (!subActiva || MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()] == null)
     ? CATEGORIA_GRUPO_OVERRIDE[nombreDecoded.trim().toUpperCase()]
     : undefined

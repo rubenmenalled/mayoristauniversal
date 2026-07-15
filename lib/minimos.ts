@@ -16,7 +16,7 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'DECO CASA': 130000,
   'PELUQUERIA Y BARBERIA': 180000,
   'ANIMÉ': 140000,
-  // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIK, TENDENCIAS, PERFUMERIA
+  // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND, TENDENCIAS, PERFUMERIA
   // y LLAVEROS ya NO tienen entrada individual acá — comparten el mínimo de abajo vía
   // CATEGORIA_GRUPO_OVERRIDE.
   'JUGUETES, PELUCHES Y MÁS': 150000,
@@ -39,7 +39,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'PELUCHES': 'JUGUETES, PELUCHES Y MÁS',
   'PELUCHES DE PERSONAJES': 'JUGUETES, PELUCHES Y MÁS',
   'BEBÉ': 'JUGUETES, PELUCHES Y MÁS',
-  'KIK': 'JUGUETES, PELUCHES Y MÁS',
+  'KIKLAND': 'JUGUETES, PELUCHES Y MÁS',
   'TENDENCIAS': 'JUGUETES, PELUCHES Y MÁS',
   'PERFUMERIA': 'JUGUETES, PELUCHES Y MÁS',
   'LLAVEROS': 'JUGUETES, PELUCHES Y MÁS',
@@ -64,7 +64,7 @@ export function catalogoDe(category?: string, subcategory?: string): string {
 // Igual que catalogoDe pero SIN agrupar categorías — el 10% OFF (lib/descuentos.ts)
 // debe seguir calculándose por categoría individual aunque su mínimo de compra esté
 // agrupado con otras (ej. PELUCHES y BEBÉ no tienen 10% OFF aunque compartan mínimo
-// con JUGUETERIA/KIK/PELUCHES DE PERSONAJES, que sí lo tienen).
+// con JUGUETERIA/KIKLAND/PELUCHES DE PERSONAJES, que sí lo tienen).
 export function catalogoDeDescuento(category?: string, subcategory?: string): string {
   const sub = (subcategory || '').trim().toUpperCase()
   if (MIN_SUBCATEGORIA_OVERRIDE[sub] != null) return sub

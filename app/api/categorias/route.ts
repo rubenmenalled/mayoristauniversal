@@ -7,7 +7,7 @@ const ORDEN_CATEGORIAS = [
   // Grupo de mínimo compartido ($150.000), posicionadas juntas
   'JUGUETERIA',
   'PELUCHES',
-  'KIK',
+  'KIKLAND',
   'BEBÉ',
   'TENDENCIAS',
   'PELUCHES DE PERSONAJES',

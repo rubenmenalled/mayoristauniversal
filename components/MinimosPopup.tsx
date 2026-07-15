@@ -33,7 +33,7 @@ const NOMBRE_LINDO: Record<string, string> = {
   'PERFUMERIA': 'Perfumería',
   'PELUQUERIA Y BARBERIA': 'Peluquería y Barbería',
   'INDIO MOHI': 'Indio Mohi',
-  'JUGUETES, PELUCHES Y MÁS': 'Juguetería, Peluches, Bebé, Kik, Tendencias, Perfumería, Llaveros y Mix Pop',
+  'JUGUETES, PELUCHES Y MÁS': 'Juguetería, Peluches, Bebé, Kikland, Tendencias, Perfumería, Llaveros y Mix Pop',
   'ANIMÉ': 'Animé',
 }
 
