@@ -810,6 +810,9 @@ export default function CategoriaPage() {
                   </div>
                   <div style={{ padding: 8 }}>
                     {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
+                    {(subActiva === '' || subActiva === '__todos__') && p.subcategory && (
+                      <div style={{ color: '#FF6A3D', fontSize: 9, fontWeight: 700, marginBottom: 3 }}>{p.subcategory}</div>
+                    )}
                     {p.location && p.location !== 'Buenos Aires' && p.location !== 'POP' && (
                       <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255,106,61,0.15)', border: '1px solid rgba(255,106,61,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 3, width: 'fit-content' }}>
                         <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 9 }}>COD</span>
