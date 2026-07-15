@@ -25,7 +25,12 @@ export default function ScrollMemory() {
       const enforce = (now: number) => {
         if (cancelled) return
         if (Math.abs(window.scrollY - targetY) > 2) {
-          window.scrollTo(0, targetY)
+          // behavior: 'instant' es clave — con scroll-behavior:smooth en globals.css,
+          // un scrollTo(x,y) normal anima de a poco, y esos frames intermedios
+          // (ej. y=150 mientras el target es 1000) el chequeo de "el usuario tomó
+          // el control" de abajo los interpretaba como scroll manual y cancelaba
+          // el reforzado antes de que termine de saltar.
+          window.scrollTo({ top: targetY, left: 0, behavior: 'instant' })
         }
         if (now - start < RESTORE_WINDOW_MS) {
           requestAnimationFrame(enforce)
