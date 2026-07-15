@@ -525,20 +525,28 @@ export default function CategoriaPage() {
         </div>
       )}
 
-      {/* Filtro rápido por subcategoría — chips, siempre visibles. Reemplaza tener que
-          entrar a cada subcategoría para ver qué hay: el producto se ve de una. */}
-      {subcategorias.length > 0 && !busquedaInterna.trim() && (
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 16px 0' }}>
-          <div className="subcat-pills" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'flex-start' }}>
+      {/* Layout de 2 columnas: sidebar de subcategorías (izquierda, como paraisopeluches) + contenido */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 16px 0', display: 'flex', gap: 20, alignItems: 'flex-start' }} className="cat-layout">
+        <style dangerouslySetInnerHTML={{ __html: `
+          @media (max-width: 900px) {
+            .cat-layout { flex-direction: column !important; }
+            .cat-sidebar { width: 100% !important; position: static !important; max-height: none !important; }
+          }
+          .cat-sidebar { scrollbar-width: none; }
+          .cat-sidebar::-webkit-scrollbar { display: none; }
+        ` }} />
+
+        {subcategorias.length > 0 && !busquedaInterna.trim() && (
+          <div className="cat-sidebar" style={{ width: 230, flexShrink: 0, position: 'sticky', top: 90, display: 'flex', flexDirection: 'column', gap: 4, maxHeight: 'calc(100vh - 110px)', overflowY: 'auto' }}>
             {(() => {
               const esTodos = subActiva === '' || subActiva === '__todos__'
               return (
                 <button onClick={() => setSubActiva('__todos__')}
                   style={{
-                    flexShrink: 0, padding: '8px 16px', borderRadius: 99, fontWeight: 800, fontSize: 12.5,
-                    border: `1.5px solid ${esTodos ? '#FF6A3D' : 'rgba(255,255,255,0.22)'}`,
-                    background: esTodos ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.06)',
-                    color: esTodos ? '#0D2C54' : '#FFFFFF', cursor: 'pointer', whiteSpace: 'nowrap',
+                    textAlign: 'left', padding: '10px 14px', borderRadius: 10, fontWeight: 800, fontSize: 13,
+                    border: `1.5px solid ${esTodos ? '#FF6A3D' : 'rgba(255,255,255,0.15)'}`,
+                    background: esTodos ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.05)',
+                    color: esTodos ? '#0D2C54' : '#FFFFFF', cursor: 'pointer',
                   }}>
                   🛍️ Todos
                 </button>
@@ -550,10 +558,10 @@ export default function CategoriaPage() {
               return (
                 <button key={sub.id} onClick={() => setSubActiva(sub.nombre)}
                   style={{
-                    flexShrink: 0, padding: '8px 16px', borderRadius: 99, fontWeight: 800, fontSize: 12.5,
-                    border: `1.5px solid ${activa ? '#FF6A3D' : 'rgba(255,255,255,0.22)'}`,
-                    background: activa ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.06)',
-                    color: activa ? '#0D2C54' : '#FFFFFF', cursor: 'pointer', whiteSpace: 'nowrap',
+                    textAlign: 'left', padding: '10px 14px', borderRadius: 10, fontWeight: 800, fontSize: 13,
+                    border: `1.5px solid ${activa ? '#FF6A3D' : 'rgba(255,255,255,0.15)'}`,
+                    background: activa ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.05)',
+                    color: activa ? '#0D2C54' : '#FFFFFF', cursor: 'pointer',
                   }}>
                   {cnt >= 300 ? '🔥 ' : ''}{sub.nombre}{cnt > 0 ? ` (${cnt})` : ''}
                 </button>
@@ -562,16 +570,17 @@ export default function CategoriaPage() {
             <button onClick={() => setSubActiva('')}
               title="Ver subcategorías en fotos"
               style={{
-                flexShrink: 0, padding: '8px 14px', borderRadius: 99, fontWeight: 800, fontSize: 12.5,
-                border: `1.5px solid ${subActiva === '' ? '#FF6A3D' : 'rgba(255,255,255,0.22)'}`,
-                background: subActiva === '' ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.06)',
-                color: subActiva === '' ? '#0D2C54' : '#FFFFFF', cursor: 'pointer', whiteSpace: 'nowrap',
+                textAlign: 'left', padding: '10px 14px', borderRadius: 10, fontWeight: 800, fontSize: 13, marginTop: 6,
+                border: `1.5px solid ${subActiva === '' ? '#FF6A3D' : 'rgba(255,255,255,0.15)'}`,
+                background: subActiva === '' ? 'linear-gradient(135deg,#FF6A3D,#FF8A63)' : 'rgba(255,255,255,0.05)',
+                color: subActiva === '' ? '#0D2C54' : '#FFFFFF', cursor: 'pointer',
               }}>
               🖼️ Ver en fotos
             </button>
           </div>
-        </div>
-      )}
+        )}
+
+        <div style={{ flex: 1, minWidth: 0 }}>
 
       {/* Subcategorías como tarjetas — solo si no hay ninguna activa */}
       {subcategorias.length > 0 && !subActiva && !loading && !busquedaInterna.trim() && (
@@ -932,6 +941,8 @@ export default function CategoriaPage() {
             )}
           </>
         )}
+      </div>
+        </div>
       </div>
       <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
 
