@@ -28,8 +28,6 @@ export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
   'M ELEVEN': 130000,
   'GAUCHO SANTI': 130000,
   'INDIO MOHI': 200000,
-  'NEXT +18': 150000,
-  'HU +18': 150000,
 }
 
 // Categorías que comparten UN SOLO mínimo de compra entre todas (2026-07-14, a pedido

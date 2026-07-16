@@ -377,11 +377,6 @@ export default function CategoriaPage() {
             </button>
             <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 18, flex: 1, display: 'flex', alignItems: 'center', gap: 28 }}>
               {nombreDecoded}
-              {nombreDecoded.trim().toUpperCase() === 'LENCERIA' && (
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: '#E30613', color: '#FFFFFF', fontSize: 16, fontWeight: 900, padding: '5px 14px', borderRadius: 6, border: '2px solid #FFFFFF', letterSpacing: '0.12em', textTransform: 'uppercase', boxShadow: '0 2px 6px rgba(227,6,19,0.5)' }}>
-                  <span style={{ fontSize: 20 }}>🔞</span> Y +18
-                </span>
-              )}
             </div>
             <a href="/catalogo" style={{
               display: 'flex', alignItems: 'center', gap: 6,
