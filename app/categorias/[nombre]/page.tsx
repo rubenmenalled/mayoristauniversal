@@ -265,8 +265,11 @@ export default function CategoriaPage() {
     ? SUB_SUBS[subActiva].find(ss => ss.nombre === subSubActiva)
     : null
 
-  const porSubcategoria = subActiva === '' || subActiva === '__todos__'
-    ? productos
+  const esTodos = subActiva === '' || subActiva === '__todos__'
+  const porSubcategoria = esTodos
+    // "Todos" no incluye las subcategorías +18 — esas solo se ven entrando
+    // específicamente a HU +18 / NEXT +18, con la verificación de edad.
+    ? productos.filter(p => !SUBCATS_ADULTOS.includes((p.subcategory || '').trim().toUpperCase()))
     : productos.filter(p => {
         if (p.subcategory && p.subcategory.trim() !== '') {
           return p.subcategory.toLowerCase() === subActiva.toLowerCase()
@@ -290,9 +293,16 @@ export default function CategoriaPage() {
   // En sub-subcategorías (filtro en cliente) usamos lo efectivamente mostrado.
   const _subInfo = subActiva ? (subcategorias as any[]).find(s => (s.nombre || '').toUpperCase() === subActiva.toUpperCase()) : null
   const _totalSubTile = _subInfo && typeof _subInfo.count === 'number' ? (_subInfo.count as number) : null
+  // Al mostrar "Todos" hay que descontar del total real las subcategorías +18
+  // (se filtran del listado pero la API cuenta la categoría completa).
+  const adultosEnSubcategorias = (subcategorias as any[])
+    .filter(s => SUBCATS_ADULTOS.includes((s.nombre || '').trim().toUpperCase()))
+    .reduce((sum, s) => sum + (typeof s.count === 'number' ? s.count : 0), 0)
   const nProductosMostrar = subSubActiva
     ? productosFiltrados.length
-    : (totalReal ?? _totalSubTile ?? productosFiltrados.length)
+    : esTodos
+      ? (totalReal != null ? totalReal - adultosEnSubcategorias : productosFiltrados.length)
+      : (totalReal ?? _totalSubTile ?? productosFiltrados.length)
 
   // Barra fija del mínimo: aparece al scrollear (sticky no anda por el overflow del body)
   const [showFixedMin, setShowFixedMin] = useState(false)
