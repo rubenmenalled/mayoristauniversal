@@ -265,7 +265,7 @@ export default function CatalogoPage() {
                   color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px, 1.8vw, 18px)',
                   textTransform: 'uppercase', letterSpacing: '0.03em',
                 }}>
-                  Desde acá, cada categoría con su mínimo de compra
+                  Desde aquí para abajo cada categoría tiene su mínimo de compra
                 </div>
               </div>
             )}
