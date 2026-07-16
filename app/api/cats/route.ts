@@ -29,6 +29,7 @@ const ORDEN_CATEGORIAS = [
   'COTILLON MAGIC KINGDOM',
   'BAZAR Y HOGAR',
   'IMPORTADORA MCJ',
+  'IMPORTADORA HOME',
   'ELECTROHOGAR',
   'HERRAMIENTAS',
   'LLAVEROS',
@@ -146,6 +147,7 @@ export async function GET() {
   'ANIMÉ':               '🎌',
   'MIX POP':             '🎀',
   'IMPORTADORA MCJ':     '📦',
+  'IMPORTADORA HOME':    '🏠',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
