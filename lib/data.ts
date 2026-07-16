@@ -43,7 +43,7 @@ const ORDEN_CATEGORIAS = [
   'RODADOS',
   'ARTICULOS X BULTO',
   'FATTZ IMPORT',
-  'LENCERIA',
+  'LENCERIA IMPORTADA',
 ]
 
 function sortCategorias(cats: any[]) {

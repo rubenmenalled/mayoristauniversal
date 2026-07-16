@@ -41,7 +41,7 @@ const ORDEN_CATEGORIAS = [
   'RODADOS',
   'ARTICULOS X BULTO',
   'FATTZ IMPORT',
-  'LENCERIA',
+  'LENCERIA IMPORTADA',
 ]
 
 export async function GET() {
