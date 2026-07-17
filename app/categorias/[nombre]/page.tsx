@@ -847,7 +847,7 @@ export default function CategoriaPage() {
                         const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
                         // COTILLON guarda precio UNITARIO (la docena = unitario x minOrder).
                         // El resto de las categorías guarda el precio del pack.
-                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR'
+                        const esCot = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR'
                         if (esDocena) {
                           titulo = `VENTA POR ${p.minOrder} DOCENAS`
                           precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
@@ -868,9 +868,9 @@ export default function CategoriaPage() {
                             {(p.subcategory ?? '').toUpperCase() !== 'TOYS.AR' && <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>}
                             <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(() => {
                               const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                              const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR'
+                              const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR'
                               const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
-                              const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : ((p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR') ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
+                              const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : (p.subcategory ?? '').toUpperCase() === 'TOYS.AR' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
                               return `${label}: $${total.toLocaleString('es-AR')}`
                             })()}</div>
                           </div>
@@ -920,7 +920,7 @@ export default function CategoriaPage() {
                       onClick={() => {
                         const cat = (p.category ?? '').toUpperCase()
                         const sub = (p.subcategory ?? '').toUpperCase()
-                        const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON MAGIC KINGDOM' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || sub === 'TOYS.AR'
+                        const esU = cat === 'COTILLON MAGIC KINGDOM' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || sub === 'TOYS.AR'
                         const isDescPor = p.descripcion?.startsWith('PRECIO POR')
                         const dividir = !isDescPor && !esU && p.minOrder > 1
                         addItem({
@@ -1135,7 +1135,7 @@ export default function CategoriaPage() {
                 <div style={{ marginTop: 'auto', paddingTop: 8 }}>
                   {(() => {
                     // COTILLON / POP IT guardan precio UNITARIO; el resto guarda precio del pack
-                    const esBulto = (lightbox.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' || (lightbox.subcategory ?? '').toUpperCase() === 'TOYS.AR'
+                    const esBulto = (lightbox.subcategory ?? '').toUpperCase() === 'TOYS.AR'
                     const esDocena = (lightbox.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
                     const esU = (lightbox.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (lightbox.subcategory ?? '').toUpperCase() === 'POP IT' || esBulto || esDocena
                     const cu = esU ? lightbox.wholesalePrice : Math.round(lightbox.wholesalePrice / lightbox.minOrder)
@@ -1166,7 +1166,7 @@ export default function CategoriaPage() {
                     onClick={() => {
                       const cat = (lightbox.category ?? '').toUpperCase()
                       const sub = (lightbox.subcategory ?? '').toUpperCase()
-                      const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON MAGIC KINGDOM' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || sub === 'TOYS.AR'
+                      const esU = cat === 'COTILLON MAGIC KINGDOM' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || sub === 'TOYS.AR'
                       const isDescPor = lightbox.descripcion?.startsWith('PRECIO POR')
                       const dividir = !isDescPor && !esU && lightbox.minOrder > 1
                       addItem({

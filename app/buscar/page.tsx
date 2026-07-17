@@ -187,7 +187,7 @@ function BuscarContent() {
                           precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
                         } else if (p.minOrder > 1) {
                           const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                          const esCot = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
+                          const esCot = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT'
                           if (esDocena) {
                             titulo = `VENTA POR ${p.minOrder} DOCENAS`
                             precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
@@ -203,9 +203,9 @@ function BuscarContent() {
                               <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
                               <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(() => {
                                 const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                                const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO'
+                                const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT'
                                 const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
-                                const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : (p.category ?? '').toUpperCase() === 'ARTICULOS X BULTO' ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
+                                const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
                                 return `${label}: $${total.toLocaleString('es-AR')}`
                               })()}</div>
                             </div>
@@ -239,7 +239,7 @@ function BuscarContent() {
                         onClick={() => {
                           const cat = (p.category ?? '').toUpperCase()
                           const sub = (p.subcategory ?? '').toUpperCase()
-                          const esU = cat === 'ARTICULOS X BULTO' || cat === 'COTILLON MAGIC KINGDOM' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO'
+                          const esU = cat === 'COTILLON MAGIC KINGDOM' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO'
                           const isDescPor = p.descripcion?.startsWith('PRECIO POR')
                           const dividir = !isDescPor && !esU && p.minOrder > 1
                           addItem({
