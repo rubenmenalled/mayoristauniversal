@@ -2,7 +2,7 @@
 // Default para todos; override para catálogos puntuales.
 export const MIN_CATALOGO_DEFAULT = 130000
 export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
-  'FATTZ IMPORT': 300000,
+  'IMPORTADORA FAZZT': 200000,
   'LIBRERIA': 130000,
   'BAZAR Y HOGAR': 130000,
   'BELLEZA': 130000,
