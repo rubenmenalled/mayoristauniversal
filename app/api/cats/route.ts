@@ -28,6 +28,7 @@ const ORDEN_CATEGORIAS = [
   'COTILLON MAGIC KINGDOM',
   'BAZAR Y HOGAR',
   'IMPORTADORA MCJ',
+  'IMPORTADORA TOYS.AR',
   'IMPORTADORA HOME',
   'ELECTROHOGAR',
   'HERRAMIENTAS',
@@ -144,6 +145,7 @@ export async function GET() {
   'ANIMÉ':               '🎌',
   'MIX POP':             '🎀',
   'IMPORTADORA MCJ':     '📦',
+  'IMPORTADORA TOYS.AR': '🧸',
   'IMPORTADORA HOME':    '🏠',
   }
 
