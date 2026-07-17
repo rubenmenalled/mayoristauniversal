@@ -3,7 +3,7 @@ import { catalogoDeDescuento } from './minimos'
 // Categorías con 10% OFF automático al llegar a $500.000 (ver DescuentoPopup.tsx,
 // que avisa de esto al entrar a la categoría).
 export const CATEGORIAS_DESCUENTO_10 = [
-  'NEXT MUNDO',
+  'IMPORTADORA NEXT',
   'ACCESORIOS PARA MASCOTAS',
   'ACCESORIOS DE INVIERNO',
   'BIJOUTERIE',
