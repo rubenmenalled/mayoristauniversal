@@ -16,6 +16,7 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'ANIMÉ': 140000,
   'IMPORTADORA MCJ': 150000,
   'IMPORTADORA TOYS.AR': 200000,
+  'IMPORTADORA ELEMENTOS': 200000,
   'IMPORTADORA HOME': 200000,
   // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND, TENDENCIAS, PERFUMERIA
   // y LLAVEROS ya NO tienen entrada individual acá — comparten el mínimo de abajo vía

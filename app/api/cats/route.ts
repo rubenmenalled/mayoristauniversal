@@ -29,6 +29,7 @@ const ORDEN_CATEGORIAS = [
   'BAZAR Y HOGAR',
   'IMPORTADORA MCJ',
   'IMPORTADORA TOYS.AR',
+  'IMPORTADORA ELEMENTOS',
   'IMPORTADORA HOME',
   'ELECTROHOGAR',
   'HERRAMIENTAS',
@@ -146,6 +147,7 @@ export async function GET() {
   'MIX POP':             '🎀',
   'IMPORTADORA MCJ':     '📦',
   'IMPORTADORA TOYS.AR': '🧸',
+  'IMPORTADORA ELEMENTOS': '🏺',
   'IMPORTADORA HOME':    '🏠',
   }
 
