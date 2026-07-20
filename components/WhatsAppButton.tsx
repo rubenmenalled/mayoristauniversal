@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 
@@ -22,12 +22,30 @@ function WhatsAppLogo({ size = 28 }: { size?: number }) {
 export default function WhatsAppButton() {
   const [open, setOpen] = useState(false)
   const [showLabel, setShowLabel] = useState(false)
+  const [telefono, setTelefono] = useState('')
+  const [enviando, setEnviando] = useState(false)
 
   // Llamá la atención: mostrá la etiqueta a los 3s (una vez)
   useEffect(() => {
     const t = setTimeout(() => setShowLabel(true), 3000)
     return () => clearTimeout(t)
   }, [])
+
+  async function irAWhatsapp(e: FormEvent) {
+    e.preventDefault()
+    if (!telefono.trim() || enviando) return
+    setEnviando(true)
+    try {
+      await fetch('/api/registrar-consulta', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ telefono: telefono.trim(), pagina: window.location.pathname }),
+      })
+    } catch {}
+    window.open(WA_LINK, '_blank', 'noopener,noreferrer')
+    setEnviando(false)
+    setOpen(false)
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
@@ -60,20 +78,29 @@ export default function WhatsAppButton() {
 
             <div className="bg-navy-light rounded-2xl rounded-tl-none p-3 mb-4">
               <p className="text-gray-300 text-sm leading-relaxed">
-                👋 ¡Hola! ¿Tenés alguna duda con un producto o tu pedido? Escribinos y te ayudamos al instante.
+                👋 ¡Hola! ¿Tenés alguna duda con un producto o tu pedido? Dejanos tu WhatsApp y te ayudamos al instante.
               </p>
             </div>
 
-            <motion.a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white py-3 rounded-xl font-bold text-sm w-full transition-colors"
-              whileTap={{ scale: 0.97 }}
-            >
-              <WhatsAppLogo size={18} />
-              Consultanos por WhatsApp
-            </motion.a>
+            <form onSubmit={irAWhatsapp} className="flex flex-col gap-2">
+              <input
+                type="tel"
+                required
+                value={telefono}
+                onChange={e => setTelefono(e.target.value)}
+                placeholder="Tu WhatsApp (ej. 11 1234-5678)"
+                className="w-full rounded-xl px-3 py-2.5 text-sm bg-white text-gray-800 placeholder-gray-400 outline-none border border-transparent focus:border-green-500"
+              />
+              <motion.button
+                type="submit"
+                disabled={enviando}
+                className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 disabled:opacity-60 text-white py-3 rounded-xl font-bold text-sm w-full transition-colors"
+                whileTap={{ scale: 0.97 }}
+              >
+                <WhatsAppLogo size={18} />
+                {enviando ? 'Abriendo...' : 'Consultanos por WhatsApp'}
+              </motion.button>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>
@@ -83,10 +110,8 @@ export default function WhatsAppButton() {
         {/* Etiqueta visible (llama la atención) */}
         <AnimatePresence>
           {!open && showLabel && (
-            <motion.a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={() => setOpen(true)}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
@@ -94,7 +119,7 @@ export default function WhatsAppButton() {
               style={{ boxShadow: '0 6px 20px rgba(0,0,0,0.25)' }}
             >
               ¿Dudas? Consultanos
-            </motion.a>
+            </motion.button>
           )}
         </AnimatePresence>
 
