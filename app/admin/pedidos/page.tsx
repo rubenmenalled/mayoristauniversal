@@ -347,6 +347,28 @@ export default function PedidosPage() {
     }
   }
 
+  const handleEliminar = async (id: string) => {
+    if (!confirm('¿Eliminar este pedido? Esta acción no se puede deshacer.')) return
+    setUpdatingId(id)
+    try {
+      const res  = await fetch('/api/admin/pedidos', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      })
+      const data = await res.json()
+      if (data.ok) {
+        setPedidos(prev => prev.filter(p => p.id !== id))
+      } else {
+        alert('Error al eliminar: ' + (data.error || 'desconocido'))
+      }
+    } catch {
+      alert('Error de conexión al eliminar')
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
   const filtered = pedidos
     .filter(p => {
       const matchFiltro = filtro === 'todos' || p.estado === filtro
@@ -733,6 +755,15 @@ export default function PedidosPage() {
                           ✓ Confirmar
                         </button>
                       )}
+                      {/* Eliminar */}
+                      <button
+                        onClick={e => { e.stopPropagation(); handleEliminar(pedido.id) }}
+                        disabled={isUpdating}
+                        style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.4)', borderRadius: 8, padding: '5px 10px', color: '#F87171', fontSize: 12, fontWeight: 800, cursor: isUpdating ? 'not-allowed' : 'pointer', flexShrink: 0 }}
+                        title="Eliminar pedido"
+                      >
+                        🗑
+                      </button>
                       <span style={{ color: '#7a8a9a', fontSize: 18 }}>{isOpen ? '▲' : '▼'}</span>
                     </div>
                   </div>

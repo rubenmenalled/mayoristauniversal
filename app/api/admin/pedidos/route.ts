@@ -141,3 +141,28 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: e.message }, { status: 500 })
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  const token = request.cookies.get('admin_token')?.value
+  if (!token || !(await verifyToken(token))) {
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+  }
+
+  try {
+    const { id } = await request.json()
+    if (!id) {
+      return NextResponse.json({ error: 'Falta campo id' }, { status: 400 })
+    }
+
+    const supabase = getAdminClient()
+    const { error } = await supabase
+      .from('pedidos')
+      .delete()
+      .eq('id', id)
+
+    if (error) throw error
+    return NextResponse.json({ ok: true })
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 })
+  }
+}
