@@ -16,12 +16,13 @@ const EVENTOS = [
   },
   {
     key: 'nino',
-    emoji: '🎁',
+    emoji: '🎈',
     titulo: 'Día del Niño',
     fecha: '16 ago',
     target: new Date(2026, 7, 16),
-    accent: '#F472B6',
-    tint: 'linear-gradient(100deg, rgba(13,44,84,0.82) 0%, rgba(219,39,119,0.55) 55%, rgba(147,51,234,0.45) 100%)',
+    accent: '#FBBF24',
+    tint: 'linear-gradient(100deg, rgba(219,39,119,0.55) 0%, rgba(249,115,22,0.5) 30%, rgba(250,204,21,0.45) 55%, rgba(45,212,191,0.5) 80%, rgba(56,189,248,0.55) 100%)',
+    bounce: true,
   },
 ]
 
@@ -66,6 +67,8 @@ export default function CountdownBanners() {
         .cd-num { font-weight: 800; font-size: 27px; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -1px; text-shadow: 0 2px 6px rgba(0,0,0,.45); }
         @keyframes cdDot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
         .cd-dot { width: 6px; height: 6px; border-radius: 50%; animation: cdDot 1.6s ease-in-out infinite; }
+        @keyframes cdBounce { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-5px) rotate(4deg); } }
+        .cd-emoji.cd-bounce { display: inline-block; animation: cdBounce 1.4s ease-in-out infinite; }
       `}</style>
 
       <div className="cd-wrap">
@@ -79,7 +82,7 @@ export default function CountdownBanners() {
               <div style={{ position: 'absolute', inset: 0, background: e.tint, zIndex: 1, pointerEvents: 'none' }} />
 
               {/* Contenido */}
-              <span className="cd-emoji" style={{ position: 'relative', zIndex: 2 }}>{e.emoji}</span>
+              <span className={`cd-emoji${(e as any).bounce ? ' cd-bounce' : ''}`} style={{ position: 'relative', zIndex: 2 }}>{e.emoji}</span>
 
               <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
