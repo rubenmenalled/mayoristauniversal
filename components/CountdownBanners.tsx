@@ -70,7 +70,7 @@ export default function CountdownBanners() {
         .cd-wrap { max-width: 760px; margin: 0 auto; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
         .cd-pill {
           position: relative; overflow: hidden;
-          flex: 1 1 0; min-width: 230px;
+          flex: 1 1 0; min-width: 230px; max-width: 420px;
           display: flex; align-items: center; gap: 12px;
           padding: 12px 16px; border-radius: 16px;
           border: 1px solid rgba(255,255,255,0.14);
@@ -86,8 +86,8 @@ export default function CountdownBanners() {
         .cd-emoji.cd-bounce { display: inline-block; animation: cdBounce 1.4s ease-in-out infinite; }
         @keyframes cdTwinkle { 0%,100% { opacity: .25; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1); } }
         .cd-star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; box-shadow: 0 0 4px 1px rgba(255,255,255,0.8); animation: cdTwinkle 2.2s ease-in-out infinite; }
-        @keyframes cdBurst { 0%,100% { opacity: .25; transform: scale(0.6); } 50% { opacity: .7; transform: scale(1.3); } }
-        .cd-burst { position: absolute; width: 70px; height: 70px; border-radius: 50%; animation: cdBurst 3.4s ease-in-out infinite; filter: blur(2px); }
+        @keyframes cdBurst { 0%,100% { opacity: .45; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.35); } }
+        .cd-burst { position: absolute; width: 100px; height: 100px; border-radius: 50%; animation: cdBurst 3s ease-in-out infinite; mix-blend-mode: screen; }
       `}</style>
 
       <div className="cd-wrap">
@@ -116,7 +116,7 @@ export default function CountdownBanners() {
                       className="cd-burst"
                       style={{
                         left: `${f.x}%`, top: `${f.y}%`, transform: 'translate(-50%,-50%)',
-                        background: `radial-gradient(circle, ${f.color} 0%, transparent 70%)`,
+                        background: `radial-gradient(circle, ${f.color} 0%, ${f.color} 25%, transparent 75%)`,
                         zIndex: 1, animationDelay: `${i * 1.1}s`, pointerEvents: 'none',
                       }}
                     />
