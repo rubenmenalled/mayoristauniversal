@@ -16,15 +16,29 @@ const EVENTOS = [
   },
   {
     key: 'nino',
-    emoji: '🎈',
+    emoji: '🎆',
     titulo: 'Día del Niño',
     fecha: '16 ago',
     target: new Date(2026, 7, 16),
     accent: '#FBBF24',
-    tint: 'linear-gradient(100deg, rgba(219,39,119,0.55) 0%, rgba(250,204,21,0.45) 35%, rgba(45,212,191,0.5) 70%, rgba(56,189,248,0.55) 100%)',
+    tint: 'linear-gradient(160deg, rgba(8,10,38,0.94) 0%, rgba(22,16,64,0.9) 55%, rgba(42,20,72,0.88) 100%)',
     bounce: true,
     bigTitle: true,
+    fireworks: true,
   },
+]
+
+// Posiciones de las explosiones de fuegos artificiales (%, %, color)
+const FUEGOS = [
+  { x: 18, y: 30, color: '#F472B6' },
+  { x: 55, y: 65, color: '#38BDF8' },
+  { x: 82, y: 25, color: '#FBBF24' },
+]
+
+// Posiciones de estrellitas fijas (%, %)
+const ESTRELLAS = [
+  { x: 8, y: 15 }, { x: 28, y: 70 }, { x: 40, y: 20 }, { x: 63, y: 35 },
+  { x: 72, y: 78 }, { x: 90, y: 55 }, { x: 15, y: 85 }, { x: 48, y: 55 },
 ]
 
 function diasHasta(target: Date) {
@@ -70,6 +84,10 @@ export default function CountdownBanners() {
         .cd-dot { width: 6px; height: 6px; border-radius: 50%; animation: cdDot 1.6s ease-in-out infinite; }
         @keyframes cdBounce { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-5px) rotate(4deg); } }
         .cd-emoji.cd-bounce { display: inline-block; animation: cdBounce 1.4s ease-in-out infinite; }
+        @keyframes cdTwinkle { 0%,100% { opacity: .25; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1); } }
+        .cd-star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; box-shadow: 0 0 4px 1px rgba(255,255,255,0.8); animation: cdTwinkle 2.2s ease-in-out infinite; }
+        @keyframes cdBurst { 0%,100% { opacity: .25; transform: scale(0.6); } 50% { opacity: .7; transform: scale(1.3); } }
+        .cd-burst { position: absolute; width: 70px; height: 70px; border-radius: 50%; animation: cdBurst 3.4s ease-in-out infinite; filter: blur(2px); }
       `}</style>
 
       <div className="cd-wrap">
@@ -82,13 +100,37 @@ export default function CountdownBanners() {
               {/* Tinte de color del evento */}
               <div style={{ position: 'absolute', inset: 0, background: e.tint, zIndex: 1, pointerEvents: 'none' }} />
 
+              {/* Cielo nocturno: estrellas + fuegos artificiales */}
+              {(e as any).fireworks && (
+                <>
+                  {ESTRELLAS.map((s, i) => (
+                    <span
+                      key={i}
+                      className="cd-star"
+                      style={{ left: `${s.x}%`, top: `${s.y}%`, zIndex: 1, animationDelay: `${i * 0.3}s`, pointerEvents: 'none' }}
+                    />
+                  ))}
+                  {FUEGOS.map((f, i) => (
+                    <span
+                      key={i}
+                      className="cd-burst"
+                      style={{
+                        left: `${f.x}%`, top: `${f.y}%`, transform: 'translate(-50%,-50%)',
+                        background: `radial-gradient(circle, ${f.color} 0%, transparent 70%)`,
+                        zIndex: 1, animationDelay: `${i * 1.1}s`, pointerEvents: 'none',
+                      }}
+                    />
+                  ))}
+                </>
+              )}
+
               {/* Contenido */}
               <span className={`cd-emoji${(e as any).bounce ? ' cd-bounce' : ''}`} style={{ position: 'relative', zIndex: 2 }}>{e.emoji}</span>
 
               <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span className="cd-dot" style={{ background: e.accent, boxShadow: `0 0 8px ${e.accent}` }} />
-                  <span style={{ color: '#fff', fontWeight: 900, fontSize: (e as any).bigTitle ? 21 : 15.5, whiteSpace: 'nowrap', textShadow: '0 1px 4px rgba(0,0,0,.6)', letterSpacing: 0.2 }}>{e.titulo}</span>
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: (e as any).bigTitle ? 25 : 15.5, whiteSpace: 'nowrap', textShadow: (e as any).bigTitle ? '0 0 10px rgba(251,191,36,0.6), 0 1px 4px rgba(0,0,0,.7)' : '0 1px 4px rgba(0,0,0,.6)', letterSpacing: 0.2 }}>{e.titulo}</span>
                 </div>
                 <span style={{ color: 'rgba(255,255,255,0.78)', fontSize: 11.5, fontWeight: 500, marginTop: 2, textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>
                   {e.fecha} · armá tu pedido
