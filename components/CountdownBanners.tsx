@@ -21,8 +21,9 @@ const EVENTOS = [
     fecha: '16 ago',
     target: new Date(2026, 7, 16),
     accent: '#FBBF24',
-    tint: 'linear-gradient(100deg, rgba(219,39,119,0.55) 0%, rgba(249,115,22,0.5) 30%, rgba(250,204,21,0.45) 55%, rgba(45,212,191,0.5) 80%, rgba(56,189,248,0.55) 100%)',
+    tint: 'linear-gradient(100deg, rgba(219,39,119,0.55) 0%, rgba(250,204,21,0.45) 35%, rgba(45,212,191,0.5) 70%, rgba(56,189,248,0.55) 100%)',
     bounce: true,
+    bigTitle: true,
   },
 ]
 
@@ -87,7 +88,7 @@ export default function CountdownBanners() {
               <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span className="cd-dot" style={{ background: e.accent, boxShadow: `0 0 8px ${e.accent}` }} />
-                  <span style={{ color: '#fff', fontWeight: 800, fontSize: 15.5, whiteSpace: 'nowrap', textShadow: '0 1px 4px rgba(0,0,0,.6)', letterSpacing: 0.2 }}>{e.titulo}</span>
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: (e as any).bigTitle ? 21 : 15.5, whiteSpace: 'nowrap', textShadow: '0 1px 4px rgba(0,0,0,.6)', letterSpacing: 0.2 }}>{e.titulo}</span>
                 </div>
                 <span style={{ color: 'rgba(255,255,255,0.78)', fontSize: 11.5, fontWeight: 500, marginTop: 2, textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>
                   {e.fecha} · armá tu pedido
