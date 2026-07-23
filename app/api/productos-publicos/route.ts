@@ -23,8 +23,6 @@ export async function GET(request: NextRequest) {
   let query = supabase
     .from('productos')
     .select(COLS, { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .order('id', { ascending: false })
 
   // Ocultar productos inactivos/archivados (badge = 'OCULTO').
   // Incluye los que no tienen badge (null) y excluye solo los marcados OCULTO.
@@ -37,7 +35,26 @@ export async function GET(request: NextRequest) {
   if (destacados)   query = query.eq('badge', 'DESTACADO')
   if (idList.length) query = query.in('id', idList)
 
-  if (q) {
+  // Búsqueda por precio aproximado: si la query es SOLO un número (con $ o
+  // separadores de miles opcionales, ej. "5000", "$5.000"), buscamos productos
+  // con precio_mayorista dentro de un ±20% en vez de matchear texto.
+  const qTrim = (q || '').trim()
+  const esBusquedaPrecio = /^\$?\s?[\d.,]+$/.test(qTrim) && /\d/.test(qTrim)
+  const valorPrecio = esBusquedaPrecio ? parseInt(qTrim.replace(/[^\d]/g, ''), 10) : NaN
+
+  if (esBusquedaPrecio && Number.isFinite(valorPrecio) && valorPrecio >= 100) {
+    const tolerancia = 0.2
+    const min = Math.round(valorPrecio * (1 - tolerancia))
+    const max = Math.round(valorPrecio * (1 + tolerancia))
+    query = query
+      .gte('precio_mayorista', min).lte('precio_mayorista', max)
+      .order('precio_mayorista', { ascending: true })
+      .order('id', { ascending: false })
+  } else {
+    query = query.order('created_at', { ascending: false }).order('id', { ascending: false })
+  }
+
+  if (!esBusquedaPrecio && q) {
     // Búsqueda por palabras (AND) e insensible a tildes (regex imatch).
     // Cada palabra debe aparecer en algún campo → encuentra el producto aunque
     // se pegue el texto completo ("AUTO ... CÓDIGO: 302715"). Ignora palabras de relleno.
