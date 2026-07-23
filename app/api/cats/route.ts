@@ -34,6 +34,7 @@ const ORDEN_CATEGORIAS = [
   'IMPORTADORA COMEX',
   'IMPORTADORA TREN',
   'IMPORTADORA HOME',
+  'IMPORTADORA HZ',
   'ELECTROHOGAR',
   'HERRAMIENTAS',
   'LLAVEROS',
@@ -155,6 +156,7 @@ export async function GET() {
   'IMPORTADORA COMEX': '🎉',
   'IMPORTADORA TREN': '🏠',
   'IMPORTADORA HOME':    '🏠',
+  'IMPORTADORA HZ':      '📦',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
