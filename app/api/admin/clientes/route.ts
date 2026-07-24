@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     // 2. Compradores INVITADOS (tabla pedidos, sin cuenta)
     const { data: pedidos, error: pedError } = await adminClient
       .from('pedidos')
-      .select('nombre,email,telefono,created_at')
+      .select('nombre,email,telefono,direccion,transporte,created_at')
       .order('created_at', { ascending: true })
 
     if (pedError) throw pedError
@@ -51,9 +51,11 @@ export async function GET(request: NextRequest) {
       const existente = invitadosMap.get(email)
       if (existente) {
         existente.pedidos += 1
-        // mantener el nombre/telefono más reciente (pedidos vienen ascendente)
+        // mantener el nombre/telefono/direccion/transporte más reciente (pedidos vienen ascendente)
         if (p.nombre) existente.nombre = (p.nombre || '').trim()
         if (p.telefono) existente.whatsapp = p.telefono
+        if (p.direccion) existente.direccion = p.direccion
+        if (p.transporte) existente.transporte = p.transporte
       } else {
         invitadosMap.set(email, {
           id: 'guest:' + email,
@@ -62,9 +64,9 @@ export async function GET(request: NextRequest) {
           nombre: (p.nombre || '').trim() || '—',
           documento: '—',
           whatsapp: p.telefono || '—',
-          transporte: '—',
+          transporte: p.transporte || '—',
           reemplazo: '—',
-          direccion: '—',
+          direccion: p.direccion || '—',
           tipo: 'invitado' as const,
           pedidos: 1,
         })

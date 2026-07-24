@@ -10,7 +10,7 @@ const SITE_NAME = 'Mayorista Universal'
 const NTFY_TOPIC = 'mayorista-ruben-pedidos-2024'
 
 export async function POST(request: NextRequest) {
-  const { nombre, email, telefono, items: itemsRecibidos, total, user_id, metodoPago } = await request.json()
+  const { nombre, email, telefono, direccion, transporte, items: itemsRecibidos, total, user_id, metodoPago } = await request.json()
 
   if (!nombre || !email || !telefono || !itemsRecibidos?.length) {
     return NextResponse.json({ error: 'Faltan datos' }, { status: 400 })
@@ -78,6 +78,16 @@ export async function POST(request: NextRequest) {
         <td style="padding:8px 0;color:#6B7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">WhatsApp</td>
         <td style="padding:8px 0;"><a href="https://wa.me/${telefono.replace(/\D/g,'')}" style="color:#25D366;font-size:14px;font-weight:700;text-decoration:none;">📱 ${telefono}</a></td>
       </tr>
+      ${direccion ? `
+      <tr style="border-top:1px solid #F3F4F6;">
+        <td style="padding:8px 0;color:#6B7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Dirección</td>
+        <td style="padding:8px 0;color:#111827;font-size:14px;font-weight:700;">📍 ${direccion}</td>
+      </tr>` : ''}
+      ${transporte ? `
+      <tr style="border-top:1px solid #F3F4F6;">
+        <td style="padding:8px 0;color:#6B7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Transporte</td>
+        <td style="padding:8px 0;color:#111827;font-size:14px;font-weight:700;">🚚 ${transporte}</td>
+      </tr>` : ''}
     </table>
   </div>
 
@@ -212,6 +222,8 @@ export async function POST(request: NextRequest) {
       nombre,
       email,
       telefono,
+      direccion: direccion || null,
+      transporte: transporte || null,
       items,
       total: Number(total),
       estado: 'pendiente',
@@ -225,8 +237,10 @@ export async function POST(request: NextRequest) {
     `🛒 *NUEVO PEDIDO - ${SITE_NAME}*\n\n` +
     `👤 *Cliente:* ${nombre}\n` +
     `📧 *Email:* ${email}\n` +
-    `📱 *Teléfono:* ${telefono}\n\n` +
-    `📦 *Productos:*\n${listaProductos}\n\n` +
+    `📱 *Teléfono:* ${telefono}\n` +
+    (direccion ? `📍 *Dirección:* ${direccion}\n` : '') +
+    (transporte ? `🚚 *Transporte:* ${transporte}\n` : '') +
+    `\n📦 *Productos:*\n${listaProductos}\n\n` +
     `💰 *TOTAL: ${totalFormato}*\n\n` +
     `💙 *Pago:* Mercado Pago (alias: ruby.mena.1972)\n` +
     `📎 Adjunto el comprobante de transferencia.`
@@ -240,7 +254,10 @@ export async function POST(request: NextRequest) {
     const ntfyPayload: Record<string, any> = {
       topic: NTFY_TOPIC,
       title: `🛒 Nuevo pedido de ${nombre}`,
-      message: `💰 TOTAL: ${totalFormato} — ${cantidadTotal} unidades\n📱 Tel: ${telefono}\n📧 ${email}\n\n${listaProductos}`,
+      message: `💰 TOTAL: ${totalFormato} — ${cantidadTotal} unidades\n📱 Tel: ${telefono}\n📧 ${email}` +
+        (direccion ? `\n📍 ${direccion}` : '') +
+        (transporte ? `\n🚚 ${transporte}` : '') +
+        `\n\n${listaProductos}`,
       priority: 5,
       tags: ['shopping', 'moneybag'],
     }
@@ -264,6 +281,8 @@ export async function POST(request: NextRequest) {
         `🛒 *NUEVO PEDIDO - ${SITE_NAME}*\n` +
         `👤 ${nombre} | 📱 ${telefono}\n` +
         `📧 ${email}\n` +
+        (direccion ? `📍 ${direccion}\n` : '') +
+        (transporte ? `🚚 ${transporte}\n` : '') +
         `📦 ${cantidadTotal} unidades\n` +
         `💰 *TOTAL: ${totalFormato}*\n\n` +
         `${listaProductos}`

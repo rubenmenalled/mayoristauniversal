@@ -11,6 +11,17 @@ import { useState, useEffect, useRef } from 'react'
 
 const WA_NUMBER = '5491164660482'
 
+const TRANSPORTES = [
+  'Retiro en depósito',
+  'Andreani',
+  'OCA',
+  'Correo Argentino',
+  'Labulle',
+  'Bus de carga',
+  'Flete propio',
+  'Otro',
+]
+
 // Reglas de mínimo por categoría: { categoria: unidades mínimas }
 const MIN_CATEGORIA: Record<string, number> = {
   RELOJES: 12,
@@ -64,15 +75,24 @@ export default function CartSidebar({ open, onClose }: Props) {
   }, [])
 
   // Sesión y datos del cliente
-  const [sessionUser, setSessionUser] = useState<{ nombre: string; email: string; telefono: string } | null>(null)
-  const [guestForm, setGuestForm] = useState({ nombre: '', email: '', telefono: '' })
+  const [sessionUser, setSessionUser] = useState<{ nombre: string; email: string; telefono: string; direccion?: string; transporte?: string } | null>(null)
+  const [guestForm, setGuestForm] = useState({ nombre: '', email: '', telefono: '', direccion: '', transporte: '' })
   const [guestSaved, setGuestSaved] = useState(false)
   const [guestErrors, setGuestErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
     // Cargar datos guardados de invitado en localStorage
     const saved = localStorage.getItem('guest_checkout')
-    if (saved) { try { const d = JSON.parse(saved); setGuestForm(d); setGuestSaved(true) } catch {} }
+    if (saved) {
+      try {
+        const d = JSON.parse(saved)
+        // datos viejos (guardados antes de pedir direccion/transporte) no tienen esos campos:
+        // completar con '' y forzar a re-editar en vez de crashear al validar
+        const completo = d.direccion && d.transporte
+        setGuestForm({ nombre: '', email: '', telefono: '', direccion: '', transporte: '', ...d })
+        setGuestSaved(!!completo)
+      } catch {}
+    }
 
     // Verificar sesión Supabase
     supabase.auth.getSession().then(({ data }) => {
@@ -84,6 +104,8 @@ export default function CartSidebar({ open, onClose }: Props) {
               nombre: f?.nombre || u.user_metadata?.nombre || '',
               email: f?.email || u.email || '',
               telefono: f?.telefono || f?.whatsapp || u.user_metadata?.whatsapp || '',
+              direccion: u.user_metadata?.direccion || '',
+              transporte: u.user_metadata?.transporte || '',
             })
           })
       }
@@ -102,6 +124,8 @@ export default function CartSidebar({ open, onClose }: Props) {
     if (!guestForm.nombre.trim()) errs.nombre = 'Ingresá tu nombre'
     if (!guestForm.email.trim() || !/\S+@\S+\.\S+/.test(guestForm.email)) errs.email = 'Email inválido'
     if (!guestForm.telefono.trim() || guestForm.telefono.replace(/\D/g, '').length < 8) errs.telefono = 'Teléfono inválido'
+    if (!guestForm.direccion.trim()) errs.direccion = 'Ingresá tu dirección de entrega'
+    if (!guestForm.transporte.trim()) errs.transporte = 'Elegí un transporte'
     setGuestErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -173,16 +197,18 @@ export default function CartSidebar({ open, onClose }: Props) {
   async function notificarPedidoIniciado(metodo: string) {
     try {
       const total = wholesaleTotal // ya incluye el 10% OFF por catálogo si corresponde
-      const nombre   = clienteData?.nombre   || sessionUser?.nombre   || ''
-      const email    = clienteData?.email    || sessionUser?.email    || ''
-      const telefono = clienteData?.telefono || sessionUser?.telefono || ''
+      const nombre     = clienteData?.nombre     || sessionUser?.nombre     || ''
+      const email      = clienteData?.email      || sessionUser?.email      || ''
+      const telefono   = clienteData?.telefono   || sessionUser?.telefono   || ''
+      const direccion  = clienteData?.direccion  || sessionUser?.direccion  || ''
+      const transporte = clienteData?.transporte || sessionUser?.transporte || ''
 
       // Guardar en BD y enviar todas las notificaciones
       await fetch('/api/confirmar-pedido', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nombre, email, telefono, items, total,
+          nombre, email, telefono, direccion, transporte, items, total,
           user_id: sessionUser ? undefined : null,
           metodoPago: metodo,
         }),
@@ -426,6 +452,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                           <div>
                             <div style={{ color: '#111827', fontWeight: 800, fontSize: 13 }}>{guestForm.nombre}</div>
                             <div style={{ color: '#6B7280', fontSize: 11 }}>{guestForm.telefono}</div>
+                            <div style={{ color: '#6B7280', fontSize: 11 }}>{guestForm.direccion} · {guestForm.transporte}</div>
                           </div>
                         </div>
                         <button onClick={() => { setGuestSaved(false); setGuestErrors({}) }}
@@ -472,6 +499,28 @@ export default function CartSidebar({ open, onClose }: Props) {
                             style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.telefono ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', color: '#111827', background: '#FFFFFF' }}
                           />
                           {guestErrors.telefono && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.telefono}</div>}
+                        </div>
+                        {/* Dirección de entrega */}
+                        <div style={{ marginBottom: 8 }}>
+                          <input
+                            type="text"
+                            placeholder="Dirección de entrega (calle, número, ciudad, provincia) *"
+                            value={guestForm.direccion}
+                            onChange={e => setGuestForm(p => ({ ...p, direccion: e.target.value }))}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.direccion ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', color: '#111827', background: '#FFFFFF' }}
+                          />
+                          {guestErrors.direccion && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.direccion}</div>}
+                        </div>
+                        {/* Transporte preferido */}
+                        <div style={{ marginBottom: 10 }}>
+                          <select
+                            value={guestForm.transporte}
+                            onChange={e => setGuestForm(p => ({ ...p, transporte: e.target.value }))}
+                            style={{ width: '100%', padding: '9px 12px', borderRadius: 8, border: `1.5px solid ${guestErrors.transporte ? '#EF4444' : '#E5E7EB'}`, fontSize: 13, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', color: '#111827', background: '#FFFFFF', appearance: 'none', cursor: 'pointer' }}>
+                            <option value="">Transporte preferido *</option>
+                            {TRANSPORTES.map(t => <option key={t} value={t}>{t}</option>)}
+                          </select>
+                          {guestErrors.transporte && <div style={{ color: '#EF4444', fontSize: 11, marginTop: 3 }}>{guestErrors.transporte}</div>}
                         </div>
                         <button onClick={guardarGuest}
                           style={{ width: '100%', padding: '9px', borderRadius: 8, border: 'none', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 13, cursor: 'pointer' }}>
