@@ -23,7 +23,7 @@ body {
 /* Cursor personalizado (bolsa de compras) — solo en desktop/mouse, no en touch */
 @media (pointer: fine) {
   body {
-    cursor: url('/cursor-bag.png') 4 4, auto;
+    cursor: url('/cursor-bag.png') 4 3, auto;
   }
   a, button, [role="button"], input[type="submit"], input[type="button"], label, select {
     cursor: pointer;
