@@ -68,7 +68,6 @@ const NOMBRES_GRUPO: Record<string, string> = {
   'KIKLAND': 'Kikland',
   'TENDENCIAS': 'Tendencias',
   'PERFUMERIA': 'Perfumería',
-  'LLAVEROS': 'Llaveros',
   'MIX POP': 'Mix Pop',
 }
 
@@ -412,8 +411,8 @@ export default function CategoriaPage() {
         </div>
       </div>
 
-      {/* Cartel informativo LLAVEROS */}
-      {nombreDecoded.toUpperCase() === 'LLAVEROS' && !busquedaInterna.trim() && (
+      {/* Cartel informativo LLAVEROS (ahora subcategoría dentro de JUGUETERIA) */}
+      {subActiva.toUpperCase().startsWith('LLAVEROS') && !busquedaInterna.trim() && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 16px 0' }}>
           <div style={{
             background: 'linear-gradient(135deg, #FFF8E1 0%, #FFF3CD 100%)',

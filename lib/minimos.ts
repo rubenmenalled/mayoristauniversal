@@ -22,9 +22,9 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'IMPORTADORA TREN': 200000,
   'IMPORTADORA HOME': 200000,
   'IMPORTADORA HZ': 150000,
-  // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND, TENDENCIAS, PERFUMERIA
-  // y LLAVEROS ya NO tienen entrada individual acá — comparten el mínimo de abajo vía
-  // CATEGORIA_GRUPO_OVERRIDE.
+  // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND, TENDENCIAS y PERFUMERIA
+  // ya NO tienen entrada individual acá — comparten el mínimo de abajo vía
+  // CATEGORIA_GRUPO_OVERRIDE. (LLAVEROS se fusionó dentro de JUGUETERIA el 26/7.)
   'JUGUETES, PELUCHES Y MÁS': 150000,
 }
 
@@ -46,7 +46,6 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'KIKLAND': 'JUGUETES, PELUCHES Y MÁS',
   'TENDENCIAS': 'JUGUETES, PELUCHES Y MÁS',
   'PERFUMERIA': 'JUGUETES, PELUCHES Y MÁS',
-  'LLAVEROS': 'JUGUETES, PELUCHES Y MÁS',
   'MIX POP': 'JUGUETES, PELUCHES Y MÁS',
 }
 
