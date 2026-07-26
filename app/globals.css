@@ -20,6 +20,16 @@ body {
   position: relative;
 }
 
+/* Cursor personalizado (bolsa de compras) — solo en desktop/mouse, no en touch */
+@media (pointer: fine) {
+  body {
+    cursor: url('/cursor-bag.png') 6 4, auto;
+  }
+  a, button, [role="button"], input[type="submit"], input[type="button"], label, select {
+    cursor: pointer;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #FFFFFF; }
