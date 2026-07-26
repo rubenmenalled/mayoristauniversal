@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function PrivacidadPage() {
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', color: '#e8eaf0' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', color: '#374151' }}>
 
       {/* Header */}
       <div style={{
@@ -39,11 +39,11 @@ export default function PrivacidadPage() {
         }}>
           Política de Privacidad
         </h1>
-        <p style={{ color: '#7a8fa8', fontSize: 14, marginBottom: 48 }}>
+        <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 48 }}>
           Última actualización: Mayo 2026
         </p>
 
-        <p style={{ lineHeight: 1.85, fontSize: 15, color: '#c8d4e0', marginBottom: 40 }}>
+        <p style={{ lineHeight: 1.85, fontSize: 15, color: '#374151', marginBottom: 40 }}>
           En Mayorista Universal valoramos y respetamos su privacidad. Esta Política de Privacidad describe
           cómo recopilamos, utilizamos, almacenamos y protegemos sus datos personales en cumplimiento de la
           Ley N° 25.326 de Protección de los Datos Personales de la República Argentina y sus normas reglamentarias.
@@ -181,7 +181,7 @@ export default function PrivacidadPage() {
           </p>
           <ul style={{ paddingLeft: 24, lineHeight: 2.5 }}>
             <li>Correo electrónico: <a href="mailto:rubenmenalled@gmail.com" style={{ color: '#FF6A3D', textDecoration: 'none', fontWeight: 600 }}>rubenmenalled@gmail.com</a></li>
-            <li>Asunto sugerido: <em style={{ color: '#7a8fa8' }}>"Consulta Privacidad - [su nombre]"</em></li>
+            <li>Asunto sugerido: <em style={{ color: '#6b7280' }}>"Consulta Privacidad - [su nombre]"</em></li>
             <li>Horario de respuesta: lunes a viernes de 9:00 a 17:00 hs (hora Argentina)</li>
           </ul>
           <p>
@@ -207,7 +207,7 @@ function Section({ titulo, children }: { titulo: string; children: React.ReactNo
       }}>
         {titulo}
       </h2>
-      <div style={{ lineHeight: 1.85, fontSize: 15, color: '#c8d4e0', display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ lineHeight: 1.85, fontSize: 15, color: '#374151', display: 'flex', flexDirection: 'column', gap: 14 }}>
         {children}
       </div>
     </div>

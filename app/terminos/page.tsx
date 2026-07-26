@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function TerminosPage() {
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', color: '#e8eaf0' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%)', color: '#374151' }}>
 
       {/* Header */}
       <div style={{
@@ -39,7 +39,7 @@ export default function TerminosPage() {
         }}>
           Términos y Condiciones
         </h1>
-        <p style={{ color: '#7a8fa8', fontSize: 14, marginBottom: 48 }}>
+        <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 48 }}>
           Última actualización: Mayo 2026
         </p>
 
@@ -261,7 +261,7 @@ function Section({ titulo, children }: { titulo: string; children: React.ReactNo
       }}>
         {titulo}
       </h2>
-      <div style={{ lineHeight: 1.85, fontSize: 15, color: '#c8d4e0', display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ lineHeight: 1.85, fontSize: 15, color: '#374151', display: 'flex', flexDirection: 'column', gap: 14 }}>
         {children}
       </div>
     </div>
