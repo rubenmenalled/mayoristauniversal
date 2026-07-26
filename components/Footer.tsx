@@ -73,7 +73,7 @@ export default function Footer() {
 
             {/* Data Fiscal AFIP */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/data-fiscal-qr.png" alt="Data Fiscal AFIP" width={50} height={45} style={{ borderRadius: 4, marginBottom: 24 }} />
+            <img src="/data-fiscal-qr.png" alt="Data Fiscal AFIP" width={72} height={71} style={{ borderRadius: 4, marginBottom: 24 }} />
 
             {/* Social */}
             <div className="flex gap-2 flex-wrap">
