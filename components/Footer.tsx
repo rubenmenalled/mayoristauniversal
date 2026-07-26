@@ -60,12 +60,12 @@ export default function Footer() {
               <span className="font-display font-black text-3xl gold-text">MAYORISTA</span>
               <span className="font-display font-black text-3xl text-white tracking-[0.2em]">UNIVERSAL</span>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-gray-300 text-sm leading-relaxed mb-6">
               Los mejores precios mayoristas en todos los rubros del mercado, en toda Argentina.
             </p>
 
             {/* Contact */}
-            <div className="space-y-2 text-sm text-gray-400 mb-6">
+            <div className="space-y-2 text-sm text-gray-300 mb-6">
               <div className="flex items-center gap-2"><Phone size={14} className="text-gold" /> +54 116 4660482</div>
               <div className="flex items-center gap-2"><Mail  size={14} className="text-gold" /> rubenmenalled@gmail.com</div>
               <div className="flex items-start gap-2"><MapPin size={14} className="text-gold mt-0.5 shrink-0" /> <span>Oficina en Once, CABA, Buenos Aires</span></div>
@@ -105,23 +105,23 @@ export default function Footer() {
       <div className="relative z-20 border-t border-gold/10 py-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-gray-500 text-xs uppercase tracking-widest">Métodos de pago:</span>
+            <span className="text-gray-300 text-sm uppercase tracking-widest font-medium">Métodos de pago:</span>
             {payment.map(m => (
-              <span key={m} className="glass-card text-gray-300 text-xs px-3 py-1.5 rounded-lg">{m}</span>
+              <span key={m} className="glass-card text-white text-sm px-3 py-1.5 rounded-lg font-medium">{m}</span>
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-green-500 text-xs">🔒</span>
-            <span className="text-gray-500 text-xs">Sitio 100% seguro · SSL Certificate</span>
+            <span className="text-green-400 text-sm">🔒</span>
+            <span className="text-gray-300 text-sm font-medium">Sitio 100% seguro · SSL Certificate</span>
           </div>
         </div>
       </div>
 
       {/* Bottom bar */}
       <div className="relative z-20 border-t border-gold/10 py-5 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-300">
           <span>© {new Date().getFullYear()} Mayorista Universal. Todos los derechos reservados.</span>
-          <div className="flex gap-4">
+          <div className="flex gap-5 font-medium">
             <a href="/quienes-somos" className="hover:text-gold transition-colors">Quiénes somos</a>
             <a href="/terminos" className="hover:text-gold transition-colors">Términos y condiciones</a>
             <a href="/privacidad" className="hover:text-gold transition-colors">Política de privacidad</a>
