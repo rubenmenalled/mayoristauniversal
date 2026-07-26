@@ -122,6 +122,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
           <span>© {new Date().getFullYear()} Mayorista Universal. Todos los derechos reservados.</span>
           <div className="flex gap-4">
+            <a href="/quienes-somos" className="hover:text-gold transition-colors">Quiénes somos</a>
             <a href="/terminos" className="hover:text-gold transition-colors">Términos y condiciones</a>
             <a href="/privacidad" className="hover:text-gold transition-colors">Política de privacidad</a>
           </div>
