@@ -71,6 +71,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [...prev, { ...item, quantity: item.minOrder }]
     })
     setCartOpen(true)
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('mu:item-added'))
+    }
     track('add_to_cart', {
       item_id: item.id,
       item_name: item.name,

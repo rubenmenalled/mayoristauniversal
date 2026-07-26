@@ -8,6 +8,7 @@ import ExitIntentPopup from '@/components/ExitIntentPopup'
 import WhatsAppChannelPopup from '@/components/WhatsAppChannelPopup'
 import ScrollToTop from '@/components/ScrollToTop'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import FirstOrderGuide from '@/components/FirstOrderGuide'
 import NoPinchZoom from '@/components/NoPinchZoom'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -152,7 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</Script>
           </>
         )}
-        <CartProvider><NoPinchZoom /><AnnouncementBar />{children}<WhatsAppChannelPopup /><ExitIntentPopup /><ScrollToTop /><WhatsAppButton /></CartProvider>
+        <CartProvider><NoPinchZoom /><AnnouncementBar />{children}<WhatsAppChannelPopup /><ExitIntentPopup /><FirstOrderGuide /><ScrollToTop /><WhatsAppButton /></CartProvider>
         <Analytics />
       </body>
     </html>
