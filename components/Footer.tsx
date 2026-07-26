@@ -106,9 +106,13 @@ export default function Footer() {
               <span key={m} className="glass-card text-gray-300 text-xs px-3 py-1.5 rounded-lg">{m}</span>
             ))}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-green-500 text-xs">🔒</span>
-            <span className="text-gray-500 text-xs">Sitio 100% seguro · SSL Certificate</span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-green-500 text-xs">🔒</span>
+              <span className="text-gray-500 text-xs">Sitio 100% seguro · SSL Certificate</span>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/data-fiscal-qr.png" alt="Data Fiscal AFIP" width={40} height={36} style={{ borderRadius: 4 }} />
           </div>
         </div>
       </div>
