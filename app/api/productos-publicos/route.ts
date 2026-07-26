@@ -20,41 +20,34 @@ export async function GET(request: NextRequest) {
 
   const supabase = getAdminClient()
 
-  let query = supabase
-    .from('productos')
-    .select(COLS, { count: 'exact' })
-
-  // Ocultar productos inactivos/archivados (badge = 'OCULTO').
-  // Incluye los que no tienen badge (null) y excluye solo los marcados OCULTO.
-  query = query.or('badge.is.null,badge.neq.OCULTO')
-
   const idList = ids ? ids.split(',').map(s => parseInt(s.trim(), 10)).filter(Boolean) : []
 
-  if (categoria)    query = query.ilike('categoria', categoria)
-  if (subcategoria) query = query.ilike('subcategoria', subcategoria)
-  if (destacados)   query = query.eq('badge', 'DESTACADO')
-  if (idList.length) query = query.in('id', idList)
-
   // Búsqueda por precio aproximado: si la query es SOLO un número (con $ o
-  // separadores de miles opcionales, ej. "5000", "$5.000"), buscamos productos
-  // con precio_mayorista dentro de un ±20% en vez de matchear texto.
+  // separadores de miles opcionales, ej. "5000", "$5.000"), puede ser un precio O
+  // un código de producto puramente numérico (ej. "80126"). Ambigüedad: se intenta
+  // primero como texto (matchea nombre/ubicacion/etc) y sólo si no encuentra nada
+  // se reintenta como precio ±20% — así no se pierden códigos numéricos.
   const qTrim = (q || '').trim()
-  const esBusquedaPrecio = /^\$?\s?[\d.,]+$/.test(qTrim) && /\d/.test(qTrim)
-  const valorPrecio = esBusquedaPrecio ? parseInt(qTrim.replace(/[^\d]/g, ''), 10) : NaN
+  const esBusquedaPrecioCandidata = /^\$?\s?[\d.,]+$/.test(qTrim) && /\d/.test(qTrim)
+  const valorPrecio = esBusquedaPrecioCandidata ? parseInt(qTrim.replace(/[^\d]/g, ''), 10) : NaN
 
-  if (esBusquedaPrecio && Number.isFinite(valorPrecio) && valorPrecio >= 100) {
-    const tolerancia = 0.2
-    const min = Math.round(valorPrecio * (1 - tolerancia))
-    const max = Math.round(valorPrecio * (1 + tolerancia))
-    query = query
-      .gte('precio_mayorista', min).lte('precio_mayorista', max)
-      .order('precio_mayorista', { ascending: true })
-      .order('id', { ascending: false })
-  } else {
-    query = query.order('created_at', { ascending: false }).order('id', { ascending: false })
+  const buildBase = () => {
+    let query = supabase
+      .from('productos')
+      .select(COLS, { count: 'exact' })
+
+    // Ocultar productos inactivos/archivados (badge = 'OCULTO').
+    // Incluye los que no tienen badge (null) y excluye solo los marcados OCULTO.
+    query = query.or('badge.is.null,badge.neq.OCULTO')
+
+    if (categoria)    query = query.ilike('categoria', categoria)
+    if (subcategoria) query = query.ilike('subcategoria', subcategoria)
+    if (destacados)   query = query.eq('badge', 'DESTACADO')
+    if (idList.length) query = query.in('id', idList)
+    return query
   }
 
-  if (!esBusquedaPrecio && q) {
+  const applyTextSearch = (query: any) => {
     // Búsqueda por palabras (AND) e insensible a tildes (regex imatch).
     // Cada palabra debe aparecer en algún campo → encuentra el producto aunque
     // se pegue el texto completo ("AUTO ... CÓDIGO: 302715"). Ignora palabras de relleno.
@@ -77,12 +70,12 @@ export async function GET(request: NextRequest) {
       if (low.length > 3 && low.endsWith('s'))  return t.slice(0, -1)
       return t
     }
-    const stripAcc = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    let tokens = q
+    const stripAcc = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    let tokens = (q as string)
       .split(/\s+/)
       .map(t => t.replace(/^[^0-9A-Za-zÁÉÍÓÚÑáéíóúñ]+|[^0-9A-Za-zÁÉÍÓÚÑáéíóúñ-]+$/g, '').trim())
       .filter(t => t.length >= 2 && !NOISE.has(stripAcc(t)))
-    if (tokens.length === 0) tokens = [q.trim()]
+    if (tokens.length === 0) tokens = [(q as string).trim()]
     tokens = tokens.slice(0, 8) // tope de seguridad
     for (const t of tokens) {
       const pat = accentPat(singularize(t))
@@ -90,17 +83,50 @@ export async function GET(request: NextRequest) {
         `nombre.imatch.${pat},marca.imatch.${pat},subcategoria.imatch.${pat},descripcion.imatch.${pat},ubicacion.imatch.${pat}`
       )
     }
-  } else if (destacados) {
-    query = (query as any).limit(20)
-  } else if (idList.length) {
-    query = (query as any).limit(idList.length)
-  } else if (limit > 0) {
-    query = (query as any).limit(limit)
-  } else {
-    query = (query as any).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
+    return query
   }
 
-  const { data, error, count } = await query
+  const applyPriceSearch = (query: any) => {
+    const tolerancia = 0.2
+    const min = Math.round(valorPrecio * (1 - tolerancia))
+    const max = Math.round(valorPrecio * (1 + tolerancia))
+    return query
+      .gte('precio_mayorista', min).lte('precio_mayorista', max)
+      .order('precio_mayorista', { ascending: true })
+      .order('id', { ascending: false })
+  }
+
+  const applyPagination = (query: any) => {
+    if (destacados) return query.limit(20)
+    if (idList.length) return query.limit(idList.length)
+    if (limit > 0) return query.limit(limit)
+    return query.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
+  }
+
+  let data: any[] | null = null
+  let error: any = null
+  let count: number | null = null
+
+  if (q) {
+    let query = buildBase()
+    query = applyTextSearch(query)
+    query = query.order('created_at', { ascending: false }).order('id', { ascending: false })
+    query = applyPagination(query)
+    ;({ data, error, count } = await query)
+
+    // Query puramente numérica sin match de texto → probar como precio.
+    if (!error && (count ?? 0) === 0 && esBusquedaPrecioCandidata && Number.isFinite(valorPrecio) && valorPrecio >= 100) {
+      let priceQuery = buildBase()
+      priceQuery = applyPriceSearch(priceQuery)
+      priceQuery = applyPagination(priceQuery)
+      ;({ data, error, count } = await priceQuery)
+    }
+  } else {
+    let query = buildBase()
+    query = query.order('created_at', { ascending: false }).order('id', { ascending: false })
+    query = applyPagination(query)
+    ;({ data, error, count } = await query)
+  }
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
