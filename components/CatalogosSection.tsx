@@ -281,16 +281,25 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               VER AQUÍ →
             </span>
             {((!ocultarMinimo && minDeCatalogo(catalogoDe(cat.name)) > 0) || cat.count >= 10) && (
-              <span style={{
-                color: '#FFFFFF', fontWeight: 800, fontSize: 11, textAlign: 'right',
-                lineHeight: 1.35, textShadow: '0 1px 4px rgba(0,0,0,0.9)',
-              }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 3 }}>
                 {!ocultarMinimo && minDeCatalogo(catalogoDe(cat.name)) > 0 && (
-                  <>Mín. ${minDeCatalogo(catalogoDe(cat.name)).toLocaleString('es-AR')}</>
+                  <span style={{
+                    background: 'rgba(11,30,63,0.85)', color: '#FFD13C', fontWeight: 900,
+                    fontSize: 13, padding: '3px 9px', borderRadius: 6, whiteSpace: 'nowrap',
+                    border: '1px solid rgba(255,209,60,0.5)',
+                  }}>
+                    Mín. ${minDeCatalogo(catalogoDe(cat.name)).toLocaleString('es-AR')}
+                  </span>
                 )}
-                {!ocultarMinimo && minDeCatalogo(catalogoDe(cat.name)) > 0 && cat.count >= 10 && ' · '}
-                {cat.count >= 10 && `${cat.count} artículos`}
-              </span>
+                {cat.count >= 10 && (
+                  <span style={{
+                    color: '#FFFFFF', fontWeight: 700, fontSize: 10.5,
+                    textShadow: '0 1px 4px rgba(0,0,0,0.9)',
+                  }}>
+                    {cat.count} artículos
+                  </span>
+                )}
+              </div>
             )}
           </div>
         )}

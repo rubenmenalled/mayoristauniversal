@@ -406,8 +406,11 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 ))}
                 {grupos.length > 1 && (
-                  <div style={{ fontSize: 10.5, color: '#6B7280', textAlign: 'center', marginBottom: 8, lineHeight: 1.4 }}>
-                    ℹ️ Cada catálogo tiene su mínimo y se procesa por separado.
+                  <div style={{ background: '#FFFBEB', border: '1.5px solid #FCD34D', borderRadius: 10, padding: '10px 12px', marginBottom: 8, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                    <span style={{ fontSize: 16, lineHeight: 1.2 }}>⚠️</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: '#92400E', lineHeight: 1.45 }}>
+                      Tenés productos de {grupos.length} catálogos distintos — <u>cada uno tiene su propio mínimo y NO se combinan entre sí</u>. Mirá las barras de arriba: cada catálogo necesita alcanzar su mínimo por separado.
+                    </span>
                   </div>
                 )}
 

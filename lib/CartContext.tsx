@@ -52,15 +52,24 @@ const CartContext = createContext<CartContextType | null>(null)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [cartOpen, setCartOpen] = useState(false)
+  const [hydrated, setHydrated] = useState(false)
 
+  // Se lee localStorage UNA vez al montar. El flag "hydrated" evita que el
+  // efecto de guardado (de abajo) pise el carrito guardado con el estado
+  // inicial vacío antes de que termine de cargarse — si no, cualquier
+  // refresh de página borraba el carrito completo.
   useEffect(() => {
     const saved = localStorage.getItem('cart')
-    if (saved) setItems(JSON.parse(saved))
+    if (saved) {
+      try { setItems(JSON.parse(saved)) } catch {}
+    }
+    setHydrated(true)
   }, [])
 
   useEffect(() => {
+    if (!hydrated) return
     localStorage.setItem('cart', JSON.stringify(items))
-  }, [items])
+  }, [items, hydrated])
 
   function addItem(item: Omit<CartItem, 'quantity'>) {
     setItems(prev => {
