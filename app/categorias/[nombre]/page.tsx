@@ -614,7 +614,7 @@ export default function CategoriaPage() {
 
                   {primeraFoto && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={primeraFoto} alt={sub.nombre} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', imageRendering: 'auto' }} />
+                    <img src={primeraFoto} alt={sub.nombre} loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', imageRendering: 'auto' }} />
                   )}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.72) 100%)' }} />
                   {((sub as any).count ?? 0) >= 10 && (
@@ -1062,7 +1062,7 @@ export default function CategoriaPage() {
                     <button key={i} onClick={() => { setLightboxImgIdx(i); setZoom(false); setOffset({x:0,y:0}) }}
                       style={{ width: 44, height: 44, borderRadius: 7, overflow: 'hidden', border: i === lightboxImgIdx ? '2px solid #FF6A3D' : '2px solid #E5E7EB', padding: 0, cursor: 'pointer', background: '#F3F4F6', flexShrink: 0, transition: 'border-color 0.2s' }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={src} alt={`foto ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img src={src} alt={`foto ${i+1}`} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </button>
                   ))}
                 </div>

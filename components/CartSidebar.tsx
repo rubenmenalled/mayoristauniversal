@@ -305,7 +305,7 @@ export default function CartSidebar({ open, onClose }: Props) {
                         {/* Imagen 70px */}
                         <div style={{ width: 70, height: 70, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#F9FAFB', border: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           {item.image
-                            ? <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 3 }} />
+                            ? <img src={item.image} alt={item.name} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 3 }} />
                             : <div style={{ fontSize: 26 }}>📦</div>}
                         </div>
                         {/* Info compacta */}

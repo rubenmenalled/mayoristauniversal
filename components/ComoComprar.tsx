@@ -173,7 +173,7 @@ export default function ComoComprar() {
               <>
                 <div key={paso.numero} className="paso-card">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={paso.image} alt="" className="paso-bg" />
+                  <img src={paso.image} alt="" className="paso-bg" loading="lazy" decoding="async" />
                   <div className="paso-overlay" />
 
                   {/* Emoji */}

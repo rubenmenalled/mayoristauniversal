@@ -110,7 +110,7 @@ export default function CatalogoPage() {
         onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={foto} alt={nombre}
+        <img src={foto} alt={nombre} loading="lazy" decoding="async"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
           onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
           onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}

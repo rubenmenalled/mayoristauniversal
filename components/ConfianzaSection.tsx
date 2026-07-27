@@ -99,7 +99,7 @@ export default function ConfianzaSection() {
         }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="https://images.unsplash.com/photo-1595246140625-573b715d11dc?w=1200&q=70" alt=""
-            className="conf-img"
+            className="conf-img" loading="lazy" decoding="async"
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
           <div style={{
             position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
@@ -120,7 +120,7 @@ export default function ConfianzaSection() {
           {items.map(it => (
             <div key={it.titulo} style={card} className="conf-card">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={it.image} alt="" style={cardImg} className="conf-img" />
+              <img src={it.image} alt="" style={cardImg} className="conf-img" loading="lazy" decoding="async" />
               <div style={cardOverlay} />
               <div style={cardBody}>
                 <div style={badge}>{it.emoji}</div>

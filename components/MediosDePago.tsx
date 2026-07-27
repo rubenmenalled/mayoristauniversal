@@ -174,7 +174,7 @@ export default function MediosDePago() {
             const cardContent = (
               <>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={medio.image} alt="" style={cardImgStyle} />
+                <img src={medio.image} alt="" style={cardImgStyle} loading="lazy" decoding="async" />
                 <div style={cardOverlayStyle} />
                 <div style={cardBodyStyle}>
                   <span style={iconStyle}>{medio.icono}</span>
