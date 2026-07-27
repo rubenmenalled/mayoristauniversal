@@ -70,6 +70,7 @@ const NOMBRES_GRUPO: Record<string, string> = {
   'PERFUMERIA': 'Perfumería',
   'MIX POP': 'Mix Pop',
   'LIBRERIA': 'Librería',
+  'IMPORTADORA HZ': 'Importadora HZ',
 }
 
 export default function CategoriaPage() {
