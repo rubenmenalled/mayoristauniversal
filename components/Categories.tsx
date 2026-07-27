@@ -69,7 +69,7 @@ export default function Categories({ categories: initialCategories }: { categori
                   <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-gold/60 transition-all" />
                 </div>
                 {/* Label */}
-                <span style={{ color: '#e2e8f0', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center', maxWidth: 90, lineHeight: 1.2 }}>
+                <span style={{ color: '#1e293b', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center', maxWidth: 90, lineHeight: 1.2 }}>
                   {cat.name}
                 </span>
               </motion.a>

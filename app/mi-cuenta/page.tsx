@@ -105,7 +105,7 @@ export default function MiCuentaPage() {
           <button onClick={handleLogout} style={{
             display: 'flex', alignItems: 'center', gap: 6,
             background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.25)',
-            color: '#fca5a5', borderRadius: 8, padding: '8px 14px',
+            color: '#dc2626', borderRadius: 8, padding: '8px 14px',
             cursor: 'pointer', fontSize: 13, fontWeight: 700,
           }}>
             <LogOut size={14} /> Cerrar sesión
@@ -280,7 +280,7 @@ export default function MiCuentaPage() {
                         display: 'inline-block',
                         background: isConfirmado ? 'rgba(34,197,94,0.15)' : 'rgba(234,179,8,0.15)',
                         border: `1px solid ${isConfirmado ? 'rgba(34,197,94,0.3)' : 'rgba(234,179,8,0.3)'}`,
-                        color: isConfirmado ? '#4ade80' : '#facc15',
+                        color: isConfirmado ? '#15803d' : '#a16207',
                         fontSize: 11, fontWeight: 800,
                         padding: '3px 10px', borderRadius: 20, letterSpacing: '0.06em',
                         textTransform: 'uppercase' as const,

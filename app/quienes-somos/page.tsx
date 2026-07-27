@@ -23,7 +23,7 @@ export default function QuienesSomosPage() {
           }}>
             ← Volver
           </a>
-          <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 20, letterSpacing: '0.04em' }}>
+          <span style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 20, letterSpacing: '0.04em' }}>
             MAYORISTA UNIVERSAL
           </span>
         </div>
