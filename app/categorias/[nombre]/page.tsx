@@ -69,6 +69,7 @@ const NOMBRES_GRUPO: Record<string, string> = {
   'TENDENCIAS': 'Tendencias',
   'PERFUMERIA': 'Perfumería',
   'MIX POP': 'Mix Pop',
+  'LIBRERIA': 'Librería',
 }
 
 export default function CategoriaPage() {
