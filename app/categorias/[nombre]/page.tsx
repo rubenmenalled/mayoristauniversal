@@ -546,7 +546,7 @@ export default function CategoriaPage() {
               <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>
                 {grupoCompartido
                   ? `Este mínimo se comparte con: ${categoriasDelGrupo.filter(c => c !== nombreDecoded.trim().toUpperCase()).map(c => NOMBRES_GRUPO[c] || c).join(', ')}.`
-                  : 'Cada rubro se compra por separado · no se combinan distintos catálogos.'}
+                  : 'Este rubro se compra por separado · no se combina con distintos catálogos.'}
               </div>
             </div>
           </div>
