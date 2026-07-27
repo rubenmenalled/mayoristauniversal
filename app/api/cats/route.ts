@@ -23,7 +23,6 @@ const ORDEN_CATEGORIAS = [
   'PELUQUERIA Y BARBERIA',
   'PANTUFLAS',
   'BELLEZA',
-  'ACCESORIOS DE PELO',
   'TODO PARA EL DEPORTE',
   'COTILLON MAGIC KINGDOM',
   'BAZAR Y HOGAR',
@@ -35,7 +34,6 @@ const ORDEN_CATEGORIAS = [
   'IMPORTADORA TREN',
   'IMPORTADORA HOME',
   'IMPORTADORA HZ',
-  'ELECTROHOGAR',
   'HERRAMIENTAS',
   'MIX POP',
   'LIBRERIA',
@@ -90,6 +88,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from('productos')
       .select('categoria')
+      .or('badge.is.null,badge.neq.OCULTO')
       .range(from, from + pageSize - 1)
     if (error || !data || data.length === 0) break
     allData = allData.concat(data)
