@@ -147,6 +147,19 @@ export default function CategoriaPage() {
     })
   }
 
+  // Descripción SEO de la categoría (texto visible + útil para buscadores/IA)
+  const [catDescripcion, setCatDescripcion] = useState('')
+  useEffect(() => {
+    fetch('/api/categorias')
+      .then(r => r.json())
+      .then((cats: any[]) => {
+        if (!Array.isArray(cats)) return
+        const match = cats.find(c => (c.nombre || c.name || '').toUpperCase() === nombreDecoded.toUpperCase())
+        if (match?.description) setCatDescripcion(match.description)
+      })
+      .catch(() => {})
+  }, [nombreDecoded])
+
   // Cargar subcategorías al entrar
   useEffect(() => {
     fetch('/api/subcategorias?categoria=' + encodeURIComponent(nombreDecoded))
@@ -410,6 +423,15 @@ export default function CategoriaPage() {
           </div>
         </div>
       </div>
+
+      {/* Descripción SEO de la categoría — texto visible para buscadores e IA */}
+      {catDescripcion && (subActiva === '__todos__' || !subActiva) && !busquedaInterna.trim() && (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 16px 0' }}>
+          <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 13, lineHeight: 1.5, margin: 0, maxWidth: 780 }}>
+            {catDescripcion}
+          </p>
+        </div>
+      )}
 
       {/* Cartel informativo LLAVEROS (ahora subcategoría dentro de JUGUETERIA) */}
       {subActiva.toUpperCase().startsWith('LLAVEROS') && !busquedaInterna.trim() && (
