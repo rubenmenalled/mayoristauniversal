@@ -187,7 +187,7 @@ function BuscarContent() {
                           precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
                         } else if (p.minOrder > 1) {
                           const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                          const esCot = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase()))
+                          const esCot = (p.subcategory ?? '').toUpperCase() === 'POP IT' || (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase()))
                           if (esDocena) {
                             titulo = `VENTA POR ${p.minOrder} DOCENAS`
                             precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
@@ -203,7 +203,7 @@ function BuscarContent() {
                               <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>
                               <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(() => {
                                 const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                                const esBulk = (p.category ?? '').toUpperCase() === 'COTILLON MAGIC KINGDOM' || (p.subcategory ?? '').toUpperCase() === 'POP IT' || (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase()))
+                                const esBulk = (p.subcategory ?? '').toUpperCase() === 'POP IT' || (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase()))
                                 const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
                                 const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase())) ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
                                 return `${label}: $${total.toLocaleString('es-AR')}`
@@ -239,7 +239,7 @@ function BuscarContent() {
                         onClick={() => {
                           const cat = (p.category ?? '').toUpperCase()
                           const sub = (p.subcategory ?? '').toUpperCase()
-                          const esU = cat === 'COTILLON MAGIC KINGDOM' || sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || ['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes(cat)
+                          const esU = sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || ['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes(cat)
                           const isDescPor = p.descripcion?.startsWith('PRECIO POR')
                           const dividir = !isDescPor && !esU && p.minOrder > 1
                           addItem({
