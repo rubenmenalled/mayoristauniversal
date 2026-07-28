@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { minDeCatalogo, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
+import { WavyBackground } from '@/components/ui/wavy-background'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -416,20 +417,22 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
         {/* Grid del resto de las categorías */}
         {grupo.length > 0 && resto.length > 0 && (
-          <div style={{
-            background: 'linear-gradient(135deg,#FF6A3D,#E0521F)',
-            borderRadius: 12,
-            padding: '12px 18px',
-            marginBottom: 16,
-            boxShadow: '0 4px 16px rgba(224,82,31,0.3)',
-          }}>
+          <WavyBackground
+            containerClassName="rounded-xl mb-4"
+            backgroundFill="#1a0800"
+            colors={['#FF6A3D', '#FF8A63', '#FF4E00', '#FF8C00', '#E0521F']}
+            blur={8}
+            speed="slow"
+            waveOpacity={0.6}
+            style={{ borderRadius: 12, padding: '14px 18px', minHeight: 60, boxShadow: '0 4px 16px rgba(224,82,31,0.3)' }}
+          >
             <div style={{
               color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px, 1.8vw, 18px)',
-              textTransform: 'uppercase', letterSpacing: '0.03em',
+              textTransform: 'uppercase', letterSpacing: '0.03em', textShadow: '0 2px 8px rgba(0,0,0,0.5)',
             }}>
               Desde aquí para abajo cada categoría tiene su mínimo de compra
             </div>
-          </div>
+          </WavyBackground>
         )}
         <div className="cat-grid" style={{
           display: 'grid',
