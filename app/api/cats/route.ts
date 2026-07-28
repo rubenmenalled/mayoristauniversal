@@ -13,7 +13,6 @@ const ORDEN_CATEGORIAS = [
   'PELUCHES DE PERSONAJES',
   'PERFUMERIA',
   'ANIMÉ',
-  'ACCESORIOS DE INVIERNO',
   'BIJOUTERIE',
   'CAMPING',
   'IMPORTADORA FAZZT',
@@ -21,8 +20,6 @@ const ORDEN_CATEGORIAS = [
   'MARROQUINERIA',
   'PRODUCTOS REGIONALES',
   'PELUQUERIA Y BARBERIA',
-  'PANTUFLAS',
-  'BELLEZA',
   'TODO PARA EL DEPORTE',
   'COTILLON MAGIC KINGDOM',
   'BAZAR Y HOGAR',
@@ -46,7 +43,7 @@ const ORDEN_CATEGORIAS = [
 const CATEGORIAS_FIJAS = ORDEN_CATEGORIAS
 
 const FOTOS: Record<string, string> = {
-  'ACCESORIOS DE INVIERNO':    'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
+
   'BAZAR Y HOGAR':       'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
   'ELECTROHOGAR':     'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=800&q=90',
   'ACCESORIOS PARA MASCOTAS': 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
@@ -65,7 +62,6 @@ const FOTOS: Record<string, string> = {
   'TODO PARA EL DEPORTE': 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=90',
   'JUGUETERIA':          'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
   'LIBRERIA':            'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
-  'BELLEZA':             'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=90',
   'MARROQUINERIA':       'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=90',
   'MASCOTAS':            'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   'COTILLON MAGIC KINGDOM': 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
@@ -74,7 +70,7 @@ const FOTOS: Record<string, string> = {
   'RELOJES':             'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=800&q=90',
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
-  'PANTUFLAS':           'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/pantuflas-banner-1780665741.jpg',
+
 }
 
 export async function GET() {
@@ -133,7 +129,6 @@ export async function GET() {
     'TODO PARA EL DEPORTE': '⚽',
     'JUGUETERIA':          '🎯',
     'LIBRERIA':            '📚',
-    'BELLEZA':             '💄',
     'MARROQUINERIA':       '👜',
     'MASCOTAS':            '🐾',
     'COTILLON MAGIC KINGDOM': '🎉',
@@ -143,7 +138,7 @@ export async function GET() {
     'RELOJES':             '⌚',
     'BIJOUTERIE':          '💍',
     'ACCESORIOS DE PELO':  '💇',
-  'PANTUFLAS':           '🥿',
+
   'PELUQUERIA Y BARBERIA': '💈',
   'ANIMÉ':               '🎌',
   'MIX POP':             '🎀',
@@ -158,11 +153,10 @@ export async function GET() {
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
-    'ACCESORIOS DE INVIERNO':      ['Camperas', 'Sweaters', 'Ropa Térmica', 'Gorros y Guantes', 'Medias'],
+
     'HOGAR Y BAZAR':      ['Cocina', 'Baño', 'Decoración', 'Organización', 'Limpieza'],
     'PELUCHES':           ['Peluches Chicos', 'Peluches Grandes', 'Muñecos', 'Animales de Peluche', 'BUBBLE'],
     'ACCESORIOS DE PELO': ['Vinchas', 'Colitas', 'Hebillas', 'Pinches', 'Turbantes'],
-    'BELLEZA':            ['Maquillaje', 'Skincare', 'Uñas', 'Cabello', 'Herramientas Belleza'],
     'MARROQUINERIA':      ['Carteras', 'Billeteras', 'Cinturones', 'Mochilas', 'Riñoneras'],
     'RELOJES':            ['Relojes Hombre', 'Relojes Mujer', 'Relojes Niño', 'Smartwatch'],
     'LIBRERIA':           ['Cuadernos', 'Útiles Escolares', 'Arte y Manualidades', 'Mochilas'],

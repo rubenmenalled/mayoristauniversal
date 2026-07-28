@@ -15,7 +15,6 @@ const FOTOS: Record<string, string> = {
   'HOGAR Y BAZAR': 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=90',
   BEBÉ:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
-  BELLEZA:      'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=90',
   'BLANQUERIA LICENCIAS Y MAS...':   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/cat_blanqueria_licencias.jpg',
   'COTILLON MAGIC KINGDOM': 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=90',
   ELECTRONICA:  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
