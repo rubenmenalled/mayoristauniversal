@@ -3,7 +3,6 @@
 export const MIN_CATALOGO_DEFAULT = 130000
 export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'IMPORTADORA FAZZT': 200000,
-  'BAZAR Y HOGAR': 130000,
   'BELLEZA': 130000,
   'CAMPING': 200000,
   'LENCERIA IMPORTADA': 150000,
@@ -21,9 +20,8 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'IMPORTADORA TREN': 200000,
   'IMPORTADORA HOME': 200000,
   // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND, TENDENCIAS, PERFUMERIA,
-  // MIX POP, LIBRERIA e IMPORTADORA HZ ya NO tienen entrada individual acá — comparten el
-  // mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE. (LLAVEROS se fusionó dentro de JUGUETERIA
-  // el 26/7, LIBRERIA e IMPORTADORA HZ se sumaron al grupo el 27/7.)
+  // MIX POP, LIBRERIA, IMPORTADORA HZ y BAZAR Y HOGAR ya NO tienen entrada individual acá —
+  // comparten el mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE.
   'JUGUETES, PELUCHES Y MÁS': 150000,
 }
 
@@ -48,6 +46,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'MIX POP': 'JUGUETES, PELUCHES Y MÁS',
   'LIBRERIA': 'JUGUETES, PELUCHES Y MÁS',
   'IMPORTADORA HZ': 'JUGUETES, PELUCHES Y MÁS',
+  'BAZAR Y HOGAR': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {
