@@ -59,21 +59,6 @@ function Stars({ n }: { n: number }) {
   )
 }
 
-// Nombres lindos para mostrar en el aviso de mínimo compartido (CATEGORIA_GRUPO_OVERRIDE)
-const NOMBRES_GRUPO: Record<string, string> = {
-  'JUGUETERIA': 'Juguetería',
-  'PELUCHES': 'Peluches',
-  'PELUCHES DE PERSONAJES': 'Peluches de Personajes',
-  'BEBÉ': 'Bebé',
-  'KIKLAND': 'Kikland',
-  'TENDENCIAS': 'Tendencias',
-  'PERFUMERIA': 'Perfumería',
-  'BELLEZA WT': 'Belleza WT',
-  'MIX POP': 'Mix Pop',
-  'LIBRERIA': 'Librería',
-  'IMPORTADORA HZ': 'Importadora HZ',
-}
-
 export default function CategoriaPage() {
   const { nombre } = useParams()
   const router = useRouter()
@@ -334,9 +319,6 @@ export default function CategoriaPage() {
   const grupoCompartido = (!subActiva || MIN_SUBCATEGORIA_OVERRIDE[subActiva.toUpperCase()] == null)
     ? CATEGORIA_GRUPO_OVERRIDE[nombreDecoded.trim().toUpperCase()]
     : undefined
-  const categoriasDelGrupo = grupoCompartido
-    ? Object.entries(CATEGORIA_GRUPO_OVERRIDE).filter(([, g]) => g === grupoCompartido).map(([c]) => c)
-    : []
 
   // Cuenta regresiva Día del Niño (16 de agosto) — solo catálogos de niños
   const esNino = ['PELUCHES', 'PELUCHES DE PERSONAJES', 'BEBÉ', 'JUGUETERIA'].includes(nombreDecoded.toUpperCase())
@@ -538,17 +520,15 @@ export default function CategoriaPage() {
         </div>
       )}
 
-      {/* Mínimo de compra — arriba de todo, siempre visible (antes de VER TODOS/subcategorías) */}
-      {minVal > 0 && (
+      {/* Mínimo de compra — arriba de todo, siempre visible (antes de VER TODOS/subcategorías). No se muestra en categorías del grupo compartido de $150.000 (a pedido de Ruben, confundía). */}
+      {minVal > 0 && !grupoCompartido && (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 16px 0' }}>
           <div style={{ background: 'linear-gradient(135deg,#FF6A3D,#E0521F)', border: '2px solid #FFD7C2', borderRadius: 14, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 6px 20px rgba(224,82,31,0.35)' }}>
             <span style={{ fontSize: 26 }}>⚠️</span>
             <div>
-              <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>{grupoCompartido ? 'Mínimo de compra combinado' : 'Mínimo de compra en este catálogo'}: ${minVal.toLocaleString('es-AR')}</div>
+              <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16, lineHeight: 1.2 }}>Mínimo de compra en este catálogo: ${minVal.toLocaleString('es-AR')}</div>
               <div style={{ color: '#FFE8DD', fontWeight: 700, fontSize: 12.5, marginTop: 2 }}>
-                {grupoCompartido
-                  ? `Este mínimo se comparte con: ${categoriasDelGrupo.filter(c => c !== nombreDecoded.trim().toUpperCase()).map(c => NOMBRES_GRUPO[c] || c).join(', ')}.`
-                  : 'Este rubro se compra por separado · no se combina con distintos catálogos.'}
+                Este rubro se compra por separado · no se combina con distintos catálogos.
               </div>
             </div>
           </div>
@@ -744,8 +724,8 @@ export default function CategoriaPage() {
           </button>
         )}
 
-        {/* Barra FIJA del mínimo — aparece al scrollear, pegada bajo la barra de avisos (38px) */}
-        {minVal > 0 && (
+        {/* Barra FIJA del mínimo — aparece al scrollear, pegada bajo la barra de avisos (38px). No se muestra en categorías del grupo compartido de $150.000. */}
+        {minVal > 0 && !grupoCompartido && (
           <div style={{
             position: 'fixed', top: 38, left: 0, right: 0, zIndex: 45,
             transform: showFixedMin ? 'translateY(0)' : 'translateY(-130%)',
@@ -755,7 +735,7 @@ export default function CategoriaPage() {
             padding: '7px 16px', textAlign: 'center',
             color: '#FFFFFF', fontWeight: 900, fontSize: 13, letterSpacing: '0.02em',
           }}>
-            🛒 {grupoCompartido ? 'Mínimo de compra combinado' : 'Mínimo de compra en este catálogo'}: ${minVal.toLocaleString('es-AR')}
+            🛒 Mínimo de compra en este catálogo: ${minVal.toLocaleString('es-AR')}
           </div>
         )}
 
