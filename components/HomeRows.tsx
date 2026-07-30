@@ -12,7 +12,7 @@ const DEFAULT: Fila[] = [
   { id: -1, titulo: 'Destacados', emoji: '⭐', subtitulo: 'Lo mejor de nuestro catálogo, al precio mayorista', categorias: 'DESTACADOS', orden: 1, activo: true },
   { id: -2, titulo: 'Para los más chicos', emoji: '🧸', subtitulo: 'Peluches, bebé y juguetería', categorias: 'PELUCHES,BEBE,JUGUETERIA', orden: 2, activo: true },
   { id: -3, titulo: 'Lencería', emoji: '👙', subtitulo: 'Lencería y temporada de invierno', categorias: 'LENCERIA,ACCESORIOS DE INVIERNO', orden: 3, activo: true },
-  { id: -4, titulo: 'Deportes, electrónica y herramientas', emoji: '⚽', subtitulo: 'Todo para equiparte', categorias: 'TODO PARA EL DEPORTE,ELECTRONICA,HERRAMIENTAS', orden: 4, activo: true },
+  { id: -4, titulo: 'Deportes y electrónica', emoji: '⚽', subtitulo: 'Todo para equiparte', categorias: 'TODO PARA EL DEPORTE,ELECTRONICA', orden: 4, activo: true },
 ]
 
 function urlsDeFila(f: Fila): { urls: string[]; max: number } {
