@@ -237,7 +237,7 @@ export default function CatalogoPage() {
                       color: '#B8860B', fontWeight: 900, fontSize: 'clamp(14px, 1.8vw, 17px)',
                       textTransform: 'uppercase', letterSpacing: '0.04em',
                     }}>
-                      Podés combinar estas {grupo.length} categorías con mínimo de compra ${minDeCatalogo(catalogoDe(grupo[0].nombre || grupo[0].name || '')).toLocaleString('es-AR')}
+                      Podés combinar en estas primeras {grupo.length} categorías con mínimo de compra de ${minDeCatalogo(catalogoDe(grupo[0].nombre || grupo[0].name || '')).toLocaleString('es-AR')}
                     </div>
                   </div>
                 </div>
