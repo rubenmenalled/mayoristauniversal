@@ -114,6 +114,18 @@ export default function CatalogoPage() {
           onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
         />
         {!esBanner && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.45) 100%)' }} />}
+        {ocultarMinimo && (
+          <div style={{ position: 'absolute', top: 10, left: 0, right: 0, zIndex: 10, display: 'flex', justifyContent: 'center' }}>
+            <span style={{
+              color: '#FFD13C', fontWeight: 900, fontSize: 11,
+              letterSpacing: '0.08em', textTransform: 'uppercase',
+              textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.6)',
+              background: 'rgba(0,0,0,0.35)', padding: '4px 12px', borderRadius: 99,
+            }}>
+              Catálogo combinable
+            </span>
+          </div>
+        )}
         {esProximamente && (
           <div style={{
             position: 'absolute', bottom: 14, right: 14, zIndex: 10,

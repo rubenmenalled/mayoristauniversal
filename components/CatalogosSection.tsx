@@ -221,6 +221,23 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           transition: 'background 0.35s ease',
         }} />}
 
+        {/* Badge CATÁLOGO COMBINABLE — solo en las cards del grupo de mínimo compartido */}
+        {ocultarMinimo && (
+          <div style={{
+            position: 'absolute', top: 10, left: 0, right: 0, zIndex: 10,
+            display: 'flex', justifyContent: 'center',
+          }}>
+            <span style={{
+              color: '#FFD13C', fontWeight: 900, fontSize: 11,
+              letterSpacing: '0.08em', textTransform: 'uppercase',
+              textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.6)',
+              background: 'rgba(0,0,0,0.35)', padding: '4px 12px', borderRadius: 99,
+            }}>
+              Catálogo combinable
+            </span>
+          </div>
+        )}
+
         {/* Cartel PRÓXIMAMENTE */}
         {PROXIMAMENTE.has(cat.name.toUpperCase()) && (
           <div style={{
