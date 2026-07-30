@@ -68,6 +68,7 @@ const NOMBRES_GRUPO: Record<string, string> = {
   'KIKLAND': 'Kikland',
   'TENDENCIAS': 'Tendencias',
   'PERFUMERIA': 'Perfumería',
+  'BELLEZA WT': 'Belleza WT',
   'MIX POP': 'Mix Pop',
   'LIBRERIA': 'Librería',
   'IMPORTADORA HZ': 'Importadora HZ',
