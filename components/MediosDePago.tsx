@@ -60,7 +60,7 @@ const ALIAS_TITULAR = 'Andrés Rubén Menalled';
 export default function MediosDePago() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [showAlias, setShowAlias] = useState(false);
+  const [revealIndex, setRevealIndex] = useState<number | null>(null);
   const [copiado, setCopiado] = useState(false);
 
   useEffect(() => {
@@ -116,7 +116,7 @@ export default function MediosDePago() {
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
     transition: 'all 0.22s ease',
-    cursor: (medios[index].href || index === 0) ? 'pointer' : 'default',
+    cursor: (medios[index].href || index === 0 || index === 1) ? 'pointer' : 'default',
     textDecoration: 'none',
     boxShadow: hovered === index
       ? '0 12px 32px rgba(11,30,63, 0.28)'
@@ -176,7 +176,7 @@ export default function MediosDePago() {
 
         <div style={gridStyle}>
           {medios.map((medio, i) => {
-            const esTransferencia = i === 0;
+            const esAlias = i === 0 || i === 1;
 
             const cardContent = (
               <>
@@ -186,7 +186,7 @@ export default function MediosDePago() {
                 <div style={cardBodyStyle}>
                   <span style={iconStyle}>{medio.icono}</span>
                   <span style={cardTitleStyle}>{medio.titulo}</span>
-                  {esTransferencia && showAlias ? (
+                  {esAlias && revealIndex === i ? (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2 }}>
                       <span style={{ ...cardDescStyle, fontWeight: 800, color: '#FFD13C' }}>
                         Alias: {ALIAS}
@@ -238,8 +238,8 @@ export default function MediosDePago() {
                 style={getCardStyle(i)}
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
-                onClick={esTransferencia ? () => setShowAlias(v => !v) : undefined}
-                role={esTransferencia ? 'button' : undefined}
+                onClick={esAlias ? () => setRevealIndex(v => (v === i ? null : i)) : undefined}
+                role={esAlias ? 'button' : undefined}
               >
                 {cardContent}
               </div>
