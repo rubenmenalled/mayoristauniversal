@@ -54,9 +54,14 @@ function getBadgeStyle(badge: string): React.CSSProperties {
   return { ...base, background: '#1a1200', color: '#FF6A3D', border: '1px solid #FF6A3D' };
 }
 
+const ALIAS = 'ruby.mena.1972';
+const ALIAS_TITULAR = 'Andrés Rubén Menalled';
+
 export default function MediosDePago() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [showAlias, setShowAlias] = useState(false);
+  const [copiado, setCopiado] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -111,7 +116,7 @@ export default function MediosDePago() {
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
     transition: 'all 0.22s ease',
-    cursor: medios[index].href ? 'pointer' : 'default',
+    cursor: (medios[index].href || index === 0) ? 'pointer' : 'default',
     textDecoration: 'none',
     boxShadow: hovered === index
       ? '0 12px 32px rgba(11,30,63, 0.28)'
@@ -171,6 +176,8 @@ export default function MediosDePago() {
 
         <div style={gridStyle}>
           {medios.map((medio, i) => {
+            const esTransferencia = i === 0;
+
             const cardContent = (
               <>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -179,7 +186,31 @@ export default function MediosDePago() {
                 <div style={cardBodyStyle}>
                   <span style={iconStyle}>{medio.icono}</span>
                   <span style={cardTitleStyle}>{medio.titulo}</span>
-                  <span style={cardDescStyle}>{medio.desc}</span>
+                  {esTransferencia && showAlias ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2 }}>
+                      <span style={{ ...cardDescStyle, fontWeight: 800, color: '#FFD13C' }}>
+                        Alias: {ALIAS}
+                      </span>
+                      <span style={cardDescStyle}>A nombre de: {ALIAS_TITULAR}</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigator.clipboard.writeText(ALIAS);
+                          setCopiado(true);
+                          setTimeout(() => setCopiado(false), 1800);
+                        }}
+                        style={{
+                          marginTop: 8, background: copiado ? '#16a34a' : '#FF6A3D', color: '#FFFFFF',
+                          border: 'none', borderRadius: 8, padding: '6px 12px', fontSize: 11,
+                          fontWeight: 800, cursor: 'pointer', letterSpacing: '0.02em',
+                        }}
+                      >
+                        {copiado ? '¡Copiado!' : '📋 Copiar alias'}
+                      </button>
+                    </div>
+                  ) : (
+                    <span style={cardDescStyle}>{medio.desc}</span>
+                  )}
                   {medio.badge && <span style={getBadgeStyle(medio.badge)}>{medio.badge}</span>}
                 </div>
               </>
@@ -207,6 +238,8 @@ export default function MediosDePago() {
                 style={getCardStyle(i)}
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
+                onClick={esTransferencia ? () => setShowAlias(v => !v) : undefined}
+                role={esTransferencia ? 'button' : undefined}
               >
                 {cardContent}
               </div>
