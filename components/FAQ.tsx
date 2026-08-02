@@ -26,7 +26,7 @@ const preguntas = [
   {
     pregunta: '¿Los precios incluyen IVA?',
     respuesta:
-      'Los precios son sin IVA. Si desea factura, se agrega según tu condición impositiva (Responsable Inscripto o Consumidor Final).',
+      'Los precios son sin IVA. Si desea factura, se agrega según tu condición impositiva.',
   },
   {
     pregunta: '¿Puedo retirar el pedido personalmente?',

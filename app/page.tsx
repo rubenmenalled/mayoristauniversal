@@ -42,7 +42,7 @@ const faqJsonLd = {
     {
       '@type': 'Question',
       name: '¿Los precios incluyen IVA?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Los precios son sin IVA. Si desea factura, se agrega según tu condición impositiva (Responsable Inscripto o Consumidor Final).' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Los precios son sin IVA. Si desea factura, se agrega según tu condición impositiva.' },
     },
     {
       '@type': 'Question',
