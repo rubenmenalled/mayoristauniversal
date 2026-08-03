@@ -14,6 +14,7 @@ const ORDEN_CATEGORIAS = [
   'PELUCHES DE PERSONAJES',
   'BELLEZA Y PERFUMERIA WT',
   'IMPORTADORA NC',
+  'IMPORTADORA NEXT',
   'ANIMÉ',
   'BIJOUTERIE',
   'CAMPING',
@@ -65,6 +66,7 @@ const FOTOS: Record<string, string> = {
   'WT IMPORT':           'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=90',
   'IMPORTADORA DAG':     'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
   'IMPORTADORA NC':      'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
+  'IMPORTADORA NEXT':    'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
 
@@ -132,6 +134,7 @@ export async function GET() {
     'WT IMPORT':           '📦',
     'IMPORTADORA DAG':     '📦',
     'IMPORTADORA NC':      '📦',
+    'IMPORTADORA NEXT':    '📱',
     'BIJOUTERIE':          '💍',
     'ACCESORIOS DE PELO':  '💇',
 
