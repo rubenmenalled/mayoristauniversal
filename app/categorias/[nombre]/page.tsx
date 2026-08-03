@@ -34,6 +34,7 @@ function getBulkInfo(category: string, subcategory: string, minOrder: number) {
   if (cat !== 'ACCESORIOS DE PELO' && cat !== 'MARROQUINERIA' && cat !== 'LIBRERIA' && cat !== 'ACCESORIOS DE INVIERNO') return null
   if (cat === 'MARROQUINERIA' && EXCL_MARR.includes(sub)) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
   if (cat === 'LIBRERIA' || cat === 'ACCESORIOS DE PELO' || cat === 'ACCESORIOS DE INVIERNO') {
+    if (minOrder <= 1) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
     const badgeText = minOrder >= 20
       ? `📦 PRECIO POR CAJA (x${minOrder}) DE COLORES SURTIDOS`
       : `📦 PRECIO POR PAQUETE (x${minOrder}) DE COLORES SURTIDOS`
