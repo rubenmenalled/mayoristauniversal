@@ -150,7 +150,7 @@ export default function CatalogoPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FFFFFF', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>
 
       {/* Header */}
       <div style={{
@@ -193,7 +193,7 @@ export default function CatalogoPage() {
             placeholder="Buscar catálogo..."
             style={{
               background: 'none', border: 'none', outline: 'none',
-              color: '#FFFFFF', fontSize: 15, flex: 1,
+              color: '#1a1a1a', fontSize: 15, flex: 1,
             }}
           />
         </div>
