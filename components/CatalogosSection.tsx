@@ -432,12 +432,12 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         {grupo.length > 0 && resto.length > 0 && (
           <WavyBackground
             containerClassName="rounded-xl mb-4"
-            backgroundFill="#1a0800"
-            colors={['#FF6A3D', '#FF8A63', '#FF4E00', '#FF8C00', '#E0521F']}
+            backgroundFill="#1a0000"
+            colors={['#FF3D3D', '#FF6363', '#E00000', '#FF2222', '#B71C1C']}
             blur={8}
             speed="slow"
             waveOpacity={0.6}
-            style={{ borderRadius: 12, padding: '14px 18px', minHeight: 60, boxShadow: '0 4px 16px rgba(224,82,31,0.3)' }}
+            style={{ borderRadius: 12, padding: '20px 18px', minHeight: 78, boxShadow: '0 4px 16px rgba(200,20,20,0.3)' }}
           >
             <div style={{
               color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px, 1.8vw, 18px)',

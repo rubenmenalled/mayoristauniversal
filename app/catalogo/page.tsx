@@ -262,11 +262,11 @@ export default function CatalogoPage() {
             )}
             {grupo.length > 0 && resto.length > 0 && (
               <div style={{
-                background: 'linear-gradient(135deg,#FF6A3D,#E0521F)',
+                background: 'linear-gradient(135deg,#FF3D3D,#B71C1C)',
                 borderRadius: 12,
-                padding: '12px 18px',
+                padding: '18px 18px',
                 marginBottom: 16,
-                boxShadow: '0 4px 16px rgba(224,82,31,0.3)',
+                boxShadow: '0 4px 16px rgba(200,20,20,0.3)',
               }}>
                 <div style={{
                   color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px, 1.8vw, 18px)',
