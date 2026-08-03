@@ -23,9 +23,7 @@ const TRANSPORTES = [
 ]
 
 // Reglas de mínimo por categoría: { categoria: unidades mínimas }
-const MIN_CATEGORIA: Record<string, number> = {
-  RELOJES: 12,
-}
+const MIN_CATEGORIA: Record<string, number> = {}
 
 interface Props { open: boolean; onClose: () => void }
 

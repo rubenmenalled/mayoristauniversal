@@ -56,7 +56,7 @@ const EMOJIS: Record<string, string> = {
   BAZAR: '🏪', BEBES: '👶', BEBÉ: '👶',BLANQUERIA: '🛏️',
 ELECTRONICA: '💻', FITNESS: '🏋️', HERRAMIENTAS: '🔧',
   JUGUETERIA: '🚗', LIBRERIA: '📚', MARROQUINERIA: '👜', MASCOTAS: '🐾',
-  LENTES: '👓', PELUCHES: '🧸', PERFUMERIA: '🏺', RODADOS: '🛴',
+  PELUCHES: '🧸', PERFUMERIA: '🏺', RODADOS: '🛴',
   ROPA: '👕', CALZADO: '👟', HOGAR: '🏠', COCINA: '🍳', DEPORTES: '⚽',
 }
 
