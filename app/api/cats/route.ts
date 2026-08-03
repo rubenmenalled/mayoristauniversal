@@ -13,6 +13,7 @@ const ORDEN_CATEGORIAS = [
   'PELUCHES DE PERSONAJES',
   'BELLEZA Y PERFUMERIA WT',
   'IMPORTADORA DAG',
+  'IMPORTADORA NC',
   'ANIMÉ',
   'BIJOUTERIE',
   'CAMPING',
@@ -63,6 +64,7 @@ const FOTOS: Record<string, string> = {
   'BELLEZA Y PERFUMERIA WT': '/cat_perfumeria.jpg',
   'WT IMPORT':           'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=90',
   'IMPORTADORA DAG':     'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
+  'IMPORTADORA NC':      'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
 
@@ -129,6 +131,7 @@ export async function GET() {
     'BELLEZA Y PERFUMERIA WT': '🌸',
     'WT IMPORT':           '📦',
     'IMPORTADORA DAG':     '📦',
+    'IMPORTADORA NC':      '📦',
     'BIJOUTERIE':          '💍',
     'ACCESORIOS DE PELO':  '💇',
 
@@ -163,6 +166,7 @@ export async function GET() {
     'PRODUCTOS REGIONALES':['Alimentos Regionales', 'Dulces y Conservas', 'Artesanías', 'Bebidas'],
     'BELLEZA Y PERFUMERIA WT': ['Perfumes Mujer', 'Perfumes Hombre', 'Labios', 'Ojos', 'Piel', 'Uñas'],
     'IMPORTADORA DAG':    ['ELECTRONICA', 'HOGAR', 'ILUMINACION', 'BAZAR', 'PELUQUERIA-COSMETICA-BIJOU', 'FERRETERIA', 'GRIFERIA', 'CABLES'],
+    'IMPORTADORA NC':     ['BAZAR', 'ELECTRONICA', 'ACCESORIOS', 'LINTERNAS', 'MOCHILAS DE PELUCHE', 'INVIERNO'],
     'LENCERIA IMPORTADA':           ['Ropa Interior Mujer', 'Pijamas', 'Medias y Medias Cañas', 'Camisones'],
     'RODADOS':            ['Bicicletas', 'Patines', 'Scooters', 'Accesorios Rodados'],
   }
