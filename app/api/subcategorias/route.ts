@@ -113,7 +113,6 @@ export async function GET(request: NextRequest) {
       const OVERRIDE_SUB: Record<string, string> = {
         'ACCESORIOS PARA MASCOTAS|acuario': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/monce/portada-acuario-v2.jpg',
         'ACCESORIOS DE INVIERNO|hz invierno': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/monce/portada-hz-invierno.jpg',
-        'MARROQUINERIA|mochilas': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/uc-4e4f3a66c3356e871a17714505755368_white.webp',
         'PELUCHES|city land': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-cityland.jpg?v=1',
         'PELUCHES|peluches personajes': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-personajes-toystory.jpg?v=2',
         'TENDENCIAS|jugueteria': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
@@ -142,9 +141,8 @@ export async function GET(request: NextRequest) {
         'PELUCHES SURTIDOS MARCA BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
         'CUNEROS': 10, 'MOVIL PARA CUNA': 11, 'MOCHILAS Y CARTERAS DE PELUCHE': 12,
         'OTROS ACCESORIOS': 13, 'ACCESORIOS DE MASCOTAS': 14, 'GRANDES LISOS': 15, 'PELUCHES GRANDOTES Y GIGANTES': 16,
-        // MARROQUINERIA — orden lógico
-        'CARTERAS': 1, 'MOCHILAS': 2, 'BANDOLERAS': 3, 'RIÑONERAS': 4,
-        'BILLETERAS': 5, 'PORTACOSMETICOS': 6, 'BOLSOS MATERNALES': 7,
+        // ACCESORIOS DE TRABAJO Y MAS — RIÑONERAS/BILLETERAS siguen en uso ahí
+        'RIÑONERAS': 4, 'BILLETERAS': 5,
         // HU IMPORT — orden de las subcategorías
         'HERRAMIENTAS': 1, 'CAMPING': 2, 'AUTOMOTOR': 3, 'ILUMINACION': 4, 'ELECTRONICA': 5,
       }

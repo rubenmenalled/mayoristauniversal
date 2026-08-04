@@ -26,22 +26,15 @@ const BADGE: Record<string, string> = {
   OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-yellow-500', DESTACADO: 'bg-yellow-500',
 }
 
-const EXCL_MARR = ['MOCHILAS-CARTERAS','MOCHILAS Y CARTERAS','MOCHILAS','BANDOLERAS','BOLSOS MATERNALES','CARTERAS']
-
-function getBulkInfo(category: string, subcategory: string, minOrder: number) {
+function getBulkInfo(category: string, minOrder: number) {
   const cat = (category || '').toUpperCase()
-  const sub = (subcategory || '').toUpperCase()
-  if (cat !== 'ACCESORIOS DE PELO' && cat !== 'MARROQUINERIA' && cat !== 'LIBRERIA' && cat !== 'ACCESORIOS DE INVIERNO') return null
-  if (cat === 'MARROQUINERIA' && EXCL_MARR.includes(sub)) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
-  if (cat === 'LIBRERIA' || cat === 'ACCESORIOS DE PELO' || cat === 'ACCESORIOS DE INVIERNO') {
-    if (minOrder <= 1) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
-    const badgeText = minOrder >= 20
-      ? `📦 PRECIO POR CAJA (x${minOrder}) DE COLORES SURTIDOS`
-      : `📦 PRECIO POR PAQUETE (x${minOrder}) DE COLORES SURTIDOS`
-    const label = minOrder >= 20 ? `Precio x caja (x${minOrder}):` : 'Precio x docena:'
-    return { badge: true, sku: true, label, badgeText }
-  }
-  return { badge: true, sku: true, label: 'Precio x docena:', badgeText: '📦 PRECIO POR DOCENA (x12) DE COLORES SURTIDOS' }
+  if (cat !== 'ACCESORIOS DE PELO' && cat !== 'LIBRERIA' && cat !== 'ACCESORIOS DE INVIERNO') return null
+  if (minOrder <= 1) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
+  const badgeText = minOrder >= 20
+    ? `📦 PRECIO POR CAJA (x${minOrder}) DE COLORES SURTIDOS`
+    : `📦 PRECIO POR PAQUETE (x${minOrder}) DE COLORES SURTIDOS`
+  const label = minOrder >= 20 ? `Precio x caja (x${minOrder}):` : 'Precio x docena:'
+  return { badge: true, sku: true, label, badgeText }
 }
 
 const BG_SUBS = [
@@ -773,7 +766,7 @@ export default function CategoriaPage() {
                       let titulo: string | null = null
                       let precioUnit: string | null = null
                       let extraInfo: string | null = null
-                      const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
+                      const bi = getBulkInfo(p.category ?? '', p.minOrder)
 
                       if (p.descripcion?.startsWith('PRECIO POR')) {
                         const sepIdx = p.descripcion.indexOf(') | ')
@@ -834,7 +827,7 @@ export default function CategoriaPage() {
                       )
                     })()}
                     {(() => {
-                      const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
+                      const bi = getBulkInfo(p.category ?? '', p.minOrder)
                       if (!bi?.sku) return null
                       return (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255,106,61,0.15)', border: '1px solid rgba(255,106,61,0.35)', borderRadius: 5, padding: '2px 6px', marginBottom: 4 }}>
@@ -847,7 +840,7 @@ export default function CategoriaPage() {
                     })()}
                     <Stars n={p.rating} />
                     {(() => {
-                      const bi = getBulkInfo(p.category ?? '', p.subcategory ?? '', p.minOrder)
+                      const bi = getBulkInfo(p.category ?? '', p.minOrder)
                       const isBulk = p.descripcion?.startsWith('PRECIO POR') || p.badge === 'x6 UNIDADES' || p.minOrder > 1
                       if (isBulk) return null
                       return (
@@ -1047,7 +1040,7 @@ export default function CategoriaPage() {
                     </div>
                   )
                 )}
-                {lightbox.location && lightbox.location !== 'Buenos Aires' && lightbox.location !== 'POP' && !getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder) && (
+                {lightbox.location && lightbox.location !== 'Buenos Aires' && lightbox.location !== 'POP' && !getBulkInfo(lightbox.category ?? '', lightbox.minOrder) && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,106,61,0.12)', border: '1px solid rgba(255,106,61,0.4)', borderRadius: 8, padding: '6px 12px', marginBottom: 10 }}>
                     <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 13, letterSpacing: '0.05em' }}>COD</span>
                     <span style={{ color: '#111827', fontWeight: 800, fontSize: 15 }}>
@@ -1056,7 +1049,7 @@ export default function CategoriaPage() {
                   </div>
                 )}
                 {(() => {
-                  const lbi = getBulkInfo(lightbox.category ?? '', lightbox.subcategory ?? '', lightbox.minOrder)
+                  const lbi = getBulkInfo(lightbox.category ?? '', lightbox.minOrder)
                   if (!lbi) return <div style={{ marginBottom: 12 }} />
                   return (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
