@@ -24,7 +24,6 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
 
 // Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
 export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
-  'M ELEVEN': 130000,
   'GAUCHO SANTI': 130000,
   'INDIO MOHI': 200000,
 }
