@@ -8,7 +8,6 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'PANTUFLAS': 130000,
   'TODO PARA EL DEPORTE': 200000,
   'PELUQUERIA Y BARBERIA': 180000,
-  'ANIMÉ': 140000,
   'IMPORTADORA MCJ': 150000,
   'IMPORTADORA TOYS.AR': 200000,
   'IMPORTADORA ELEMENTOS': 200000,
@@ -24,7 +23,6 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
 
 // Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
 export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
-  'GAUCHO SANTI': 130000,
   'INDIO MOHI': 200000,
 }
 

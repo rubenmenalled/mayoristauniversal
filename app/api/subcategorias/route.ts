@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
       // 1) Subcategorías desde productos (las que ya tienen productos asignados).
       // Paginado: una categoría puede tener >1000 productos (límite de PostgREST).
       // Primero pedimos el total (Range 0-0 + count=exact) y después traemos todas
-      // las páginas EN PARALELO — categorías grandes (ej. ANIMÉ, 16k+ productos)
+      // las páginas EN PARALELO — categorías grandes (varios miles de productos)
       // tardaban varios segundos con el loop secuencial anterior.
       const fromProds = new Set<string>()
       const urlBase = `${SUPABASE_URL}/rest/v1/productos?categoria=ilike.${encodeURIComponent(categoria)}&subcategoria=neq.&select=subcategoria`
