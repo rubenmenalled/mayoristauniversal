@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic'
 const ORDEN_CATEGORIAS = [
   // Grupo de mínimo compartido ($150.000), posicionadas juntas
   'JUGUETERIA',
+  'LLAVEROS DE GOMA',
   'PELUCHES',
   'KIKLAND',
   'BEBÉ',
@@ -120,6 +121,7 @@ export async function GET() {
     'CAMPING':             '⛺',
     'TODO PARA EL DEPORTE': '⚽',
     'JUGUETERIA':          '🎯',
+    'LLAVEROS DE GOMA':    '🔑',
     'LIBRERIA':            '📚',
     'MASCOTAS':            '🐾',
     'PRODUCTOS REGIONALES':'🌿',

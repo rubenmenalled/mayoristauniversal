@@ -31,6 +31,7 @@ export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
 // individual, ver catalogoDeDescuento() más abajo.
 export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'JUGUETERIA': 'JUGUETES, PELUCHES Y MÁS',
+  'LLAVEROS DE GOMA': 'JUGUETES, PELUCHES Y MÁS',
   'PELUCHES': 'JUGUETES, PELUCHES Y MÁS',
   'PELUCHES DE PERSONAJES': 'JUGUETES, PELUCHES Y MÁS',
   'BEBÉ': 'JUGUETES, PELUCHES Y MÁS',
