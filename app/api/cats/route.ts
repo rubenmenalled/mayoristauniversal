@@ -7,6 +7,7 @@ const ORDEN_CATEGORIAS = [
   // Grupo de mínimo compartido ($150.000), posicionadas juntas
   'JUGUETERIA',
   'LLAVEROS DE GOMA',
+  'ENAMORADOS',
   'PELUCHES',
   'KIKLAND',
   'BEBÉ',
@@ -122,6 +123,7 @@ export async function GET() {
     'TODO PARA EL DEPORTE': '⚽',
     'JUGUETERIA':          '🎯',
     'LLAVEROS DE GOMA':    '🔑',
+    'ENAMORADOS':          '💕',
     'LIBRERIA':            '📚',
     'MASCOTAS':            '🐾',
     'PRODUCTOS REGIONALES':'🌿',
