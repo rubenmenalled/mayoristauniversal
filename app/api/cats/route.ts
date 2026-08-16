@@ -22,7 +22,6 @@ const ORDEN_CATEGORIAS = [
   'CAMPING',
   'IMPORTADORA FAZZT',
   'PRODUCTOS REGIONALES',
-  'PELUQUERIA Y BARBERIA',
   'TODO PARA EL DEPORTE',
   'BAZAR Y HOGAR',
   'IMPORTADORA MCJ',
@@ -134,7 +133,6 @@ export async function GET() {
     'BIJOUTERIE':          '💍',
     'ACCESORIOS DE PELO':  '💇',
 
-  'PELUQUERIA Y BARBERIA': '💈',
   'MIX POP':             '🎀',
   'IMPORTADORA MCJ':     '📦',
   'IMPORTADORA TOYS.AR': '🧸',
