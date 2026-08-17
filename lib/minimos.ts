@@ -1,11 +1,10 @@
 // Mínimo de compra en $ por catálogo (Opción A).
 // Default para todos; override para catálogos puntuales.
-export const MIN_CATALOGO_DEFAULT = 130000
+export const MIN_CATALOGO_DEFAULT = 150000
 export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'IMPORTADORA FAZZT': 200000,
   'CAMPING': 200000,
   'LENCERIA IMPORTADA': 150000,
-  'PANTUFLAS': 130000,
   'TODO PARA EL DEPORTE': 200000,
   'IMPORTADORA MCJ': 150000,
   'IMPORTADORA TOYS.AR': 200000,
