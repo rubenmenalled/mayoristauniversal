@@ -123,6 +123,7 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Mayorista Universal. Todos los derechos reservados.</span>
           <div className="flex gap-5 font-medium">
             <a href="/quienes-somos" className="hover:text-gold transition-colors">Quiénes somos</a>
+            <a href="/blog" className="hover:text-gold transition-colors">Guías de compra</a>
             <a href="/terminos" className="hover:text-gold transition-colors">Términos y condiciones</a>
             <a href="/privacidad" className="hover:text-gold transition-colors">Política de privacidad</a>
           </div>
