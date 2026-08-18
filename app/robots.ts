@@ -37,6 +37,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: DISALLOW,
       })),
     ],
-    sitemap: 'https://www.mayoristauniversal.com/sitemap.xml',
+    sitemap: 'https://www.mayoristauniversal.com/sitemap-index.xml',
   }
 }

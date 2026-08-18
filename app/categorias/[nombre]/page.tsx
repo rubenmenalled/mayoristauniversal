@@ -7,6 +7,9 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Star, ShoppingCart, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { useCart, RETAIL_MARKUP } from '@/lib/CartContext'
 import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
+import { getBulkInfo, getPriceDisplay } from '@/lib/pricing'
+import { productUrl } from '@/lib/slug'
+import Link from 'next/link'
 import { TextReveal } from '@/components/ui/cascade-text'
 import CartSidebar from '@/components/CartSidebar'
 import DescuentoPopup from '@/components/DescuentoPopup'
@@ -24,17 +27,6 @@ interface Subcategoria {
 
 const BADGE: Record<string, string> = {
   OFERTA: 'bg-red-600', NUEVO: 'bg-green-600', HOT: 'bg-orange-500', TOP: 'bg-yellow-500', DESTACADO: 'bg-yellow-500',
-}
-
-function getBulkInfo(category: string, minOrder: number) {
-  const cat = (category || '').toUpperCase()
-  if (cat !== 'ACCESORIOS DE PELO' && cat !== 'LIBRERIA' && cat !== 'ACCESORIOS DE INVIERNO') return null
-  if (minOrder <= 1) return { badge: false, sku: true, label: 'Mayorista:', badgeText: '' }
-  const badgeText = minOrder >= 20
-    ? `📦 PRECIO POR CAJA (x${minOrder}) DE COLORES SURTIDOS`
-    : `📦 PRECIO POR PAQUETE (x${minOrder}) DE COLORES SURTIDOS`
-  const label = minOrder >= 20 ? `Precio x caja (x${minOrder}):` : 'Precio x docena:'
-  return { badge: true, sku: true, label, badgeText }
 }
 
 const BG_SUBS = [
@@ -761,60 +753,24 @@ export default function CategoriaPage() {
                         </span>
                       </div>
                     )}
-                    <h3 style={{ color: '#111827', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>{p.name}</h3>
+                    <h3 style={{ color: '#111827', fontSize: 11, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, minHeight: 28 }}>
+                      <Link href={productUrl(p.id, p.name)} style={{ color: 'inherit' }}>{p.name}</Link>
+                    </h3>
                     {(() => {
-                      let titulo: string | null = null
-                      let precioUnit: string | null = null
-                      let extraInfo: string | null = null
-                      const bi = getBulkInfo(p.category ?? '', p.minOrder)
-
-                      if (p.descripcion?.startsWith('PRECIO POR')) {
-                        const sepIdx = p.descripcion.indexOf(') | ')
-                        const pricePart = sepIdx >= 0 ? p.descripcion.slice(0, sepIdx + 1) : p.descripcion
-                        extraInfo = sepIdx >= 0 ? p.descripcion.slice(sepIdx + 4) : null
-                        const match = pricePart.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
-                        titulo = match ? match[1] : pricePart
-                        // c/u SIEMPRE calculado desde el precio actual (no del texto, que puede quedar viejo)
-                        precioUnit = match ? `$${Math.round(p.wholesalePrice / Math.max(1, p.minOrder)).toLocaleString('es-AR')} c/u` : null
-                      } else if (p.badge === 'x6 UNIDADES') {
-                        titulo = 'PRECIO POR 6 UNIDADES'
-                        precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
-                      } else if (p.minOrder > 1) {
-                        // LENCERIA POR BULTO: el precio guardado es el de la DOCENA, vendido por X docenas
-                        const esDocena = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                        // POP IT / importadoras guardan precio UNITARIO (el pack = unitario x minOrder).
-                        // El resto de las categorías guarda el precio del pack.
-                        const esCot = (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR' || (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase()))
-                        if (esDocena) {
-                          titulo = `VENTA POR ${p.minOrder} DOCENAS`
-                          precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
-                        } else {
-                          titulo = `PRECIO POR ${p.minOrder} UNIDADES`
-                          const setQ = ((p.name ?? '').match(/set\s*x\s*(\d+)/i) || [])[1]
-                          const u = esCot ? p.wholesalePrice : Math.round(p.wholesalePrice / p.minOrder)
-                          precioUnit = `$${u.toLocaleString('es-AR')} ${setQ ? `por set de ${setQ}` : 'c/u'}`
-                        }
-                      }
-
-                      return titulo ? (
+                      const pd = getPriceDisplay(p)
+                      return pd.isBulk ? (
                         <>
-                          <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: extraInfo ? 2 : 4 }}>
-                            {precioUnit && (
-                              <div style={{ color: '#111', fontSize: 17, fontWeight: 900 }}>{precioUnit}</div>
+                          <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '4px 8px', marginBottom: pd.extraInfo ? 2 : 4 }}>
+                            {pd.precioUnit && (
+                              <div style={{ color: '#111', fontSize: 17, fontWeight: 900 }}>{pd.precioUnit}</div>
                             )}
-                            {(p.subcategory ?? '').toUpperCase() !== 'TOYS.AR' && !(['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase())) && <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{titulo}</span>}
-                            <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{(() => {
-                              const esDoc = (p.subcategory ?? '').toUpperCase() === 'LENCERIA POR BULTO'
-                              const esBulk = (p.subcategory ?? '').toUpperCase() === 'POP IT' || (p.subcategory ?? '').toUpperCase() === 'INFAC-TEC' || (p.subcategory ?? '').toUpperCase() === 'TOYS.AR' || (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase()))
-                              const total = (esBulk || esDoc) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
-                              const label = esDoc ? `EL BULTO (${p.minOrder} DOCENAS)` : ((p.subcategory ?? '').toUpperCase() === 'TOYS.AR' || (['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase()))) ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
-                              return `${label}: $${total.toLocaleString('es-AR')}`
-                            })()}</div>
+                            {(p.subcategory ?? '').toUpperCase() !== 'TOYS.AR' && !(['IMPORTADORA MAX','IMPORTADORA COMEX','IMPORTADORA TREN'].includes((p.category ?? '').toUpperCase())) && <span style={{ color: '#111', fontSize: 10, fontWeight: 900, letterSpacing: '0.02em' }}>{pd.titulo}</span>}
+                            <div style={{ color: '#C2410C', fontSize: 13, fontWeight: 900, marginTop: 2 }}>{pd.packLabel}: ${pd.packTotal?.toLocaleString('es-AR')}</div>
                           </div>
-                          {extraInfo && (
-                            <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{extraInfo}</p>
+                          {pd.extraInfo && (
+                            <p style={{ color: '#6B7280', fontSize: 9, lineHeight: 1.4, marginBottom: 4, marginTop: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{pd.extraInfo}</p>
                           )}
-                          {!extraInfo && p.descripcion && !p.descripcion.startsWith('PRECIO POR') && (
+                          {!pd.extraInfo && p.descripcion && !p.descripcion.startsWith('PRECIO POR') && (
                             <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 6, padding: '4px 8px', marginTop: 4, marginBottom: 2 }}>
                               <p style={{ color: '#1D4ED8', fontSize: 11, fontWeight: 700, lineHeight: 1.4, margin: 0, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.descripcion}</p>
                             </div>
