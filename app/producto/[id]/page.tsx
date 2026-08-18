@@ -113,12 +113,28 @@ export default async function ProductoPage({ params }: Props) {
     },
   }
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.mayoristauniversal.com' },
+      { '@type': 'ListItem', position: 2, name: producto.category, item: `https://www.mayoristauniversal.com/categorias/${encodeURIComponent(producto.category)}` },
+      { '@type': 'ListItem', position: 3, name: producto.name, item: `https://www.mayoristauniversal.com${productUrl(producto.id, producto.name)}` },
+    ],
+  }
+
   return (
     <>
       <Script
         id={`jsonld-product-${producto.id}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        strategy="beforeInteractive"
+      />
+      <Script
+        id={`jsonld-breadcrumb-producto-${producto.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         strategy="beforeInteractive"
       />
       <ProductDetailClient product={producto} relacionados={relacionados} />
