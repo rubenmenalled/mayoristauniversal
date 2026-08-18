@@ -88,12 +88,22 @@ const jsonLd = {
       image: 'https://www.mayoristauniversal.com/logo.png',
       description: 'Distribuidora mayorista multirubro en Argentina. Más de 28 categorías: indumentaria, bazar, juguetes, electrónica y más.',
       areaServed: { '@type': 'Country', name: 'Argentina' },
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Once, Balvanera',
+        addressRegion: 'Ciudad Autónoma de Buenos Aires',
+        addressCountry: 'AR',
+      },
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer service',
+        telephone: '+54-11-6466-0482',
         availableLanguage: 'Spanish',
       },
-      sameAs: [],
+      sameAs: [
+        'https://www.facebook.com/profile.php?id=61590374985400',
+        'https://www.instagram.com/mayoristauniversal26',
+      ],
     },
     {
       '@type': 'WebSite',
