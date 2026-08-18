@@ -327,6 +327,541 @@ export const BLOG_POSTS: BlogPost[] = [
       ${p('Explorá el catálogo completo de <a href="/categorias/LENCERIA%20IMPORTADA">Lencería al por mayor</a>.')}
     `,
   },
+  {
+    slug: 'llaveros-de-goma-por-mayor-guia',
+    title: 'Llaveros de goma por mayor: el producto ideal para venta por impulso',
+    metaDescription: 'Por qué los llaveros de goma son de los productos más rentables para kioscos y jugueterías, cómo armar el surtido y qué diseños rotan más rápido.',
+    excerpt: 'Bajo costo, alta rotación y venta casi automática: por qué los llaveros de goma son de los productos más rentables del mostrador.',
+    coverImage: 'https://images.unsplash.com/photo-1602526215516-eb5590ea6e21?w=1200&q=80',
+    categoryLink: { nombre: 'LLAVEROS DE GOMA', label: 'Ver catálogo de Llaveros de Goma' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Pocos productos combinan tan bien costo bajo, espacio mínimo y venta por impulso como los llaveros de goma. Ideal tanto como producto principal en jugueterías como complemento en cualquier mostrador.')}
+      ${h2('El exhibidor lo es todo')}
+      ${p('A diferencia de otros productos, acá la venta depende casi por completo de la exhibición: un exhibidor giratorio o una pared con ganchos, bien a la vista cerca de la caja, multiplica las ventas por impulso mucho más que cualquier otra estrategia.')}
+      ${h2('Personajes con licencia venden más rápido')}
+      ${p('Los llaveros de personajes conocidos (series, animé, videojuegos) rotan mucho más rápido que los diseños genéricos. Vale la pena destinar la mayor parte del presupuesto a personajes vigentes en el momento.')}
+      ${h2('Combiná con la venta principal')}
+      ${p('Si ya tenés juguetería o kiosco, sumar llaveros como "agregado" en la caja (a la vista, precio redondo, fácil de decidir en segundos) genera ventas extra sin costo de espacio adicional.')}
+      ${h2('En resumen')}
+      ${ul([
+        'La exhibición cerca de la caja define la mayoría de las ventas.',
+        'Personajes con licencia rotan más rápido que diseños genéricos.',
+        'Funciona como producto principal o como venta adicional de impulso.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/LLAVEROS%20DE%20GOMA">Llaveros de Goma al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'regalos-de-enamorados-y-san-valentin-por-mayor',
+    title: 'Regalos de enamorados y San Valentín por mayor: cómo prepararte con tiempo',
+    metaDescription: 'Guía para revendedores sobre cuándo stockearse para San Valentín, qué productos de peluches y regalos de enamorados tienen mejor rotación y cómo armar combos de regalo.',
+    excerpt: 'Cuándo empezar a comprar, qué productos nunca fallan para San Valentín y cómo armar combos que se vendan solos en la fecha más romántica del año.',
+    coverImage: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1200&q=80',
+    categoryLink: { nombre: 'ENAMORADOS', label: 'Ver catálogo de Enamorados' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('San Valentín (14 de febrero) es una de las fechas con más venta concentrada en pocos días del calendario comercial argentino. Así te preparás para no quedarte sin stock justo cuando más se vende.')}
+      ${h2('Empezá a comprar en diciembre-enero')}
+      ${p('El error más común es dejar la compra para la última semana, cuando el stock de los mayoristas ya empieza a escasear en los diseños más pedidos. Conviene armar el pedido con 4-6 semanas de anticipación.')}
+      ${h2('Peluches temáticos: el producto estrella')}
+      ${p('Peluches con corazones, ositos con frases de amor y diseños en rojo/rosa son el producto más buscado de la fecha — conviene tener variedad de tamaños, desde chicos de regalo económico hasta medianos para regalo "importante".')}
+      ${h2('Combos armados venden solos')}
+      ${p('Peluche + tarjeta + producto chico (llavero, accesorio) presentado como combo de regalo reduce la decisión del comprador a "sí o no" en vez de tener que elegir cada cosa por separado — en fechas de regalo esto acelera mucho la venta.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Comprá con 4-6 semanas de anticipación, antes de que se agote el stock bueno.',
+        'Los peluches temáticos rojos/rosas son el producto ancla de la fecha.',
+        'Los combos armados aceleran la decisión de compra.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/ENAMORADOS">Enamorados al por mayor</a> y la línea completa de <a href="/categorias/PELUCHES">Peluches</a>.')}
+    `,
+  },
+  {
+    slug: 'skin-care-y-cuidado-de-la-piel-por-mayor-guia',
+    title: 'Skin care y cuidado de la piel por mayor: la guía para revender sin errores',
+    metaDescription: 'Qué productos de skin care (mascarillas, sérums, limpieza facial) tienen más demanda al por mayor en Argentina y cómo armar rutinas completas para vender en combo.',
+    excerpt: 'Mascarillas, sérums y limpieza facial: cómo armar un surtido de skin care ordenado por rutina, la categoría de belleza que más creció en los últimos años.',
+    coverImage: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&q=80',
+    categoryLink: { nombre: 'SALUD Y BIENESTAR', label: 'Ver catálogo de Salud y Bienestar' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('El skin care es hoy uno de los rubros de belleza con más crecimiento en Argentina, impulsado por tendencias de cuidado de la piel en redes sociales. A diferencia de la perfumería, acá se vende siguiendo una lógica de "rutina", no de producto suelto.')}
+      ${h2('Pensá el surtido por pasos de rutina')}
+      ${p('Limpieza facial, tónico/sérum y mascarilla son los tres pasos básicos que busca un cliente de skin care. Tener stock equilibrado de los tres, en vez de solo mascarillas (lo más vistoso), te permite armar y vender rutinas completas.')}
+      ${h2('Mascarillas: la puerta de entrada')}
+      ${p('Son el producto más fácil de vender por impulso — bajo costo, resultado visible, ideal para regalo. Suelen ser el primer producto de skin care que compra un cliente nuevo antes de animarse a una rutina completa.')}
+      ${h2('Sérums: el producto de mayor recompra')}
+      ${p('Un cliente conforme con un sérum vuelve a comprar el mismo producto cada 4-8 semanas — es la categoría con mejor fidelización de todo el rubro de cuidado personal.')}
+      ${h2('Armá combos de rutina completa')}
+      ${p('Presentar "rutina día" o "rutina noche" en combo (limpiador + sérum + mascarilla) sube el ticket promedio y le simplifica la decisión a un cliente que no sabe bien por dónde empezar.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Armá el surtido pensando en los 3 pasos de una rutina, no productos sueltos.',
+        'Las mascarillas son la puerta de entrada de venta por impulso.',
+        'Los sérums generan la recompra más fiel del rubro.',
+        'Los combos de "rutina completa" suben el ticket promedio.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/SALUD%20Y%20BIENESTAR">Salud y Bienestar al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'productos-de-tendencias-virales-por-mayor-guia',
+    title: 'Productos de tendencias y virales por mayor: cómo aprovechar las modas antes de que pasen',
+    metaDescription: 'Guía para revendedores sobre cómo comprar productos de tendencias y virales al por mayor sin quedarte con stock cuando pase la moda.',
+    excerpt: 'Cómo subirte a un producto viral sin quedarte con stock cuando la moda pase: comprar poco y seguido, en vez de mucho y una sola vez.',
+    coverImage: 'https://images.unsplash.com/photo-1607082349566-187342175e2f?w=1200&q=80',
+    categoryLink: { nombre: 'TENDENCIAS', label: 'Ver catálogo de Tendencias' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Los productos de tendencia (los que están "sonando" en redes en un momento dado) pueden generar ventas explosivas en pocas semanas — pero también son los que más rápido pierden demanda. Así los aprovechás sin quemarte.')}
+      ${h2('Comprá poco y seguido, no mucho de una vez')}
+      ${p('La regla de oro de este rubro: pedidos chicos y frecuentes en vez de una compra grande. Si el producto sigue vendiendo, volvés a pedir; si la moda ya pasó, no te quedaste con stock parado.')}
+      ${h2('Mirá qué se mueve en redes, no solo en la calle')}
+      ${p('Muchas tendencias de producto arrancan en TikTok o Instagram antes de verse en la calle. Seguir de cerca qué productos empiezan a viralizarse te da ventaja de tiempo frente a quien espera verlo en otro local.')}
+      ${h2('Mezclá rubros: acá conviven juguetería, bazar y electrónica')}
+      ${p('Este catálogo no es un solo rubro — junta lo que está de moda sin importar la categoría (juguetes, gadgets, accesorios de bazar, cuidado personal). Es útil justamente para no perderse ningún producto viral, revises el rubro que revises.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Comprá en pedidos chicos y seguidos, nunca todo de una vez.',
+        'Prestá atención a lo que se viraliza en redes antes de que llegue a la calle.',
+        'Es un catálogo multirubro pensado para no perderte ningún producto de moda.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/TENDENCIAS">Tendencias al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'peluches-de-personajes-con-licencia-por-mayor',
+    title: 'Peluches de personajes con licencia por mayor: cuáles nunca fallan',
+    metaDescription: 'Qué personajes con licencia (Stitch, Pokémon, Sanrio, Avengers, Paw Patrol) tienen mejor rotación en peluches al por mayor y cómo armar el surtido.',
+    excerpt: 'Stitch, Pokémon, Sanrio, Avengers y Paw Patrol: qué personajes con licencia son valores seguros y cómo repartir el presupuesto entre ellos.',
+    coverImage: 'https://images.unsplash.com/photo-1591382696684-38c427c7547a?w=1200&q=80',
+    categoryLink: { nombre: 'PELUCHES DE PERSONAJES', label: 'Ver catálogo de Peluches de Personajes' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Un peluche genérico se vende por lindo. Un peluche de personaje conocido se vende porque el chico (o el fan adulto) ya lo quiere antes de verlo en el local. Así repartís bien el presupuesto entre licencias.')}
+      ${h2('Los "clásicos" que nunca bajan de demanda')}
+      ${p('Stitch y Pokémon son, hoy, los personajes con base de fans más amplia y estable — chicos y también adultos coleccionistas. Conviene que sean la base más grande del surtido de personajes.')}
+      ${h2('Kuromi y Sanrio: público más específico, pero muy fiel')}
+      ${p('Este segmento tiene menos volumen de compradores pero un ticket y una fidelidad más altos — quien busca estos personajes suele comprar varios modelos de la misma línea.')}
+      ${h2('Avengers y Paw Patrol: valor seguro para chicos')}
+      ${p('Superhéroes y Paw Patrol siguen siendo de los personajes más pedidos para el público infantil más chico — ideales para regalos de cumpleaños y Día del Niño.')}
+      ${h2('Dejá un margen para "personajes surtidos"')}
+      ${p('Además de las licencias fuertes, conviene tener una porción del surtido en personajes variados menos conocidos — son más económicos y sirven para completar combos o vender a un precio de entrada más bajo.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Stitch y Pokémon: la base más segura y estable del surtido.',
+        'Kuromi/Sanrio: menor volumen, pero clientes muy fieles.',
+        'Avengers y Paw Patrol: valores seguros para el público infantil.',
+        'Sumá una porción de personajes surtidos para completar precios de entrada.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/PELUCHES%20DE%20PERSONAJES">Peluches de Personajes al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-dag-electronica-e-iluminacion-por-mayor',
+    title: 'Importadora DAG: electrónica, iluminación y bazar por mayor',
+    metaDescription: 'Qué productos de electrónica, iluminación, ferretería y bazar conviene comprar por mayor en Importadora DAG, y cómo armar un surtido variado sin dispersarte.',
+    excerpt: 'Electrónica, iluminación, ferretería y bazar en un solo catálogo: cómo elegir sin dispersarte entre tantas categorías distintas.',
+    coverImage: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA DAG', label: 'Ver catálogo de Importadora DAG' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo reúne electrónica chica, iluminación, ferretería, bazar y bijouterie/peluquería en un mismo lugar — ideal para el revendedor que quiere variedad real sin manejar cinco proveedores distintos.')}
+      ${h2('Electrónica chica: la de mayor volumen')}
+      ${p('Auriculares, cargadores, cables y accesorios de celular son de los productos que más se venden por volumen en este catálogo — ticket medio, demanda constante y prácticamente sin estacionalidad.')}
+      ${h2('Iluminación: buen margen, poco competido')}
+      ${p('Luces LED, lámparas y artículos de iluminación decorativa suelen tener menos competencia de precio que la electrónica pura, lo que deja mejor margen porcentual.')}
+      ${h2('No descuidés la ferretería chica')}
+      ${p('Herramientas manuales y artículos de ferretería básica tienen demanda pareja todo el año y un público que compra por necesidad, no por impulso — genera ventas más predecibles.')}
+      ${h2('Elegí 2-3 subrubros, no los seis')}
+      ${p('Con tanta variedad disponible, el error más común es querer tener un poco de cada categoría. Rinde mejor elegir 2 o 3 subrubros donde detectaste demanda real y profundizar ahí.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Electrónica chica: el mayor volumen de venta del catálogo.',
+        'Iluminación: menos competencia de precio, mejor margen.',
+        'Ferretería chica: demanda pareja y predecible todo el año.',
+        'Elegí pocos subrubros y profundizá, en vez de dispersarte.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20DAG">Importadora DAG al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-nc-bazar-y-mochilas-por-mayor',
+    title: 'Importadora NC: bazar, mochilas de peluche y accesorios por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora NC: bazar, electrónica, accesorios y mochilas de peluche, con foco en cómo armar un surtido de bazar rentable.',
+    excerpt: 'Bazar como producto principal, más mochilas de peluche y accesorios como diferencial: cómo aprovechar este catálogo mixto.',
+    coverImage: 'https://images.unsplash.com/photo-1584788049816-e78d1c0c5e50?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA NC', label: 'Ver catálogo de Importadora NC' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('El fuerte de este catálogo es el bazar, con más de la mitad de los productos, complementado con electrónica chica, accesorios y una categoría diferencial: las mochilas de peluche.')}
+      ${h2('Bazar: la base del surtido')}
+      ${p('Al ser el rubro con más variedad dentro de este catálogo, conviene tratarlo como base del pedido — productos de cocina, organización y decoración de uso cotidiano con demanda pareja todo el año.')}
+      ${h2('Mochilas de peluche: un diferencial poco explotado')}
+      ${p('Es un producto que combina lo mejor de dos mundos (mochila funcional + peluche coleccionable) y que muchos revendedores no tienen en su surtido — una buena forma de destacarte con algo distinto.')}
+      ${h2('Accesorios y electrónica: para completar el pedido')}
+      ${p('Buena opción para sumar variedad al pedido sin necesitar comprarle a otro proveedor aparte, aprovechando el mismo mínimo de compra.')}
+      ${h2('En resumen')}
+      ${ul([
+        'El bazar es la base más sólida del catálogo, por volumen y variedad.',
+        'Las mochilas de peluche son un producto diferencial poco común.',
+        'Accesorios y electrónica completan bien el pedido sin sumar otro proveedor.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20NC">Importadora NC al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-next-hogar-cocina-y-cargadores-por-mayor',
+    title: 'Importadora Next: hogar, cocina y cargadores por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora Next: artículos de hogar y cocina, cargadores y herramientas, perfumes y juguetes, con foco en el rubro hogar como base.',
+    excerpt: 'Hogar y cocina como base del catálogo, más cargadores, perfumería y juguetes como complemento: cómo armar el pedido.',
+    coverImage: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA NEXT', label: 'Ver catálogo de Importadora Next' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Casi la mitad de este catálogo es hogar y cocina, lo que lo convierte en una buena base para cualquier revendedor de bazar, complementado con cargadores/herramientas, perfumería y juguetes.')}
+      ${h2('Hogar y cocina: el corazón del catálogo')}
+      ${p('Utensilios, organizadores y artículos de cocina de uso diario son la categoría más grande — ideal como base de un pedido de bazar general, con demanda estable todo el año.')}
+      ${h2('Cargadores y herramientas: ticket bajo, alta reposición')}
+      ${p('Son productos que se pierden, se rompen o se necesitan de repuesto seguido — generan compra recurrente del mismo cliente, algo valioso para cualquier local físico.')}
+      ${h2('Perfumes y belleza: para sumar margen')}
+      ${p('Complementa bien el pedido con un rubro de mejor margen porcentual que el bazar puro, sin necesitar comprarle a otro proveedor.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Hogar y cocina: la categoría más grande, ideal como base del pedido.',
+        'Cargadores y herramientas: reposición frecuente, compra recurrente.',
+        'Perfumes y belleza: suman mejor margen al mismo pedido.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20NEXT">Importadora Next al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'accesorios-de-trabajo-riñoneras-y-cintos-por-mayor',
+    title: 'Accesorios de trabajo, riñoneras y cintos por mayor: guía para revendedores',
+    metaDescription: 'Qué accesorios de trabajo y uso diario (riñoneras, billeteras, cintos, gorros, protectores deportivos) conviene comprar al por mayor y cómo armar el surtido.',
+    excerpt: 'Riñoneras, billeteras, cintos y gorros: los accesorios de uso diario que nunca pasan de moda y tienen demanda constante todo el año.',
+    coverImage: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200&q=80',
+    categoryLink: { nombre: 'ACCESORIOS DE TRABAJO Y MAS', label: 'Ver catálogo de Accesorios de Trabajo y Más' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo reúne accesorios de uso diario y de trabajo — el tipo de producto que la gente compra por necesidad más que por moda, lo que le da una demanda muy estable durante todo el año.')}
+      ${h2('Riñoneras y billeteras: los productos de mayor volumen')}
+      ${p('Combinan practicidad y precio accesible, y son de los productos más elegidos tanto para uso diario como para trabajo — vale la pena que sean la base del surtido.')}
+      ${h2('Protectores deportivos: un nicho con poca competencia')}
+      ${p('Rodilleras, coderas y protectores similares tienen menos revendedores especializados que otros rubros — si tenés cerca clientes que hacen deporte o trabajos físicos, es una categoría con buen potencial sin tanta competencia de precio.')}
+      ${h2('Cintos y gorros: complemento de bajo costo')}
+      ${p('Ideal para sumar variedad al mostrador sin ocupar mucho espacio ni requerir mucha inversión — buenos productos de venta adicional junto a la compra principal del cliente.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Riñoneras y billeteras: la base de mayor volumen del catálogo.',
+        'Protectores deportivos: nicho con poca competencia especializada.',
+        'Cintos y gorros: complemento de bajo costo y poco espacio.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/ACCESORIOS%20DE%20TRABAJO%20Y%20MAS">Accesorios de Trabajo y Más al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'productos-regionales-y-gauchos-por-mayor',
+    title: 'Productos regionales y gauchos por mayor: guía para regalería y turismo',
+    metaDescription: 'Qué productos regionales y de temática gaucha tienen más demanda al por mayor, ideales para regalería, souvenirs y zonas turísticas de Argentina.',
+    excerpt: 'Mates, facones, artículos de cuero y decoración gaucha: cómo aprovechar un rubro con demanda constante en regalería y zonas turísticas.',
+    coverImage: 'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&q=80',
+    categoryLink: { nombre: 'PRODUCTOS REGIONALES', label: 'Ver catálogo de Productos Regionales' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Los productos regionales y de temática gaucha tienen un público estable: turistas nacionales y extranjeros, regalería y quienes buscan un souvenir con identidad argentina. Así armás un surtido que funcione todo el año.')}
+      ${h2('Mates y accesorios: el producto más pedido')}
+      ${p('Mates, bombillas y accesorios relacionados son el producto insignia del rubro — tanto para uso propio como para regalo a extranjeros, es lo primero que busca este tipo de cliente.')}
+      ${h2('Si vendés en zona turística, priorizá esto')}
+      ${p('Locales cerca de zonas turísticas o con clientela de otras provincias/países se benefician especialmente de este catálogo — es de los pocos rubros donde el "souvenir con identidad" vende mejor que el producto genérico.')}
+      ${h2('Regalería todo el año, no solo en temporada turística')}
+      ${p('Más allá del turismo, hay demanda constante de regalos con identidad regional para cumpleaños, aniversarios de empresa y regalos corporativos — vale la pena no limitar la venta solo a temporada alta de turismo.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Mates y accesorios: el producto insignia del rubro.',
+        'Ideal si tu local está en zona turística o recibe visitantes de otras provincias.',
+        'También funciona todo el año como regalería con identidad argentina.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/PRODUCTOS%20REGIONALES">Productos Regionales al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'camping-pesca-y-articulos-tacticos-por-mayor',
+    title: 'Camping, pesca y artículos tácticos por mayor: guía de temporada',
+    metaDescription: 'Cuándo stockearte de artículos de camping, pesca y tácticos al por mayor en Argentina, y qué productos tienen mejor rotación en cada categoría.',
+    excerpt: 'Cuándo comprar según la temporada y qué productos de camping, pesca y uso táctico tienen mejor rotación durante todo el año.',
+    coverImage: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80',
+    categoryLink: { nombre: 'CAMPING', label: 'Ver catálogo de Camping' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo combina tres públicos distintos —campistas, pescadores y usuarios de artículos tácticos— bajo un mismo rubro con fuerte estacionalidad en primavera-verano.')}
+      ${h2('Accesorios de camping: la categoría más grande')}
+      ${p('Linternas, cuchillos multiuso, mecheros, cantimploras y accesorios chicos son los productos de mayor volumen — bajo costo, alta utilidad y buena rotación durante toda la temporada de acampe.')}
+      ${h2('Pesca: público fiel y de recompra constante')}
+      ${p('Anzuelos, líneas y accesorios de pesca se reponen seguido (se pierden o se gastan con el uso), generando un cliente que vuelve a comprar el mismo tipo de producto varias veces al año.')}
+      ${h2('Táctico: ticket más alto, menor volumen')}
+      ${p('Mochilas, linternas de alta gama y accesorios tácticos tienen menos volumen de venta que las otras dos categorías, pero dejan mejor margen en pesos por unidad.')}
+      ${h2('Anticipate a la temporada')}
+      ${p('Septiembre-octubre es el mejor momento para stockearte, antes del pico de demanda de primavera-verano (vacaciones, camping, pesca de temporada).')}
+      ${h2('En resumen')}
+      ${ul([
+        'Accesorios de camping: la categoría de mayor volumen y rotación.',
+        'Pesca: cliente fiel, con recompra frecuente de insumos.',
+        'Táctico: menor volumen, mejor margen por unidad.',
+        'Stockeate desde septiembre-octubre, antes del pico de temporada.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/CAMPING">Camping al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'articulos-de-deporte-por-mayor-guia',
+    title: 'Artículos de deporte por mayor: los accesorios que nunca dejan de venderse',
+    metaDescription: 'Qué artículos deportivos (protectores, antiparras, vendas, medias de compresión) conviene comprar al por mayor y por qué es un rubro con demanda estable todo el año.',
+    excerpt: 'Protectores, antiparras y accesorios deportivos: por qué este rubro tiene demanda estable los doce meses del año, sin depender de una sola temporada.',
+    coverImage: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200&q=80',
+    categoryLink: { nombre: 'TODO PARA EL DEPORTE', label: 'Ver catálogo de Todo para el Deporte' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('A diferencia de otros rubros con picos marcados, los artículos deportivos tienen una ventaja clara: la gente entrena y practica deportes todo el año, así que la demanda no depende de una sola temporada.')}
+      ${h2('Accesorios chicos: la base de mayor rotación')}
+      ${p('Antiparras, vendas, cintas de kinesiología y protectores bucales son productos de bajo costo que se reponen seguido — se gastan, se pierden o simplemente se necesitan de repuesto para otro deporte.')}
+      ${h2('Medias de compresión y accesorios técnicos: buen margen')}
+      ${p('Son productos algo más específicos, con menos competencia de precio, que suelen dejar mejor margen porcentual que los accesorios más básicos.')}
+      ${h2('Pensá en gimnasios y clubes como clientes mayoristas')}
+      ${p('Además de la venta al público final, este tipo de producto se presta para vender en volumen a gimnasios, clubes de barrio y profesores particulares — un canal de venta que muchos revendedores no aprovechan.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Accesorios chicos (antiparras, vendas, protectores): la base de mayor rotación.',
+        'Medias de compresión y accesorios técnicos: mejor margen, menos competencia.',
+        'Considerá vender en volumen a gimnasios y clubes, no solo al público final.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/TODO%20PARA%20EL%20DEPORTE">Todo para el Deporte al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-mcj-bano-y-limpieza-por-mayor',
+    title: 'Importadora MCJ: baño, limpieza y bazar por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora MCJ: artículos de baño y limpieza como base, más bazar y accesorios para mascotas.',
+    excerpt: 'Baño y limpieza como base del surtido, con bazar y algunos accesorios para mascotas como complemento — un catálogo chico pero enfocado.',
+    coverImage: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA MCJ', label: 'Ver catálogo de Importadora MCJ' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo, más chico y enfocado que otras importadoras, tiene su fuerte en artículos de baño y limpieza — productos de necesidad básica con demanda pareja todo el año.')}
+      ${h2('Baño y limpieza: la base del catálogo')}
+      ${p('Al ser productos de uso cotidiano y reposición constante, generan compra recurrente y previsible — ideal para complementar un surtido de bazar que ya tengas armado con otro proveedor.')}
+      ${h2('Bazar general: para sumar variedad')}
+      ${p('Complementa bien la categoría principal con artículos de uso diario, sin necesitar otro mínimo de compra aparte.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Baño y limpieza: la categoría principal, con demanda de reposición constante.',
+        'Bazar general como complemento para sumar variedad al mismo pedido.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20MCJ">Importadora MCJ al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-toys-ar-juguetes-por-mayor',
+    title: 'Importadora Toys.AR: juguetes por mayor con enfoque específico',
+    metaDescription: 'Guía sobre el catálogo especializado en juguetes de Importadora Toys.AR, ideal como complemento del surtido general de juguetería.',
+    excerpt: 'Un catálogo 100% enfocado en juguetes, ideal para sumar variedad puntual a tu surtido de juguetería sin cambiar de proveedor.',
+    coverImage: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA TOYS.AR', label: 'Ver catálogo de Importadora Toys.AR' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('A diferencia de otras importadoras multirubro, este catálogo está 100% enfocado en juguetes — útil como fuente de variedad puntual además de tu surtido principal de juguetería.')}
+      ${h2('Por qué sumarlo si ya comprás en JUGUETERIA')}
+      ${p('Al ser un catálogo separado con orígenes distintos, suele tener modelos y diseños que no se repiten con el catálogo general de <a href="/categorias/JUGUETERIA">Juguetería</a> — una buena forma de diferenciar tu vidriera de la competencia que compra siempre en el mismo lugar.')}
+      ${h2('Revisalo antes de cada pedido grande')}
+      ${p('Como es un catálogo más chico y específico, conviene revisarlo cada vez que hagas un pedido grande de juguetería, para no perderte novedades puntuales que no aparecen en el catálogo principal.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Catálogo 100% juguetes, ideal como complemento de variedad.',
+        'Tiene modelos distintos a los del catálogo general de juguetería.',
+        'Conviene revisarlo junto con cada pedido grande de juguetería.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20TOYS.AR">Importadora Toys.AR al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-elementos-cocina-y-hogar-por-mayor',
+    title: 'Importadora Elementos: cocina y hogar por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora Elementos: cocina, hogar deco, baño y tecnología, con foco en el rubro cocina como el más grande.',
+    excerpt: 'Cocina como categoría más grande del catálogo, con hogar deco, salud y belleza y tecnología como complemento.',
+    coverImage: 'https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA ELEMENTOS', label: 'Ver catálogo de Importadora Elementos' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Cocina es, por lejos, la categoría más grande de este catálogo, acompañada de hogar deco, salud y belleza y tecnología — un buen catálogo base para cualquier revendedor de bazar general.')}
+      ${h2('Cocina: la columna vertebral del catálogo')}
+      ${p('Utensilios, organizadores de cocina y accesorios de uso diario son la mayor parte del surtido — ideal para armar la base de un pedido de bazar con alta rotación garantizada.')}
+      ${h2('Hogar deco y blanquería: buen margen')}
+      ${p('Complementa bien la cocina con productos de mayor margen porcentual, aprovechando el mismo pedido y mínimo de compra.')}
+      ${h2('Vasos y botellas: producto de tendencia sostenida')}
+      ${p('Esta categoría viene con demanda sostenida en los últimos años (hidratación, termos, botellas reutilizables) — vale la pena darle buen espacio en el surtido.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Cocina: la categoría más grande y de mayor rotación.',
+        'Hogar deco: complementa con mejor margen porcentual.',
+        'Vasos y botellas: tendencia sostenida, buena oportunidad.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20ELEMENTOS">Importadora Elementos al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-max-cocina-y-tecnologia-por-mayor',
+    title: 'Importadora Max: cocina, tecnología y aire libre por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora Max: cocina, tecnología, auto/moto/bici y aire libre, un mix versátil para revendedores generalistas.',
+    excerpt: 'Un catálogo versátil que combina cocina, tecnología y accesorios de aire libre, ideal para revendedores que quieren variedad sin especializarse en un solo rubro.',
+    coverImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA MAX', label: 'Ver catálogo de Importadora Max' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo mezcla cocina, tecnología, accesorios para auto/moto/bici y artículos de aire libre — una combinación versátil para revendedores generalistas que no quieren atarse a un solo rubro.')}
+      ${h2('Cocina y tecnología: la base más sólida')}
+      ${p('Son las dos categorías con más productos y mejor rotación conocida — buena base para armar el pedido principal.')}
+      ${h2('Auto, moto y bici: nicho con clientela propia')}
+      ${p('Si tenés cerca clientes que se mueven en moto o bici, esta categoría te permite sumar un público que no compra en una juguetería o bazar tradicional.')}
+      ${h2('Aire libre: complementa bien con Camping')}
+      ${p('Se puede combinar con lo que ya ofrece la categoría de <a href="/categorias/CAMPING">Camping</a> para tener un surtido más completo de productos al aire libre.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Cocina y tecnología: la base más sólida del catálogo.',
+        'Auto, moto y bici: nicho con público propio, distinto al bazar tradicional.',
+        'Aire libre: buen complemento del catálogo de Camping.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20MAX">Importadora Max al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-comex-ferreteria-y-moda-por-mayor',
+    title: 'Importadora Comex: ferretería, moda y cotillón por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora Comex: ferretería, moda y marroquinería, cotillón, tecnología y fitness en un catálogo variado.',
+    excerpt: 'Ferretería como base, más moda, cotillón y fitness: un catálogo variado ideal para complementar cualquier tipo de local.',
+    coverImage: 'https://images.unsplash.com/photo-1581147036324-c1c9c76e5e6d?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA COMEX', label: 'Ver catálogo de Importadora Comex' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Ferretería es la categoría más grande de este catálogo, acompañada de moda/marroquinería, cotillón, tecnología y fitness — una combinación poco habitual que le da versatilidad.')}
+      ${h2('Ferretería: demanda por necesidad, no por moda')}
+      ${p('Herramientas y accesorios de ferretería tienen un comprador que busca resolver algo puntual — genera ventas más predecibles y menos dependientes de tendencias.')}
+      ${h2('Cotillón: para sumar una categoría de fiestas')}
+      ${p('Si no tenés cotillón en tu surtido, esta es una buena forma de sumarlo sin necesitar un proveedor especializado aparte — útil para cumpleaños y eventos todo el año.')}
+      ${h2('Moda y marroquinería: buen margen porcentual')}
+      ${p('Carteras, billeteras y accesorios de moda suelen dejar mejor margen que la ferretería pura, equilibrando el pedido.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Ferretería: demanda estable, por necesidad más que por moda.',
+        'Cotillón: buena forma de sumar la categoría de fiestas sin otro proveedor.',
+        'Moda y marroquinería: complementa con mejor margen porcentual.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20COMEX">Importadora Comex al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-tren-hogar-infantil-y-libreria-por-mayor',
+    title: 'Importadora Tren: hogar, infantil y librería por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora Tren: hogar deco, artículos infantiles, baño/limpieza y librería en un mismo catálogo.',
+    excerpt: 'Hogar deco como base, más una categoría infantil y librería que lo hacen útil para revendedores con público familiar.',
+    coverImage: 'https://images.unsplash.com/photo-1555529771-7888783a18d3?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA TREN', label: 'Ver catálogo de Importadora Tren' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo combina hogar deco y blanquería con una categoría infantil propia y un poco de librería — útil especialmente para revendedores con público familiar.')}
+      ${h2('Hogar deco y blanquería: la base del surtido')}
+      ${p('La categoría más grande del catálogo, con productos de uso diario y buena rotación durante todo el año.')}
+      ${h2('Infantil: un plus si tu público incluye familias')}
+      ${p('Tener una categoría infantil dentro de un catálogo de hogar es un diferencial — te permite ofrecerle algo más a un cliente que ya está comprando para la casa.')}
+      ${h2('Librería: complemento chico, útil en temporada escolar')}
+      ${p('Aunque no es el fuerte del catálogo, suma una opción extra para la temporada de vuelta a clases sin necesitar otro proveedor — podés combinarlo con la categoría dedicada de <a href="/categorias/LIBRERIA">Librería</a>.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Hogar deco y blanquería: la categoría más grande y de mayor rotación.',
+        'Infantil: diferencial para público familiar.',
+        'Librería: buen complemento en temporada de vuelta a clases.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20TREN">Importadora Tren al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-home-cocina-muebles-y-aire-libre-por-mayor',
+    title: 'Importadora Home: cocina, muebles y aire libre por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora Home: cocina, hogar deco, aire libre, moda y hasta muebles chicos, ideal para bazar y decoración.',
+    excerpt: 'Cocina y hogar deco como base, con una categoría poco común en este tipo de catálogo: muebles chicos.',
+    coverImage: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA HOME', label: 'Ver catálogo de Importadora Home' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Como el nombre lo indica, este catálogo está pensado para el hogar: cocina y hogar deco como base, más una categoría que no es habitual en otros catálogos mayoristas — muebles chicos.')}
+      ${h2('Cocina: el rubro de mayor volumen')}
+      ${p('Al igual que en otros catálogos de esta familia, cocina es la categoría con más productos y mejor rotación conocida — buena base para el pedido principal.')}
+      ${h2('Muebles chicos: un diferencial real')}
+      ${p('Pocos catálogos mayoristas de este tipo incluyen muebles — si tenés espacio para exhibir alguna pieza chica (banquetas, estantes, organizadores grandes), es una buena forma de diferenciarte de la competencia.')}
+      ${h2('Aire libre y ferretería: para completar variedad')}
+      ${p('Sirven para redondear el pedido con productos complementarios sin necesitar otro proveedor.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Cocina: el rubro de mayor volumen del catálogo.',
+        'Muebles chicos: un diferencial poco común frente a otros mayoristas.',
+        'Aire libre y ferretería completan bien el pedido.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20HOME">Importadora Home al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'importadora-fazzt-bazar-de-diseno-por-mayor',
+    title: 'Importadora Fazzt: bazar de diseño por mayor',
+    metaDescription: 'Guía sobre el catálogo de Importadora Fazzt, enfocado en bazar de diseño (vidrio, bamboo, madera) con una estética más cuidada que el bazar tradicional.',
+    excerpt: 'Un bazar con estética más cuidada (vidrio, bamboo, madera) que se diferencia del bazar tradicional y se presta a mejor margen.',
+    coverImage: 'https://images.unsplash.com/photo-1493552152660-f915ab47ae9d?w=1200&q=80',
+    categoryLink: { nombre: 'IMPORTADORA FAZZT', label: 'Ver catálogo de Importadora Fazzt' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo se diferencia del bazar genérico por su estética: productos de cocina y baño en vidrio, madera y bamboo, con una presentación más cuidada que se acerca más a "decoración" que a bazar tradicional.')}
+      ${h2('Estética cuidada, mejor margen posible')}
+      ${p('Productos como fraseros, saleros o cepillos con detalles en madera y bamboo permiten vender con un margen más alto que el bazar plástico genérico, porque el cliente percibe mayor calidad y diseño.')}
+      ${h2('Ideal para combos de regalo')}
+      ${p('Por su estética prolija, este tipo de producto funciona muy bien en combos de regalo (set salero-pimentero, kit de baño) — mucho mejor que como venta suelta.')}
+      ${h2('Público más exigente en presentación')}
+      ${p('Si tu clientela valora la estética además del precio (locales de decoración, regalería premium), este catálogo suele encajar mejor que un bazar puramente funcional.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Bazar con estética cuidada: vidrio, bamboo y madera.',
+        'Permite mejor margen que el bazar plástico genérico.',
+        'Funciona muy bien armado en combos de regalo.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20FAZZT">Importadora Fazzt al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'mix-pop-decoracion-y-organizadores-por-mayor',
+    title: 'Mix Pop: decoración, organizadores y tazas por mayor',
+    metaDescription: 'Guía sobre el catálogo Mix Pop: artículos de escritura, cuadros y portarretratos, organizadores y tazas, ideal para regalería y decoración.',
+    excerpt: 'Escritura, cuadros, organizadores y tazas: un catálogo pensado para regalería y decoración de escritorio y hogar.',
+    coverImage: 'https://images.unsplash.com/photo-1524634126442-357e0eac3c14?w=1200&q=80',
+    categoryLink: { nombre: 'MIX POP', label: 'Ver catálogo de Mix Pop' },
+    publishedAt: '2026-08-19',
+    content: `
+      ${p('Este catálogo combina artículos de escritura, decoración de pared, organizadores y tazas — una mezcla que funciona muy bien para regalería, papelería y decoración de escritorio u hogar.')}
+      ${h2('Escritura: el rubro de mayor volumen')}
+      ${p('Lapiceras y artículos de escritura con diseño tienen buena rotación tanto en librerías como en regalería — un producto de ticket bajo con demanda constante.')}
+      ${h2('Cuadros y portarretratos: ideal para regalería')}
+      ${p('Son de los productos más elegidos como regalo de cumpleaños o para decorar un ambiente — conviene tener variedad de tamaños y estilos.')}
+      ${h2('Organizadores: tendencia en crecimiento')}
+      ${p('Al igual que en <a href="/categorias/BAZAR%20Y%20HOGAR">Bazar y Hogar</a>, los organizadores vienen creciendo fuerte de la mano de tendencias de orden en redes sociales.')}
+      ${h2('Tazas: producto de venta fácil y personalizable')}
+      ${p('Las tazas con diseño son de los productos más fáciles de vender por impulso — bajo costo, buen margen y percepción de "regalo lindo" sin gastar mucho.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Escritura: ticket bajo y buena rotación.',
+        'Cuadros y portarretratos: producto de regalería por excelencia.',
+        'Organizadores: categoría en crecimiento sostenido.',
+        'Tazas: venta fácil por impulso con buen margen.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/MIX%20POP">Mix Pop al por mayor</a>.')}
+    `,
+  },
 ]
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
