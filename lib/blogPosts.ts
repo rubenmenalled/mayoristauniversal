@@ -185,6 +185,148 @@ export const BLOG_POSTS: BlogPost[] = [
       ${p('Mirá el catálogo completo de <a href="/categorias/BELLEZA%20Y%20PERFUMERIA%20WT">Belleza y Perfumería</a> y la línea de <a href="/categorias/SALUD%20Y%20BIENESTAR">Salud y Bienestar</a>.')}
     `,
   },
+  {
+    slug: 'articulos-para-bebes-por-mayor-que-comprar',
+    title: 'Artículos para bebés por mayor: qué comprar y cómo armar el surtido',
+    metaDescription: 'Guía para revendedores sobre qué productos de bebé al por mayor tienen más rotación, qué tener en cuenta con la seguridad de los materiales y cómo armar combos para regalos de nacimiento.',
+    excerpt: 'Chupetes, mordillos, ropa y accesorios: qué productos de bebé rotan más rápido y cómo armar combos ideales para regalos de nacimiento.',
+    coverImage: 'https://images.unsplash.com/photo-1522771930-78848d9293e8?w=1200&q=80',
+    categoryLink: { nombre: 'BEBÉ', label: 'Ver catálogo de Bebé' },
+    publishedAt: '2026-08-18',
+    content: `
+      ${p('Los artículos para bebé tienen algo que pocos rubros ofrecen: la demanda no depende de la economía general — siempre nacen bebés, y las familias siempre necesitan renovar y regalar. Así armás un surtido que funcione.')}
+      ${h2('Los básicos de alta rotación')}
+      ${p('Chupetes, mordillos, baberos, mamaderas y accesorios de higiene son los productos que más se venden por volumen: son de bajo costo, se compran seguido (se pierden, se rompen, se necesitan de repuesto) y casi no requieren explicación de venta.')}
+      ${h2('Priorizá siempre la seguridad del material')}
+      ${p('En productos de bebé, más que en cualquier otro rubro, conviene revisar que los materiales sean libres de BPA y aptos para el contacto con la piel o la boca del bebé. Un cliente que confía en la seguridad del producto vuelve a comprar y además te recomienda.')}
+      ${h2('Combos para regalos de nacimiento')}
+      ${p('Armar sets de regalo (mordillo + babero + mamadera, por ejemplo, presentados en una canasta o bolsa) es una de las formas más simples de subir el ticket promedio — mucha gente prefiere comprar "un regalo armado" antes que elegir un solo producto suelto.')}
+      ${h2('Ropita: cuidado con los talles')}
+      ${p('Si sumás ropa de bebé al surtido, tené siempre variedad de talles desde recién nacido hasta 12-18 meses — es la franja donde más rápido cambia el talle y más seguido compran los padres.')}
+      ${h2('Estacionalidad suave, pero real')}
+      ${p('Aunque la demanda es pareja todo el año, hay un pico natural cerca del Día del Niño y las fiestas de fin de año, cuando además de lo esencial se compran juguetes y accesorios de bebé como regalo.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Chupetes, mordillos y accesorios de higiene: la base de alta rotación.',
+        'Priorizá materiales seguros, libres de BPA.',
+        'Los combos armados para regalo de nacimiento suben el ticket promedio.',
+        'Si vendés ropa, cubrí bien la franja de 0 a 18 meses.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/BEB%C3%89">Bebé al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'accesorios-para-mascotas-por-mayor-guia',
+    title: 'Accesorios para mascotas por mayor: la guía para revendedores',
+    metaDescription: 'Qué accesorios para mascotas conviene comprar al por mayor, cómo elegir tamaños de correas y camas, y por qué es uno de los rubros con más crecimiento en Argentina.',
+    excerpt: 'Correas, juguetes, camas y accesorios: cómo armar un surtido de mascotas que aproveche uno de los rubros con más crecimiento sostenido.',
+    coverImage: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=1200&q=80',
+    categoryLink: { nombre: 'ACCESORIOS PARA MASCOTAS', label: 'Ver catálogo de Accesorios para Mascotas' },
+    publishedAt: '2026-08-18',
+    content: `
+      ${p('El rubro de mascotas viene creciendo año tras año en Argentina, de la mano de más hogares con perros y gatos y dueños que cada vez gastan más en accesorios, no solo en comida. Así aprovechás esa tendencia con tu surtido.')}
+      ${h2('Juguetes: el producto de mayor rotación')}
+      ${p('Pelotas, cuerdas, mordillos y juguetes interactivos para perros y gatos son de bajo costo y se reponen seguido (las mascotas los rompen o los pierden), lo que genera compra recurrente del mismo cliente.')}
+      ${h2('Correas y colleras: variá tamaños, no solo diseños')}
+      ${p('Es un error común stockearse solo pensando en diseños lindos y olvidar los tamaños. Tené siempre variedad de correas y colleras para razas chicas, medianas y grandes — perder una venta por no tener el tamaño correcto es de los errores más comunes del rubro.')}
+      ${h2('Camas y accesorios de descanso: menor rotación, buen margen')}
+      ${p('Las camas y colchonetas rotan más lento que los juguetes, pero suelen dejar mejor margen en pesos por unidad. Convienen como complemento del surtido, no como producto principal si estás empezando.')}
+      ${h2('Ropa para mascotas: estacional, pero rentable')}
+      ${p('La ropa de mascotas (camperas, piluchos) tiene demanda marcada en otoño-invierno. Si tu público incluye dueños de perros de razas pequeñas (las que más usan ropa), vale la pena stockearte antes de que baje la temperatura.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Juguetes: el producto de mayor rotación, compra recurrente garantizada.',
+        'Correas y colleras: variá tamaños según raza, no solo diseño.',
+        'Camas: menor rotación pero mejor margen por unidad.',
+        'Ropa para mascotas: fuerte en otoño-invierno.',
+      ])}
+      ${p('Mirá el catálogo completo de <a href="/categorias/ACCESORIOS%20PARA%20MASCOTAS">Accesorios para Mascotas al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'libreria-y-utiles-escolares-por-mayor-guia',
+    title: 'Librería y útiles escolares por mayor: cómo prepararte para la vuelta a clases',
+    metaDescription: 'Guía para revendedores sobre qué productos de librería y útiles escolares comprar al por mayor, cuándo stockearse para la vuelta a clases y qué combos arman mejor ticket.',
+    excerpt: 'Cuándo empezar a stockearte, qué productos nunca faltan en la lista escolar y cómo armar combos que aumenten el ticket en la temporada más fuerte del rubro.',
+    coverImage: 'https://images.unsplash.com/photo-1568871823947-9f0c8ba5a29c?w=1200&q=80',
+    categoryLink: { nombre: 'LIBRERIA', label: 'Ver catálogo de Librería' },
+    publishedAt: '2026-08-18',
+    content: `
+      ${p('La librería es uno de los rubros más previsibles del comercio: sabés exactamente cuándo va a explotar la demanda (la vuelta a clases) y podés planificar tu stock con meses de anticipación. Así te preparás bien.')}
+      ${h2('El calendario del rubro')}
+      ${p('El pico fuerte es enero-febrero-marzo, con la vuelta a clases. Pero conviene empezar a comprar mercadería desde noviembre-diciembre, antes de que suban los precios de temporada y mientras todavía hay buena disponibilidad de stock en los mayoristas.')}
+      ${h2('Los básicos que nunca faltan en una lista escolar')}
+      ${p('Cuadernos, carpetas, lápices, biromes, gomas, y cartucheras son la base de cualquier lista escolar en Argentina — conviene tener siempre stock amplio de estos productos, en varias calidades de precio, durante toda la temporada alta.')}
+      ${h2('Combos por lista completa')}
+      ${p('Armar kits con todo lo que pide una lista típica de nivel inicial o primario (y presentarlos como "combo vuelta a clases") es una estrategia muy efectiva: le ahorra tiempo al padre o madre y te asegura vender varios productos en una sola operación.')}
+      ${h2('Fuera de temporada: no descuides el rubro')}
+      ${p('Aunque el pico es a principio de año, la librería tiene demanda constante todo el año por reposición (se gastan las hojas, se rompen las cartucheras) y por artículos de oficina para quienes trabajan desde casa o tienen changas.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Empezá a stockearte desde noviembre-diciembre, antes de la suba de temporada.',
+        'Cuadernos, carpetas y lápices: la base de cualquier lista escolar.',
+        'Los combos "lista completa" son de las mejores estrategias del rubro.',
+        'Fuera de temporada, la reposición sostiene ventas todo el año.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/LIBRERIA">Librería al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'kikland-productos-economicos-por-mayor-para-kiosco-y-feria',
+    title: 'Productos económicos por mayor para kiosco y feria: la guía de KIKLAND',
+    metaDescription: 'Guía para elegir productos económicos y de alta rotación al por mayor, ideales para kioscos, ferias y puestos ambulantes que buscan ticket bajo y venta rápida.',
+    excerpt: 'Cómo armar un surtido de productos económicos que vendan rápido en kioscos, ferias y puestos ambulantes, con el margen porcentual más alto del mercado.',
+    coverImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80',
+    categoryLink: { nombre: 'KIKLAND', label: 'Ver catálogo de KIKLAND' },
+    publishedAt: '2026-08-18',
+    content: `
+      ${p('Si vendés en un kiosco, una feria o un puesto ambulante, tu negocio funciona distinto al de un local: necesitás productos de ticket bajo, que se decidan en segundos y que roten rápido. Este rubro está pensado exactamente para eso.')}
+      ${h2('El ticket bajo es la estrategia, no una limitación')}
+      ${p('Productos de $500 a $3.000 se compran por impulso, sin pensarlo — el cliente no "decide" comprarlos, casi que reacciona. Cuantas más opciones de este rango tengas a la vista, más ventas por impulso generás en el mismo espacio de mostrador.')}
+      ${h2('Rotá la mercadería seguido')}
+      ${p('En este tipo de venta, la novedad vende más que la calidad del producto en sí. Conviene renovar el surtido de productos chicos cada 3-4 semanas para que el cliente que pasa seguido siempre encuentre algo distinto.')}
+      ${h2('Combiná con lo que ya vendés')}
+      ${p('Si tenés kiosco, complementar golosinas y bebidas con productos económicos de juguetería, bijouterie o bazar chico agrega una categoría nueva de venta sin necesitar más espacio físico — solo un exhibidor chico en el mostrador.')}
+      ${h2('El margen porcentual es el más alto del mercado')}
+      ${p('Justamente por el volumen de compra y el ticket bajo, este tipo de producto suele dejar el margen porcentual más alto de todo el catálogo mayorista — lo que se pierde en margen por unidad se recupera de sobra en cantidad de ventas.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Ticket bajo ($500-$3.000): la venta por impulso es la estrategia central.',
+        'Renová el surtido cada 3-4 semanas para generar novedad.',
+        'Sumalo como categoría extra si ya tenés kiosco o feria.',
+        'Es de los rubros con mejor margen porcentual del mercado mayorista.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/KIKLAND">KIKLAND al por mayor</a>.')}
+    `,
+  },
+  {
+    slug: 'lenceria-por-mayor-guia-para-revendedores',
+    title: 'Lencería por mayor: guía para revendedores sobre talles, materiales y presentación',
+    metaDescription: 'Guía práctica para revender lencería al por mayor: cómo elegir talles, qué materiales priorizar y cómo presentar el producto para vender más online y en local.',
+    excerpt: 'Cómo elegir talles y materiales al comprar lencería al por mayor, y por qué la presentación del producto es tan importante como el producto en sí.',
+    coverImage: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200&q=80',
+    categoryLink: { nombre: 'LENCERIA IMPORTADA', label: 'Ver catálogo de Lencería' },
+    publishedAt: '2026-08-18',
+    content: `
+      ${p('La lencería es uno de los rubros con mejor margen del mercado mayorista, pero también uno de los que más depende de acertar en talles y presentación. Así armás un surtido que convierta bien, tanto online como en local.')}
+      ${h2('Curva de talles completa, no solo los "promedio"')}
+      ${p('Uno de los errores más comunes es comprar solo talles S-M pensando que son los que más se venden. Una curva de talles completa (incluyendo talles grandes) amplía tu público real y evita perder ventas por no tener el talle que el cliente necesita.')}
+      ${h2('Materiales: priorizá la comodidad sobre el diseño')}
+      ${p('Encaje y microfibra transpirable suelen tener mejor recompra que materiales sintéticos más económicos — un cliente que se siente cómodo con la prenda vuelve a comprar la misma línea.')}
+      ${h2('La presentación vende tanto como el producto')}
+      ${p('Fotos con buena iluminación, sin recortes ni watermarks invasivos, y una descripción clara de talle y material generan mucha más confianza de compra online que una foto de mala calidad — en este rubro particularmente, la percepción de calidad empieza en la foto.')}
+      ${h2('Combos y sets: la clave del ticket promedio')}
+      ${p('Vender conjunto de dos piezas en vez de piezas sueltas, o armar packs de 3 unidades con descuento por cantidad, es una de las formas más simples de subir el ticket promedio en este rubro.')}
+      ${h2('En resumen')}
+      ${ul([
+        'Cubrí una curva de talles completa, no solo los "promedio".',
+        'Priorizá materiales cómodos: mejoran la recompra.',
+        'Invertí en buenas fotos — la presentación es determinante en este rubro.',
+        'Los combos y sets de varias unidades suben el ticket promedio.',
+      ])}
+      ${p('Explorá el catálogo completo de <a href="/categorias/LENCERIA%20IMPORTADA">Lencería al por mayor</a>.')}
+    `,
+  },
 ]
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
