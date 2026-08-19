@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
-import { useCart, WHOLESALE_MIN } from '@/lib/CartContext'
+import { useCart } from '@/lib/CartContext'
 import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE, catalogoDe } from '@/lib/minimos'
 import { CATEGORIAS_DESCUENTO_10, DESCUENTO_10_MIN, catalogosConDescuento, precioUnitarioConDescuento } from '@/lib/descuentos'
 import { supabase } from '@/lib/supabase'
@@ -423,11 +423,6 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                       <span style={{ color: '#16A34A', fontSize: 12, fontWeight: 700 }}>🎉 10% OFF</span>
                       <span style={{ color: '#16A34A', fontWeight: 700, fontSize: 12 }}>-${descuentoTotal.toLocaleString('es-AR')}</span>
-                    </div>
-                  )}
-                  {!isWholesale && (
-                    <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: 8, padding: '7px 10px', marginBottom: 8, fontSize: 11, color: '#0369A1', lineHeight: 1.45 }}>
-                      ℹ️ El mínimo de compra es <strong>${WHOLESALE_MIN.toLocaleString('es-AR')}</strong> por catálogo. Seguí sumando productos para finalizar tu pedido.
                     </div>
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 6, borderTop: '1px solid #E5E7EB' }}>
