@@ -19,6 +19,7 @@ const ORDEN_CATEGORIAS = [
   'IMPORTADORA NC',
   'ACCESORIOS PARA MASCOTAS',
   'BIJOUTERIE',
+  'ACCESORIOS DE TRABAJO Y MAS',
   'IMPORTADORA NEXT',
   'CAMPING',
   'IMPORTADORA FAZZT',
@@ -133,6 +134,7 @@ export async function GET() {
     'IMPORTADORA NC':      '📦',
     'IMPORTADORA NEXT':    '📱',
     'BIJOUTERIE':          '💍',
+    'ACCESORIOS DE TRABAJO Y MAS': '🧰',
     'ACCESORIOS DE PELO':  '💇',
 
   'MIX POP':             '🎀',

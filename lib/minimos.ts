@@ -45,6 +45,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'BAZAR Y HOGAR': 'JUGUETES, PELUCHES Y MÁS',
   'ACCESORIOS PARA MASCOTAS': 'JUGUETES, PELUCHES Y MÁS',
   'BIJOUTERIE': 'JUGUETES, PELUCHES Y MÁS',
+  'ACCESORIOS DE TRABAJO Y MAS': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {
