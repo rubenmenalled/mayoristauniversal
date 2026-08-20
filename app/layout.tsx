@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Montserrat, Inter } from 'next/font/google'
+import { Montserrat, Inter, Fredoka } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/lib/CartContext'
@@ -25,6 +25,13 @@ const montserrat = Montserrat({
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const fredoka = Fredoka({
+  subsets: ['latin'],
+  variable: '--font-fredoka',
+  weight: ['500', '600', '700'],
   display: 'swap',
 })
 
@@ -127,7 +134,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${montserrat.variable} ${inter.variable}`}>
+    <html lang="es" className={`${montserrat.variable} ${inter.variable} ${fredoka.variable}`}>
       <body className="font-body antialiased">
         {/* Google Tag Manager (noscript) */}
         <noscript>
