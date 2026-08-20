@@ -25,7 +25,7 @@ const FOTOS: Record<string, string> = {
   LENCERIA:                'https://images.pexels.com/photos/6879815/pexels-photo-6879815.jpeg?w=800&h=600&fit=crop',
   RODADOS:                 'https://images.pexels.com/photos/9168370/pexels-photo-9168370.jpeg?w=800&h=600&fit=crop',
   'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
-  'BELLEZA Y PERFUMERIA WT': '/cat_perfumeria.jpg',
+  'PERFUMERIA Y BELLEZA': '/cat_perfumeria.jpg',
   HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
   COCINA:       'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=90',
   DEPORTES:     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=90',

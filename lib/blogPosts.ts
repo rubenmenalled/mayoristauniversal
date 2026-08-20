@@ -163,7 +163,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Qué tener en cuenta al comprar perfumería y productos de cuidado personal al por mayor: presentaciones, packs miniatura y cómo armar combos de regalo.',
     excerpt: 'Presentaciones grandes, miniaturas y combos de regalo: cómo armar un surtido de perfumería y skin care que convierta bien.',
     coverImage: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&q=80',
-    categoryLink: { nombre: 'BELLEZA Y PERFUMERIA WT', label: 'Ver catálogo de Belleza y Perfumería' },
+    categoryLink: { nombre: 'PERFUMERIA Y BELLEZA', label: 'Ver catálogo de Belleza y Perfumería' },
     publishedAt: '2026-08-18',
     content: `
       ${p('La perfumería y el cuidado personal (skin care) son de los rubros con más frecuencia de recompra: un cliente satisfecho vuelve a comprar el mismo producto cada 1-2 meses. Así armás un surtido que fideliza.')}
