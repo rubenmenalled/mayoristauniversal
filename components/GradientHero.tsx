@@ -185,22 +185,16 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
               así al scrollear el título se oculta detrás del header y no lo pisa */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-4"
             style={{ padding: 'clamp(20px, 4vw, 88px) 16px' }}>
-            <h1 id="hero-title" style={{
-              fontFamily: 'var(--font-fredoka), sans-serif',
-              fontWeight: 700, lineHeight: 1.05, margin: 0,
-              fontSize: 'clamp(34px, 6vw, 68px)', letterSpacing: '-0.01em',
-              backgroundImage: 'linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 55%, #FFE3D2 100%)',
-              WebkitBackgroundClip: 'text', backgroundClip: 'text',
-              WebkitTextFillColor: 'transparent', color: 'transparent',
-              textShadow: [
-                '1px 1px 0 #FFC79A', '2px 2px 0 #FFC79A',
-                '3px 3px 0 #FF9F5C', '4px 4px 0 #FF8A4A',
-                '5px 5px 0 #FF6A3D', '6px 6px 0 #F0562B',
-                '7px 7px 0 #D6461F',
-                '7px 9px 18px rgba(0,0,0,0.45)',
-              ].join(', '),
-            }}>
-              MAYORISTA UNIVERSAL
+            <h1 id="hero-title" style={{ margin: 0, lineHeight: 0 }}>
+              <img
+                src="/hero-title-3d.webp"
+                alt="Mayorista Universal"
+                style={{
+                  width: 'clamp(300px, 78vw, 1180px)',
+                  height: 'auto',
+                  filter: 'drop-shadow(0 10px 26px rgba(0,0,0,0.45))',
+                }}
+              />
             </h1>
             <p style={{
               color: 'rgba(255,255,255,0.94)', margin: '14px 0 0', fontWeight: 700,
