@@ -11,6 +11,7 @@ export default function WhatsAppChannelPopup() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+    if (window.innerWidth <= 768) return
     try { if (sessionStorage.getItem('wa_channel_seen')) return } catch {}
     let shown = false
     const show = () => { if (shown) return; shown = true; setTimeout(() => setOpen(true), 400) }
