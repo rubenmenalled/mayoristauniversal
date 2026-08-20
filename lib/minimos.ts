@@ -46,6 +46,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'ACCESORIOS DE TRABAJO Y MAS': 'JUGUETES, PELUCHES Y MÁS',
   'LENCERIA': 'JUGUETES, PELUCHES Y MÁS',
   'CAZA PESCA CAMPING Y MAS': 'JUGUETES, PELUCHES Y MÁS',
+  'IMPORTADORA HS': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {
