@@ -406,31 +406,6 @@ export const BLOG_POSTS: BlogPost[] = [
     `,
   },
   {
-    slug: 'productos-de-tendencias-virales-por-mayor-guia',
-    title: 'Productos de tendencias y virales por mayor: cómo aprovechar las modas antes de que pasen',
-    metaDescription: 'Guía para revendedores sobre cómo comprar productos de tendencias y virales al por mayor sin quedarte con stock cuando pase la moda.',
-    excerpt: 'Cómo subirte a un producto viral sin quedarte con stock cuando la moda pase: comprar poco y seguido, en vez de mucho y una sola vez.',
-    coverImage: 'https://images.unsplash.com/photo-1607082349566-187342175e2f?w=1200&q=80',
-    categoryLink: { nombre: 'TENDENCIAS', label: 'Ver catálogo de Tendencias' },
-    publishedAt: '2026-08-19',
-    content: `
-      ${p('Los productos de tendencia (los que están "sonando" en redes en un momento dado) pueden generar ventas explosivas en pocas semanas — pero también son los que más rápido pierden demanda. Así los aprovechás sin quemarte.')}
-      ${h2('Comprá poco y seguido, no mucho de una vez')}
-      ${p('La regla de oro de este rubro: pedidos chicos y frecuentes en vez de una compra grande. Si el producto sigue vendiendo, volvés a pedir; si la moda ya pasó, no te quedaste con stock parado.')}
-      ${h2('Mirá qué se mueve en redes, no solo en la calle')}
-      ${p('Muchas tendencias de producto arrancan en TikTok o Instagram antes de verse en la calle. Seguir de cerca qué productos empiezan a viralizarse te da ventaja de tiempo frente a quien espera verlo en otro local.')}
-      ${h2('Mezclá rubros: acá conviven juguetería, bazar y electrónica')}
-      ${p('Este catálogo no es un solo rubro — junta lo que está de moda sin importar la categoría (juguetes, gadgets, accesorios de bazar, cuidado personal). Es útil justamente para no perderse ningún producto viral, revises el rubro que revises.')}
-      ${h2('En resumen')}
-      ${ul([
-        'Comprá en pedidos chicos y seguidos, nunca todo de una vez.',
-        'Prestá atención a lo que se viraliza en redes antes de que llegue a la calle.',
-        'Es un catálogo multirubro pensado para no perderte ningún producto de moda.',
-      ])}
-      ${p('Explorá el catálogo completo de <a href="/categorias/TENDENCIAS">Tendencias al por mayor</a>.')}
-    `,
-  },
-  {
     slug: 'peluches-de-personajes-con-licencia-por-mayor',
     title: 'Peluches de personajes con licencia por mayor: cuáles nunca fallan',
     metaDescription: 'Qué personajes con licencia (Stitch, Pokémon, Sanrio, Avengers, Paw Patrol) tienen mejor rotación en peluches al por mayor y cómo armar el surtido.',
