@@ -20,6 +20,7 @@ const ORDEN_CATEGORIAS = [
   'ACCESORIOS PARA MASCOTAS',
   'BIJOUTERIE',
   'ACCESORIOS DE TRABAJO Y MAS',
+  'LENCERIA IMPORTADA',
   'IMPORTADORA NEXT',
   'CAMPING',
   'IMPORTADORA FAZZT',
@@ -35,7 +36,6 @@ const ORDEN_CATEGORIAS = [
   'IMPORTADORA HOME',
   'MIX POP',
   'LIBRERIA',
-  'LENCERIA IMPORTADA',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
