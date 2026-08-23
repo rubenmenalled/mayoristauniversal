@@ -179,7 +179,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
           {/* Oscurecido extra detrás del título, para que las letras blancas no se pierdan contra fotos claras */}
           <div aria-hidden="true" style={{
             position: 'absolute', inset: 0, pointerEvents: 'none',
-            background: 'radial-gradient(ellipse 66% 50% at 50% 38%, rgba(4,11,26,0.68), transparent 75%)',
+            background: 'radial-gradient(ellipse 96% 50% at 50% 38%, rgba(4,11,26,0.68), transparent 80%)',
           }} />
 
           {/* Brillos animados */}
