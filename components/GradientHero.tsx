@@ -176,6 +176,12 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
               'linear-gradient(180deg, rgba(11,30,63,0.62) 0%, rgba(11,30,63,0.52) 55%, rgba(11,30,63,0.68) 100%)',
           }} />
 
+          {/* Oscurecido extra detrás del título, para que las letras blancas no se pierdan contra fotos claras */}
+          <div aria-hidden="true" style={{
+            position: 'absolute', inset: 0, pointerEvents: 'none',
+            background: 'radial-gradient(ellipse 62% 46% at 50% 38%, rgba(6,16,36,0.5), transparent 72%)',
+          }} />
+
           {/* Brillos animados */}
           <div className="hero-blob a" aria-hidden="true" />
           <div className="hero-blob b" aria-hidden="true" />
@@ -192,7 +198,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
                 style={{
                   width: 'clamp(300px, 78vw, 1180px)',
                   height: 'auto',
-                  filter: 'drop-shadow(0 10px 26px rgba(0,0,0,0.45))',
+                  filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8)) drop-shadow(0 3px 6px rgba(0,0,0,0.6)) drop-shadow(0 10px 26px rgba(0,0,0,0.45))',
                 }}
               />
             </h1>
