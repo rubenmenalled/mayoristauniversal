@@ -32,8 +32,8 @@ const EVENTOS = [
     titulo: 'Día del Maestro',
     fecha: '11 sep',
     target: new Date(2026, 8, 11),
-    accent: '#F59E0B',
-    tint: 'linear-gradient(100deg, rgba(67,38,11,0.85) 0%, rgba(146,64,14,0.6) 55%, rgba(180,83,9,0.5) 100%)',
+    accent: '#2DD4BF',
+    tint: 'linear-gradient(100deg, rgba(8,51,49,0.85) 0%, rgba(13,94,85,0.6) 55%, rgba(20,140,120,0.5) 100%)',
     bounce: true,
   },
   {
