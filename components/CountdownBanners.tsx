@@ -26,6 +26,26 @@ const EVENTOS = [
     bigTitle: true,
     fireworks: true,
   },
+  {
+    key: 'maestro',
+    emoji: '🍎',
+    titulo: 'Día del Maestro',
+    fecha: '11 sep',
+    target: new Date(2026, 8, 11),
+    accent: '#F59E0B',
+    tint: 'linear-gradient(100deg, rgba(67,38,11,0.85) 0%, rgba(146,64,14,0.6) 55%, rgba(180,83,9,0.5) 100%)',
+    bounce: true,
+  },
+  {
+    key: 'madre',
+    emoji: '💐',
+    titulo: 'Día de la Madre',
+    fecha: '18 oct',
+    target: new Date(2026, 9, 18),
+    accent: '#EC4899',
+    tint: 'linear-gradient(100deg, rgba(76,12,50,0.85) 0%, rgba(157,23,102,0.55) 55%, rgba(219,39,119,0.45) 100%)',
+    bounce: true,
+  },
 ]
 
 // Posiciones de las explosiones de fuegos artificiales (%, %, color)
