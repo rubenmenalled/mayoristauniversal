@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, CreditCard, User } from 'lucide-react'
+import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, User } from 'lucide-react'
 import { useCart } from '@/lib/CartContext'
 import { minDeCatalogo, MIN_SUBCATEGORIA_OVERRIDE, catalogoDe } from '@/lib/minimos'
 import { CATEGORIAS_DESCUENTO_10, DESCUENTO_10_MIN, catalogosConDescuento, precioUnitarioConDescuento } from '@/lib/descuentos'
@@ -58,7 +58,6 @@ function buildWAMessage(items: ReturnType<typeof useCart>['items']): string {
 
 export default function CartSidebar({ open, onClose }: Props) {
   const { items, removeItem, updateQty, clearCart, isWholesale, displayTotal, wholesaleTotal, retailProgress, faltaMayorista, catalogosDescontados, descuentoTotal } = useCart()
-  const [mpLoading, setMpLoading] = useState(false)
   const [showTransfer, setShowTransfer] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   // "Datos al final": el formulario aparece recién cuando el cliente elige una forma de pago
@@ -212,36 +211,6 @@ export default function CartSidebar({ open, onClose }: Props) {
         }),
       })
     } catch { /* silencioso */ }
-  }
-
-  async function handleMercadoPago() {
-    if (!tieneDatos()) return
-    notificarPedidoIniciado('Mercado Pago')
-    setMpLoading(true)
-    try {
-      const res = await fetch('/api/mp-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, isWholesale }),
-      })
-      const data = await res.json()
-      if (data.init_point) {
-        // Guardar carrito para enviar email cuando vuelva de MP
-        localStorage.setItem('mp_pending_order', JSON.stringify({
-          items,
-          isWholesale,
-          total: Math.round(displayTotal * 1.10),
-          timestamp: Date.now(),
-        }))
-        window.location.href = data.init_point
-      } else {
-        alert('Error al iniciar el pago. Intentá de nuevo.')
-      }
-    } catch {
-      alert('Error al conectar con Mercado Pago.')
-    } finally {
-      setMpLoading(false)
-    }
   }
 
   return (
@@ -586,21 +555,6 @@ export default function CartSidebar({ open, onClose }: Props) {
                         </a>
                       </div>
                     )}
-
-                    {/* MP con +10% recargo */}
-                    <button
-                      onClick={handleMercadoPago}
-                      disabled={mpLoading || !alcanzaMin}
-                      style={{ width: '100%', padding: '8px 12px', borderRadius: 10, border: 'none', background: (mpLoading || !alcanzaMin) ? '#9CA3AF' : 'linear-gradient(135deg,#009EE3,#0070BA)', color: '#FFFFFF', fontWeight: 900, cursor: (mpLoading || !alcanzaMin) ? 'not-allowed' : 'pointer', opacity: alcanzaMin ? 1 : 0.6, boxShadow: '0 4px 14px rgba(0,158,227,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-                      <CreditCard size={16} />
-                      <div style={{ textAlign: 'left' }}>
-                        <div style={{ fontSize: 14, fontWeight: 900 }}>{mpLoading ? 'REDIRIGIENDO...' : 'PAGAR CON MERCADO PAGO'}</div>
-                        <div style={{ fontSize: 11, fontWeight: 600, opacity: 0.9 }}>
-                          ${Math.round(displayTotal * 1.10).toLocaleString('es-AR')} · +10% recargo tarjeta
-                        </div>
-                        <div style={{ fontSize: 10, opacity: 0.75, marginTop: 1 }}>Los precios no incluyen IVA</div>
-                      </div>
-                    </button>
 
                     {/* WA */}
                     <a
