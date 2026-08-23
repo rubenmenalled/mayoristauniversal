@@ -8,6 +8,8 @@ const OWNER_EMAIL = 'rubenmenalled@gmail.com'
 const OWNER_WHATSAPP = '541164660482'
 const SITE_NAME = 'Mayorista Universal'
 const NTFY_TOPIC = 'mayorista-ruben-pedidos-2024'
+const MP_ALIAS = 'ruby.mena.1972'
+const MP_TITULAR = 'Andres Ruben Menalled'
 
 export async function POST(request: NextRequest) {
   const { nombre, email, telefono, direccion, transporte, items: itemsRecibidos, total, user_id, metodoPago } = await request.json()
@@ -179,8 +181,9 @@ export async function POST(request: NextRequest) {
     <p style="color:#111827;font-size:15px;margin:0 0 14px 0;">Hola <strong>${nombre}</strong>, ¡gracias por tu compra!</p>
     <p style="color:#374151;font-size:14px;line-height:1.6;margin:0;">
       Ya recibimos tu pedido de <strong>${cantidadTotal} unidades</strong> por un total de
-      <strong style="color:#FF6A3D;">${totalFormato}</strong>. Lo vamos a revisar y te contactamos por
-      WhatsApp para coordinar el pago y el envío.
+      <strong style="color:#FF6A3D;">${totalFormato}</strong>. Para procesarlo, transferí el total al
+      alias <strong style="color:#009ee3;">${MP_ALIAS}</strong> (Titular: ${MP_TITULAR}) y mandanos el
+      comprobante por WhatsApp — en cuanto lo recibamos, coordinamos el envío.
     </p>
   </div>
 
@@ -331,7 +334,7 @@ export async function POST(request: NextRequest) {
         const msgCliente =
           `✅ *¡Recibimos tu pedido!*\n\n` +
           `Hola ${nombre}, ya nos llegó tu pedido de ${SITE_NAME} por *${totalFormato}* (${cantidadTotal} unidades).\n\n` +
-          `Lo estamos revisando y en breve te contactamos por acá mismo para coordinar el pago y el envío. ¡Gracias por tu compra! 🙌`
+          `Para procesarlo, transferí el total al alias *${MP_ALIAS}* (Titular: ${MP_TITULAR}) y mandanos el comprobante por acá mismo. En cuanto lo recibamos, coordinamos el envío. ¡Gracias por tu compra! 🙌`
         await fetch('https://api.fonnte.com/send', {
           method: 'POST',
           headers: { 'Authorization': FONNTE_TOKEN, 'Content-Type': 'application/json' },
