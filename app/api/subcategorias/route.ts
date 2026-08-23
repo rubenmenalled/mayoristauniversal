@@ -115,10 +115,6 @@ export async function GET(request: NextRequest) {
         'ACCESORIOS DE INVIERNO|hz invierno': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/monce/portada-hz-invierno.jpg',
         'PELUCHES|city land': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-cityland.jpg?v=1',
         'PELUCHES|peluches personajes': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/banner-personajes-toystory.jpg?v=2',
-        'TENDENCIAS|jugueteria': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
-        'JUGUETERIA|juguetes tendencias': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-jugueteria.jpg?v=1',
-        'TENDENCIAS|bazar': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-bazar.jpg?v=1',
-        'TENDENCIAS|cuidado personal': 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/categorias/sub-tend-cuidado.jpg?v=2',
       }
       const catKey = (categoria || '').toUpperCase()
 
@@ -129,13 +125,12 @@ export async function GET(request: NextRequest) {
         'NEXT +18': -10,
         'INFAC-TEC': -2,
         'PELUCHES POP': -1,
-        // TENDENCIAS: orden pedido
         'CUIDADO PERSONAL': -5,
         'ELECTRODOMESTICOS': -4,
         'VARIOS': 999,
-        // JUGUETERIA: JUGUETERIA KIKO primero, luego JAZMIN, RUBYLAND, TENDENCIAS
+        // JUGUETERIA: JUGUETERIA KIKO primero, luego JAZMIN, RUBYLAND
         'JUGUETERIA KIKO': -6,
-        'JUGUETES JAZMIN': -5, 'JUGUETES RUBYLAND': -4, 'JUGUETES TENDENCIAS': -3,
+        'JUGUETES JAZMIN': -5, 'JUGUETES RUBYLAND': -4,
         'PELUCHES ALIMENTOS': 0,
         'MEDIANOS LISOS': 1, 'PELUCHES CHICOS Y MEDIANOS': 2, 'SONAJEROS': 3, 'PELUCHES X Y MAS': 4,
         'PELUCHES SURTIDOS MARCA BUBBLE': 5, 'PELUCHES ENAMORADOS': 6, 'ALMOHADAS': 7, 'MUÑECAS': 8, 'MARINOS': 9,
