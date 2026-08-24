@@ -8,15 +8,15 @@ const COLLAGE = [
   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/simtoys/28021.jpg', // jugueteria
   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/woody_910311.jpg', // bebé
   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/wowbeauty_vl8901-128.jpg', // perfumeria y belleza
-  'https://paraisopeluches.com.ar/wp-content/uploads/2026/08/0468.jpg', // peluches
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/bella/154.webp', // bazar y hogar
+  'https://paraisopeluches.com.ar/wp-content/uploads/2026/08/0998.jpg', // peluches
+  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/mixpop/wp_lx252002.jpg', // bazar y hogar
   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/toba_aug19_206.jpg', // bijouterie
   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/woody_P19454.jpg', // mascotas
   'https://dcdn-us.mitiendanube.com/stores/004/819/160/products/11354-723ce77ae6028d4f4117528554052189-480-0.webp', // deporte
-  'https://bunny-cdn.ventasxmayor.com/public/46865583630783754/1778956183783-screenshot20260509124331.jpg', // kikland
+  'https://bunny-cdn.ventasxmayor.com/public/46865583630783754/1725740922682-img20240901191000.jpg', // kikland
   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/hs_HS-11243.jpg', // importadora hs
   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/woody_62652.jpg', // enamorados
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/aura_2411.jpg', // lenceria
+  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/honmore/HONMORE_8047.jpg', // lenceria
 ]
 
 // Cuenta de 0 al objetivo con easing (efecto "reloj digital"). Arranca cuando start=true.
