@@ -3,8 +3,6 @@
 export const MIN_CATALOGO_DEFAULT = 150000
 export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'IMPORTADORA FAZZT': 200000,
-  'CAMPING': 200000,
-  'TODO PARA EL DEPORTE': 200000,
   'IMPORTADORA MCJ': 150000,
   'IMPORTADORA TOYS.AR': 200000,
   'IMPORTADORA ELEMENTOS': 200000,
@@ -13,14 +11,16 @@ export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   'IMPORTADORA TREN': 200000,
   'IMPORTADORA HOME': 200000,
   // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND,
-  // PERFUMERIA Y BELLEZA, MIX POP, LIBRERIA y BAZAR Y HOGAR ya NO tienen entrada
+  // PERFUMERIA Y BELLEZA, MIX POP, LIBRERIA, BAZAR Y HOGAR, CAMPING,
+  // PRODUCTOS REGIONALES y TODO PARA EL DEPORTE ya NO tienen entrada
   // individual acá — comparten el mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE.
   'JUGUETES, PELUCHES Y MÁS': 150000,
 }
 
 // Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
+// INDIO MOHI (única subcategoría de PRODUCTOS REGIONALES) ya NO tiene entrada acá —
+// comparte el mínimo del grupo vía CATEGORIA_GRUPO_OVERRIDE (25/8).
 export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
-  'INDIO MOHI': 200000,
 }
 
 // Categorías que comparten UN SOLO mínimo de compra entre todas (2026-07-14, a pedido
@@ -48,6 +48,9 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'CAZA PESCA CAMPING Y MAS': 'JUGUETES, PELUCHES Y MÁS',
   'IMPORTADORA HS': 'JUGUETES, PELUCHES Y MÁS',
   'FLORERIA ARTIFICIAL': 'JUGUETES, PELUCHES Y MÁS',
+  'CAMPING': 'JUGUETES, PELUCHES Y MÁS',
+  'PRODUCTOS REGIONALES': 'JUGUETES, PELUCHES Y MÁS',
+  'TODO PARA EL DEPORTE': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {
