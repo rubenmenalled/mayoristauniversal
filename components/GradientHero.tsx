@@ -3,20 +3,19 @@
 import { useState, useEffect, useRef } from 'react'
 import { TextReveal } from '@/components/ui/cascade-text'
 
-// Mosaico de rubros — fotos reales del catálogo (una por rubro), elegidas por brillo
 const COLLAGE = [
-  'https://paraisopeluches.com.ar/wp-content/uploads/2025/09/29_11158_851641_9.jpg', // jugueteria
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/woody_910311.jpg', // bebé
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/wowbeauty_vl8901-128.jpg', // perfumeria y belleza
-  'https://paraisopeluches.com.ar/wp-content/uploads/2026/08/0998.jpg', // peluches
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/mixpop/wp_lx252002.jpg', // bazar y hogar
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/toba_aug19_206.jpg', // bijouterie
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/woody_P19454.jpg', // mascotas
-  'https://dcdn-us.mitiendanube.com/stores/004/819/160/products/11354-723ce77ae6028d4f4117528554052189-480-0.webp', // deporte
-  'https://bunny-cdn.ventasxmayor.com/public/46865583630783754/1725740922682-img20240901191000.jpg', // kikland
-  'https://paraisopeluches.com.ar/wp-content/uploads/2025/12/A3114.jpeg', // mochila unicornio
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/woody_62652.jpg', // enamorados
-  'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/honmore/HONMORE_8047.jpg', // lenceria
+  'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&q=70', // jugueteria
+  'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&q=70', // bebé
+  'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&q=70', // cotillon
+  'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=70', // belleza
+  'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=70', // ropa
+  'https://www.juguetemayor.com/upload/goods/20201124/20201124020148_0.jpg', // peluche stitch
+  'https://images.pexels.com/photos/6879815/pexels-photo-6879815.jpeg?w=400&h=400&fit=crop', // lenceria
+  'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&q=70', // cocina
+  'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=400&q=70', // relojes
+  'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=70', // bijouterie
+  'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&q=70', // mascotas
+  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=70', // electronica
 ]
 
 // Cuenta de 0 al objetivo con easing (efecto "reloj digital"). Arranca cuando start=true.
@@ -191,16 +190,12 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
               así al scrollear el título se oculta detrás del header y no lo pisa */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-4"
             style={{ padding: 'clamp(20px, 4vw, 88px) 16px' }}>
-            <h1 id="hero-title" style={{ margin: 0, lineHeight: 0 }}>
-              <img
-                src="/hero-title-3d.webp"
-                alt="Mayorista Universal"
-                style={{
-                  width: 'clamp(300px, 78vw, 1180px)',
-                  height: 'auto',
-                  filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.9)) drop-shadow(0 2px 5px rgba(0,0,0,0.8)) drop-shadow(0 4px 9px rgba(0,0,0,0.6)) drop-shadow(0 10px 26px rgba(0,0,0,0.45))',
-                }}
-              />
+            <h1 id="hero-title" style={{
+              color: '#FFFFFF', fontWeight: 900, lineHeight: 1.05, margin: 0,
+              fontSize: 'clamp(34px, 6vw, 68px)', letterSpacing: '-0.02em',
+              textShadow: '0 4px 30px rgba(0,0,0,0.55)',
+            }}>
+              MAYORISTA UNIVERSAL
             </h1>
             <p style={{
               color: 'rgba(255,255,255,0.94)', margin: '14px 0 0', fontWeight: 700,
