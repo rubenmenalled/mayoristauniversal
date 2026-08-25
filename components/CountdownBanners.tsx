@@ -97,10 +97,10 @@ export default function CountdownBanners() {
   return (
     <section style={{ background: '#0D2C54', padding: '16px 14px 4px' }}>
       <style>{`
-        .cd-wrap { max-width: 760px; margin: 0 auto; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .cd-wrap { max-width: 960px; margin: 0 auto; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
         .cd-pill {
           position: relative; overflow: hidden;
-          flex: 1 1 0; min-width: 230px; max-width: 420px;
+          flex: 1 1 0; min-width: 270px; max-width: 420px;
           display: flex; align-items: center; gap: 12px;
           padding: 12px 16px; border-radius: 16px;
           border: 1px solid rgba(255,255,255,0.14);
@@ -157,17 +157,17 @@ export default function CountdownBanners() {
               {/* Contenido */}
               <span className={`cd-emoji${(e as any).bounce ? ' cd-bounce' : ''}`} style={{ position: 'relative', zIndex: 2 }}>{e.emoji}</span>
 
-              <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span className="cd-dot" style={{ background: e.accent, boxShadow: `0 0 8px ${e.accent}` }} />
-                  <span style={{ color: '#fff', fontWeight: 900, fontSize: (e as any).bigTitle ? 25 : 15.5, whiteSpace: 'nowrap', textShadow: (e as any).bigTitle ? '0 0 10px rgba(251,191,36,0.6), 0 1px 4px rgba(0,0,0,.7)' : '0 1px 4px rgba(0,0,0,.6)', letterSpacing: 0.2 }}>{e.titulo}</span>
+              <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1, overflow: 'hidden' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
+                  <span className="cd-dot" style={{ background: e.accent, boxShadow: `0 0 8px ${e.accent}`, flexShrink: 0 }} />
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: (e as any).bigTitle ? 25 : 15.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textShadow: (e as any).bigTitle ? '0 0 10px rgba(251,191,36,0.6), 0 1px 4px rgba(0,0,0,.7)' : '0 1px 4px rgba(0,0,0,.6)', letterSpacing: 0.2 }}>{e.titulo}</span>
                 </div>
-                <span style={{ color: 'rgba(255,255,255,0.78)', fontSize: 11.5, fontWeight: 500, marginTop: 2, textShadow: '0 1px 2px rgba(0,0,0,.5)' }}>
+                <span style={{ color: 'rgba(255,255,255,0.78)', fontSize: 11.5, fontWeight: 500, marginTop: 2, textShadow: '0 1px 2px rgba(0,0,0,.5)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {e.fecha} · armá tu pedido
                 </span>
               </div>
 
-              <div style={{ position: 'relative', zIndex: 2, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: 1 }}>
+              <div style={{ position: 'relative', zIndex: 2, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: 1, flexShrink: 0 }}>
                 {n === 0 ? (
                   <span className="cd-num" style={{ color: '#fff', fontSize: 24 }}>¡HOY!</span>
                 ) : (
