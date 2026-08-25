@@ -46,6 +46,16 @@ const EVENTOS = [
     tint: 'linear-gradient(100deg, rgba(76,12,50,0.85) 0%, rgba(157,23,102,0.55) 55%, rgba(219,39,119,0.45) 100%)',
     bounce: true,
   },
+  {
+    key: 'halloween',
+    emoji: '🎃',
+    titulo: 'Halloween',
+    fecha: '31 oct',
+    target: new Date(2026, 9, 31),
+    accent: '#F97316',
+    tint: 'linear-gradient(100deg, rgba(35,10,54,0.88) 0%, rgba(88,28,135,0.55) 55%, rgba(234,88,12,0.5) 100%)',
+    bounce: true,
+  },
 ]
 
 // Posiciones de las explosiones de fuegos artificiales (%, %, color)
