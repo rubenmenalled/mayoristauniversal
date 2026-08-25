@@ -106,7 +106,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
         }
         #hero-collage > span {
           background-size: cover; background-position: center;
-          filter: brightness(1.3) saturate(1.1);
+          filter: brightness(1.5) saturate(1.1);
         }
         .hero-blob {
           position: absolute; border-radius: 50%;
@@ -172,7 +172,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
             background:
               'radial-gradient(circle at 28% 30%, rgba(255,106,61,0.16), transparent 45%),' +
               'radial-gradient(circle at 78% 72%, rgba(13,71,161,0.22), transparent 50%),' +
-              'linear-gradient(180deg, rgba(11,30,63,0.50) 0%, rgba(11,30,63,0.40) 55%, rgba(11,30,63,0.56) 100%)',
+              'linear-gradient(180deg, rgba(11,30,63,0.40) 0%, rgba(11,30,63,0.30) 55%, rgba(11,30,63,0.46) 100%)',
           }} />
 
           {/* Oscurecido extra detrás del título, para que las letras blancas no se pierdan contra fotos claras */}
