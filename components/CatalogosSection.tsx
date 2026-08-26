@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { minDeCatalogo, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
-import { WavyBackground } from '@/components/ui/wavy-background'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -403,18 +402,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
             padding: 'clamp(14px, 2vw, 20px)',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 32, flexShrink: 0, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' }}>🔗</span>
-              <div>
-                <div style={{
-                  color: '#FFD13C', fontWeight: 900, fontSize: 'clamp(18px, 2.6vw, 24px)',
-                  textTransform: 'uppercase', letterSpacing: '0.03em',
-                  textShadow: '0 2px 6px rgba(0,0,0,0.45)',
-                }}>
-                  Podés combinar en estas primeras {grupo.length} categorías con mínimo de compra de ${minDeCatalogo(catalogoDe(grupo[0].name)).toLocaleString('es-AR')}
-                </div>
-              </div>
-            </div>
             <div className="cat-grid" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
@@ -425,25 +412,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </div>
         )}
 
-        {/* Grid del resto de las categorías */}
-        {grupo.length > 0 && resto.length > 0 && (
-          <WavyBackground
-            containerClassName="rounded-xl mb-4"
-            backgroundFill="#1a0000"
-            colors={['#FF3D3D', '#FF6363', '#E00000', '#FF2222', '#B71C1C']}
-            blur={8}
-            speed="slow"
-            waveOpacity={0.6}
-            style={{ borderRadius: 12, padding: '20px 18px', minHeight: 78, boxShadow: '0 4px 16px rgba(200,20,20,0.3)' }}
-          >
-            <div style={{
-              color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px, 1.8vw, 18px)',
-              textTransform: 'uppercase', letterSpacing: '0.03em', textShadow: '0 2px 8px rgba(0,0,0,0.5)',
-            }}>
-              Desde aquí para abajo cada categoría tiene su mínimo de compra
-            </div>
-          </WavyBackground>
-        )}
         <div className="cat-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',

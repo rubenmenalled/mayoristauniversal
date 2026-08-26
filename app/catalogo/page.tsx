@@ -237,39 +237,12 @@ export default function CatalogoPage() {
                 background: 'linear-gradient(180deg, rgba(255,209,60,0.10) 0%, rgba(255,209,60,0.02) 100%)',
                 padding: 'clamp(14px, 2vw, 20px)',
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: 24, flexShrink: 0 }}>🔗</span>
-                  <div>
-                    <div style={{
-                      color: '#B8860B', fontWeight: 900, fontSize: 'clamp(14px, 1.8vw, 17px)',
-                      textTransform: 'uppercase', letterSpacing: '0.04em',
-                    }}>
-                      Podés combinar en estas primeras {grupo.length} categorías con mínimo de compra de ${minDeCatalogo(catalogoDe(grupo[0].nombre || grupo[0].name || '')).toLocaleString('es-AR')}
-                    </div>
-                  </div>
-                </div>
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
                   gap: 16,
                 }}>
                   {grupo.map((c, i) => renderCard(c, i, true))}
-                </div>
-              </div>
-            )}
-            {grupo.length > 0 && resto.length > 0 && (
-              <div style={{
-                background: 'linear-gradient(135deg,#FF3D3D,#B71C1C)',
-                borderRadius: 12,
-                padding: '18px 18px',
-                marginBottom: 16,
-                boxShadow: '0 4px 16px rgba(200,20,20,0.3)',
-              }}>
-                <div style={{
-                  color: '#FFFFFF', fontWeight: 900, fontSize: 'clamp(15px, 1.8vw, 18px)',
-                  textTransform: 'uppercase', letterSpacing: '0.03em',
-                }}>
-                  Desde aquí para abajo cada categoría tiene su mínimo de compra
                 </div>
               </div>
             )}

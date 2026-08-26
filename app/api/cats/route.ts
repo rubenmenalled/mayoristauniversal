@@ -23,19 +23,10 @@ const ORDEN_CATEGORIAS = [
   'LENCERIA',
   'CAZA PESCA CAMPING Y MAS',
   'IMPORTADORA HS',
-  'IMPORTADORA NEXT',
   'CAMPING',
-  'IMPORTADORA FAZZT',
   'PRODUCTOS REGIONALES',
   'TODO PARA EL DEPORTE',
   'BAZAR Y HOGAR',
-  'IMPORTADORA MCJ',
-  'IMPORTADORA TOYS.AR',
-  'IMPORTADORA ELEMENTOS',
-  'IMPORTADORA MAX',
-  'IMPORTADORA COMEX',
-  'IMPORTADORA TREN',
-  'IMPORTADORA HOME',
   'MIX POP',
   'LIBRERIA',
 ]
@@ -65,7 +56,6 @@ const FOTOS: Record<string, string> = {
   'PERFUMERIA Y BELLEZA': '/cat_perfumeria.jpg',
   'IMPORTADORA DAG':     'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
   'IMPORTADORA NC':      'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
-  'IMPORTADORA NEXT':    'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
   'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
 
@@ -137,19 +127,11 @@ export async function GET() {
     'PERFUMERIA Y BELLEZA': '🌸',
     'IMPORTADORA DAG':     '📦',
     'IMPORTADORA NC':      '📦',
-    'IMPORTADORA NEXT':    '📱',
     'BIJOUTERIE':          '💍',
     'ACCESORIOS DE TRABAJO Y MAS': '🧰',
     'ACCESORIOS DE PELO':  '💇',
 
   'MIX POP':             '🎀',
-  'IMPORTADORA MCJ':     '📦',
-  'IMPORTADORA TOYS.AR': '🧸',
-  'IMPORTADORA ELEMENTOS': '🏺',
-  'IMPORTADORA MAX': '📦',
-  'IMPORTADORA COMEX': '🎉',
-  'IMPORTADORA TREN': '🏠',
-  'IMPORTADORA HOME':    '🏠',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
