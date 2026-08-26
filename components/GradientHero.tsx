@@ -240,9 +240,9 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
               ))}
               <div style={{
                 display: 'flex', alignItems: 'center', color: 'rgba(255,255,255,0.92)',
-                fontSize: 'clamp(11px,1.6vw,13px)', fontWeight: 700, padding: '0 6px',
+                fontSize: 'clamp(13px,1.9vw,16px)', fontWeight: 700, padding: '0 6px',
                 textShadow: '0 2px 8px rgba(0,0,0,0.5)',
-              }}>🆕 nuevos cada semana</div>
+              }}>🆕 nuevos artículos cada semana</div>
             </div>
           </div>
         </div>
