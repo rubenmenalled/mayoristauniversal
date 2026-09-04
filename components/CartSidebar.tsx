@@ -360,10 +360,14 @@ export default function CartSidebar({ open, onClose }: Props) {
                             ? `🔥 ¡Ya casi! Te faltan solo $${g.falta.toLocaleString('es-AR')}`
                             : `⚠️ Te faltan $${g.falta.toLocaleString('es-AR')}`)}
                     </div>
-                    {!g.ok && (
-                      <a href={esGrupoCompartido ? '/#catalogos' : `/categorias/${encodeURIComponent(g.navCat)}`}
+                    {/* Cuando es el grupo compartido no hace falta un botón acá — ya hay un
+                        "Seguir comprando" único más abajo. Solo tiene sentido un botón propio
+                        cuando el catálogo tiene mínimo separado de verdad (caso hoy inexistente,
+                        pero se deja el fallback por si vuelve a haber uno). */}
+                    {!g.ok && !esGrupoCompartido && (
+                      <a href={`/categorias/${encodeURIComponent(g.navCat)}`}
                         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 8, padding: '9px 12px', borderRadius: 9, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 12.5, textDecoration: 'none', boxShadow: '0 2px 8px rgba(255,106,61,0.3)' }}>
-                        {esGrupoCompartido ? '+ Seguir agregando productos →' : `+ Sumá más de ${g.cat} →`}
+                        + Sumá más de {g.cat} →
                       </a>
                     )}
                     {/* 10% OFF automático al llegar a $500.000 en catálogos elegibles */}
@@ -594,11 +598,6 @@ export default function CartSidebar({ open, onClose }: Props) {
                     <div style={{ fontSize: 11.5, color: '#6B7280', textAlign: 'center', lineHeight: 1.45 }}>
                       ¿No llegás al mínimo? Escribinos con lo que tenés en el carrito y te ayudamos a completar tu pedido.
                     </div>
-                    <button
-                      onClick={onClose}
-                      style={{ width: '100%', padding: '12px', borderRadius: 12, border: '1.5px solid #FF6A3D', background: 'transparent', color: '#FF6A3D', fontWeight: 900, fontSize: 14, cursor: 'pointer' }}>
-                      + SEGUIR AGREGANDO PRODUCTOS
-                    </button>
                   </div>
                 )}
                 <button onClick={clearCart}
