@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import { ShoppingCart, Search } from 'lucide-react'
 import { minDeCatalogo, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
@@ -217,6 +217,24 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
     fetchProductos(next)
   }
 
+  // Scroll infinito: cuando el sentinel de abajo entra en pantalla, carga la
+  // página siguiente sola, sin botón "Cargar más".
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const loadingRef = useRef(loading)
+  useEffect(() => { loadingRef.current = loading }, [loading])
+
+  const hasMore = selected.size === 0 ? productos.length < totalCount : true
+  useEffect(() => {
+    const el = sentinelRef.current
+    if (!el || !hasMore) return
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !loadingRef.current) cargarMas()
+    }, { rootMargin: '600px' })
+    observer.observe(el)
+    return () => observer.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productos.length, totalCount, selected, hasMore])
+
   const productosFiltrados = useMemo(() => {
     let arr = productos
     const min = parseInt(precioMin, 10)
@@ -408,16 +426,10 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
               <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)', padding: 24, fontSize: 13 }}>Cargando...</div>
             )}
 
-            {!loading && (selected.size === 0 ? productos.length < totalCount : true) && productosFiltrados.length > 0 && (
-              <div style={{ textAlign: 'center', marginTop: 20 }}>
-                <button onClick={cargarMas} style={{
-                  background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,106,61,0.4)',
-                  color: '#FFFFFF', fontWeight: 800, fontSize: 12.5, padding: '10px 24px',
-                  borderRadius: 99, cursor: 'pointer',
-                }}>
-                  Cargar más productos
-                </button>
-              </div>
+            {/* Sentinel invisible: al entrar en pantalla dispara la carga de la
+                próxima tanda sola (scroll infinito, sin botón). */}
+            {hasMore && productosFiltrados.length > 0 && (
+              <div ref={sentinelRef} style={{ height: 1 }} />
             )}
           </div>
         </div>
