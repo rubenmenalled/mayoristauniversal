@@ -286,13 +286,21 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
             padding: 'clamp(10px, 1.6vw, 16px)',
           }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
+              gap: '2px 12px',
+            }}>
               {grupo.map(cat => renderCard(cat, true))}
             </div>
           </div>
         )}
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
+          gap: '2px 12px',
+        }}>
           {resto.map(cat => renderCard(cat))}
         </div>
       </div>
