@@ -32,7 +32,26 @@ interface Producto {
 }
 
 const PAGE_SIZE = 60
-const SIDEBAR_PREVIEW = 10
+const MIX_CATS = ['JUGUETERIA', 'PELUCHES']
+
+function interleave(arrays: Producto[][]): Producto[] {
+  const seen = new Set<number>()
+  const result: Producto[] = []
+  let i = 0
+  let any = true
+  while (any) {
+    any = false
+    for (const arr of arrays) {
+      if (i < arr.length) {
+        any = true
+        const p = arr[i]
+        if (p && !seen.has(p.id)) { seen.add(p.id); result.push(p) }
+      }
+    }
+    i++
+  }
+  return result
+}
 
 function ProductoCard({ p, onAdd }: { p: Producto; onAdd: (p: Producto) => void }) {
   const cat = (p.category ?? '').toUpperCase()
@@ -113,7 +132,6 @@ function ProductoCard({ p, onAdd }: { p: Producto; onAdd: (p: Producto) => void 
 export default function CatalogosSection({ categorias }: { categorias?: Categoria[] }) {
   const [modalOpen, setModalOpen] = useState(false)
   const [selected, setSelected] = useState<Set<string>>(new Set())
-  const [verMasCats, setVerMasCats] = useState(false)
   const [precioMin, setPrecioMin] = useState('')
   const [precioMax, setPrecioMax] = useState('')
   const [orden, setOrden] = useState<'recientes' | 'menor' | 'mayor'>('recientes')
@@ -137,7 +155,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
   const PROXIMAMENTE = new Set(['RODADOS'])
   const catsReales = unicas.filter(c => !PROXIMAMENTE.has(c.name.toUpperCase()))
-  const catsMostradas = verMasCats ? catsReales : catsReales.slice(0, SIDEBAR_PREVIEW)
 
   const toggleCat = (nombre: string) => {
     setSelected(prev => {
@@ -149,15 +166,23 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
     setPage(0)
   }
 
-  const fetchProductos = useCallback(async (pageToFetch: number, replace: boolean) => {
+  const fetchProductos = useCallback(async (pageToFetch: number) => {
     setLoading(true)
     try {
       if (selected.size === 0) {
-        const res = await fetch(`/api/productos-publicos?page=${pageToFetch}`)
-        const data: Producto[] = await res.json()
-        const total = parseInt(res.headers.get('X-Total-Count') || '0', 10)
-        setTotalCount(total)
-        setProductos(prev => replace ? data : [...prev, ...data])
+        // Mezcla para la pantalla principal: juguetes + peluches con más peso,
+        // más una porción general (todas las categorías) para variedad.
+        const limitFoco = (pageToFetch + 1) * 20
+        const [jugData, pelData, genRes] = await Promise.all([
+          fetch(`/api/productos-publicos?categoria=${encodeURIComponent(MIX_CATS[0])}&limit=${limitFoco}`).then(r => r.json()).catch(() => [] as Producto[]),
+          fetch(`/api/productos-publicos?categoria=${encodeURIComponent(MIX_CATS[1])}&limit=${limitFoco}`).then(r => r.json()).catch(() => [] as Producto[]),
+          fetch(`/api/productos-publicos?page=${pageToFetch}`).then(async r => ({
+            data: await r.json() as Producto[],
+            total: parseInt(r.headers.get('X-Total-Count') || '0', 10),
+          })).catch(() => ({ data: [] as Producto[], total: 0 })),
+        ])
+        setTotalCount(genRes.total)
+        setProductos(interleave([jugData, pelData, genRes.data]))
       } else {
         const limit = (pageToFetch + 1) * PAGE_SIZE
         const results = await Promise.all(
@@ -182,14 +207,14 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
   useEffect(() => {
     setPage(0)
-    fetchProductos(0, true)
+    fetchProductos(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
 
   const cargarMas = () => {
     const next = page + 1
     setPage(next)
-    fetchProductos(next, selected.size === 0)
+    fetchProductos(next)
   }
 
   const productosFiltrados = useMemo(() => {
@@ -297,8 +322,8 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 13, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 12 }}>
               Filtrar por categoría
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12 }}>
-              {catsMostradas.map(cat => {
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12, maxHeight: 480, overflowY: 'auto' }}>
+              {catsReales.map(cat => {
                 const nombre = cat.name
                 const esGrupo = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
                 const min = minDeCatalogo(catalogoDe(nombre))
@@ -323,15 +348,6 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 )
               })}
             </div>
-            {catsReales.length > SIDEBAR_PREVIEW && (
-              <button onClick={() => setVerMasCats(v => !v)} style={{
-                background: 'none', border: 'none', color: '#FF6A3D', fontWeight: 800,
-                fontSize: 11.5, cursor: 'pointer', padding: '4px 6px', marginBottom: 14,
-              }}>
-                {verMasCats ? '− Mostrar menos' : `+ ${catsReales.length - SIDEBAR_PREVIEW} más`}
-              </button>
-            )}
-
             <div style={{ borderTop: '1px solid #EEE', paddingTop: 14, marginTop: 2 }}>
               <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 12, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 8 }}>
                 Precio
@@ -365,7 +381,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 background: '#FFFFFF', border: 'none', borderRadius: 8, padding: '6px 10px',
                 fontSize: 12, fontWeight: 700, color: '#1a1a2e', cursor: 'pointer',
               }}>
-                <option value="recientes">Más recientes</option>
+                <option value="recientes">{selected.size === 0 ? 'Mezcla del catálogo' : 'Más recientes'}</option>
                 <option value="menor">Precio: menor a mayor</option>
                 <option value="mayor">Precio: mayor a menor</option>
               </select>
