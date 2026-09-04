@@ -383,7 +383,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Qué productos de skin care (mascarillas, sérums, limpieza facial) tienen más demanda al por mayor en Argentina y cómo armar rutinas completas para vender en combo.',
     excerpt: 'Mascarillas, sérums y limpieza facial: cómo armar un surtido de skin care ordenado por rutina, la categoría de belleza que más creció en los últimos años.',
     coverImage: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&q=80',
-    categoryLink: { nombre: 'SALUD Y BIENESTAR', label: 'Ver catálogo de Salud y Bienestar' },
+    categoryLink: { nombre: 'PERFUMERIA Y BELLEZA', label: 'Ver catálogo de Perfumería y Belleza' },
     publishedAt: '2026-08-19',
     content: `
       ${p('El skin care es hoy uno de los rubros de belleza con más crecimiento en Argentina, impulsado por tendencias de cuidado de la piel en redes sociales. A diferencia de la perfumería, acá se vende siguiendo una lógica de "rutina", no de producto suelto.')}
