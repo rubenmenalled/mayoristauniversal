@@ -252,13 +252,14 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           .envios-hide-mobile { display: inline; }
           .envios-mp { display: flex; }
           .cat-check-row:hover { background: rgba(255,106,61,0.08) !important; }
+          .cat-layout { align-items: flex-start; }
           .cat-sidebar { flex: 0 0 250px; }
-          .cat-main { flex: 1; min-width: 0; }
+          .cat-main { flex: 1; min-width: 0; width: 100%; }
           @media (max-width: 780px) {
             .envios-hide-mobile { display: none; }
             .envios-mp { display: none; }
-            .cat-layout { flex-direction: column !important; }
-            .cat-sidebar { flex: 1 1 auto !important; }
+            .cat-layout { flex-direction: column !important; align-items: stretch !important; }
+            .cat-sidebar { flex: 1 1 auto !important; width: 100%; }
           }
         `}} />
 
@@ -312,7 +313,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </a>
         </div>
 
-        <div className="cat-layout" style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+        <div className="cat-layout" style={{ display: 'flex', gap: 20 }}>
 
           {/* Sidebar de filtros */}
           <aside className="cat-sidebar" style={{
