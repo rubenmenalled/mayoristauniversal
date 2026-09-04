@@ -61,19 +61,19 @@ const KEYFRAMES = `
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.cat-glow-wrap {
-  transition: transform 0.25s ease !important;
+.cat-row {
+  transition: background 0.15s ease !important;
   cursor: pointer;
 }
-.cat-glow-wrap:hover {
-  transform: translateY(-4px);
+.cat-row:hover {
+  background: rgba(255,106,61,0.08) !important;
 }
-.cat-thumb {
-  transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
+.cat-row:hover .cat-chev {
+  transform: translateX(2px);
+  color: #FF6A3D !important;
 }
-.cat-glow-wrap:hover .cat-thumb {
-  box-shadow: 0 2px 6px rgba(0,0,0,0.18), 0 16px 32px rgba(0,0,0,0.28) !important;
-  border-color: rgba(255,106,61,0.55) !important;
+.cat-chev {
+  transition: transform 0.15s ease, color 0.15s ease;
 }
 `
 
@@ -89,23 +89,18 @@ function SkeletonGrid() {
           backgroundSize: '800px 100%',
           animation: 'shimmer 1.6s infinite linear',
         }} />
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 150px), 1fr))',
-          gap: 18,
-        }}>
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {Array.from({ length: 10 }).map((_, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 4px' }}>
               <div style={{
-                aspectRatio: '1 / 1',
-                borderRadius: 14,
+                width: 50, height: 50, borderRadius: 10, flexShrink: 0,
                 background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
                 backgroundSize: '800px 100%',
                 animation: 'shimmer 1.6s infinite linear',
                 animationDelay: `${i * 0.08}s`,
               }} />
               <div style={{
-                height: 12, width: '70%', marginTop: 10, borderRadius: 4,
+                height: 12, width: '40%', borderRadius: 4,
                 background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
                 backgroundSize: '800px 100%',
                 animation: 'shimmer 1.6s infinite linear',
@@ -155,74 +150,63 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
       <div
         key={cat.id}
         onClick={() => router.push(`/categorias/${encodeURIComponent(cat.name)}`)}
-        className="cat-glow-wrap"
+        className="cat-row"
+        style={{
+          display: 'flex', alignItems: 'center', gap: 14,
+          padding: '10px 8px', borderRadius: 10,
+        }}
       >
-        <div
-          className="cat-thumb"
-          style={{
-            position: 'relative',
-            aspectRatio: '1 / 1',
-            borderRadius: 14,
-            overflow: 'hidden',
-            background: '#F0F0F0',
-            boxShadow: '0 1px 2px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.20)',
-            border: '1px solid rgba(255,255,255,0.08)',
-          }}
-        >
+        <div style={{
+          position: 'relative', width: 50, height: 50, flexShrink: 0,
+          borderRadius: 10, overflow: 'hidden', background: '#F0F0F0',
+          border: '1px solid rgba(255,255,255,0.1)',
+        }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR']}
             alt={cat.name}
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
+        </div>
 
-          {esProximamente && (
-            <div style={{
-              position: 'absolute', top: 8, left: 8, right: 8,
-              display: 'flex', justifyContent: 'center',
-            }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 7,
+            color: '#FFFFFF', fontWeight: 800, fontSize: 14.5,
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+          }}>
+            <span style={{ fontSize: 16, flexShrink: 0 }}>{cat.emoji}</span>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{cat.name}</span>
+            {esProximamente && (
               <span style={{
                 background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
-                color: '#fff', fontWeight: 900, fontSize: 9.5,
-                letterSpacing: '0.08em', textTransform: 'uppercase',
-                padding: '4px 10px', borderRadius: 20,
-                boxShadow: '0 3px 10px rgba(255,78,0,0.5)', whiteSpace: 'nowrap',
+                color: '#fff', fontWeight: 900, fontSize: 8.5,
+                letterSpacing: '0.06em', textTransform: 'uppercase',
+                padding: '2px 7px', borderRadius: 20, flexShrink: 0,
               }}>
-                🔜 Próximamente
+                Próximamente
               </span>
-            </div>
-          )}
-        </div>
-
-        <div style={{ padding: '10px 2px 0' }}>
+            )}
+          </div>
           <div style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            color: '#FFFFFF', fontWeight: 800, fontSize: 13,
-            lineHeight: 1.3,
+            fontSize: 11.5, marginTop: 2,
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
           }}>
-            <span style={{ fontSize: 15, flexShrink: 0 }}>{cat.emoji}</span>
-            <span>{cat.name}</span>
+            {cat.count >= 10 && (
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
+                {cat.count.toLocaleString('es-AR')} artículos
+              </span>
+            )}
+            {ocultarMinimo ? (
+              <span style={{ color: '#FFD13C', fontWeight: 800 }}>· Catálogo combinable</span>
+            ) : min > 0 && (
+              <span style={{ color: '#FFD13C', fontWeight: 800 }}>· Mín. ${min.toLocaleString('es-AR')}</span>
+            )}
           </div>
-
-          {cat.count >= 10 && (
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, marginTop: 3, fontVariantNumeric: 'tabular-nums' }}>
-              {cat.count.toLocaleString('es-AR')} artículos
-            </div>
-          )}
-
-          {ocultarMinimo ? (
-            <div style={{
-              color: '#FFD13C', fontWeight: 900, fontSize: 9.5,
-              letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 4,
-            }}>
-              Catálogo combinable
-            </div>
-          ) : min > 0 && (
-            <div style={{ color: '#FFD13C', fontWeight: 800, fontSize: 11.5, marginTop: 4 }}>
-              Mín. ${min.toLocaleString('es-AR')}
-            </div>
-          )}
         </div>
+
+        <span className="cat-chev" style={{ color: 'rgba(255,255,255,0.35)', fontSize: 20, flexShrink: 0 }}>›</span>
       </div>
     )
   }
@@ -300,23 +284,15 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             borderRadius: 16,
             border: '2px solid rgba(255,209,60,0.5)',
             background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
-            padding: 'clamp(14px, 2vw, 20px)',
+            padding: 'clamp(10px, 1.6vw, 16px)',
           }}>
-            <div className="cat-grid" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 150px), 1fr))',
-              gap: 18,
-            }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {grupo.map(cat => renderCard(cat, true))}
             </div>
           </div>
         )}
 
-        <div className="cat-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 150px), 1fr))',
-          gap: 18,
-        }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {resto.map(cat => renderCard(cat))}
         </div>
       </div>
