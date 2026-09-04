@@ -326,7 +326,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 13, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 12 }}>
               Filtrar por categoría
             </div>
-            <div className="cat-list" style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12, maxHeight: 480, overflowY: 'auto' }}>
+            <div className="cat-list" style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12 }}>
               {catsReales.map(cat => {
                 const nombre = cat.name
                 const esGrupo = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
