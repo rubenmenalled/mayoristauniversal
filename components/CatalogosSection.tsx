@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect, useMemo, useCallback } from 'react'
+import Image from 'next/image'
+import { ShoppingCart, Search } from 'lucide-react'
 import { minDeCatalogo, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
+import { useCart } from '@/lib/CartContext'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -15,35 +17,6 @@ const TRANSPORTES = [
   { nombre: 'Retiro en depósito', emoji: '🏭', desc: 'Coordiná por WhatsApp' },
 ]
 
-// Fotos de stock por categoría (Unsplash)
-const FOTOS: Record<string, string> = {
-  'ACCESORIOS DE INVIERNO': 'https://images.unsplash.com/photo-1544522857-b7288ac171dd?w=800&q=90',
-  BAZAR:        '/cat_bazar.jpg',
-  BEBÉ:         'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
-  BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
-  'BLANQUERIA LICENCIAS Y MAS...':   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/cat_blanqueria_licencias.jpg',
-  ELECTRONICA:  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
-  'TODO PARA EL DEPORTE': 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=90',
-  JUGUETERIA:   'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
-  LIBRERIA:     'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
-  MASCOTAS:     'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
-  PELUCHES:            '/cat_peluches.jpg',
-  'PELUCHES ENAMORADOS':   'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=800&q=90&auto=format&fit=crop',
-  'LENCERIA':              'https://images.pexels.com/photos/6879815/pexels-photo-6879815.jpeg?w=800&h=600&fit=crop',
-  'RODADOS':               'https://images.pexels.com/photos/9168370/pexels-photo-9168370.jpeg?w=800&h=600&fit=crop',
-  'PRODUCTOS REGIONALES':  'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90&auto=format&fit=crop',
-  'PERFUMERIA Y BELLEZA': '/cat_perfumeria.jpg',
-  'BAZAR Y HOGAR': 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=90',
-  'ACCESORIOS PARA MASCOTAS': 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
-  HOGAR:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=90',
-  COCINA:       'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=90',
-  DEPORTES:     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=90',
-  ROPA:         'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=90',
-  CALZADO:      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=90',
-  BIJOUTERIE:   'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
-  'ACCESORIOS DE PELO': 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
-}
-
 interface Categoria {
   id: number
   name: string
@@ -52,181 +25,218 @@ interface Categoria {
   count: number
 }
 
-const KEYFRAMES = `
-@keyframes shimmer {
-  0%   { background-position: -800px 0; }
-  100% { background-position:  800px 0; }
+interface Producto {
+  id: number; name: string; brand: string; category: string; subcategory?: string
+  price: number; wholesalePrice: number; minOrder: number
+  image: string; badge?: string; discount?: number; location: string; descripcion?: string
 }
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.cat-row {
-  transition: background 0.15s ease !important;
-  cursor: pointer;
-}
-.cat-row:hover {
-  background: rgba(255,106,61,0.08) !important;
-}
-.cat-row:hover .cat-chev {
-  transform: translateX(2px);
-  color: #FF6A3D !important;
-}
-.cat-chev {
-  transition: transform 0.15s ease, color 0.15s ease;
-}
-`
 
-function SkeletonGrid() {
+const PAGE_SIZE = 60
+const SIDEBAR_PREVIEW = 10
+
+function ProductoCard({ p, onAdd }: { p: Producto; onAdd: (p: Producto) => void }) {
+  const cat = (p.category ?? '').toUpperCase()
+  const sub = (p.subcategory ?? '').toUpperCase()
+  const esBulk = sub === 'POP IT' || sub === 'INFAC-TEC' || sub === 'TOYS.AR' || ['IMPORTADORA MAX', 'IMPORTADORA COMEX', 'IMPORTADORA TREN'].includes(cat)
+  const esDocena = sub === 'LENCERIA POR BULTO'
+  const isDescPor = p.descripcion?.startsWith('PRECIO POR')
+
+  let titulo: string | null = null
+  let precioUnit: string | null = null
+  if (isDescPor) {
+    const sepIdx = (p.descripcion || '').indexOf(') | ')
+    const pricePart = sepIdx >= 0 ? (p.descripcion || '').slice(0, sepIdx + 1) : (p.descripcion || '')
+    const match = pricePart.match(/^(PRECIO POR \d+ UNIDADES)\s*\((.+)\)$/)
+    titulo = match ? match[1] : pricePart
+    precioUnit = match ? `$${Math.round(p.wholesalePrice / Math.max(1, p.minOrder)).toLocaleString('es-AR')} c/u` : null
+  } else if (p.badge === 'x6 UNIDADES') {
+    titulo = 'PRECIO POR 6 UNIDADES'
+    precioUnit = `$${Math.round(p.wholesalePrice / 6).toLocaleString('es-AR')} c/u`
+  } else if (p.minOrder > 1) {
+    if (esDocena) {
+      titulo = `VENTA POR ${p.minOrder} DOCENAS`
+      precioUnit = `$${p.wholesalePrice.toLocaleString('es-AR')} la docena`
+    } else {
+      titulo = `PRECIO POR ${p.minOrder} UNIDADES`
+      precioUnit = `$${(esBulk ? p.wholesalePrice : Math.round(p.wholesalePrice / p.minOrder)).toLocaleString('es-AR')} c/u`
+    }
+  }
+  const totalLine = (() => {
+    if (!titulo) return null
+    const total = (esBulk || esDocena) ? p.wholesalePrice * p.minOrder : p.wholesalePrice
+    const label = esDocena ? `EL BULTO (${p.minOrder} DOCENAS)` : esBulk ? `EL BULTO X${p.minOrder}` : p.minOrder === 12 ? 'LA DOCENA' : `PACK X ${p.minOrder}`
+    return `${label}: $${total.toLocaleString('es-AR')}`
+  })()
+
   return (
-    <section style={{ background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', padding: 'clamp(16px, 3vw, 32px) 16px' }}>
-      <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        {/* Título skeleton */}
-        <div style={{
-          height: 28, width: 260, borderRadius: 6, marginBottom: 28,
-          background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
-          backgroundSize: '800px 100%',
-          animation: 'shimmer 1.6s infinite linear',
-        }} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {Array.from({ length: 10 }).map((_, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 4px' }}>
-              <div style={{
-                width: 50, height: 50, borderRadius: 10, flexShrink: 0,
-                background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
-                backgroundSize: '800px 100%',
-                animation: 'shimmer 1.6s infinite linear',
-                animationDelay: `${i * 0.08}s`,
-              }} />
-              <div style={{
-                height: 12, width: '40%', borderRadius: 4,
-                background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 75%)',
-                backgroundSize: '800px 100%',
-                animation: 'shimmer 1.6s infinite linear',
-                animationDelay: `${i * 0.08}s`,
-              }} />
-            </div>
-          ))}
-        </div>
+    <div style={{ borderRadius: 12, overflow: 'hidden', background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
+      <div style={{ position: 'relative', height: 160, background: '#F8F8F8' }}>
+        {p.image ? (
+          <Image src={p.image} alt={p.name} fill className="object-contain" sizes="220px" quality={80} />
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 40 }}>📦</div>
+        )}
+        {(p.discount ?? 0) > 0 && (
+          <span style={{ position: 'absolute', top: 8, left: 8, background: '#dc2626', color: '#fff', fontSize: 10, fontWeight: 900, padding: '2px 8px', borderRadius: 99 }}>-{p.discount}%</span>
+        )}
+        <span style={{ position: 'absolute', top: 8, right: 8, background: 'rgba(11,30,63,0.85)', color: '#FFD13C', fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: 6, maxWidth: '80%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {p.category}
+        </span>
       </div>
-    </section>
+      <div style={{ padding: 10 }}>
+        {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 700, marginBottom: 2, textTransform: 'uppercase' }}>{p.brand}</div>}
+        <h3 style={{ color: '#111827', fontSize: 12, fontWeight: 700, lineHeight: 1.3, marginBottom: 6, minHeight: 30, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.name}</h3>
+
+        {titulo ? (
+          <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '5px 8px', marginBottom: 6 }}>
+            {precioUnit && <div style={{ color: '#111', fontSize: 15, fontWeight: 900 }}>{precioUnit}</div>}
+            <span style={{ color: '#111', fontSize: 9.5, fontWeight: 900 }}>{titulo}</span>
+            {totalLine && <div style={{ color: '#C2410C', fontSize: 11.5, fontWeight: 900, marginTop: 2 }}>{totalLine}</div>}
+          </div>
+        ) : (
+          <div style={{ color: '#6B7280', fontSize: 10, marginBottom: 6 }}>
+            Mayorista: <span style={{ color: '#FF6A3D', fontWeight: 900, fontSize: 15 }}>${p.wholesalePrice.toLocaleString('es-AR')}</span>
+          </div>
+        )}
+
+        <button
+          onClick={() => onAdd(p)}
+          style={{ width: '100%', padding: '7px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#0D2C54', fontSize: 11.5, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5 }}
+        >
+          <ShoppingCart size={12} /> AGREGAR
+        </button>
+      </div>
+    </div>
   )
 }
 
 export default function CatalogosSection({ categorias }: { categorias?: Categoria[] }) {
   const [modalOpen, setModalOpen] = useState(false)
-  const router = useRouter()
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [verMasCats, setVerMasCats] = useState(false)
+  const [precioMin, setPrecioMin] = useState('')
+  const [precioMax, setPrecioMax] = useState('')
+  const [orden, setOrden] = useState<'recientes' | 'menor' | 'mayor'>('recientes')
+  const [productos, setProductos] = useState<Producto[]>([])
+  const [totalCount, setTotalCount] = useState(0)
+  const [page, setPage] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const { addItem } = useCart()
 
-  if (categorias === undefined) return null
-  if (categorias.length === 0) return <SkeletonGrid />
-
-  // Eliminar duplicados solo para BEBE/BEBES
-  const vistas = new Set<string>()
-  const unicas = categorias.filter(cat => {
-    const nombre = cat.name.toUpperCase()
-    const key = nombre === 'BEBES' ? 'BEBÉ' : nombre
-    if (vistas.has(key)) return false
-    vistas.add(key)
-    return true
-  })
+  const unicas = useMemo(() => {
+    if (!categorias) return []
+    const vistas = new Set<string>()
+    return categorias.filter(cat => {
+      const nombre = cat.name.toUpperCase()
+      const key = nombre === 'BEBES' ? 'BEBÉ' : nombre
+      if (vistas.has(key)) return false
+      vistas.add(key)
+      return true
+    })
+  }, [categorias])
 
   const PROXIMAMENTE = new Set(['RODADOS'])
+  const catsReales = unicas.filter(c => !PROXIMAMENTE.has(c.name.toUpperCase()))
+  const catsMostradas = verMasCats ? catsReales : catsReales.slice(0, SIDEBAR_PREVIEW)
 
-  // Separamos las categorías que comparten mínimo (grupo) del resto,
-  // preservando el orden relativo original en cada lado.
-  let firstGrupoIdx = -1
-  unicas.forEach((c, i) => {
-    if (firstGrupoIdx === -1 && CATEGORIA_GRUPO_OVERRIDE[c.name.toUpperCase()]) firstGrupoIdx = i
-  })
-  const esGrupo = (c: Categoria) => !!CATEGORIA_GRUPO_OVERRIDE[c.name.toUpperCase()]
-  const grupo = unicas.filter(esGrupo)
-  const resto = unicas.filter(c => !esGrupo(c))
-
-  const renderCard = (cat: Categoria, ocultarMinimo = false) => {
-    const esProximamente = PROXIMAMENTE.has(cat.name.toUpperCase())
-    const min = minDeCatalogo(catalogoDe(cat.name))
-    return (
-      <div
-        key={cat.id}
-        onClick={() => router.push(`/categorias/${encodeURIComponent(cat.name)}`)}
-        className="cat-row"
-        style={{
-          display: 'flex', alignItems: 'center', gap: 14,
-          padding: '10px 8px', borderRadius: 10,
-        }}
-      >
-        <div style={{
-          position: 'relative', width: 50, height: 50, flexShrink: 0,
-          borderRadius: 10, overflow: 'hidden', background: '#F0F0F0',
-          border: '1px solid rgba(255,255,255,0.1)',
-        }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={cat.image || FOTOS[cat.name.toUpperCase()] || FOTOS['BAZAR']}
-            alt={cat.name}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          />
-        </div>
-
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 7,
-            color: '#FFFFFF', fontWeight: 800, fontSize: 14.5,
-            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-          }}>
-            <span style={{ fontSize: 16, flexShrink: 0 }}>{cat.emoji}</span>
-            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{cat.name}</span>
-            {esProximamente && (
-              <span style={{
-                background: 'linear-gradient(90deg, #FF4E00, #FF8C00)',
-                color: '#fff', fontWeight: 900, fontSize: 8.5,
-                letterSpacing: '0.06em', textTransform: 'uppercase',
-                padding: '2px 7px', borderRadius: 20, flexShrink: 0,
-              }}>
-                Próximamente
-              </span>
-            )}
-          </div>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            fontSize: 11.5, marginTop: 2,
-            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-          }}>
-            {cat.count >= 10 && (
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
-                {cat.count.toLocaleString('es-AR')} artículos
-              </span>
-            )}
-            {ocultarMinimo ? (
-              <span style={{ color: '#FFD13C', fontWeight: 800 }}>· Catálogo combinable</span>
-            ) : min > 0 && (
-              <span style={{ color: '#FFD13C', fontWeight: 800 }}>· Mín. ${min.toLocaleString('es-AR')}</span>
-            )}
-          </div>
-        </div>
-
-        <span className="cat-chev" style={{ color: 'rgba(255,255,255,0.35)', fontSize: 20, flexShrink: 0 }}>›</span>
-      </div>
-    )
+  const toggleCat = (nombre: string) => {
+    setSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(nombre)) next.delete(nombre)
+      else next.add(nombre)
+      return next
+    })
+    setPage(0)
   }
+
+  const fetchProductos = useCallback(async (pageToFetch: number, replace: boolean) => {
+    setLoading(true)
+    try {
+      if (selected.size === 0) {
+        const res = await fetch(`/api/productos-publicos?page=${pageToFetch}`)
+        const data: Producto[] = await res.json()
+        const total = parseInt(res.headers.get('X-Total-Count') || '0', 10)
+        setTotalCount(total)
+        setProductos(prev => replace ? data : [...prev, ...data])
+      } else {
+        const limit = (pageToFetch + 1) * PAGE_SIZE
+        const results = await Promise.all(
+          Array.from(selected).map(nombre =>
+            fetch(`/api/productos-publicos?categoria=${encodeURIComponent(nombre)}&limit=${limit}`)
+              .then(r => r.json()).catch(() => [] as Producto[])
+          )
+        )
+        const seen = new Set<number>()
+        const merged: Producto[] = []
+        for (const arr of results) {
+          if (!Array.isArray(arr)) continue
+          for (const p of arr) { if (!seen.has(p.id)) { seen.add(p.id); merged.push(p) } }
+        }
+        setTotalCount(merged.length)
+        setProductos(merged)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }, [selected])
+
+  useEffect(() => {
+    setPage(0)
+    fetchProductos(0, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected])
+
+  const cargarMas = () => {
+    const next = page + 1
+    setPage(next)
+    fetchProductos(next, selected.size === 0)
+  }
+
+  const productosFiltrados = useMemo(() => {
+    let arr = productos
+    const min = parseInt(precioMin, 10)
+    const max = parseInt(precioMax, 10)
+    if (!isNaN(min)) arr = arr.filter(p => p.wholesalePrice >= min)
+    if (!isNaN(max)) arr = arr.filter(p => p.wholesalePrice <= max)
+    if (orden === 'menor') arr = [...arr].sort((a, b) => a.wholesalePrice - b.wholesalePrice)
+    else if (orden === 'mayor') arr = [...arr].sort((a, b) => b.wholesalePrice - a.wholesalePrice)
+    return arr
+  }, [productos, precioMin, precioMax, orden])
+
+  const handleAdd = (p: Producto) => {
+    const cat = (p.category ?? '').toUpperCase()
+    const sub = (p.subcategory ?? '').toUpperCase()
+    const esU = sub === 'POP IT' || sub === 'LENCERIA POR BULTO' || sub === 'INFAC-TEC' || sub === 'TOYS.AR' || ['IMPORTADORA MAX', 'IMPORTADORA COMEX', 'IMPORTADORA TREN'].includes(cat)
+    const isDescPor = p.descripcion?.startsWith('PRECIO POR')
+    const dividir = !isDescPor && !esU && p.minOrder > 1
+    addItem({
+      id: p.id, name: p.name, brand: p.brand, price: p.price,
+      wholesalePrice: dividir ? Math.round(p.wholesalePrice / p.minOrder) : p.wholesalePrice,
+      image: p.image, minOrder: isDescPor ? 1 : p.minOrder, category: p.category,
+    })
+  }
+
+  if (categorias === undefined) return null
 
   return (
     <>
     <section id="catalogos" style={{ background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', padding: '4px clamp(16px, 2.5vw, 40px) 24px' }}>
-      <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
+      <div style={{ maxWidth: 1500, margin: '0 auto' }}>
 
-      <div style={{ maxWidth: 2200, margin: '0 auto' }}>
-
-        {/* Barra envíos — fondo blanco */}
         <style dangerouslySetInnerHTML={{ __html: `
           .envios-hide-mobile { display: inline; }
           .envios-mp { display: flex; }
-          @media (max-width: 520px) {
+          .cat-check-row:hover { background: rgba(255,106,61,0.08) !important; }
+          .cat-sidebar { flex: 0 0 250px; }
+          .cat-main { flex: 1; min-width: 0; }
+          @media (max-width: 780px) {
             .envios-hide-mobile { display: none; }
             .envios-mp { display: none; }
+            .cat-layout { flex-direction: column !important; }
+            .cat-sidebar { flex: 1 1 auto !important; }
           }
         `}} />
+
         <div
           onClick={() => setModalOpen(true)}
           style={{
@@ -256,7 +266,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, borderBottom: '2px solid rgba(255,106,61,0.3)', paddingBottom: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, borderBottom: '2px solid rgba(255,106,61,0.3)', paddingBottom: 12 }}>
           <h2 style={{
             color: '#FF6A3D', fontWeight: 900, fontSize: 'clamp(20px, 2.5vw, 28px)',
             textTransform: 'uppercase', letterSpacing: '0.08em',
@@ -277,31 +287,119 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           </a>
         </div>
 
-        {/* Caja de categorías combinables — comparten el mínimo entre todas */}
-        {grupo.length > 0 && (
-          <div style={{
-            marginBottom: 22,
-            borderRadius: 16,
-            border: '2px solid rgba(255,209,60,0.5)',
-            background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
-            padding: 'clamp(10px, 1.6vw, 16px)',
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
-              gap: '2px 12px',
-            }}>
-              {grupo.map(cat => renderCard(cat, true))}
-            </div>
-          </div>
-        )}
+        <div className="cat-layout" style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
-          gap: '2px 12px',
-        }}>
-          {resto.map(cat => renderCard(cat))}
+          {/* Sidebar de filtros */}
+          <aside className="cat-sidebar" style={{
+            background: '#FFFFFF', borderRadius: 14, padding: 18,
+            position: 'sticky', top: 90, boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+          }}>
+            <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 13, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 12 }}>
+              Filtrar por categoría
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12 }}>
+              {catsMostradas.map(cat => {
+                const nombre = cat.name
+                const esGrupo = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
+                const min = minDeCatalogo(catalogoDe(nombre))
+                const checked = selected.has(nombre)
+                return (
+                  <label key={cat.id} className="cat-check-row" style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 8, padding: '7px 6px',
+                    borderRadius: 8, cursor: 'pointer', transition: 'background 0.15s ease',
+                  }}>
+                    <input type="checkbox" checked={checked} onChange={() => toggleCat(nombre)}
+                      style={{ marginTop: 3, accentColor: '#FF6A3D', width: 15, height: 15, flexShrink: 0 }} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ color: '#1a1a2e', fontWeight: 700, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 5 }}>
+                        <span>{cat.emoji}</span>
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{nombre}</span>
+                      </div>
+                      <div style={{ fontSize: 10.5, color: '#9CA3AF', marginTop: 1 }}>
+                        {cat.count.toLocaleString('es-AR')} art. {esGrupo ? <span style={{ color: '#D97706', fontWeight: 700 }}>· combinable</span> : min > 0 ? <span style={{ color: '#D97706', fontWeight: 700 }}>· mín ${min.toLocaleString('es-AR')}</span> : null}
+                      </div>
+                    </div>
+                  </label>
+                )
+              })}
+            </div>
+            {catsReales.length > SIDEBAR_PREVIEW && (
+              <button onClick={() => setVerMasCats(v => !v)} style={{
+                background: 'none', border: 'none', color: '#FF6A3D', fontWeight: 800,
+                fontSize: 11.5, cursor: 'pointer', padding: '4px 6px', marginBottom: 14,
+              }}>
+                {verMasCats ? '− Mostrar menos' : `+ ${catsReales.length - SIDEBAR_PREVIEW} más`}
+              </button>
+            )}
+
+            <div style={{ borderTop: '1px solid #EEE', paddingTop: 14, marginTop: 2 }}>
+              <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 12, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 8 }}>
+                Precio
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <input type="number" placeholder="Desde" value={precioMin} onChange={e => setPrecioMin(e.target.value)}
+                  style={{ width: '50%', border: '1px solid #E5E7EB', borderRadius: 6, padding: '6px 8px', fontSize: 12, outline: 'none' }} />
+                <input type="number" placeholder="Hasta" value={precioMax} onChange={e => setPrecioMax(e.target.value)}
+                  style={{ width: '50%', border: '1px solid #E5E7EB', borderRadius: 6, padding: '6px 8px', fontSize: 12, outline: 'none' }} />
+              </div>
+            </div>
+
+            {(selected.size > 0 || precioMin || precioMax) && (
+              <button onClick={() => { setSelected(new Set()); setPrecioMin(''); setPrecioMax('') }} style={{
+                marginTop: 14, width: '100%', background: '#F3F4F6', border: 'none', borderRadius: 8,
+                padding: '8px', color: '#374151', fontWeight: 800, fontSize: 11.5, cursor: 'pointer',
+              }}>
+                Limpiar filtros
+              </button>
+            )}
+          </aside>
+
+          {/* Grilla de productos */}
+          <div className="cat-main">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
+              <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12.5 }}>
+                {selected.size > 0 && `${productosFiltrados.length.toLocaleString('es-AR')} productos`}
+                {selected.size === 0 && `${totalCount.toLocaleString('es-AR')} productos en total`}
+              </div>
+              <select value={orden} onChange={e => setOrden(e.target.value as any)} style={{
+                background: '#FFFFFF', border: 'none', borderRadius: 8, padding: '6px 10px',
+                fontSize: 12, fontWeight: 700, color: '#1a1a2e', cursor: 'pointer',
+              }}>
+                <option value="recientes">Más recientes</option>
+                <option value="menor">Precio: menor a mayor</option>
+                <option value="mayor">Precio: mayor a menor</option>
+              </select>
+            </div>
+
+            {productosFiltrados.length === 0 && !loading ? (
+              <div style={{ textAlign: 'center', padding: 60, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,106,61,0.15)', borderRadius: 20 }}>
+                <Search size={40} color="#7a8a9a" style={{ marginBottom: 12 }} />
+                <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 16 }}>Sin resultados con estos filtros</div>
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 12 }}>
+                {productosFiltrados.map(p => (
+                  <ProductoCard key={p.id} p={p} onAdd={handleAdd} />
+                ))}
+              </div>
+            )}
+
+            {loading && (
+              <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)', padding: 24, fontSize: 13 }}>Cargando...</div>
+            )}
+
+            {!loading && (selected.size === 0 ? productos.length < totalCount : true) && productosFiltrados.length > 0 && (
+              <div style={{ textAlign: 'center', marginTop: 20 }}>
+                <button onClick={cargarMas} style={{
+                  background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,106,61,0.4)',
+                  color: '#FFFFFF', fontWeight: 800, fontSize: 12.5, padding: '10px 24px',
+                  borderRadius: 99, cursor: 'pointer',
+                }}>
+                  Cargar más productos
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>
