@@ -254,12 +254,15 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
           .cat-check-row:hover { background: rgba(255,106,61,0.08) !important; }
           .cat-layout { align-items: flex-start; }
           .cat-sidebar { flex: 0 0 250px; }
+          .cat-sidebar-sticky { position: sticky; top: 90px; }
           .cat-main { flex: 1; min-width: 0; width: 100%; }
           @media (max-width: 780px) {
             .envios-hide-mobile { display: none; }
             .envios-mp { display: none; }
             .cat-layout { flex-direction: column !important; align-items: stretch !important; }
             .cat-sidebar { flex: 1 1 auto !important; width: 100%; }
+            .cat-sidebar-sticky { position: static !important; }
+            .cat-list { max-height: none !important; overflow-y: visible !important; }
           }
         `}} />
 
@@ -316,14 +319,14 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         <div className="cat-layout" style={{ display: 'flex', gap: 20 }}>
 
           {/* Sidebar de filtros */}
-          <aside className="cat-sidebar" style={{
+          <aside className="cat-sidebar cat-sidebar-sticky" style={{
             background: '#FFFFFF', borderRadius: 14, padding: 18,
-            position: 'sticky', top: 90, boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
           }}>
             <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 13, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 12 }}>
               Filtrar por categoría
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12, maxHeight: 480, overflowY: 'auto' }}>
+            <div className="cat-list" style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12, maxHeight: 480, overflowY: 'auto' }}>
               {catsReales.map(cat => {
                 const nombre = cat.name
                 const esGrupo = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
