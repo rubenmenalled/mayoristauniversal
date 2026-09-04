@@ -335,11 +335,19 @@ export default function CartSidebar({ open, onClose }: Props) {
                   </div>
                 ))}
 
-                {/* Opción A: mínimo de compra por catálogo (no se muestra si el mínimo es 0) */}
-                {grupos.filter(g => g.min > 0).map((g) => (
+                {/* Opción A: mínimo de compra por catálogo (no se muestra si el mínimo es 0).
+                    Casi todas las categorías del sitio comparten HOY un único grupo/mínimo
+                    ("JUGUETES, PELUCHES Y MÁS") — mostrar ese nombre interno resultaba en
+                    textos raros tipo "Sumá más de JUGUETES, PELUCHES Y MÁS" para un carrito
+                    que puede tener perfumería, bazar, etc. Si es el grupo compartido, se
+                    muestra un texto genérico; si en el futuro vuelve a haber un catálogo con
+                    mínimo propio de verdad (ej. INDIO MOHI viejo), ese sí muestra su nombre. */}
+                {grupos.filter(g => g.min > 0).map((g) => {
+                  const esGrupoCompartido = g.cat === 'JUGUETES, PELUCHES Y MÁS'
+                  return (
                   <div key={g.cat} style={{ background: g.ok ? '#ECFDF5' : '#FFF7ED', border: `1.5px solid ${g.ok ? '#86EFAC' : '#FFD7C2'}`, borderRadius: 10, padding: '9px 11px', marginBottom: 8 }}>
                     <div style={{ fontWeight: 900, fontSize: 12, color: g.ok ? '#15803D' : '#9A3412', textTransform: 'uppercase', letterSpacing: '0.02em', lineHeight: 1.25 }}>
-                      Mínimo de compra para {g.cat}: ${g.min.toLocaleString('es-AR')}
+                      {esGrupoCompartido ? 'Mínimo de compra' : `Mínimo de compra para ${g.cat}`}: ${g.min.toLocaleString('es-AR')}
                     </div>
                     <div style={{ fontSize: 11, color: '#6B7280', margin: '2px 0 6px' }}>Subtotal ${g.sub.toLocaleString('es-AR')}</div>
                     <div style={{ background: '#E5E7EB', borderRadius: 99, height: 7, overflow: 'hidden' }}>
@@ -353,9 +361,9 @@ export default function CartSidebar({ open, onClose }: Props) {
                             : `⚠️ Te faltan $${g.falta.toLocaleString('es-AR')}`)}
                     </div>
                     {!g.ok && (
-                      <a href={`/categorias/${encodeURIComponent(g.navCat)}`}
+                      <a href={esGrupoCompartido ? '/#catalogos' : `/categorias/${encodeURIComponent(g.navCat)}`}
                         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 8, padding: '9px 12px', borderRadius: 9, background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', color: '#FFFFFF', fontWeight: 900, fontSize: 12.5, textDecoration: 'none', boxShadow: '0 2px 8px rgba(255,106,61,0.3)' }}>
-                        + Sumá más de {g.cat} →
+                        {esGrupoCompartido ? '+ Seguir agregando productos →' : `+ Sumá más de ${g.cat} →`}
                       </a>
                     )}
                     {/* 10% OFF automático al llegar a $500.000 en catálogos elegibles */}
@@ -366,17 +374,18 @@ export default function CartSidebar({ open, onClose }: Props) {
                         </div>
                       ) : (
                         <div style={{ marginTop: 8, fontSize: 10.5, color: '#6B7280', textAlign: 'center' }}>
-                          Sumá ${(DESCUENTO_10_MIN - g.sub).toLocaleString('es-AR')} más en {g.cat} y obtenés 10% OFF
+                          Sumá ${(DESCUENTO_10_MIN - g.sub).toLocaleString('es-AR')} más{esGrupoCompartido ? '' : ` en ${g.cat}`} y obtenés 10% OFF
                         </div>
                       )
                     )}
                   </div>
-                ))}
+                  )
+                })}
                 {grupos.length > 1 && (
                   <div style={{ background: '#FFFBEB', border: '1.5px solid #FCD34D', borderRadius: 10, padding: '10px 12px', marginBottom: 8, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
                     <span style={{ fontSize: 16, lineHeight: 1.2 }}>⚠️</span>
                     <span style={{ fontSize: 12, fontWeight: 700, color: '#92400E', lineHeight: 1.45 }}>
-                      Tenés productos de {grupos.length} catálogos distintos — <u>cada uno tiene su propio mínimo y NO se combinan entre sí</u>. Mirá las barras de arriba: cada catálogo necesita alcanzar su mínimo por separado.
+                      Tenés productos de {grupos.length} grupos de catálogos distintos — <u>cada uno tiene su propio mínimo y NO se combinan entre sí</u>. Mirá las barras de arriba: cada uno necesita alcanzar su mínimo por separado.
                     </span>
                   </div>
                 )}
