@@ -304,7 +304,6 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Guía práctica para revender lencería al por mayor: cómo elegir talles, qué materiales priorizar y cómo presentar el producto para vender más online y en local.',
     excerpt: 'Cómo elegir talles y materiales al comprar lencería al por mayor, y por qué la presentación del producto es tan importante como el producto en sí.',
     coverImage: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200&q=80',
-    categoryLink: { nombre: 'LENCERIA', label: 'Ver catálogo de Lencería' },
     publishedAt: '2026-08-18',
     content: `
       ${p('La lencería es uno de los rubros con mejor margen del mercado mayorista, pero también uno de los que más depende de acertar en talles y presentación. Así armás un surtido que convierta bien, tanto online como en local.')}
@@ -323,7 +322,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'Invertí en buenas fotos — la presentación es determinante en este rubro.',
         'Los combos y sets de varias unidades suben el ticket promedio.',
       ])}
-      ${p('Explorá el catálogo completo de <a href="/categorias/LENCERIA%20IMPORTADA">Lencería al por mayor</a>.')}
+      ${p('Mirá el resto de nuestros <a href="/catalogo">catálogos al por mayor</a>.')}
     `,
   },
   {

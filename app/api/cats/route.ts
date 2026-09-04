@@ -18,7 +18,6 @@ const ORDEN_CATEGORIAS = [
   'IMPORTADORA NC',
   'ACCESORIOS PARA MASCOTAS',
   'ACCESORIOS DE TRABAJO Y MAS',
-  'LENCERIA',
   'CAZA PESCA CAMPING Y MAS',
   'IMPORTADORA HS',
   'CAMPING',
@@ -40,7 +39,6 @@ const FOTOS: Record<string, string> = {
   'PRODUCTOS REGIONALES':'https://images.unsplash.com/photo-1444157545135-c045be691b05?w=800&q=90',
   'PELUCHES':            '/cat_peluches.jpg',
   'PELUCHES ENAMORADOS': 'https://images.unsplash.com/photo-1762542523027-e44a394788b6?w=800&q=90',
-  'LENCERIA':            'https://images.pexels.com/photos/6879815/pexels-photo-6879815.jpeg?w=800&h=600&fit=crop',
   'RODADOS':             'https://images.pexels.com/photos/9168370/pexels-photo-9168370.jpeg?w=800&h=600&fit=crop',
   'BEBÉ':                'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   'ELECTRONICA':         'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
@@ -102,7 +100,6 @@ export async function GET() {
     'HOGAR Y BAZAR':       '🍳',
     'PELUCHES':            '🧸',
     'PELUCHES ENAMORADOS': '💕',
-    'LENCERIA':            '👙',
     'CAZA PESCA CAMPING Y MAS': '🎣',
     'IMPORTADORA HS':      '🔌',
     'FLORERIA ARTIFICIAL': '💐',
@@ -147,7 +144,6 @@ export async function GET() {
     'PERFUMERIA Y BELLEZA': ['Perfumes Mujer', 'Perfumes Hombre', 'Labios', 'Ojos', 'Piel', 'Uñas'],
     'IMPORTADORA DAG':    ['ELECTRONICA', 'HOGAR', 'ILUMINACION', 'BAZAR', 'PELUQUERIA-COSMETICA-BIJOU', 'FERRETERIA', 'GRIFERIA', 'CABLES'],
     'IMPORTADORA NC':     ['BAZAR', 'ELECTRONICA', 'ACCESORIOS', 'LINTERNAS', 'MOCHILAS DE PELUCHE', 'INVIERNO'],
-    'LENCERIA':           ['Ropa Interior Mujer', 'Pijamas', 'Medias y Medias Cañas', 'Camisones'],
     'RODADOS':            ['Bicicletas', 'Patines', 'Scooters', 'Accesorios Rodados'],
   }
 
