@@ -33,7 +33,6 @@ const FOTOS: Record<string, string> = {
   CALZADO:      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=90',
   CAMPING:      'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=90',
   AUTOMOTOR:    'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=90',
-  BIJOUTERIE:   'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO': 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
   ILUMINACION:  'https://images.unsplash.com/photo-1712294252418-680891540aa8?w=800&q=90',
 }

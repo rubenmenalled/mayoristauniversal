@@ -107,7 +107,6 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Guía sobre los materiales de bijouterie más resistentes para reventa (acero, bronce) y cómo armar combos de pulseras, collares y aros que aumenten el ticket promedio.',
     excerpt: 'Acero, bronce o fantasía: qué material conviene según tu público, y cómo armar combos que hagan crecer el ticket promedio de cada venta.',
     coverImage: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1200&q=80',
-    categoryLink: { nombre: 'BIJOUTERIE', label: 'Ver catálogo de Bijouterie' },
     publishedAt: '2026-08-18',
     content: `
       ${p('La bijouterie es uno de los rubros con mejor margen porcentual del mercado mayorista, pero elegir bien el material marca la diferencia entre un cliente que vuelve y uno que se queja porque "se puso verde".')}
@@ -126,7 +125,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'Fantasía: para volumen y promociones.',
         'Combos de pulsera+collar+aros suben el ticket promedio.',
       ])}
-      ${p('Mirá el catálogo completo de <a href="/categorias/BIJOUTERIE">Bijouterie al por mayor</a>, organizado por material.')}
+      ${p('Mirá el resto de nuestros <a href="/catalogo">catálogos al por mayor</a>.')}
     `,
   },
   {

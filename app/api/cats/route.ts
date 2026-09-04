@@ -17,7 +17,6 @@ const ORDEN_CATEGORIAS = [
   'PERFUMERIA Y BELLEZA',
   'IMPORTADORA NC',
   'ACCESORIOS PARA MASCOTAS',
-  'BIJOUTERIE',
   'ACCESORIOS DE TRABAJO Y MAS',
   'LENCERIA',
   'CAZA PESCA CAMPING Y MAS',
@@ -55,7 +54,6 @@ const FOTOS: Record<string, string> = {
   'PERFUMERIA Y BELLEZA': '/cat_perfumeria.jpg',
   'IMPORTADORA DAG':     'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
   'IMPORTADORA NC':      'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
-  'BIJOUTERIE':          'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
 
 }
@@ -125,7 +123,6 @@ export async function GET() {
     'PERFUMERIA Y BELLEZA': '🌸',
     'IMPORTADORA DAG':     '📦',
     'IMPORTADORA NC':      '📦',
-    'BIJOUTERIE':          '💍',
     'ACCESORIOS DE TRABAJO Y MAS': '🧰',
     'ACCESORIOS DE PELO':  '💇',
 
@@ -146,7 +143,6 @@ export async function GET() {
     'CAMPING':            ['TACTICO', 'ACCESORIOS CAMPING'],
     'BEBÉ':               ['Ropa de Bebé', 'Juguetes Bebé', 'Higiene Bebé', 'Accesorios Bebé'],
     'MASCOTAS':           ['Accesorios Perro', 'Accesorios Gato', 'Juguetes Mascotas', 'Higiene Mascotas'],
-    'BIJOUTERIE':         ['Aros', 'Collares', 'Pulseras'],
     'PRODUCTOS REGIONALES':['Alimentos Regionales', 'Dulces y Conservas', 'Artesanías', 'Bebidas'],
     'PERFUMERIA Y BELLEZA': ['Perfumes Mujer', 'Perfumes Hombre', 'Labios', 'Ojos', 'Piel', 'Uñas'],
     'IMPORTADORA DAG':    ['ELECTRONICA', 'HOGAR', 'ILUMINACION', 'BAZAR', 'PELUQUERIA-COSMETICA-BIJOU', 'FERRETERIA', 'GRIFERIA', 'CABLES'],
