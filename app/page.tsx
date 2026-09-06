@@ -2,7 +2,6 @@ import Header           from '@/components/Header'
 import ScrollMemory     from '@/components/ScrollMemory'
 import GradientHero     from '@/components/GradientHero'
 import CountdownBanners  from '@/components/CountdownBanners'
-import HomeRows         from '@/components/HomeRows'
 import CatalogosSection from '@/components/CatalogosSection'
 import ConfianzaSection from '@/components/ConfianzaSection'
 import ComoComprar      from '@/components/ComoComprar'
@@ -69,7 +68,6 @@ export default async function HomePage() {
       <main>
         <GradientHero totalProductos={stats.totalProductos} totalCategorias={categorias.length} />
         <CountdownBanners />
-        <HomeRows />
         <CatalogosSection categorias={categorias} />
         <ConfianzaSection />
         <ComoComprar />
