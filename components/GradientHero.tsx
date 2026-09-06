@@ -115,11 +115,17 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(16px,3vw,26px)', marginTop: 24, flexWrap: 'wrap' }}>
-              <a href="/catalogo" className="btn-agregar" style={{
+              <a href="#catalogos" className="btn-agregar" style={{
                 background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
                 color: '#FFFFFF', fontWeight: 700, fontSize: 15, textDecoration: 'none',
                 padding: '13px 28px', borderRadius: 11, boxShadow: '0 8px 24px rgba(255,106,61,0.4)',
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              }}
+              onClick={e => {
+                e.preventDefault()
+                setTimeout(() => {
+                  document.getElementById('catalogos')?.scrollIntoView({ behavior: 'instant' as ScrollBehavior, block: 'start' })
+                }, 300)
               }}>
                 <TextReveal text="Ver catálogo →" />
               </a>
