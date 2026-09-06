@@ -116,10 +116,8 @@ export default function Header() {
 
   return (
     <>
-    <header className={`fixed inset-x-0 z-50 transition-all duration-400 ${
-      scrolled ? 'shadow-2xl shadow-black/70' : ''
-    }`}
-      style={{ top: 0, background: scrolled ? 'rgba(10,54,128,0.98)' : 'rgba(13,71,161,0.95)', backdropFilter: 'blur(16px)' }}>
+    <header className="fixed inset-x-0 z-50 transition-all duration-400"
+      style={{ top: 0, background: '#FFFFFF', boxShadow: scrolled ? '0 4px 20px rgba(13,26,58,0.12)' : '0 1px 0 rgba(13,26,58,0.08)' }}>
 
       {/* ── Main bar ── */}
       <div className="max-w-[1400px] mx-auto px-4 py-2.5">
@@ -239,9 +237,9 @@ export default function Header() {
             </motion.a>
 
             {/* Cart */}
-            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#FFFFFF' }}
+            <motion.button className="relative p-1.5 transition-colors" style={{ color: '#0D47A1' }}
               onMouseEnter={e => (e.currentTarget.style.color = '#FF6A3D')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#0D47A1')}
               whileHover={{ scale: 1.1 }} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={24} />
               {count > 0 && <span className="absolute -top-0.5 -right-0.5 bg-gold text-navy text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">{count}</span>}
@@ -252,9 +250,9 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <motion.a href="/mi-cuenta"
                   className="flex items-center gap-2 transition-colors"
-                  style={{ color: '#FFFFFF' }}
+                  style={{ color: '#0D47A1' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#FF6A3D')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#0D47A1')}
                   whileHover={{ scale: 1.03 }}>
                   <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <User size={16} color="#FFFFFF" />
@@ -270,9 +268,9 @@ export default function Header() {
             ) : (
               <motion.a href="/login"
                 className="flex flex-col items-end transition-colors"
-                style={{ color: '#FFFFFF' }}
+                style={{ color: '#0D47A1' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#FF6A3D')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#FFFFFF')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#0D47A1')}
                 whileHover={{ scale: 1.03 }}>
                 <span className="text-[11px] leading-none opacity-90">Ingresar / Registrarse</span>
                 <span className="text-[12px] font-bold leading-none flex items-center gap-1">Mi cuenta <ChevronDown size={11} /></span>
@@ -303,7 +301,7 @@ export default function Header() {
       </div>
 
       {/* Mobile search bar — siempre visible */}
-      <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(10,54,128,0.98)' }}>
+      <div className="lg:hidden" style={{ background: '#FFFFFF', borderTop: '1px solid rgba(13,26,58,0.08)' }}>
         {!mobileSearch && (
           <motion.div
             animate={{ y: [0, 5, 0] }}
@@ -336,14 +334,14 @@ export default function Header() {
 
       {/* ── Barra de categorías ── */}
       {categorias.length > 0 && (
-        <div ref={catBarRef} style={{ background: 'rgba(8,45,105,0.98)', borderTop: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 400 }}>
+        <div ref={catBarRef} style={{ background: '#F7F8FB', borderTop: '1px solid rgba(13,26,58,0.08)', position: 'relative', zIndex: 400 }}>
           <style>{`@keyframes fadeInDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
           {/* ── DESKTOP: botón + mega-menú ── */}
           <div className="hidden md:flex" style={{ alignItems: 'center', padding: '0 8px', position: 'relative', zIndex: 400 }}>
             <button
               onClick={() => setOpenCat(openCat === '__desktop__' ? null : '__desktop__')}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 16px', color: '#FFFFFF', fontWeight: 800, fontSize: 13, background: openCat === '__desktop__' ? 'rgba(255,255,255,0.15)' : 'none', border: 'none', whiteSpace: 'nowrap', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}>
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 16px', color: '#0D47A1', fontWeight: 800, fontSize: 13, background: openCat === '__desktop__' ? 'rgba(13,71,161,0.08)' : 'none', border: 'none', whiteSpace: 'nowrap', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}>
               <span style={{ fontSize: 16 }}>☰</span> CATEGORÍAS
               <span style={{ fontSize: 9, transition: 'transform 0.2s', transform: openCat === '__desktop__' ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
             </button>
@@ -352,12 +350,12 @@ export default function Header() {
                 del sitio (ORDEN_CATEGORIAS), scrolleable en vez de recortar a una lista fija */}
             <nav className="hidden lg:flex catbar-scroll" style={{ alignItems: 'center', gap: 2, marginLeft: 6, overflowX: 'auto', overflowY: 'hidden', flexWrap: 'nowrap', maskImage: 'linear-gradient(to right, transparent, black 12px, black calc(100% - 24px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 12px, black calc(100% - 24px), transparent)' }}>
               <style>{`.catbar-scroll{scrollbar-width:none}.catbar-scroll::-webkit-scrollbar{display:none}`}</style>
-              <span style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.2)', marginRight: 4, flexShrink: 0 }} />
+              <span style={{ width: 1, height: 18, background: 'rgba(13,26,58,0.12)', marginRight: 4, flexShrink: 0 }} />
               {categorias.map(cat => (
                   <a key={cat.id} href={`/categorias/${encodeURIComponent(cat.nombre)}`}
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '7px 10px', color: '#FFFFFF', fontWeight: 700, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: 6, transition: 'background 0.15s, color 0.15s', flexShrink: 0 }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#FF6A3D' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#FFFFFF' }}>
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '7px 10px', color: '#0D3B66', fontWeight: 700, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: 6, transition: 'background 0.15s, color 0.15s', flexShrink: 0 }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(13,71,161,0.08)'; e.currentTarget.style.color = '#FF6A3D' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0D3B66' }}>
                     <span style={{ fontSize: 14 }}>{cat.emoji}</span>{cat.nombre}
                   </a>
                 ))}
@@ -388,12 +386,12 @@ export default function Header() {
               <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 500, background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)', borderRadius: 12, boxShadow: '0 12px 40px rgba(0,0,0,0.25)', width: 480, padding: '14px', animation: 'fadeInDown 0.15s ease' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid #F0F0F0' }}>
                   <button onClick={() => setOpenCat('__desktop__')}
-                    style={{ background: 'none', border: 'none', color: '#FFFFFF', fontWeight: 700, fontSize: 13, cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    style={{ background: 'none', border: 'none', color: '#0D47A1', fontWeight: 700, fontSize: 13, cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
                     ← Volver
                   </button>
                   <span style={{ color: '#CCC' }}>|</span>
                   <span style={{ fontSize: 20 }}>{categorias.find(c => c.nombre === openCat)?.emoji}</span>
-                  <span style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
+                  <span style={{ color: '#0D3B66', fontWeight: 900, fontSize: 14 }}>{openCat}</span>
                 </div>
                 {subsByCategory[openCat] === undefined ? (
                   <div style={{ color: '#999', fontSize: 12, padding: '8px 0' }}>Cargando...</div>
@@ -426,7 +424,7 @@ export default function Header() {
             {/* Botón toggle */}
             <button
               onClick={() => { setMobileGridOpen(v => !v); setMobileSelectedCat(null) }}
-              style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '9px 16px', background: 'none', border: 'none', color: '#FFFFFF', fontWeight: 800, fontSize: 13, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
+              style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '9px 16px', background: 'none', border: 'none', color: '#0D47A1', fontWeight: 800, fontSize: 13, cursor: 'pointer', WebkitTapHighlightColor: 'transparent' }}>
               <span>📋 TODAS LAS CATEGORÍAS</span>
               <span style={{ fontSize: 10, transition: 'transform 0.2s', transform: mobileGridOpen ? 'rotate(180deg)' : 'rotate(0deg)', display: 'inline-block' }}>▼</span>
             </button>
@@ -510,9 +508,9 @@ export default function Header() {
         </div>
       )}
 
-      {/* ── Franja azul de frases rotativas ── */}
+      {/* ── Franja de frases rotativas ── */}
       <div style={{
-        background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)',
+        background: '#FFF7EF',
         borderTop: '1px solid rgba(255,106,61,0.25)',
         padding: '7px 16px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
