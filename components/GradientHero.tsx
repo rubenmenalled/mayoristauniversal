@@ -82,7 +82,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
       `}</style>
       <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
         <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
+          <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 1100, width: '100%', margin: '0 auto', textAlign: 'center' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Mayorista Universal" style={{ height: 'clamp(56px, 8vw, 96px)', width: 'auto', margin: '0 auto' }} />
             <h1 style={{
