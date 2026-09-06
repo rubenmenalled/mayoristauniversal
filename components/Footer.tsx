@@ -40,11 +40,11 @@ const payment = ['🏦 Transferencia', '📱 Mercado Pago']
 export default function Footer() {
   return (
     <footer id="contacto" className="relative overflow-hidden"
-      style={{ background: '#0B1E3F' }}>
+      style={{ background: '#1877F2' }}>
       {/* Fondo de cajas animadas */}
       <Boxes />
       {/* Máscara radial: difumina las cajas hacia los bordes */}
-      <div className="absolute inset-0 w-full h-full bg-[#0B1E3F] z-10 [mask-image:radial-gradient(transparent,#0B1E3F)] pointer-events-none" />
+      <div className="absolute inset-0 w-full h-full bg-[#1877F2] z-10 [mask-image:radial-gradient(transparent,#1877F2)] pointer-events-none" />
 
       {/* Gold top border */}
       <div className="relative z-20 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
