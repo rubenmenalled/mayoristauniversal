@@ -81,8 +81,8 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
         }
       `}</style>
       <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
-        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', background: '#FFFFFF', display: 'flex', alignItems: 'center' }}>
-          <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 680 }}>
+        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
             <div style={{
               color: '#FF6A3D', fontWeight: 700, fontSize: 'clamp(11px,1.4vw,13px)',
               letterSpacing: '0.12em', textTransform: 'uppercase',
@@ -91,7 +91,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
             </div>
             <h1 style={{
               color: '#0A0A0A', fontWeight: 900, lineHeight: 1.02, margin: '10px 0 0',
-              fontSize: 'clamp(22px, 6vw, 76px)', letterSpacing: '-0.02em', whiteSpace: 'nowrap',
+              fontSize: 'clamp(28px, 7.5vw, 92px)', letterSpacing: '-0.02em', whiteSpace: 'nowrap',
             }}>
               Mayorista Universal
             </h1>
@@ -102,7 +102,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
               Importadora y distribuidora multirubro. Precios de fábrica, sin intermediarios.
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(16px,3vw,26px)', marginTop: 24, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(16px,3vw,26px)', marginTop: 24, flexWrap: 'wrap' }}>
               <a href="#catalogos" className="btn-agregar" style={{
                 background: 'linear-gradient(135deg,#FF6A3D,#FF8A63)',
                 color: '#FFFFFF', fontWeight: 700, fontSize: 15, textDecoration: 'none',
