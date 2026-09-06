@@ -72,8 +72,23 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
     }
   }, [])
 
+  const melangeBg = {
+    backgroundColor: '#E7E6E2',
+    backgroundImage: `
+      radial-gradient(circle at 12% 22%, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1.6px),
+      radial-gradient(circle at 68% 8%, rgba(255,255,255,0.55) 0, rgba(255,255,255,0.55) 1px, transparent 1.8px),
+      radial-gradient(circle at 34% 64%, rgba(0,0,0,0.045) 0, rgba(0,0,0,0.045) 1px, transparent 1.5px),
+      radial-gradient(circle at 82% 48%, rgba(255,255,255,0.5) 0, rgba(255,255,255,0.5) 1.2px, transparent 2px),
+      radial-gradient(circle at 55% 88%, rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 1px, transparent 1.6px),
+      radial-gradient(circle at 6% 78%, rgba(255,255,255,0.45) 0, rgba(255,255,255,0.45) 1px, transparent 1.7px),
+      radial-gradient(circle at 92% 85%, rgba(0,0,0,0.045) 0, rgba(0,0,0,0.045) 1px, transparent 1.5px),
+      radial-gradient(circle at 45% 30%, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.4) 1px, transparent 1.6px)
+    `,
+    backgroundSize: '38px 38px, 52px 52px, 44px 44px, 60px 60px, 34px 34px, 48px 48px, 56px 56px, 40px 40px',
+  } as const
+
   return (
-    <section style={{ width: '100%', background: '#FFFFFF' }}>
+    <section style={{ width: '100%', ...melangeBg }}>
       <style>{`
         #grad-hero { padding-top: 160px; }
         @media (max-width: 1023px) {
@@ -81,7 +96,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
         }
       `}</style>
       <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
-        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', background: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', ...melangeBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 1100, width: '100%', margin: '0 auto', textAlign: 'center' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Mayorista Universal" style={{ height: 'clamp(56px, 8vw, 96px)', width: 'auto', margin: '0 auto' }} />
