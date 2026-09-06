@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { TextReveal } from '@/components/ui/cascade-text'
 
-const HERO_PHOTO = 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=1600&q=75'
-
 // Cuenta de 0 al objetivo con easing (efecto "reloj digital"). Arranca cuando start=true.
 function useCountUp(target: number, duration = 1800, start = true) {
   const [val, setVal] = useState(0)
@@ -75,7 +73,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
   }, [])
 
   return (
-    <section style={{ width: '100%', background: '#0B1E3F' }}>
+    <section style={{ width: '100%', background: '#FFFFFF' }}>
       <style>{`
         #grad-hero { padding-top: 160px; }
         @media (max-width: 1023px) {
@@ -83,32 +81,22 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
         }
       `}</style>
       <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
-        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(360px, 52vw, 520px)', overflow: 'hidden', background: '#0B1E3F', display: 'flex', alignItems: 'flex-end' }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={HERO_PHOTO} alt="" aria-hidden="true"
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-
-          {/* Degradado único para legibilidad — sin blobs animados ni collage */}
-          <div aria-hidden="true" style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(0deg, rgba(6,10,20,0.95) 8%, rgba(6,10,20,0.62) 48%, rgba(6,10,20,0.18) 78%)',
-          }} />
-
+        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', background: '#FFFFFF', display: 'flex', alignItems: 'center' }}>
           <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 680 }}>
             <div style={{
-              color: '#FFD13C', fontWeight: 700, fontSize: 'clamp(11px,1.4vw,13px)',
+              color: '#FF6A3D', fontWeight: 700, fontSize: 'clamp(11px,1.4vw,13px)',
               letterSpacing: '0.12em', textTransform: 'uppercase',
             }}>
               Importador directo
             </div>
             <h1 style={{
-              color: '#FFFFFF', fontWeight: 800, lineHeight: 1.04, margin: '10px 0 0',
-              fontSize: 'clamp(32px, 6vw, 56px)', letterSpacing: '-0.01em',
+              color: '#0A0A0A', fontWeight: 900, lineHeight: 1.02, margin: '10px 0 0',
+              fontSize: 'clamp(40px, 8vw, 76px)', letterSpacing: '-0.02em',
             }}>
               Mayorista Universal
             </h1>
             <p style={{
-              color: 'rgba(255,255,255,0.8)', margin: '14px 0 0', fontWeight: 500,
+              color: '#4B5563', margin: '14px 0 0', fontWeight: 500,
               fontSize: 'clamp(14px, 2vw, 17px)',
             }}>
               Importadora y distribuidora multirubro. Precios de fábrica, sin intermediarios.
@@ -131,13 +119,13 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
               </a>
 
               <div ref={counterRef} style={{ display: 'flex', gap: 'clamp(14px,2.4vw,22px)', flexWrap: 'wrap' }}>
-                <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: 13, fontWeight: 600 }}>
-                  <b style={{ color: '#FFD13C', fontVariantNumeric: 'tabular-nums', fontWeight: 800 }}>{prodCount.toLocaleString('es-AR')}</b> productos
+                <span style={{ color: '#374151', fontSize: 13, fontWeight: 600 }}>
+                  <b style={{ color: '#0D47A1', fontVariantNumeric: 'tabular-nums', fontWeight: 800 }}>{prodCount.toLocaleString('es-AR')}</b> productos
                 </span>
-                <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: 13, fontWeight: 600 }}>
-                  <b style={{ color: '#FFD13C', fontVariantNumeric: 'tabular-nums', fontWeight: 800 }}>{catCount.toLocaleString('es-AR')}</b> categorías
+                <span style={{ color: '#374151', fontSize: 13, fontWeight: 600 }}>
+                  <b style={{ color: '#0D47A1', fontVariantNumeric: 'tabular-nums', fontWeight: 800 }}>{catCount.toLocaleString('es-AR')}</b> categorías
                 </span>
-                <span style={{ color: 'rgba(255,255,255,0.75)', fontSize: 13, fontWeight: 600 }}>🆕 nuevos cada semana</span>
+                <span style={{ color: '#6B7280', fontSize: 13, fontWeight: 600 }}>🆕 nuevos cada semana</span>
               </div>
             </div>
           </div>
