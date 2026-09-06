@@ -73,18 +73,15 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
   }, [])
 
   const melangeBg = {
-    backgroundColor: '#E7E6E2',
+    backgroundColor: '#ECEBE7',
     backgroundImage: `
-      radial-gradient(circle at 12% 22%, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1.6px),
-      radial-gradient(circle at 68% 8%, rgba(255,255,255,0.55) 0, rgba(255,255,255,0.55) 1px, transparent 1.8px),
-      radial-gradient(circle at 34% 64%, rgba(0,0,0,0.045) 0, rgba(0,0,0,0.045) 1px, transparent 1.5px),
-      radial-gradient(circle at 82% 48%, rgba(255,255,255,0.5) 0, rgba(255,255,255,0.5) 1.2px, transparent 2px),
-      radial-gradient(circle at 55% 88%, rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 1px, transparent 1.6px),
-      radial-gradient(circle at 6% 78%, rgba(255,255,255,0.45) 0, rgba(255,255,255,0.45) 1px, transparent 1.7px),
-      radial-gradient(circle at 92% 85%, rgba(0,0,0,0.045) 0, rgba(0,0,0,0.045) 1px, transparent 1.5px),
-      radial-gradient(circle at 45% 30%, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.4) 1px, transparent 1.6px)
+      repeating-linear-gradient(135deg, rgba(10,10,10,0.045) 0px, rgba(10,10,10,0.045) 1.5px, transparent 1.5px, transparent 26px),
+      radial-gradient(ellipse 65% 55% at 15% 15%, rgba(255,255,255,0.65), transparent 62%),
+      radial-gradient(ellipse 70% 60% at 88% 12%, rgba(10,10,10,0.05), transparent 60%),
+      radial-gradient(ellipse 60% 55% at 80% 92%, rgba(255,255,255,0.55), transparent 60%),
+      radial-gradient(ellipse 55% 50% at 8% 88%, rgba(10,10,10,0.045), transparent 60%)
     `,
-    backgroundSize: '38px 38px, 52px 52px, 44px 44px, 60px 60px, 34px 34px, 48px 48px, 56px 56px, 40px 40px',
+    backgroundSize: 'auto, 100% 100%, 100% 100%, 100% 100%, 100% 100%',
   } as const
 
   return (
