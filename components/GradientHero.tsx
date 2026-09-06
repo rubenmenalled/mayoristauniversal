@@ -91,7 +91,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
             </div>
             <h1 style={{
               color: '#0A0A0A', fontWeight: 900, lineHeight: 1.02, margin: '10px 0 0',
-              fontSize: 'clamp(40px, 8vw, 76px)', letterSpacing: '-0.02em',
+              fontSize: 'clamp(22px, 6vw, 76px)', letterSpacing: '-0.02em', whiteSpace: 'nowrap',
             }}>
               Mayorista Universal
             </h1>
