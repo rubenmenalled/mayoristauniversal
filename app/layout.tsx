@@ -3,7 +3,6 @@ import { Montserrat, Inter, Fredoka } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/lib/CartContext'
-import AnnouncementBar from '@/components/AnnouncementBar'
 import ExitIntentPopup from '@/components/ExitIntentPopup'
 import WhatsAppChannelPopup from '@/components/WhatsAppChannelPopup'
 import ScrollToTop from '@/components/ScrollToTop'
@@ -170,7 +169,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `}</Script>
           </>
         )}
-        <CartProvider><NoPinchZoom /><AnnouncementBar />{children}<WhatsAppChannelPopup /><ExitIntentPopup /><FirstOrderGuide /><ScrollToTop /><WhatsAppButton /></CartProvider>
+        <CartProvider><NoPinchZoom />{children}<WhatsAppChannelPopup /><ExitIntentPopup /><FirstOrderGuide /><ScrollToTop /><WhatsAppButton /></CartProvider>
         <Analytics />
       </body>
     </html>

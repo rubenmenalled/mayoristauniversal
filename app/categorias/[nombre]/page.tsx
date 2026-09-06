@@ -343,12 +343,12 @@ export default function CategoriaPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #0B1E3F 0%, #13294f 100%)', paddingTop: 0 }}>
       <DescuentoPopup categoria={nombreDecoded} />
-      {/* Header — debajo del AnnouncementBar (38px fijo) */}
+      {/* Header */}
       <div style={{
         background: 'rgba(13,71,161,0.95)', borderBottom: '1px solid rgba(255,106,61,0.2)',
-        padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50,
+        padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50,
         backdropFilter: 'blur(16px)',
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -649,10 +649,10 @@ export default function CategoriaPage() {
           </button>
         )}
 
-        {/* Barra FIJA del mínimo — aparece al scrollear, pegada bajo la barra de avisos (38px). No se muestra en categorías del grupo compartido de $150.000. */}
+        {/* Barra FIJA del mínimo — aparece al scrollear. No se muestra en categorías del grupo compartido de $150.000. */}
         {minVal > 0 && !grupoCompartido && (
           <div style={{
-            position: 'fixed', top: 38, left: 0, right: 0, zIndex: 45,
+            position: 'fixed', top: 0, left: 0, right: 0, zIndex: 45,
             transform: showFixedMin ? 'translateY(0)' : 'translateY(-130%)',
             transition: 'transform 0.25s ease', pointerEvents: 'none',
             background: 'linear-gradient(135deg,#FF6A3D,#E0521F)',

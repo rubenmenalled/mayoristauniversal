@@ -216,7 +216,7 @@ export default function CheckoutPage() {
   // ── STEP: PAGO ────────────────────────────────────────────────────────────
   if (step === 'pago') {
     return (
-      <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 38 }}>
+      <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 0 }}>
         <StepBar current="pago" />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ maxWidth: 520, width: '100%' }}>
@@ -350,7 +350,7 @@ export default function CheckoutPage() {
   // ── STEP: LISTO ───────────────────────────────────────────────────────────
   if (step === 'listo') {
     return (
-      <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 38 }}>
+      <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 0 }}>
         <StepBar current="listo" />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div style={{ maxWidth: 480, width: '100%', textAlign: 'center' }}>
@@ -383,9 +383,9 @@ export default function CheckoutPage() {
 
   // ── STEP: FORM ────────────────────────────────────────────────────────────
   return (
-    <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 38 }}>
+    <div style={{ minHeight: '100vh', background: '#F7F8FA', paddingTop: 0 }}>
       {/* Header */}
-      <div style={{ background: '#FFFFFF', borderBottom: '1px solid #EEE', padding: '16px 24px', position: 'sticky', top: 38, zIndex: 50 }}>
+      <div style={{ background: '#FFFFFF', borderBottom: '1px solid #EEE', padding: '16px 24px', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
           <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: GOLD, fontWeight: 700, fontSize: 13 }}>
             <ArrowLeft size={16} /> Volver
