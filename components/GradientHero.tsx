@@ -72,20 +72,8 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
     }
   }, [])
 
-  const melangeBg = {
-    backgroundColor: '#ECEBE7',
-    backgroundImage: `
-      repeating-linear-gradient(135deg, rgba(10,10,10,0.045) 0px, rgba(10,10,10,0.045) 1.5px, transparent 1.5px, transparent 26px),
-      radial-gradient(ellipse 65% 55% at 15% 15%, rgba(255,255,255,0.65), transparent 62%),
-      radial-gradient(ellipse 70% 60% at 88% 12%, rgba(10,10,10,0.05), transparent 60%),
-      radial-gradient(ellipse 60% 55% at 80% 92%, rgba(255,255,255,0.55), transparent 60%),
-      radial-gradient(ellipse 55% 50% at 8% 88%, rgba(10,10,10,0.045), transparent 60%)
-    `,
-    backgroundSize: 'auto, 100% 100%, 100% 100%, 100% 100%, 100% 100%',
-  } as const
-
   return (
-    <section style={{ width: '100%', ...melangeBg }}>
+    <section style={{ width: '100%', background: '#EDECE8' }}>
       <style>{`
         #grad-hero { padding-top: 160px; }
         @media (max-width: 1023px) {
@@ -93,7 +81,12 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
         }
       `}</style>
       <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
-        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', ...melangeBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', width: '100%', minHeight: 'clamp(280px, 34vw, 400px)', background: '#EDECE8', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <svg aria-hidden="true" viewBox="0 0 1200 400" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+            <path d="M0,255 C200,300 400,220 600,245 C800,270 1000,225 1200,260 L1200,400 L0,400 Z" fill="#DCDAD4" />
+            <path d="M0,285 C220,250 420,315 620,285 C820,255 1020,305 1200,275 L1200,400 L0,400 Z" fill="#E4E2DC" />
+            <path d="M0,330 C250,305 450,350 650,330 C850,310 1050,345 1200,325 L1200,400 L0,400 Z" fill="#D2D0C9" />
+          </svg>
           <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 1100, width: '100%', margin: '0 auto', textAlign: 'center' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Mayorista Universal" style={{ height: 'clamp(56px, 8vw, 96px)', width: 'auto', margin: '0 auto' }} />
