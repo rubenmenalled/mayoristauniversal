@@ -263,7 +263,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
 
   return (
     <>
-    <section id="catalogos" style={{ background: 'linear-gradient(180deg, #1877F2 0%, #1465D8 100%)', padding: '4px clamp(16px, 2.5vw, 40px) 24px' }}>
+    <section id="catalogos" style={{ background: 'linear-gradient(180deg, #2698E4 0%, #1E7AB6 100%)', padding: '4px clamp(16px, 2.5vw, 40px) 24px' }}>
       <div style={{ maxWidth: 1500, margin: '0 auto' }}>
 
         <style dangerouslySetInnerHTML={{ __html: `

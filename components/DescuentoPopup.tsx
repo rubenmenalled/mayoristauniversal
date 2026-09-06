@@ -39,7 +39,7 @@ export default function DescuentoPopup({ categoria }: Props) {
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: 'linear-gradient(145deg, #1877F2 0%, #1465D8 100%)',
+          background: 'linear-gradient(145deg, #2698E4 0%, #1E7AB6 100%)',
           border: '1.5px solid rgba(255,138,61,0.55)',
           borderRadius: 20, padding: '36px 30px 30px', maxWidth: 380, width: '100%',
           position: 'relative', boxShadow: '0 24px 64px rgba(0,0,0,0.6)',

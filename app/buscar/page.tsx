@@ -87,7 +87,7 @@ function BuscarContent() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1877F2 0%, #1465D8 100%)', paddingTop: 0 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #2698E4 0%, #1E7AB6 100%)', paddingTop: 0 }}>
       {/* Header */}
       <div style={{
         background: 'rgba(13,71,161,0.95)', borderBottom: '1px solid rgba(255,106,61,0.2)',

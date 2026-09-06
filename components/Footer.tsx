@@ -40,11 +40,11 @@ const payment = ['🏦 Transferencia', '📱 Mercado Pago']
 export default function Footer() {
   return (
     <footer id="contacto" className="relative overflow-hidden"
-      style={{ background: '#1877F2' }}>
+      style={{ background: '#2698E4' }}>
       {/* Fondo de cajas animadas */}
       <Boxes />
       {/* Máscara radial: difumina las cajas hacia los bordes */}
-      <div className="absolute inset-0 w-full h-full bg-[#1877F2] z-10 [mask-image:radial-gradient(transparent,#1877F2)] pointer-events-none" />
+      <div className="absolute inset-0 w-full h-full bg-[#2698E4] z-10 [mask-image:radial-gradient(transparent,#2698E4)] pointer-events-none" />
 
       {/* Gold top border */}
       <div className="relative z-20 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
@@ -87,7 +87,7 @@ export default function Footer() {
                   style={{
                     background: s.name === 'Instagram' ? 'rgba(255,0,144,0.15)' : s.name === 'Facebook' ? 'rgba(24,119,242,0.15)' : 'rgba(255,255,255,0.12)',
                     border: s.name === 'Instagram' ? '1px solid rgba(255,0,144,0.4)' : s.name === 'Facebook' ? '1px solid rgba(24,119,242,0.4)' : '1px solid rgba(255,255,255,0.3)',
-                    color: s.name === 'Instagram' ? '#FF0090' : s.name === 'Facebook' ? '#1877F2' : '#ffffff',
+                    color: s.name === 'Instagram' ? '#FF0090' : s.name === 'Facebook' ? '#2698E4' : '#ffffff',
                   }}
                   whileHover={{ scale: 1.12, y: -2 }}
                   title={s.name}

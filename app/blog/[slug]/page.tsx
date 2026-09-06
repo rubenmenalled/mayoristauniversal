@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1877F2 0%, #1465D8 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #2698E4 0%, #1E7AB6 100%)' }}>
       <Script id={`jsonld-article-${post.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} strategy="beforeInteractive" />
       <Script id={`jsonld-breadcrumb-blog-${post.slug}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} strategy="beforeInteractive" />
 
