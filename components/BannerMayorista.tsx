@@ -10,7 +10,7 @@ export default function BannerMayorista() {
   const card: React.CSSProperties = {
     maxWidth: 1600,
     margin: '0 auto',
-    background: 'linear-gradient(135deg,#2698E4 0%,#1E7AB6 100%)',
+    background: 'linear-gradient(135deg,#4B5563 0%,#374151 100%)',
     border: '1.5px solid rgba(255,106,61,0.45)',
     borderRadius: 18,
     boxShadow: '0 14px 40px rgba(11,30,63,0.28)',

@@ -109,8 +109,8 @@ export default function FAQ() {
 
             const itemStyle: React.CSSProperties = {
               background: isOpen
-                ? 'linear-gradient(135deg, #2698E4 0%, #5AB4EC 100%)'
-                : 'linear-gradient(135deg, #2698E4 0%, #1E7AB6 100%)',
+                ? 'linear-gradient(135deg, #4B5563 0%, #6B7280 100%)'
+                : 'linear-gradient(135deg, #4B5563 0%, #374151 100%)',
               border: isOpen
                 ? '1.5px solid #FF6A3D'
                 : '1px solid rgba(255,106,61, 0.28)',

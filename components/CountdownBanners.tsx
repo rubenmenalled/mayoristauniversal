@@ -95,7 +95,7 @@ export default function CountdownBanners() {
   if (visibles.length === 0) return null
 
   return (
-    <section style={{ background: '#2698E4', padding: '16px 14px 4px' }}>
+    <section style={{ background: '#4B5563', padding: '16px 14px 4px' }}>
       <style>{`
         .cd-wrap { max-width: 960px; margin: 0 auto; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
         .cd-pill {

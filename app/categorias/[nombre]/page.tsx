@@ -320,7 +320,7 @@ export default function CategoriaPage() {
 
   if (esAdultos && !ageVerified) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #2698E4 0%, #1E7AB6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #4B5563 0%, #374151 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <div style={{ background: '#FFFFFF', borderRadius: 20, padding: '32px 28px', maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.4)' }}>
           <div style={{ fontSize: 48, marginBottom: 12 }}>🔞</div>
           <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 20, marginBottom: 10 }}>Contenido para mayores de 18 años</div>
@@ -343,7 +343,7 @@ export default function CategoriaPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #2698E4 0%, #1E7AB6 100%)', paddingTop: 0 }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #4B5563 0%, #374151 100%)', paddingTop: 0 }}>
       <DescuentoPopup categoria={nombreDecoded} />
       {/* Header */}
       <div style={{
@@ -473,7 +473,7 @@ export default function CategoriaPage() {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 16px 0' }}>
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(8px,2vw,16px)', flexWrap: 'wrap',
-            background: 'linear-gradient(135deg,#2698E4 0%,#14B8A6 55%,#22C55E 100%)',
+            background: 'linear-gradient(135deg,#4B5563 0%,#14B8A6 55%,#22C55E 100%)',
             borderRadius: 14, padding: '12px 18px', boxShadow: '0 6px 20px rgba(13,148,136,0.32)', textAlign: 'center',
           }}>
             <span style={{ fontSize: 26 }}>🤝</span>

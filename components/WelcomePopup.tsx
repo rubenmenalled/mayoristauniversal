@@ -36,7 +36,7 @@ export default function WelcomePopup() {
             left: 24,
             zIndex: 9000,
             width: 'min(88vw, 260px)',
-            background: 'linear-gradient(160deg,#1E7AB6,#2698E4)',
+            background: 'linear-gradient(160deg,#374151,#4B5563)',
             borderRadius: 16,
             padding: 10,
             boxShadow: '0 12px 34px rgba(0,0,0,0.45)',
