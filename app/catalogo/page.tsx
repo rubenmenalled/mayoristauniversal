@@ -16,7 +16,6 @@ const FOTOS: Record<string, string> = {
   BEBES:        'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=90',
   'BLANQUERIA LICENCIAS Y MAS...':   'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/cat_blanqueria_licencias.jpg',
   ELECTRONICA:  'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=90',
-  'TODO PARA EL DEPORTE': 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=90',
   JUGUETERIA:   'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&q=90',
   LIBRERIA:     'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
   MASCOTAS:     'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',

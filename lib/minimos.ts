@@ -3,9 +3,9 @@
 export const MIN_CATALOGO_DEFAULT = 150000
 export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND,
-  // PERFUMERIA Y BELLEZA, MIX POP, LIBRERIA, BAZAR Y HOGAR, CAMPING,
-  // PRODUCTOS REGIONALES y TODO PARA EL DEPORTE ya NO tienen entrada
-  // individual acá — comparten el mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE.
+  // PERFUMERIA Y BELLEZA, MIX POP, LIBRERIA, BAZAR Y HOGAR, CAMPING y
+  // PRODUCTOS REGIONALES ya NO tienen entrada individual acá — comparten
+  // el mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE.
   'JUGUETES, PELUCHES Y MÁS': 150000,
 }
 
@@ -39,7 +39,6 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'FLORERIA ARTIFICIAL': 'JUGUETES, PELUCHES Y MÁS',
   'CAMPING': 'JUGUETES, PELUCHES Y MÁS',
   'PRODUCTOS REGIONALES': 'JUGUETES, PELUCHES Y MÁS',
-  'TODO PARA EL DEPORTE': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {

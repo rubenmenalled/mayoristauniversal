@@ -593,7 +593,6 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Qué artículos deportivos (protectores, antiparras, vendas, medias de compresión) conviene comprar al por mayor y por qué es un rubro con demanda estable todo el año.',
     excerpt: 'Protectores, antiparras y accesorios deportivos: por qué este rubro tiene demanda estable los doce meses del año, sin depender de una sola temporada.',
     coverImage: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200&q=80',
-    categoryLink: { nombre: 'TODO PARA EL DEPORTE', label: 'Ver catálogo de Todo para el Deporte' },
     publishedAt: '2026-08-19',
     content: `
       ${p('A diferencia de otros rubros con picos marcados, los artículos deportivos tienen una ventaja clara: la gente entrena y practica deportes todo el año, así que la demanda no depende de una sola temporada.')}
@@ -609,7 +608,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'Medias de compresión y accesorios técnicos: mejor margen, menos competencia.',
         'Considerá vender en volumen a gimnasios y clubes, no solo al público final.',
       ])}
-      ${p('Explorá el catálogo completo de <a href="/categorias/TODO%20PARA%20EL%20DEPORTE">Todo para el Deporte al por mayor</a>.')}
+      ${p('Explorá el <a href="/catalogo">catálogo completo al por mayor</a>.')}
     `,
   },
   {
