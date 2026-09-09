@@ -77,9 +77,10 @@ export default function ProductDetailClient({ product, relacionados }: { product
           `}} />
           {/* Galería */}
           <div>
-            <div
+            <button
+              type="button"
               onClick={() => images[imgIdx] && setZoomOpen(true)}
-              style={{ position: 'relative', width: '100%', aspectRatio: '1/1', background: '#FFFFFF', borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.3)', cursor: images[imgIdx] ? 'zoom-in' : 'default' }}>
+              style={{ position: 'relative', width: '100%', aspectRatio: '1/1', background: '#FFFFFF', borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.3)', cursor: images[imgIdx] ? 'zoom-in' : 'default', border: 'none', padding: 0, display: 'block', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
               {images[imgIdx] ? (
                 <>
                   <Image src={images[imgIdx]} alt={product.name} fill style={{ objectFit: 'contain' }} sizes="(max-width: 800px) 100vw, 460px" quality={90} priority />
@@ -90,7 +91,7 @@ export default function ProductDetailClient({ product, relacionados }: { product
               ) : (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 64 }}>📦</div>
               )}
-            </div>
+            </button>
             {images.length > 1 && (
               <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
                 {images.map((img, i) => (
@@ -174,11 +175,11 @@ export default function ProductDetailClient({ product, relacionados }: { product
 
       {zoomOpen && images[imgIdx] && (
         <div
-          onClick={() => { setZoomOpen(false); setZoomed(false) }}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
-          <div
-            onClick={e => { e.stopPropagation(); setZoomed(z => !z) }}
-            style={{ position: 'relative', width: '100%', maxWidth: 900, height: '85vh', overflow: 'hidden', cursor: zoomed ? 'zoom-out' : 'zoom-in' }}>
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, touchAction: 'manipulation' }}>
+          <button
+            type="button"
+            onClick={() => setZoomed(z => !z)}
+            style={{ position: 'relative', width: '100%', maxWidth: 900, height: '85vh', overflow: 'hidden', cursor: zoomed ? 'zoom-out' : 'zoom-in', border: 'none', padding: 0, background: 'none', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
             <Image
               src={images[imgIdx]}
               alt={product.name}
@@ -187,10 +188,11 @@ export default function ProductDetailClient({ product, relacionados }: { product
               sizes="900px"
               quality={100}
             />
-          </div>
+          </button>
           <button
-            onClick={e => { e.stopPropagation(); setZoomOpen(false); setZoomed(false) }}
-            style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '8px 16px', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+            type="button"
+            onClick={() => { setZoomOpen(false); setZoomed(false) }}
+            style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '8px 16px', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>
             ✕ Cerrar
           </button>
         </div>
