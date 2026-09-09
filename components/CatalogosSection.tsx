@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ShoppingCart, Search } from 'lucide-react'
 import { minDeCatalogo, catalogoDe, CATEGORIA_GRUPO_OVERRIDE } from '@/lib/minimos'
 import { useCart } from '@/lib/CartContext'
+import { productUrl } from '@/lib/slug'
 
 const WA = 'https://wa.me/5491164660482'
 
@@ -89,7 +91,7 @@ function ProductoCard({ p, onAdd }: { p: Producto; onAdd: (p: Producto) => void 
 
   return (
     <div style={{ borderRadius: 12, overflow: 'hidden', background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
-      <div style={{ position: 'relative', height: 160, background: '#F8F8F8' }}>
+      <Link href={productUrl(p.id, p.name)} style={{ position: 'relative', height: 160, background: '#F8F8F8', display: 'block' }}>
         {p.image ? (
           <Image src={p.image} alt={p.name} fill className="object-contain" sizes="220px" quality={80} />
         ) : (
@@ -101,10 +103,12 @@ function ProductoCard({ p, onAdd }: { p: Producto; onAdd: (p: Producto) => void 
         <span style={{ position: 'absolute', top: 8, right: 8, background: 'rgba(11,30,63,0.85)', color: '#FFD13C', fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: 6, maxWidth: '80%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {p.category}
         </span>
-      </div>
+      </Link>
       <div style={{ padding: 10 }}>
         {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 700, marginBottom: 2, textTransform: 'uppercase' }}>{p.brand}</div>}
-        <h3 style={{ color: '#111827', fontSize: 12, fontWeight: 700, lineHeight: 1.3, marginBottom: 6, minHeight: 30, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.name}</h3>
+        <h3 style={{ color: '#111827', fontSize: 12, fontWeight: 700, lineHeight: 1.3, marginBottom: 6, minHeight: 30, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          <Link href={productUrl(p.id, p.name)} style={{ color: 'inherit' }}>{p.name}</Link>
+        </h3>
 
         {titulo ? (
           <div style={{ background: '#FFFDE7', border: '1.5px solid #F59E0B', borderRadius: 6, padding: '5px 8px', marginBottom: 6 }}>
