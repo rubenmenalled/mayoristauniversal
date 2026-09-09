@@ -30,6 +30,8 @@ export default function ProductDetailClient({ product, relacionados }: { product
   const { addItem, count, cartOpen, setCartOpen } = useCart()
   const [imgIdx, setImgIdx] = useState(0)
   const [added, setAdded] = useState(false)
+  const [zoomOpen, setZoomOpen] = useState(false)
+  const [zoomed, setZoomed] = useState(false)
   const images = product.images && product.images.length > 0 ? product.images : (product.image ? [product.image] : [])
   const pd = getPriceDisplay(product)
   const sku = product.location?.startsWith('SKU:') ? product.location.replace('SKU:', '').trim() : null
@@ -75,9 +77,16 @@ export default function ProductDetailClient({ product, relacionados }: { product
           `}} />
           {/* Galería */}
           <div>
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', background: '#FFFFFF', borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.3)' }}>
+            <div
+              onClick={() => images[imgIdx] && setZoomOpen(true)}
+              style={{ position: 'relative', width: '100%', aspectRatio: '1/1', background: '#FFFFFF', borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.3)', cursor: images[imgIdx] ? 'zoom-in' : 'default' }}>
               {images[imgIdx] ? (
-                <Image src={images[imgIdx]} alt={product.name} fill style={{ objectFit: 'contain' }} sizes="(max-width: 800px) 100vw, 460px" quality={90} priority />
+                <>
+                  <Image src={images[imgIdx]} alt={product.name} fill style={{ objectFit: 'contain' }} sizes="(max-width: 800px) 100vw, 460px" quality={90} priority />
+                  <div style={{ position: 'absolute', top: 10, right: 10, background: 'rgba(0,0,0,0.45)', borderRadius: 20, padding: '3px 9px', color: 'rgba(255,255,255,0.8)', fontSize: 11, pointerEvents: 'none' }}>
+                    🔍 Ampliar
+                  </div>
+                </>
               ) : (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', fontSize: 64 }}>📦</div>
               )}
@@ -162,6 +171,30 @@ export default function ProductDetailClient({ product, relacionados }: { product
       </div>
 
       <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
+
+      {zoomOpen && images[imgIdx] && (
+        <div
+          onClick={() => { setZoomOpen(false); setZoomed(false) }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+          <div
+            onClick={e => { e.stopPropagation(); setZoomed(z => !z) }}
+            style={{ position: 'relative', width: '100%', maxWidth: 900, height: '85vh', overflow: 'hidden', cursor: zoomed ? 'zoom-out' : 'zoom-in' }}>
+            <Image
+              src={images[imgIdx]}
+              alt={product.name}
+              fill
+              style={{ objectFit: 'contain', transform: zoomed ? 'scale(1.8)' : 'scale(1)', transition: 'transform 0.25s ease' }}
+              sizes="900px"
+              quality={100}
+            />
+          </div>
+          <button
+            onClick={e => { e.stopPropagation(); setZoomOpen(false); setZoomed(false) }}
+            style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 20, padding: '8px 16px', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+            ✕ Cerrar
+          </button>
+        </div>
+      )}
     </div>
   )
 }
