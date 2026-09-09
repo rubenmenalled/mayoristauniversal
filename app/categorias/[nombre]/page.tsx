@@ -80,6 +80,7 @@ export default function CategoriaPage() {
   const [dragging, setDragging] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const imgRef = useRef<HTMLDivElement>(null)
+  const tapStartRef = useRef<{x:number,y:number,moved:boolean}|null>(null)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 640)
@@ -705,7 +706,7 @@ export default function CategoriaPage() {
                     opacity: 1, animation: i < 12 ? `fadeUp 0.3s ease ${Math.min(i * 0.03, 0.25)}s both` : 'none' }}
                 >
 
-                  <div style={{ position: 'relative', height: 190, background: nombreDecoded.toUpperCase() === 'ELECTRONICA' ? '#FFFFFF' : '#F8F8F8', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default' }}
+                  <button type="button" style={{ position: 'relative', height: 190, width: '100%', background: nombreDecoded.toUpperCase() === 'ELECTRONICA' ? '#FFFFFF' : '#F8F8F8', overflow: 'hidden', cursor: p.image ? 'zoom-in' : 'default', border: 'none', padding: 0, display: 'block', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
                     onClick={() => { if (p.image) { setLightbox(p); setLightboxImgIdx(0) } }}>
                     {p.image ? (
                       <Image src={p.image} alt={p.name} fill className={nombreDecoded.toUpperCase() === 'ELECTRONICA' ? 'object-contain' : 'object-cover'} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px" quality={75} />
@@ -739,7 +740,7 @@ export default function CategoriaPage() {
                         <span style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 900, letterSpacing: '0.06em' }}>PRECIO POR 6 UNIDADES</span>
                       </div>
                     )}
-                  </div>
+                  </button>
                   <div style={{ padding: 8 }}>
                     {p.brand && <div style={{ color: '#9CA3AF', fontSize: 9, fontWeight: 600, marginBottom: 1 }}>Marca: {p.brand}</div>}
                     {(subActiva === '' || subActiva === '__todos__') && p.subcategory && (
@@ -887,21 +888,36 @@ export default function CategoriaPage() {
                 onMouseUp={() => { setDragStart(null); setTimeout(() => setDragging(false), 50) }}
                 onMouseLeave={() => { setDragStart(null); setTimeout(() => setDragging(false), 50) }}
                 onTouchStart={e => {
-                  if (!zoom) return
                   const t = e.touches[0]
+                  tapStartRef.current = { x: t.clientX, y: t.clientY, moved: false }
+                  if (!zoom) return
                   setDragStart({x: t.clientX - offset.x * 1.8, y: t.clientY - offset.y * 1.8})
                 }}
                 onTouchMove={e => {
+                  const t = e.touches[0]
+                  if (tapStartRef.current && (Math.abs(t.clientX - tapStartRef.current.x) > 8 || Math.abs(t.clientY - tapStartRef.current.y) > 8)) {
+                    tapStartRef.current.moved = true
+                  }
                   if (!dragStart || !zoom) return
                   e.stopPropagation()
-                  const t = e.touches[0]
                   const nx = (t.clientX - dragStart.x) / 1.8
                   const ny = (t.clientY - dragStart.y) / 1.8
                   const max = 110
                   setOffset({ x: Math.max(-max, Math.min(max, nx)), y: Math.max(-max, Math.min(max, ny)) })
                   setDragging(true)
                 }}
-                onTouchEnd={() => { setDragStart(null); setTimeout(() => setDragging(false), 100) }}
+                onTouchEnd={e => {
+                  const wasTap = tapStartRef.current && !tapStartRef.current.moved
+                  tapStartRef.current = null
+                  if (!zoom) {
+                    // Algunos navegadores in-app (WhatsApp/Instagram) no siempre sintetizan
+                    // el evento click al levantar el dedo sobre un <div> — disparamos acá directo.
+                    if (wasTap) { e.preventDefault(); setZoom(true); setOffset({x:0,y:0}) }
+                    return
+                  }
+                  setDragStart(null)
+                  setTimeout(() => setDragging(false), 100)
+                }}
               >
                 <div style={{
                   position: 'absolute', inset: 0,
