@@ -437,7 +437,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Qué productos de electrónica, iluminación, ferretería y bazar conviene comprar por mayor en Importadora DAG, y cómo armar un surtido variado sin dispersarte.',
     excerpt: 'Electrónica, iluminación, ferretería y bazar en un solo catálogo: cómo elegir sin dispersarte entre tantas categorías distintas.',
     coverImage: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=1200&q=80',
-    categoryLink: { nombre: 'IMPORTADORA DAG', label: 'Ver catálogo de Importadora DAG' },
+    categoryLink: { nombre: 'ELECTRONICA Y MAS', label: 'Ver catálogo de Electrónica y Más' },
     publishedAt: '2026-08-19',
     content: `
       ${p('Este catálogo reúne electrónica chica, iluminación, ferretería, bazar y bijouterie/peluquería en un mismo lugar — ideal para el revendedor que quiere variedad real sin manejar cinco proveedores distintos.')}
@@ -456,7 +456,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'Ferretería chica: demanda pareja y predecible todo el año.',
         'Elegí pocos subrubros y profundizá, en vez de dispersarte.',
       ])}
-      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20DAG">Importadora DAG al por mayor</a>.')}
+      ${p('Explorá el catálogo completo de <a href="/categorias/ELECTRONICA%20Y%20MAS">Electrónica y Más al por mayor</a>.')}
     `,
   },
   {
@@ -465,7 +465,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Guía sobre el catálogo de Importadora NC: bazar, electrónica, accesorios y mochilas de peluche, con foco en cómo armar un surtido de bazar rentable.',
     excerpt: 'Bazar como producto principal, más mochilas de peluche y accesorios como diferencial: cómo aprovechar este catálogo mixto.',
     coverImage: 'https://images.unsplash.com/photo-1584788049816-e78d1c0c5e50?w=1200&q=80',
-    categoryLink: { nombre: 'IMPORTADORA NC', label: 'Ver catálogo de Importadora NC' },
+    categoryLink: { nombre: 'ELECTRONICA Y MAS', label: 'Ver catálogo de Electrónica y Más' },
     publishedAt: '2026-08-19',
     content: `
       ${p('El fuerte de este catálogo es el bazar, con más de la mitad de los productos, complementado con electrónica chica, accesorios y una categoría diferencial: las mochilas de peluche.')}
@@ -481,7 +481,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'Las mochilas de peluche son un producto diferencial poco común.',
         'Accesorios y electrónica completan bien el pedido sin sumar otro proveedor.',
       ])}
-      ${p('Explorá el catálogo completo de <a href="/categorias/IMPORTADORA%20NC">Importadora NC al por mayor</a>.')}
+      ${p('Explorá el catálogo completo de <a href="/categorias/ELECTRONICA%20Y%20MAS">Electrónica y Más al por mayor</a>.')}
     `,
   },
   {

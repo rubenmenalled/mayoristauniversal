@@ -12,14 +12,12 @@ const ORDEN_CATEGORIAS = [
   'PELUCHES',
   'KIKLAND',
   'BEBÉ',
-  'IMPORTADORA DAG',
+  'ELECTRONICA Y MAS',
   'PELUCHES DE PERSONAJES',
   'PERFUMERIA Y BELLEZA',
-  'IMPORTADORA NC',
   'ACCESORIOS PARA MASCOTAS',
   'ACCESORIOS DE TRABAJO Y MAS',
   'CAZA PESCA CAMPING Y MAS',
-  'IMPORTADORA HS',
   'CAMPING',
   'PRODUCTOS REGIONALES',
   'BAZAR Y HOGAR',
@@ -48,8 +46,7 @@ const FOTOS: Record<string, string> = {
   'LIBRERIA':            'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90',
   'MASCOTAS':            'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=90',
   'PERFUMERIA Y BELLEZA': '/cat_perfumeria.jpg',
-  'IMPORTADORA DAG':     'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
-  'IMPORTADORA NC':      'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
+  'ELECTRONICA Y MAS':   'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=90',
   'ACCESORIOS DE PELO':  'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=90',
 
 }
@@ -99,7 +96,7 @@ export async function GET() {
     'PELUCHES':            '🧸',
     'PELUCHES ENAMORADOS': '💕',
     'CAZA PESCA CAMPING Y MAS': '🎣',
-    'IMPORTADORA HS':      '🔌',
+    'ELECTRONICA Y MAS':   '🔌',
     'FLORERIA ARTIFICIAL': '💐',
     'RODADOS':             '🛴',
     'BEBÉ':                '👶',
@@ -115,8 +112,6 @@ export async function GET() {
     'MASCOTAS':            '🐾',
     'PRODUCTOS REGIONALES':'🌿',
     'PERFUMERIA Y BELLEZA': '🌸',
-    'IMPORTADORA DAG':     '📦',
-    'IMPORTADORA NC':      '📦',
     'ACCESORIOS DE TRABAJO Y MAS': '🧰',
     'ACCESORIOS DE PELO':  '💇',
 
@@ -138,8 +133,7 @@ export async function GET() {
     'MASCOTAS':           ['Accesorios Perro', 'Accesorios Gato', 'Juguetes Mascotas', 'Higiene Mascotas'],
     'PRODUCTOS REGIONALES':['Alimentos Regionales', 'Dulces y Conservas', 'Artesanías', 'Bebidas'],
     'PERFUMERIA Y BELLEZA': ['Perfumes Mujer', 'Perfumes Hombre', 'Labios', 'Ojos', 'Piel', 'Uñas'],
-    'IMPORTADORA DAG':    ['ELECTRONICA', 'HOGAR', 'ILUMINACION', 'BAZAR', 'PELUQUERIA-COSMETICA-BIJOU', 'FERRETERIA', 'GRIFERIA', 'CABLES'],
-    'IMPORTADORA NC':     ['BAZAR', 'ELECTRONICA', 'ACCESORIOS', 'LINTERNAS', 'MOCHILAS DE PELUCHE', 'INVIERNO'],
+    'ELECTRONICA Y MAS':  ['ELECTRONICA', 'HOGAR', 'ILUMINACION', 'BAZAR', 'FERRETERIA', 'ACCESORIOS', 'TECNOLOGIA Y ACCESORIOS', 'AUDIO Y PARLANTES'],
     'RODADOS':            ['Bicicletas', 'Patines', 'Scooters', 'Accesorios Rodados'],
   }
 
