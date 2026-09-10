@@ -73,12 +73,12 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
   }, [])
 
   const COLLAGE_LEFT = [
-    { src: 'https://paraisopeluches.com.ar/wp-content/uploads/2026/09/51451d485fd9497384d8876fc1ebe0f5.jpg', alt: 'Peluche Mickey', top: '8%', left: '2%', size: 108, rot: -9 },
+    { src: 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/hero-mickey.jpg', alt: 'Peluche Mickey', top: '8%', left: '2%', size: 108, rot: -9 },
     { src: 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/sar_13421.jpg', alt: 'Velador led SAR', top: '58%', left: '9%', size: 92, rot: 6 },
     { src: 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/sar_12973.jpg', alt: 'Joystick inalámbrico', top: '80%', left: '0%', size: 76, rot: -5 },
   ]
   const COLLAGE_RIGHT = [
-    { src: 'https://paraisopeluches.com.ar/wp-content/uploads/2026/09/4618d77b18e64781b768363a3e8a2185.jpg', alt: 'Peluche Stitch', top: '6%', left: '86%', size: 104, rot: 8 },
+    { src: 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/hero-stitch.jpg', alt: 'Peluche Stitch', top: '6%', left: '86%', size: 104, rot: 8 },
     { src: 'https://kdqijydsqukjvfjhgmkn.supabase.co/storage/v1/object/public/imagenes/productos/sar_13188.jpg', alt: 'Parlante gaming RGB', top: '56%', left: '90%', size: 92, rot: -7 },
     { src: 'https://complotmg.com.ar/storage/legacy/productos/3135a.jpeg', alt: 'Taza minion', top: '80%', left: '95%', size: 76, rot: 5 },
   ]
