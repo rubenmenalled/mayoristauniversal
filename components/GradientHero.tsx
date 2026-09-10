@@ -72,12 +72,35 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
     }
   }, [])
 
+  const COLLAGE_LEFT = [
+    { src: 'https://paraisopeluches.com.ar/wp-content/uploads/2026/09/51451d485fd9497384d8876fc1ebe0f5.jpg', alt: 'Peluche Mickey', top: '8%', left: '2%', size: 108, rot: -9 },
+    { src: 'https://complotmg.com.ar/storage/subidas/productos/513/1776449611147_365093754.jpg', alt: 'Luz neón flamenco', top: '58%', left: '9%', size: 92, rot: 6 },
+    { src: 'https://paraisopeluches.com.ar/wp-content/uploads/2026/08/34.jpg', alt: 'Llavero capibara', top: '80%', left: '0%', size: 76, rot: -5 },
+  ]
+  const COLLAGE_RIGHT = [
+    { src: 'https://paraisopeluches.com.ar/wp-content/uploads/2026/09/4618d77b18e64781b768363a3e8a2185.jpg', alt: 'Peluche Stitch', top: '6%', left: '86%', size: 104, rot: 8 },
+    { src: 'https://paraisopeluches.com.ar/wp-content/uploads/2026/07/IMG_1248-430x430-1.jpeg', alt: 'Espejo con luz LED', top: '56%', left: '90%', size: 92, rot: -7 },
+    { src: 'https://paraisopeluches.com.ar/wp-content/uploads/2026/09/tmployc2eja_s.jpg', alt: 'Peluche croissant', top: '80%', left: '95%', size: 76, rot: 5 },
+  ]
+
   return (
     <section style={{ width: '100%', background: '#EDECE8' }}>
       <style>{`
         #grad-hero { padding-top: 160px; }
         @media (max-width: 1023px) {
           #grad-hero { padding-top: 220px; }
+        }
+        .hero-collage-item {
+          position: absolute;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 12px 28px rgba(20,20,20,0.16), 0 2px 6px rgba(20,20,20,0.08);
+          border: 3px solid #FFFFFF;
+          background: #fff;
+        }
+        .hero-collage-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        @media (max-width: 900px) {
+          .hero-collage-item { display: none; }
         }
       `}</style>
       <div id="grad-hero" style={heroPad ? { paddingTop: heroPad } : undefined}>
@@ -87,6 +110,28 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
             <path d="M0,285 C220,250 420,315 620,285 C820,255 1020,305 1200,275 L1200,400 L0,400 Z" fill="#E4E2DC" />
             <path d="M0,330 C250,305 450,350 650,330 C850,310 1050,345 1200,325 L1200,400 L0,400 Z" fill="#D2D0C9" />
           </svg>
+
+          <div aria-hidden="true" style={{
+            position: 'absolute', top: '50%', left: '50%', width: 'min(900px, 90vw)', height: 'min(500px, 60vw)',
+            transform: 'translate(-50%,-50%)',
+            background: 'radial-gradient(ellipse at center, rgba(255,138,99,0.22) 0%, rgba(255,138,99,0.10) 40%, rgba(255,138,99,0) 72%)',
+            pointerEvents: 'none',
+          }} />
+
+          {[...COLLAGE_LEFT, ...COLLAGE_RIGHT].map((it, i) => (
+            <div
+              key={i}
+              className="hero-collage-item"
+              style={{
+                top: it.top, left: it.left, width: it.size, height: it.size,
+                transform: `rotate(${it.rot}deg)`,
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={it.src} alt={it.alt} loading="lazy" />
+            </div>
+          ))}
+
           <div className="relative z-10" style={{ padding: 'clamp(24px, 5vw, 64px)', maxWidth: 1100, width: '100%', margin: '0 auto', textAlign: 'center' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Mayorista Universal" style={{ height: 'clamp(56px, 8vw, 96px)', width: 'auto', margin: '0 auto' }} />
