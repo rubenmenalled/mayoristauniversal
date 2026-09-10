@@ -348,24 +348,24 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
             <div style={{ color: '#0B1E3F', fontWeight: 900, fontSize: 13, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 12 }}>
               Filtrar por categoría
             </div>
-            <div className="cat-list" style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 12 }}>
+            <div className="cat-list" style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
               {catsReales.map(cat => {
                 const nombre = cat.name
                 const esGrupo = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
                 const min = minDeCatalogo(catalogoDe(nombre))
                 return (
                   <Link key={cat.id} href={`/categorias/${encodeURIComponent(nombre)}`} className="cat-check-row" style={{
-                    display: 'flex', alignItems: 'flex-start', gap: 8, padding: '7px 6px',
-                    borderRadius: 8, cursor: 'pointer', transition: 'background 0.15s ease',
-                    textDecoration: 'none',
+                    display: 'flex', alignItems: 'center', gap: 8, padding: '10px 12px',
+                    borderRadius: 8, cursor: 'pointer', transition: 'transform 0.15s ease, background 0.15s ease',
+                    textDecoration: 'none', background: 'linear-gradient(135deg,#6B7280,#4B5563)',
                   }}>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ color: '#1a1a2e', fontWeight: 700, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 5 }}>
+                      <div style={{ color: '#FFFFFF', fontWeight: 900, fontSize: 13.5, display: 'flex', alignItems: 'center', gap: 6 }}>
                         <span>{cat.emoji}</span>
                         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{nombre}</span>
                       </div>
-                      <div style={{ fontSize: 10.5, color: '#9CA3AF', marginTop: 1 }}>
-                        {cat.count.toLocaleString('es-AR')} art. {esGrupo ? <span style={{ color: '#D97706', fontWeight: 700 }}>· combinable</span> : min > 0 ? <span style={{ color: '#D97706', fontWeight: 700 }}>· mín ${min.toLocaleString('es-AR')}</span> : null}
+                      <div style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.75)', marginTop: 2, fontWeight: 700 }}>
+                        {cat.count.toLocaleString('es-AR')} art. {esGrupo ? <span style={{ color: '#FED7AA', fontWeight: 900 }}>· combinable</span> : min > 0 ? <span style={{ color: '#FED7AA', fontWeight: 900 }}>· mín ${min.toLocaleString('es-AR')}</span> : null}
                       </div>
                     </div>
                   </Link>
