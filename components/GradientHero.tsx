@@ -136,7 +136,7 @@ export default function GradientHero({ totalProductos = 0, totalCategorias = 0 }
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Mayorista Universal" style={{ height: 'clamp(56px, 8vw, 96px)', width: 'auto', margin: '0 auto' }} />
             <h1 style={{
-              color: '#D62B2B', fontWeight: 900, lineHeight: 1.02, margin: '10px 0 0',
+              color: '#E4001B', fontWeight: 900, lineHeight: 1.02, margin: '10px 0 0',
               fontSize: 'clamp(28px, 7.5vw, 92px)', letterSpacing: '-0.02em', whiteSpace: 'nowrap',
             }}>
               Mayorista Universal
