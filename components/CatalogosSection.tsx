@@ -353,14 +353,12 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                 const nombre = cat.name
                 const esGrupo = !!CATEGORIA_GRUPO_OVERRIDE[nombre.toUpperCase()]
                 const min = minDeCatalogo(catalogoDe(nombre))
-                const checked = selected.has(nombre)
                 return (
-                  <label key={cat.id} className="cat-check-row" style={{
+                  <Link key={cat.id} href={`/categorias/${encodeURIComponent(nombre)}`} className="cat-check-row" style={{
                     display: 'flex', alignItems: 'flex-start', gap: 8, padding: '7px 6px',
                     borderRadius: 8, cursor: 'pointer', transition: 'background 0.15s ease',
+                    textDecoration: 'none',
                   }}>
-                    <input type="checkbox" checked={checked} onChange={() => toggleCat(nombre)}
-                      style={{ marginTop: 3, accentColor: '#FF6A3D', width: 15, height: 15, flexShrink: 0 }} />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ color: '#1a1a2e', fontWeight: 700, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 5 }}>
                         <span>{cat.emoji}</span>
@@ -370,7 +368,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
                         {cat.count.toLocaleString('es-AR')} art. {esGrupo ? <span style={{ color: '#D97706', fontWeight: 700 }}>· combinable</span> : min > 0 ? <span style={{ color: '#D97706', fontWeight: 700 }}>· mín ${min.toLocaleString('es-AR')}</span> : null}
                       </div>
                     </div>
-                  </label>
+                  </Link>
                 )
               })}
             </div>
