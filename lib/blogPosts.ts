@@ -540,7 +540,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Qué productos regionales y de temática gaucha tienen más demanda al por mayor, ideales para regalería, souvenirs y zonas turísticas de Argentina.',
     excerpt: 'Mates, facones, artículos de cuero y decoración gaucha: cómo aprovechar un rubro con demanda constante en regalería y zonas turísticas.',
     coverImage: 'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&q=80',
-    categoryLink: { nombre: 'PRODUCTOS REGIONALES', label: 'Ver catálogo de Productos Regionales' },
+    categoryLink: { nombre: 'MATE Y REGIONALES', label: 'Ver catálogo de Mate y Regionales' },
     publishedAt: '2026-08-19',
     content: `
       ${p('Los productos regionales y de temática gaucha tienen un público estable: turistas nacionales y extranjeros, regalería y quienes buscan un souvenir con identidad argentina. Así armás un surtido que funcione todo el año.')}
@@ -556,7 +556,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'Ideal si tu local está en zona turística o recibe visitantes de otras provincias.',
         'También funciona todo el año como regalería con identidad argentina.',
       ])}
-      ${p('Explorá el catálogo completo de <a href="/categorias/PRODUCTOS%20REGIONALES">Productos Regionales al por mayor</a>.')}
+      ${p('Explorá el catálogo completo de <a href="/categorias/MATE%20Y%20REGIONALES">Mate y Regionales al por mayor</a>.')}
     `,
   },
   {

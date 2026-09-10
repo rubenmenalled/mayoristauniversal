@@ -4,13 +4,13 @@ export const MIN_CATALOGO_DEFAULT = 150000
 export const MIN_CATALOGO_OVERRIDE: Record<string, number> = {
   // JUGUETERIA, PELUCHES, PELUCHES DE PERSONAJES, BEBÉ, KIKLAND,
   // PERFUMERIA Y BELLEZA, MIX POP, LIBRERIA, BAZAR Y HOGAR, CAMPING y
-  // PRODUCTOS REGIONALES ya NO tienen entrada individual acá — comparten
+  // MATE Y REGIONALES ya NO tienen entrada individual acá — comparten
   // el mínimo de abajo vía CATEGORIA_GRUPO_OVERRIDE.
   'JUGUETES, PELUCHES Y MÁS': 150000,
 }
 
 // Mínimo por SUBCATEGORÍA (tiene prioridad sobre el de la categoría cuando aplica).
-// INDIO MOHI (única subcategoría de PRODUCTOS REGIONALES) ya NO tiene entrada acá —
+// INDIO MOHI (única subcategoría de MATE Y REGIONALES) ya NO tiene entrada acá —
 // comparte el mínimo del grupo vía CATEGORIA_GRUPO_OVERRIDE (25/8).
 export const MIN_SUBCATEGORIA_OVERRIDE: Record<string, number> = {
 }
@@ -35,7 +35,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'ACCESORIOS DE TRABAJO Y MAS': 'JUGUETES, PELUCHES Y MÁS',
   'CAZA PESCA CAMPING Y MAS': 'JUGUETES, PELUCHES Y MÁS',
   'FLORERIA ARTIFICIAL': 'JUGUETES, PELUCHES Y MÁS',
-  'PRODUCTOS REGIONALES': 'JUGUETES, PELUCHES Y MÁS',
+  'MATE Y REGIONALES': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {
