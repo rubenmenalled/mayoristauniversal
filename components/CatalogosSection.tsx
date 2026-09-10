@@ -35,6 +35,10 @@ interface Producto {
 
 const PAGE_SIZE = 60
 const MIX_CATS = ['JUGUETERIA', 'PELUCHES']
+// Tope de páginas de la "mezcla" en la home: sin esto el scroll infinito nunca
+// termina (hay ~21.000 productos) y el footer queda inalcanzable. El scroll
+// infinito real de verdad sigue viviendo en /categorias/[nombre].
+const MAX_HOME_PAGES = 3
 
 function interleave(arrays: Producto[][]): Producto[] {
   const seen = new Set<number>()
@@ -227,7 +231,9 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
   const loadingRef = useRef(loading)
   useEffect(() => { loadingRef.current = loading }, [loading])
 
-  const hasMore = selected.size === 0 ? productos.length < totalCount : true
+  const hasMore = selected.size === 0
+    ? (page < MAX_HOME_PAGES - 1 && productos.length < totalCount)
+    : true
   useEffect(() => {
     const el = sentinelRef.current
     if (!el || !hasMore) return
