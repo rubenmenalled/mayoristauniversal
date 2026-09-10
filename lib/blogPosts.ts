@@ -565,7 +565,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaDescription: 'Cuándo stockearte de artículos de camping, pesca y tácticos al por mayor en Argentina, y qué productos tienen mejor rotación en cada categoría.',
     excerpt: 'Cuándo comprar según la temporada y qué productos de camping, pesca y uso táctico tienen mejor rotación durante todo el año.',
     coverImage: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80',
-    categoryLink: { nombre: 'CAMPING', label: 'Ver catálogo de Camping' },
+    categoryLink: { nombre: 'CAZA PESCA CAMPING Y MAS', label: 'Ver catálogo de Caza, Pesca y Camping' },
     publishedAt: '2026-08-19',
     content: `
       ${p('Este catálogo combina tres públicos distintos —campistas, pescadores y usuarios de artículos tácticos— bajo un mismo rubro con fuerte estacionalidad en primavera-verano.')}
@@ -584,7 +584,7 @@ export const BLOG_POSTS: BlogPost[] = [
         'Táctico: menor volumen, mejor margen por unidad.',
         'Stockeate desde septiembre-octubre, antes del pico de temporada.',
       ])}
-      ${p('Explorá el catálogo completo de <a href="/categorias/CAMPING">Camping al por mayor</a>.')}
+      ${p('Explorá el catálogo completo de <a href="/categorias/CAZA%20PESCA%20CAMPING%20Y%20MAS">Caza, Pesca y Camping al por mayor</a>.')}
     `,
   },
   {
@@ -696,7 +696,7 @@ export const BLOG_POSTS: BlogPost[] = [
       ${h2('Auto, moto y bici: nicho con clientela propia')}
       ${p('Si tenés cerca clientes que se mueven en moto o bici, esta categoría te permite sumar un público que no compra en una juguetería o bazar tradicional.')}
       ${h2('Aire libre: complementa bien con Camping')}
-      ${p('Se puede combinar con lo que ya ofrece la categoría de <a href="/categorias/CAMPING">Camping</a> para tener un surtido más completo de productos al aire libre.')}
+      ${p('Se puede combinar con lo que ya ofrece la categoría de <a href="/categorias/CAZA%20PESCA%20CAMPING%20Y%20MAS">Caza, Pesca y Camping</a> para tener un surtido más completo de productos al aire libre.')}
       ${h2('En resumen')}
       ${ul([
         'Cocina y tecnología: la base más sólida del catálogo.',
