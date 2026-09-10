@@ -273,7 +273,7 @@ export default function CatalogosSection({ categorias }: { categorias?: Categori
         <style dangerouslySetInnerHTML={{ __html: `
           .envios-hide-mobile { display: inline; }
           .envios-mp { display: flex; }
-          .cat-check-row:hover { background: rgba(255,106,61,0.08) !important; }
+          .cat-check-row:hover { filter: brightness(1.12); }
           .cat-layout { align-items: flex-start; }
           .cat-sidebar { flex: 0 0 250px; }
           .cat-sidebar-sticky { position: sticky; top: 90px; }
