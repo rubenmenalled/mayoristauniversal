@@ -36,6 +36,7 @@ export const CATEGORIA_GRUPO_OVERRIDE: Record<string, string> = {
   'CAZA PESCA CAMPING Y MAS': 'JUGUETES, PELUCHES Y MÁS',
   'FLORERIA ARTIFICIAL': 'JUGUETES, PELUCHES Y MÁS',
   'MATE Y REGIONALES': 'JUGUETES, PELUCHES Y MÁS',
+  'ACCESORIOS PARA BICICLETAS': 'JUGUETES, PELUCHES Y MÁS',
 }
 
 export function minDeCatalogo(nombre?: string): number {

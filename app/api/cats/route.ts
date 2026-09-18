@@ -22,6 +22,7 @@ const ORDEN_CATEGORIAS = [
   'BAZAR Y HOGAR',
   'MIX POP',
   'LIBRERIA',
+  'ACCESORIOS PARA BICICLETAS',
 ]
 
 // Todas las categorías del orden siempre aparecen aunque no tengan productos aún
@@ -113,6 +114,7 @@ export async function GET() {
     'ACCESORIOS DE PELO':  '💇',
 
   'MIX POP':             '🎀',
+  'ACCESORIOS PARA BICICLETAS': '🚲',
   }
 
   const SUBCATEGORIAS: Record<string, string[]> = {
